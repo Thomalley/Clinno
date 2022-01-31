@@ -17,6 +17,6 @@ module.exports = (sequelize) => {
 // nahue //
 // pablo //
 //yessica
-
+//nasser
 
 
