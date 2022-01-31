@@ -11,8 +11,11 @@ module.exports = (sequelize) => {
   });
   //git add . , git commit -m , git push, git merge
 };
-// hola 
-// holahola
+//bruno//
+//joaco :)// 
+//manu//
+// nahue //
 
-//Testing de pull
+
+
 
