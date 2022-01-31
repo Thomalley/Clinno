@@ -10,8 +10,8 @@ module.exports = (sequelize) => {
     },
   });
 };
-//joaco//
 //bruno//
+//joaco//
 
 
 
