@@ -12,4 +12,3 @@ module.exports = (sequelize) => {
 };
 // hola 
 // holahola
-//nasser  
