@@ -3,20 +3,17 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('turno', {
+  sequelize.define('diets', {
+    
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      // hola como estas 
     },
+    
+
   });
-  //git add . , git commit -m , git push, git merge
 };
-//bruno//
-//joaco :)// 
-//manu//
-// nahue //
-// pablo //
-//yessica
 
 
 
