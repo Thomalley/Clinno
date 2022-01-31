@@ -14,3 +14,4 @@ module.exports = (sequelize) => {
 // holahola
 
 //holaSoyJoaco
+//aprobame el push
