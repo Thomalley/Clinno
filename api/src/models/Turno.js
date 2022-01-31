@@ -13,5 +13,8 @@ module.exports = (sequelize) => {
 //bruno//
 //joaco :)// 
 //manu//
+// nahue //
+
+
 
 
