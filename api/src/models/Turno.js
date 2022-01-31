@@ -9,11 +9,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   });
+  //git add . , git commit -m , git push, git merge
 };
 //bruno//
 //joaco :)// 
 //manu//
 // nahue //
+// pablo //
 
 
 
