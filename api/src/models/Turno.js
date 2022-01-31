@@ -10,4 +10,11 @@ module.exports = (sequelize) => {
     },
   });
 };
+<<<<<<< HEAD
 //joaco//
+=======
+//bruno//
+
+
+
+>>>>>>> Develop
