@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
   });
 };
 //bruno//
-//joaco// 
+//joaco//    
 
 
 
