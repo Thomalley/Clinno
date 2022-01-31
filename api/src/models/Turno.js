@@ -10,8 +10,7 @@ module.exports = (sequelize) => {
     },
   });
 };
-// hola 
-// holahola
+//bruno//
 
-//Testing de pull
+
 
