@@ -10,7 +10,4 @@ module.exports = (sequelize) => {
     },
   });
 };
-// hola 
-// holahola
-
-//Last intento de domar a github 
+//joaco//
