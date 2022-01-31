@@ -10,10 +10,10 @@ module.exports = (sequelize) => {
     },
   });
 };
-// hola 
-// holahola
+//bruno//
+//joaco :)// 
+//manu//
 
-//Testing de pull
 
 
 // CAMBIO DE PRUEBAAAAAAAAAAAAAAAA
