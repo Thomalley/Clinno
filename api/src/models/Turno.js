@@ -13,5 +13,4 @@ module.exports = (sequelize) => {
 // hola 
 // holahola
 
-//Testing de pull
-
+//Last intento de domar a github
