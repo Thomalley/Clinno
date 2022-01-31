@@ -11,3 +11,6 @@ module.exports = (sequelize) => {
   });
 };
 //bruno//
+
+
+
