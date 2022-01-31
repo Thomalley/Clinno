@@ -10,5 +10,4 @@ module.exports = (sequelize) => {
     },
   });
 };
-// hola 
-// holahola
+//bruno//
