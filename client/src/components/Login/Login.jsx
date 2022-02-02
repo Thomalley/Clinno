@@ -10,7 +10,7 @@ export default function Login(){
 
     // const dispatch = useDispatch();
 
-
+ 
     const [input, setInput] = useState({
         username : '',
         password : ''
@@ -76,7 +76,7 @@ export default function Login(){
                 <div className="col-12 
                 ">
                     <p className="noaccreg">No tenes cuenta? </p>
-                   <a className="noaccreg" href="/home/register">Registrarse</a>
+                   <a className="noaccreg" href="/register">Registrarse</a>
                    </div>
                    </div>
                 <p>o</p>
