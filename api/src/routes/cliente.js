@@ -1,35 +1,18 @@
 const { Router } = require("express");
 router = Router()
- const server = require("express").Router();
  var passport = require('passport');
-
+const { Cliente } = require('../db')
  // ruta que devuelva clientes//
  //Get/cliente//
- server.get('/', (req, res,next) => {
-     User.findAll().then(users => { res.json(users); }).catch(error => { res.status(400).json({ error }) })
+ router.get('/', (req, res,next) => {
+     Cliente.findAll().then(users => { res.json(users); }).catch(error => { res.status(400).json({ error }) })
    });
 
    //ruta para crear cliente//
  //Post/cliente//
- server.post('/', async (req,res) => {  
-     try{
-       let user = await User.create({
-         email: req.body.email,
-         password: req.body.password,
-         name: req.body.nombre,
-         lastName: req.body.apellido,
-         address: req.body.direccion,
-         image: req.body.dni,
-         admin: req.body.admin,
-     })
-     res.json(user)
- }catch(error){
-   console.log(error)
- }
- });
 
-//  server.post('/socialAuth', async (req, res, next) => {
-//      const { email, familyName, givenName, googleId, imageUrl, name } = req.body
+//  router.post('/socialAuth', async (req, res, next) => {
+//      const { email, familyName, givenName, googleId, imageUrl, nombre } = req.body
   
 //      const user = await User.findOne({ where: { email } }).catch(error => { res.status(400).json({ error }) })
   
@@ -38,10 +21,10 @@ router = Router()
 //      }else{
 //        const newUser = await User.create({
 //          email,
-//          name,
+//          nombre,
 //          lastName: familyName,
 //          password: googleId,
-//          address: 'Otamendi 95',
+//          direccion: 'Otamendi 95',
 //          image: imageUrl
 //        })
   
@@ -49,9 +32,32 @@ router = Router()
 //      }
 //    });
 
+router.post("/", async (req,res) => {  
+     try{
+      const {email, password, nombre, apellido, direccion, dni, admin} = req.body;
+
+      console.log(email, password, nombre, apellido, direccion, dni, admin)
+
+       const user = await Cliente.create({
+         nombre,
+         apellido,
+         email,
+         direccion,
+         dni,
+         admin,
+         password,
+       }) 
+       res.json(user)
+ }
+ catch(error){
+   console.log(error)
+ }
+ });
+
+
    //modifica usuario//
-   server.put('/:id', (req, res) => {
-     User.findOne({
+   router.put('/:id', (req, res) => {
+     Cliente.findOne({
        where: {id: req.params.id}
      }).then(user=>{
        user.update({
@@ -69,8 +75,8 @@ router = Router()
 
      //Crea ruta para eliminar Usuario//
  //DELETE/users/:id//
- server.delete('/:id', (req, res) => {
-     User.destroy({
+ router.delete('/:id', (req, res) => {
+     Cliente.destroy({
        where: {id: req.params.id}
      }).then(deletedRecord => {
        if (deletedRecord === 1) { res.status(200).json({ message: "User deleted successfully" }); }
@@ -79,7 +85,7 @@ router = Router()
    });
 
    //ruta login google?//
-   server.post('/google', 
+   router.post('/google', 
    passport.authenticate('local',{failureMessage:"An error appeared"}),
    async function(req, res) {
      try {
@@ -95,7 +101,7 @@ router = Router()
      }
    });
 
- server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
+ router.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
 
  function isAuthenticated(req, res, next) {
      if(req.isAuthenticated()) {
@@ -117,9 +123,9 @@ router = Router()
      }
     
      // atributo admin al usuario //
-     server.put('/promote/:idUser', (req, res) => {
-       User.findOne({
-           where: { id: req.params.idUser}
+     router.put('/promote/:idUser', (req, res) => {
+       ClientendOne({
+           where: { id: req.params.Cliente}
        })
        .then (user => {
            user.update({
