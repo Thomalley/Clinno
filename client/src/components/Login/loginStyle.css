@@ -1,0 +1,54 @@
+.cont{
+    background-color: white;
+    border-radius: 15px;
+    margin: 100px;
+    width: 420px;
+    height: 550px;
+    border-color: white;
+    box-shadow: 0px 0px 200px -80px;
+    display: inline-grid;
+}
+
+.imglogo{
+    width: 100px;
+    padding: 10px;
+    margin: 6px;
+}
+
+.btnlogin{
+    height: 40px;
+    width: 189px;
+    border: groove;
+    font-size: 12px;
+}
+
+.btnlogincontinue{
+    height: 40px;
+    width: 189px;
+    border: groove;
+    color: white;
+    background-color: #6ec272;
+}
+
+.btnloginback{
+    background-color: #62cbe4;
+    height: 40px;
+    width: 189px;
+    border: #9a9a9a;
+    font-size: 12px;
+    color: white;
+}
+
+.inpt{
+    height: 40px;
+    width: 189px;
+}
+
+.desclogin{
+    font-size: 12px;
+}
+
+.noaccreg{
+    display: contents;
+    font-size: 14px;
+}
