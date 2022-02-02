@@ -16,10 +16,10 @@ router = Router()
        let user = await User.create({
          email: req.body.email,
          password: req.body.password,
-         name: req.body.name,
-         lastName: req.body.lastName,
-         address: req.body.address,
-         image: req.body.image,
+         name: req.body.nombre,
+         lastName: req.body.apellido,
+         address: req.body.direccion,
+         image: req.body.dni,
          admin: req.body.admin,
      })
      res.json(user)
