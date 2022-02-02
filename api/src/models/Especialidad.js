@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
   sequelize.define('especialidad', {
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   });
 };

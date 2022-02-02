@@ -22,15 +22,21 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true
 
-    }, dirrecion: {
+    }, direccion: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
-    idTurnos: {
+    dni: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     }
-  
-
 });
 };
