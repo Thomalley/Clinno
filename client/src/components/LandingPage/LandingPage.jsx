@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 
 export default function LandingPage(){
     return(
-        <body className="landingBody">
         <div>
         <div>
             <Link to='/home'>
@@ -11,6 +10,5 @@ export default function LandingPage(){
             </Link>
         </div>
         </div>
-        </body>
     )
 }
