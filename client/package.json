@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
+    "@popperjs/core": "^2.11.2",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",

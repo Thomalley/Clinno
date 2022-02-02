@@ -4,19 +4,38 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('turno', {
-    name: {
+    id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    turno: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    estado: {
+      type: DataTypes.ENUM('abierto', 'creado', 'proceso', 'cancelado', 'completado'),
+      allowNull: false
+    },
+    payment_id:{
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    payment_status:{
+        type: DataTypes.STRING,
+        defaultValue: ""
+    },
+    merchant_order_id: {
+        type: DataTypes.BIGINT,
+        defaultValue: 0
+    },
+    title: {
+      type: DataTypes.STRING
+    }
   });
-  //git add . , git commit -m , git push, git merge
+ 
 };
-//bruno//
-//joaco :)// 
-//manu//
-// nahue //
-// pablo //
-//yessica
 
 
 
