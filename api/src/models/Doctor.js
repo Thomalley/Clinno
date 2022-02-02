@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
     },
     disponibildad:{
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      
     }
     
 

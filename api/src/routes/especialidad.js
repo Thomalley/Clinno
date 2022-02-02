@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
         newArray.forEach((d, index) => {
             Especialidad.findOrCreate({
                 where:{
-                    name: d,
+                    nombre: d,
                     id: index + 1
                 }
             })

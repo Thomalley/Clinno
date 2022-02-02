@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
     newArray.map( d => {
         Doctor.findOrCreate({
             where:{
-                name: d,
+                nombre: d,
             }
         })
     })
