@@ -12,9 +12,13 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 clientes : action.payload
             }
-        default :
+            default :
             return state;
 
+        case 'POST_USER':
+            return{
+                ...state,
+            }
     }
 }
 
