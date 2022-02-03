@@ -1,0 +1,38 @@
+
+
+
+
+
+[
+    {  "name": "AGENDA",
+        
+        "servicio": "Muestra la disponibilidad en tiempo real de tus especialistas diferenciando por especialidad, tiempo de la visita, ­­etcétera."
+    },
+    {
+        "name": "PAGOS EN LINEA",
+         "servicio": "Visualiza los ingresos de la clínica de forma acumulada. (Administrador)"
+    },
+
+    {
+        "name": "EXPEDIENTE ÚNICO",
+        "servicio": "Mantén organizada  la información de tus pacientes , historial de visitas y diagnósticos."
+    },
+        {
+            "name": "MARKETING",
+            "servicio": "Crea una base de datos para marketing e-mail"
+    },
+    {
+        "name": "APP MEDICO",
+        "servicio": "Con la aplicación móvil puedes consultar tu agenda en tiempo real"
+    },
+    {
+        "name": "CITAS EN LINEA", 
+        "servicio":"Maneja tu agenda médica en línea desde tu móvil y coordínala con tu asistente."
+        
+    }
+  
+
+    
+
+
+]

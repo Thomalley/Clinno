@@ -1,0 +1,11 @@
+.contenedor_navBar{
+    padding-right: 110px;
+    padding-left: 110px;
+    background:red;
+    font-weight: 600;
+}
+
+
+.item_navBar:hover{
+    background: #edf3f6;
+}
