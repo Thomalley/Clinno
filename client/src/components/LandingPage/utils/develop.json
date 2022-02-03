@@ -1,0 +1,42 @@
+
+    [
+        {   "name":"Manuel",
+            "git":"www.git.com/manu",
+            "linkedin": "linkedin.com/manu"
+        },
+        {
+            "name": "Bruno",
+            "git":"www.git.com/Bruno",
+            "linkedin": "linkedin.com/Bruno"
+        },
+
+        {
+            "name": "Nahuel",
+            "git":"www.git.com/nahuel",
+            "linkedin": "linkedin.com/nahuel"
+        },
+            {
+            "name":"Joaquin",
+            "git":"www.git.com/Joaquin",
+            "linkedin": "linkedin.com/Joaquin"
+        },
+        {
+            "name":"Yessica",
+            "git":"www.git.com/yessica",
+            "linkedin": "linkedin.com/yessica"
+        },
+        {
+            "name":"Nasser",
+            "git":"www.git.com/Nasser",
+            "linkedin": "linkedin.com/Nasser"
+        },
+        {
+            "name":"Pablo",
+            "git":"www.git.com/pablo",
+            "linkedin": "linkedin.com/pablo"
+        }
+
+        
+
+
+    ]
