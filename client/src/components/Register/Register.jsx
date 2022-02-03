@@ -14,8 +14,8 @@ export default function Register(){
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-      user = data
-      dispatch(registrarCliente(user))
+
+      dispatch(registrarCliente(data))
       alert('Usuario Creado!')
       //navigate('/home')
     }
@@ -78,4 +78,4 @@ export default function Register(){
     </form>
     </div>
   );
-}//hla
+}
