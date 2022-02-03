@@ -1,0 +1,205 @@
+.contenedor_home{
+    padding-top: 52px;
+}
+.container_corrousel{
+    border-radius: 15px;
+}
+
+.nombre_hospital{
+    margin: 15px;
+}
+/* .carrousel_home{ */
+/* } */
+.blanco_carrousel{
+    color:#fff;
+}
+
+.carrousel_img{
+    background: #a09a9a12;
+}
+
+.nosotros {
+    padding: 24px 0px;
+}
+
+
+.doctores{
+    padding: 24px 0px;
+} 
+
+.nosotros_item{
+    width: 200px;
+    cursor: default;
+    transition: transform .2s;
+}
+
+.nosotros_item > h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    text-align: center;
+}
+.nosotros_item > p{
+    text-align: center;
+    font-size: 1.3rem;
+}
+.nosotros_item:hover{
+    background:#f8f9fa;
+    transform:translateY(-10px);
+}
+
+
+
+/* Nosotros y doctores */
+.container_carta_doctor{
+
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    border: none;
+    margin: 40px 0px ;
+}
+.carta_doctor{
+    display: inline;
+    position: relative;
+    transition: 1s;
+    width: 400px;
+    overflow: hidden;
+}
+.carta_doctor >img{
+    transition: 1s;
+}
+.carta_doctor:hover >img{
+    transform:scale(1.1);transform:scale(1.1)
+}
+.carta_texto_doctor{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(
+        0deg
+        , black 0%, rgba(0, 0, 0, 0.5270483193) 40%, rgba(255, 255, 255, 0) 100%);
+        color: #f8f9fa;
+}
+.especialidades_contenido{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1500px;
+    justify-content: center;
+}
+.doctores_contenido{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 1500px;
+    justify-content: center;
+    max-height: 440px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.doctor{
+    background-color: #edf3f6;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 200px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    padding: 35px;
+    transition: background .4s,color .1s,box-shadow .2s;
+
+}
+.doctor:hover{
+    background: #3ccbe8;
+    color: #f8f9fa;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.especialidad{
+    background-color: #edf3f6;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 200px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    transition: background .4s,color .1s,box-shadow .2s;
+    
+}
+.especialidad:hover{
+    background: #2982C4;
+    color: #f8f9fa;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.imagen_medico{
+    border-radius: 100%;
+}
+/* Fin Nosotros y doctores */
+
+
+/* Footer */
+
+.footer{
+    height: 240px;
+    background:#181c23;
+    color:#f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.link{
+    text-decoration: none;
+    color: red;
+}
+
+.texto_final{
+    text-decoration: none;
+}
+.logo_clinno{
+    display: block;
+    position:absolute;
+    left: 2%;
+    top: 20%;
+}
+/* Fin Footer */
+
+
+/* Animacion inicial */
+
+.carrousel_slide{
+    z-index: 10;
+}
+
+.animation_carrousel{
+    -webkit-animation: backInRight 1s;
+    animation: backInRight 1s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+}
+
+@keyframes backInRight {
+    0% {
+      transform: translateX(-700px) scale(.7);
+      opacity: 0;
+    }
+  
+    80% {
+      transform: translateX(0px) scale(.7);
+      opacity: .1;
+    }
+  
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+/* Fin Animacion inicial */
