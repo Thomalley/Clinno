@@ -1,5 +1,5 @@
 const initialState = {
-    users : []
+    clientes : []
 };
 
 
@@ -7,10 +7,10 @@ const initialState = {
 
 const rootReducer = (state = initialState, action)=>{
     switch(action.type){
-        case "EJEMPLO" :
+        case "GET_CLIENTES" :
             return {
                 ...state,
-                users : action.payload
+                clientes : action.payload
             }
             default :
             return state;
