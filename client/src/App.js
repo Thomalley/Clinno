@@ -5,6 +5,7 @@ import Register from './components/Register/Register'
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
+import AboutUs from './components/AboutUs/AboutUs';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/register' element={<Register/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<Home/>}/>
+          <Route path='/AboutUs' element={<AboutUs/>}/>
         </Routes>
       </div>
     </BrowserRouter>
