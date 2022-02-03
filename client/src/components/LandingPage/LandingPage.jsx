@@ -45,14 +45,14 @@ export default function LandingPage(){
   <img src={slide1} className="d-block w-100" alt="..."/>
   <div className="carousel-caption d-none d-md-block">
     <h5>SISTEMA DE CITAS EN LINEA</h5>
-    <p>Some representative placeholder content for the first slide.</p>
+    <p>Some </p>
   </div>
 </div>
 <div className="carousel-item">
   <img src={slide2} className="d-block w-100" alt="..."/>
   <div className="carousel-caption d-none d-md-block">
     <h5>Second slide label</h5>
-    <p>Some representative placeholder content for the second slide.</p>
+    <p>Some representative placeholder </p>
   </div>
 </div>
 <div className="carousel-item">
