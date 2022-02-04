@@ -22,6 +22,12 @@ export default function Register(){
     }
 
   return (
+    <div>
+    <nav class="navbar sticky-top navbar-light bg-light">
+    <Link className="navbar-brand" to='/'>
+    <img className="imglogoR" src={logo} alt="nf" />
+    </Link>
+    </nav>
     <div className='container1'>
     <div className="col-12">
     <img className="imglogo" src={logo} alt="nf" />
@@ -78,5 +84,5 @@ export default function Register(){
       <input className="col-12 btn btn-primary" type="submit" />
     </form>
     </div>
-  );
-}
+    </div>
+  )}
