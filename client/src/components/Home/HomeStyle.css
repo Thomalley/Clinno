@@ -1,5 +1,5 @@
 .contenedor_home{
-    padding-top: 52px;
+    padding-top: 82px;
 }
 .container_corrousel{
     border-radius: 15px;
@@ -147,13 +147,23 @@
 .imagen_medico{
     border-radius: 100%;
 }
+.logo-container_home{
+    width: 20px;
+    height: auto;
+    padding: 15px;
+    margin: 15px;
+}
+.logo-container_home > img{
+    width: 220px;
+    height: auto;
+}
 /* Fin Nosotros y doctores */
 
 
 /* Footer */
 
-.footer{
-    height: 240px;
+.footer_home{
+    height: 300px;
     background:#181c23;
     color:#f1f1f1;
     display: flex;
@@ -209,3 +219,4 @@
     }
   }
 /* Fin Animacion inicial */
+

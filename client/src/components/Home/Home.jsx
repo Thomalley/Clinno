@@ -4,33 +4,36 @@ import {Link,useNavigate} from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import Cookies from 'universal-cookie'
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 import './HomeStyle.css';
+import Footer from "./Footer";
 
 const cookies = new Cookies()
 
 let newArray = [
-            "Miguel Becerra",
-            "Sonia Rodrigues",
-            "Victorina Perdomo",
-            "Otilia Alarcon",
-            "Maria-Consuelo Sole",
-            "César Vazquez",
-            "Socorro Muñiz",
-            "Andreu Vilar",
-            "Vanesa Castilla",
-            "Yassine Duque",
-            "Izaro Sales",
-            "Jose-Manuel Farre",
-            "Roser Canto",
-            "Iris Olmedo",
-            "Mariona Domenech",
-            "Flor Morales",
-            "Emílio Robledo",
-            "Ines Veiga",
-            "Simon Urbano",
-            "Judit Buendia",
-        ]
+    "Miguel Becerra",
+    "Sonia Rodrigues",
+    "Victorina Perdomo",
+    "Otilia Alarcon",
+    "Maria-Consuelo Sole",
+    "César Vazquez",
+    "Socorro Muñiz",
+    "Andreu Vilar",
+    "Vanesa Castilla",
+    "Yassine Duque",
+    "Izaro Sales",
+    "Jose-Manuel Farre",
+    "Roser Canto",
+    "Iris Olmedo",
+    "Mariona Domenech",
+    "Flor Morales",
+    "Emílio Robledo",
+    "Ines Veiga",
+    "Simon Urbano",
+    "Judit Buendia",
+]
 let arrayEsp = [
     "Fisiatría",
     "Pediatría",
@@ -47,50 +50,87 @@ let arrayEsp = [
 
 export default function Home(){
 
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+    const clientes = useSelector((state)=> state.clientes);
+
+    const { isAuthenticated,isLoading} = useAuth0();
+
+
     const initialState ={
         searchTurno: ""
     }
-    
-    if (cookies.get('email')){
-        console.log("sesion iniciada por " + cookies.get('email'))
+    let session;
+    // console.log("sesion iniciada por " + cookies.get('email'))  
+    if(cookies.get('email')){
+        session = true;
+    }else{
+        session = isLoading;
     }
-    else console.log("no hay usuario logueado")
+    const [loggeado,setLoggeado] = useState(session);
+    // console.log(isLoading);
 
+
+    //control de sesion
+    useEffect(()=>{
+        console.log(isLoading)
+        if(cookies.get('email')){
+            setLoggeado(true);
+        }else {
+            if(isAuthenticated){
+                setLoggeado(true);
+            }else{
+                setLoggeado(false);
+            }
+        }
+        
+    },[isLoading,cookies.get('email')])
+
+    // useEffect(()=>{
+    //     if(cookies.get('email')){
+    //         setLoggeado(true);
+    //     }else {
+    //         setLoggeado(false);
+    //     }
+    // },[cookies.get('email')])
+    
     const [state,setstate] = useState(initialState);
-    const [loggeado,setLoggeado] = useState(false);//estado que determina si inicio sesion la persona
+
+    // if (cookies.get('email')){
+    //     console.log("sesion iniciada por " + cookies.get('email'))
+    // }
+    // else console.log("no hay usuario logueado")
+
     // console.log(state);
 
-    const handleState = (e) =>{
-        const {value} = e.target
-        setstate({
-          ...state,
-          searchTurno: value
-        });
-    }
+    // const handleState = (e) =>{
+    //     const {value} = e.target
+    //     setstate({
+    //       ...state,
+    //       searchTurno: value
+    //     });
+    // }
 
-    const changeSesion=()=>{
-        console.log(loggeado);
-        if(loggeado)  {setLoggeado(false);}
-        else  {setLoggeado(true);}
-    }
+    // const changeSesion=()=>{
+    //     console.log(loggeado);
+    //     if(loggeado)  {setLoggeado(false);}
+    //     else  {setLoggeado(true);}
+    // }
     const goToLogin = () =>{
         navigate('/login');
     }
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        // if(loggeado){ changeSesion();
-        // console.log(e.target.childNodes[0].value );
+    // const handleSubmit = (e) =>{
+    //     e.preventDefault();
+    //     // if(loggeado){ changeSesion();
+    //     // console.log(e.target.childNodes[0].value );
 
-        // dispatch(searchVideogame(state.searchTurno));
-        // e.target.childNodes[0].value='';
-    }
+    //     // dispatch(searchVideogame(state.searchTurno));
+    //     // e.target.childNodes[0].value='';
+    // }
     return(
         <>
             <div className="container contenedor_home ">
-                <NavBar />
+                <NavBar loggin={loggeado} />
                 
                 <div className="nombre_hospital"><img className="imglogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sansum_Clinic_logo.svg/640px-Sansum_Clinic_logo.svg.png" alt="nf" /></div>
                 <div className="row mt-3 g-0 bg-light container_corrousel ">
@@ -145,15 +185,18 @@ export default function Home(){
                                 </div>
                             </div>
                             <div className="col">
-                                <form  className="d-flex " >
-                                        
-                                        <button type="button" className="btn btn-primary animation_carrousel" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                            
-                                            // type="submit" 
-                                            // value='Search'
-                                            // onClick={handleSubmit} 
+                                {loggeado?  <></> :
+                                        <form  className="d-flex " >
+                                                
+                                            <button 
+                                                type="button" 
+                                                className="btn btn-primary animation_carrousel" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#exampleModal"
                                             >Busca tu cita medica! </button>
-                                </form>
+
+                                        </form>
+                                    }
                             </div>
                     </div>
                 </div>
@@ -188,28 +231,28 @@ export default function Home(){
                         <h2 className="m-4">Nuestros Doctores</h2>
                 </div>{/*  //doctores//*/}
                 <div className="container_carta_doctor">
-                    <div class=" carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2020/05/26/19/48/stethoscope-5224534_960_720.jpg" class="card-img" alt="..."/>
-                        <div class="card-img-overlay carta_texto_doctor">
-                            <h5 class="card-title">La mejor atención</h5>
-                            <p class="card-text">Contamos con un staff de primer nivel, promoviendo un ambiente de confort y atención personalizada para los pacientes.</p>
-                            <p class="card-text">Para su mejor confort</p>
+                    <div className=" carta_doctor">
+                        <img src="https://cdn.pixabay.com/photo/2020/05/26/19/48/stethoscope-5224534_960_720.jpg" className="card-img" alt="..."/>
+                        <div className="card-img-overlay carta_texto_doctor">
+                            <h5 className="card-title">La mejor atención</h5>
+                            <p className="card-text">Contamos con un staff de primer nivel, promoviendo un ambiente de confort y atención personalizada para los pacientes.</p>
+                            <p className="card-text">Para su mejor confort</p>
                         </div>
                     </div>
-                    <div class=" carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2017/10/03/20/01/mri-2813899_960_720.jpg" class="card-img" alt="..."/>
-                        <div class="card-img-overlay carta_texto_doctor">
-                            <h5 class="card-title">Nuestras instalaciones</h5>
-                            <p class="card-text">Las instalaciones mas modernas, con la de tecnología de vanguardia y recursos humanos altamente capacitados</p>
-                            <p class="card-text">Tecnología de avanzada</p>
+                    <div className=" carta_doctor">
+                        <img src="https://cdn.pixabay.com/photo/2017/10/03/20/01/mri-2813899_960_720.jpg" className="card-img" alt="..."/>
+                        <div className="card-img-overlay carta_texto_doctor">
+                            <h5 className="card-title">Nuestras instalaciones</h5>
+                            <p className="card-text">Las instalaciones mas modernas, con la de tecnología de vanguardia y recursos humanos altamente capacitados</p>
+                            <p className="card-text">Tecnología de avanzada</p>
                         </div>
                     </div>
-                    <div class="carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2017/06/18/19/35/x-ray-of-the-jaw-2416945_960_720.jpg" class="card-img" alt="..."/>
-                        <div class="card-img-overlay carta_texto_doctor">
-                            <h5 class="card-title"> Acceso a toda su información</h5>
-                            <p class="card-text">Usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular. </p>
-                            <p class="card-text"></p>
+                    <div className="carta_doctor">
+                        <img src="https://cdn.pixabay.com/photo/2017/06/18/19/35/x-ray-of-the-jaw-2416945_960_720.jpg" className="card-img" alt="..."/>
+                        <div className="card-img-overlay carta_texto_doctor">
+                            <h5 className="card-title"> Acceso a toda su información</h5>
+                            <p className="card-text">Usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular. </p>
+                            <p className="card-text"></p>
                         </div>
                     </div>
                 </div>
@@ -219,8 +262,8 @@ export default function Home(){
                     </div>
                 </div>
                 <div className=" doctores_contenido">
-                    {newArray?.map(e=>{
-                        return <div className="doctor">
+                    {newArray?.map((e,i)=>{
+                        return <div className="doctor" key={i}>
                             <h4>{e}</h4>
                             <img className="imagen_medico" src="https://via.placeholder.com/100x100"/>
                         </div>
@@ -229,15 +272,15 @@ export default function Home(){
 
                 <h3 className="m-4">Contamos con las especialidades:</h3>
                 <div className=" especialidades_contenido">
-                    {arrayEsp?.map(e=>{
-                        return <div className="especialidad">
+                    {arrayEsp?.map((e,i)=>{
+                        return <div className="especialidad" key={i}>
                             <h4>{e}</h4>
                         </div>
                     })}
                 </div>
 
                     {/* <!-- Modal --> */}
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                         <div className="modal-header">
@@ -257,16 +300,8 @@ export default function Home(){
 
 
             </div>
-            <footer className="footer">
-                <div className="">
-                    <p>Clinno App | © Copyright 2022 | Pagina Diseñada por <Link className="link" to='/aboutus'>Nombre del team</Link></p>
-                </div>
-                <div>
-                    <button className="btn btn-outline-secondary logo_clinno">Logo Clinno!</button>
-                    <p ><Link className="texto_final" to="/login">Login</Link>  | <Link className="texto_final" to="/">Ladding Page </Link> | <Link  className="texto_final" to="/register"> Registro </Link>  </p>
-                </div>
-
-            </footer>
+            <Footer />
+            
         </>
     )
 }
