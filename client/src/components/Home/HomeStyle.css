@@ -7,6 +7,12 @@
 
 .nombre_hospital{
     margin: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.imglogo{
+    width: 150px;
 }
 /* .carrousel_home{ */
 /* } */

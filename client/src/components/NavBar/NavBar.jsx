@@ -1,6 +1,7 @@
 import React,{ useState } from "react";
 import {Link} from 'react-router-dom';
 import './NavBarStyle.css';
+import logo from "../utils/images-landing/logo.png"
 
 export default function NavBar(){
 
@@ -14,7 +15,7 @@ export default function NavBar(){
                 <div className="container-fluid">
                     <div>
                         <Link className="navbar-brand" to='/home'>
-                                <button>Logo Clino!</button>
+                                <img src={logo} className="img-logo" alt="logo"/>
                         </Link>
                     </div>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

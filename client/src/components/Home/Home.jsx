@@ -92,7 +92,7 @@ export default function Home(){
             <div className="container contenedor_home ">
                 <NavBar />
                 
-                <h1 className="nombre_hospital ">Sansum Clinic</h1>
+                <div className="nombre_hospital"><img className="imglogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sansum_Clinic_logo.svg/640px-Sansum_Clinic_logo.svg.png" alt="nf" /></div>
                 <div className="row mt-3 g-0 bg-light container_corrousel ">
                     <div className="col-sm-8 col-md-8 ">
                         <div id="carouselExampleDark" className="carousel carousel-dark slide carrousel_slide" data-bs-ride="carousel">
