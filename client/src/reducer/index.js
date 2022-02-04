@@ -1,5 +1,6 @@
 const initialState = {
-    clientes : []
+    clientes : [],
+    cliente : []
 };
 
 
@@ -12,13 +13,25 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 clientes : action.payload
             }
-            default :
-            return state;
-
+            
         case 'POST_USER':
             return{
                 ...state,
             }
+        case "VALIDATE_USER" :
+            return{
+                ...state,
+                cliente : action.payload
+
+            }
+        case "VALIDATE_USER_WRONG" :
+            return{
+                ...state,
+                cliente : action.payload
+
+            }
+        default :
+        return state;
     }
 }
 
