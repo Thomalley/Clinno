@@ -4,6 +4,9 @@
     background:red;
     font-weight: 600;
 }
+.item_season{
+    margin: auto;
+}
 .font_sesion{
     font-weight: 600;
     border: none;
@@ -24,8 +27,20 @@
     padding: 15px;
     margin: 15px;
 }
+
 .logo-container_home > img{
-    width: 220px;
+    width: 10rem;
     height: auto;
 }
 
+@media (max-width: 576px) { 
+    .font_sesion{
+        border-color: #edf3f6;
+        border-left: none!important;
+        /* bootstrap utiliza un important */
+    }
+    .contenedor_navBar{
+        padding: 0px;
+    }
+
+}
