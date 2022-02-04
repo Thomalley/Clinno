@@ -10,7 +10,7 @@ export default function Demo() {
     <div className="live">
 
       <div className="text-live">
-        <h2>Más que un sistema de reserva de citas </h2>
+        <h2>Más que un sistema de reserva de citas, </h2>
         <h2>un sistema que mejora la relación con tus pacientes</h2>
       </div>
 

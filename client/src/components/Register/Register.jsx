@@ -6,7 +6,9 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import {registrarCliente} from '../../actions/index';
 
+
 import logo from '../../components/utils/images-landing/logo.png'
+
 
 
 export default function Register(){

@@ -1,161 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
 
 
-.container{
-    
-    font-family: 'Poppins', sans-serif;
-    
-    overflow: hidden;
-    display: flex; 
-
-    
-    width: 1500px;
-    height: auto;
-    margin:auto;
-   display: flex;
-   flex-direction: column;
-   padding-bottom: 200px;
-
-
-}
-
-
-.logo-container{
-    padding: 20px;
-    margin: 20px;
-}
-.logo-container img{
-    width: 300px;
-    height: auto
-    
-    
-
-}
-.top-slice{
-    display: flex;
-   
-  
-   flex-direction: row;
-    margin: auto;
-    justify-content: center
-    
-    
-    
-}
-
-.text-conteiner1{
-    
-    width: 500px;    
-    margin:auto;
-    display: flex;
-    flex-direction: column;
-
-
-}
-
-.text-conteiner1 p {
-    padding: 40px;
-
-}
-
-
-.image-doc{
-   padding-top: 50px;
- 
-   display: flex;
-}
-
-
-.mas-que{
-    
-    
-    
-    margin: auto;
-    margin-bottom: 60px;
-    
-
-}
-
-
-.mas-que img{
-    width: 200px;
-}
-
-.mas-que h1{
-    padding: 50px;
-    text-align: center;
-
-}
-
-
-.services-content{
-    display: flex;
-    flex-wrap:wrap ;
-    justify-content: space-around;
-    
-
-}
-
-.servicios{
-    height: 250px;
-    width: 250px;
-    background-color: rgba(241, 240, 240, 0.637);
-    border-radius: 10px;
-    margin: 15px;
-    
-
-}
-
-.servicios p{
-
-    text-align: center;
-    margin: auto;
-    padding: 10px;
-
-
-
-}
-
-.servicios img{
-    padding: 10px;
-width: 50px;
-}
-
-
-.develops{
-    display: flex;
-    flex-wrap:wrap ;
-    justify-content: space-around;
-    padding: 50px;
-}
-.devs{
-    
-    height: 300px;
-    width: 250px;
-    background-color: rgb(245, 245, 245);
-    box-shadow: 8px 5px 5px 0.5px rgba(71, 71, 71, 0.315);
-    margin: 15px;
-    border-radius: 3px;
-    
-   
-
-}
-
-.devs img{
-    height: 80px;
-    width: 80px;
-    margin:auto;
-    margin-top: 25px;
-
-}
-
-.devs button{
-    margin: 5px;
-    border-radius: 5px;
-}
-
-
 .demo-container{
+    font-family: 'Poppins', sans-serif;
 
     border-radius: 5px;
 
@@ -180,15 +27,8 @@ width: 50px;
 }
 
 
-.conteiner-devs{
 
-padding: 80px;
-}
 
-.nav-top{
-    height: 300px;
-    
-}
 
 .img-container{
     margin-top: 70px;

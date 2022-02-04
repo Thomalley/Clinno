@@ -7,6 +7,7 @@ import logo from '../../components/utils/images-landing/logo.png'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
 
 import './NavBarStyle.css';
+import logo from "../utils/images-landing/logo.png"
 
 
 const cookies = new Cookies()
@@ -59,6 +60,8 @@ export default function NavBar({loggin}){
             <nav className=" navbar fixed-top  navbar-expand-lg navbar-light bg-light contenedor_navBar ">
                 <div className="container-fluid">
                     <div>
+
+
                         <Link className="navbar-brand logo-container_home" to='/home'>
                                 <img src={logo} alt="logo" />
                         </Link>
