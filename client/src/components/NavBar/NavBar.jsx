@@ -2,12 +2,10 @@ import React,{ useState,useEffect } from "react";
 import {Link,useNavigate} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import Cookies from 'universal-cookie'
-
 import logo from '../../components/utils/images-landing/logo.png'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
-
 import './NavBarStyle.css';
-import logo from "../utils/images-landing/logo.png"
+
 
 
 const cookies = new Cookies()
