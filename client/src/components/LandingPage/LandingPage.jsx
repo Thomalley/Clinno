@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./landing.css";
 import img_doc from "../utils/images-landing/doctora.png";
 import logo from "../utils/images-landing/logo.png";
@@ -8,21 +9,14 @@ import slide1 from "../utils/images-landing/slide1.png";
 import slide2 from "../utils/images-landing/slide2.png";
 import slide3 from "../utils/images-landing/slide3.png";
 import Demo from "../Demo/Demo";
+import NavLanding from "../NavLanding/NavLanding";
 
 export default function LandingPage() {
   return (
     <div className="container">
-      <div className="logo-container">
-        <img src={logo} alt="logo" />
-      </div>
-
+    <NavLanding component="Landing" />
       <div>
-        <nav className="navbar navbar-light bg-light">
-          <div className="container-fluid">
-            <img src=".." alt="" />
-          </div>
-        </nav>
-
+        
         <div
           id="carouselExampleCaptions"
           className="carousel slide"
@@ -134,7 +128,7 @@ export default function LandingPage() {
         </div>
       </div>
       <div className="que-hace"></div>
-      
+      © 2022 Clinno. All rights reserved
     </div>
   );
 }

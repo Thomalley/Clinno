@@ -1,11 +1,31 @@
 .contenedor_navBar{
     padding-right: 110px;
-    padding-left: 110px;
+    padding-left: 80px;
     background:red;
     font-weight: 600;
+}
+.font_sesion{
+    font-weight: 600;
+    border: none;
+}
+.usuario_navBar_imagen{
+    width: 40px;
+    border-radius: 100%;
 }
 
 
 .item_navBar:hover{
     background: #edf3f6;
 }
+
+.logo-container_home{
+    width: 20px;
+    height: auto;
+    padding: 15px;
+    margin: 15px;
+}
+.logo-container_home > img{
+    width: 220px;
+    height: auto;
+}
+
