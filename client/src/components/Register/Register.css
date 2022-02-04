@@ -5,7 +5,7 @@
     margin: 100px auto;
     padding: 0px 20px;
     width: 420px;
-    height: 550px;
+    height: 600px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
     display: flex;
@@ -19,6 +19,12 @@
   .errorMsg{
     color: red;
     font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .imglogoR{
+    height: 70px;
     margin: 0px;
     padding: 0px;
   }

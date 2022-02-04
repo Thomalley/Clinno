@@ -13,9 +13,11 @@ export function getClients (){
         }
         catch(e){
             console.log(e)
+
         }
     }
 }
+
 
 export function login_validate(payload){
     return async function(dispatch){
@@ -51,6 +53,7 @@ export function login_validate(payload){
         }
     }
 }
+
 
 //POST
 
