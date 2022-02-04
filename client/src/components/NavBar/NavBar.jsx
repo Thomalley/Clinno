@@ -7,7 +7,6 @@ import logo from '../../components/utils/images-landing/logo.png'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
 
 import './NavBarStyle.css';
-import logo from "../utils/images-landing/logo.png"
 
 
 const cookies = new Cookies()
