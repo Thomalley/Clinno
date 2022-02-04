@@ -154,7 +154,7 @@ router.put('/:id/passwordReset', async (req, res) => {
 //login//
 //POST /users/login
 
-server.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     var nombre = req.body.nombre, password = req.body.password;
     Cliente.findOne({ where: { nombre: nombre } }).then(function (cliente) {
         if (!cliente) { res.redirect('/login'); }
