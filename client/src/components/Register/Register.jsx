@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import {registrarCliente} from '../../actions/index';
+import logo from '../utils/images-landing/logo.png'
 
 export default function Register(){
 
@@ -23,7 +24,7 @@ export default function Register(){
   return (
     <div className='container1'>
     <div className="col-12">
-    <img className="imglogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sansum_Clinic_logo.svg/640px-Sansum_Clinic_logo.svg.png" alt="nf" />
+    <img className="imglogo" src={logo} alt="nf" />
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <input className="form-control" type="text" placeholder="Nombre" {...register("nombre", {required: true, pattern: /^[A-Za-z][a-zA-Z ]{3,40}$/})} />
@@ -55,15 +56,15 @@ export default function Register(){
       
       <ErrorMessage
         errors={errors}
-        name="mail"
+        name="email"
         render={({ message }) => <p className="errorMsg">Mail requerido</p>}
       />
       <input className="form-control" type="password" placeholder="Contraseña" {...register("password", {required: true, minLength: 7, maxLength: 30})} />
-      <ErrorMessage errors={errors} name="contraseña" />
+      <ErrorMessage errors={errors} name="password" />
       
       <ErrorMessage
         errors={errors}
-        name="contraseña"
+        name="password"
         render={({ message }) => <p className="errorMsg">Contraseña requerido</p>}
       />
       <input className="form-control" type="text" placeholder="Direccion" {...register("direccion", {required: true, minLength: 7, maxLength: 30})} />
@@ -72,7 +73,7 @@ export default function Register(){
       <ErrorMessage
         errors={errors}
         name="direccion"
-        render={({ message }) => <p className="errorMsg">Contraseña requerido</p>}
+        render={({ message }) => <p className="errorMsg">Direccion requerido</p>}
       />
       <input className="col-12 btn btn-primary" type="submit" />
     </form>

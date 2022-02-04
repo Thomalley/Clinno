@@ -5,7 +5,7 @@ const { Cliente } = require('../db')
  // ruta que devuelva clientes//
  //Get/cliente//
  router.get('/', (req, res,next) => {
-     Cliente.findAll().then(users => { res.json(users); }).catch(error => { res.status(400).json({ error }) })
+     Cliente.findAll().then(clientes => { res.json(clientes); }).catch(error => { res.status(400).json({ error }) })
    });
 
    //ruta para crear cliente//
@@ -14,12 +14,12 @@ const { Cliente } = require('../db')
 //  router.post('/socialAuth', async (req, res, next) => {
 //      const { email, familyName, givenName, googleId, imageUrl, nombre } = req.body
   
-//      const user = await User.findOne({ where: { email } }).catch(error => { res.status(400).json({ error }) })
+//      const cliente = await cliente.findOne({ where: { email } }).catch(error => { res.status(400).json({ error }) })
   
-//      if(user){
-//        return res.json(user)
+//      if(cliente){
+//        return res.json(cliente)
 //      }else{
-//        const newUser = await User.create({
+//        const newcliente = await cliente.create({
 //          email,
 //          nombre,
 //          lastName: familyName,
@@ -28,7 +28,7 @@ const { Cliente } = require('../db')
 //          image: imageUrl
 //        })
   
-//        return res.json(newUser)
+//        return res.json(newcliente)
 //      }
 //    });
 
@@ -38,7 +38,7 @@ router.post("/", async (req,res) => {
 
       console.log(email, password, nombre, apellido, direccion, dni, admin)
 
-       const user = await Cliente.create({
+       const cliente = await Cliente.create({
          nombre,
          apellido,
          email,
@@ -47,7 +47,7 @@ router.post("/", async (req,res) => {
          admin,
          password,
        }) 
-       res.json(user)
+       res.json(cliente)
  }
  catch(error){
    console.log(error)
@@ -59,28 +59,26 @@ router.post("/", async (req,res) => {
    router.put('/:id', (req, res) => {
      Cliente.findOne({
        where: {id: req.params.id}
-     }).then(user=>{
-       user.update({
+     }).then(cliente=>{
+       cliente.update({
                  email: req.body.email,
                  password: req.body.password,
-                 name: req.body.name,
-                 lastName: req.body.lastName,
-                 address: req.body.address,
-                 image: req.body.image,
+                 nombre: req.body.nombre,
+                 direccion: req.body.direccion,
                  admin: req.body.admin,
-             }).then(user => { res.status(200).json({ user }); }).catch(error => { res.status(400).json({ error }) });
+             }).then(cliente => { res.status(200).json({ cliente }); }).catch(error => { res.status(400).json({ error }) });
          }).catch(error => { res.status(400).json({ error }) })
      });
 
 
      //Crea ruta para eliminar Usuario//
- //DELETE/users/:id//
+ //DELETE/clientes/:id//
  router.delete('/:id', (req, res) => {
      Cliente.destroy({
        where: {id: req.params.id}
      }).then(deletedRecord => {
-       if (deletedRecord === 1) { res.status(200).json({ message: "User deleted successfully" }); }
-           else { res.status(404).json({ message: "User not found" }) }
+       if (deletedRecord === 1) { res.status(200).json({ message: "cliente deleted successfully" }); }
+           else { res.status(404).json({ message: "cliente not found" }) }
        }).catch(error => { res.status(500).json(error); });
    });
 
@@ -89,9 +87,9 @@ router.post("/", async (req,res) => {
    passport.authenticate('local',{failureMessage:"An error appeared"}),
    async function(req, res) {
      try {
-       const user=req.user
-       if (user) {
-         res.status(200).json({user})
+       const cliente=req.cliente
+       if (cliente) {
+         res.status(200).json({cliente})
          // res.redirect('/beers')
        } else {
          console.log('usuario no encontrado');
@@ -109,13 +107,13 @@ router.post("/", async (req,res) => {
      } else {
        return res.json({ 
            isAdmin: false,
-           message: 'User not authenticated'
+           message: 'cliente not authenticated'
        })
      }
    }
   
    function isAdmin(req, res, next) {
-       if(req.user.admin === true) {
+       if(req.cliente.admin === true) {
          next();
        } else {
          res.redirect('/admin');
@@ -123,17 +121,74 @@ router.post("/", async (req,res) => {
      }
     
      // atributo admin al usuario //
-     router.put('/promote/:idUser', (req, res) => {
+     router.put('/promote/:idcliente', (req, res) => {
        ClientendOne({
            where: { id: req.params.Cliente}
        })
-       .then (user => {
-           user.update({
-               admin: !user.admin
-           }).then(user => {res.status(200).json ({user})})
+       .then (cliente => {
+           cliente.update({
+               admin: !cliente.admin
+           }).then(cliente => {res.status(200).json ({cliente})})
      }).catch(error => { res.status(400).json({ error }) })
      });
      
     
+    //ruta para ver cliente 'me'=== /GET /CLIENTE/ME"
+     router.get('/me',
+     isAuthenticated,
+     function(req, res){
+       return res.json(req.cliente);
+     });
+    
+//reset password//
+router.put('/:id/passwordReset', async (req, res) => {
+  try {
+    let cliente = await Cliente.findByPk(req.params.id);
+    await cliente.update({password: req.body.password})
+    await cliente.save()
+    res.json(cliente)
+  }catch (err) {
+    console.log(err)
+  }
+})
+
+//login//
+//POST /users/login
+
+router.post('/login', (req, res) => {
+    var nombre = req.body.nombre, password = req.body.password;
+    Cliente.findOne({ where: { nombre: nombre } }).then(function (cliente) {
+        if (!cliente) { res.redirect('/login'); }
+        else if (!cliente.validPassword(password)) { res.redirect('/login'); }
+        else {
+            req.session.cliente = user.dataValues;
+            res.redirect('/me');
+        }
+    });
+});
+ 
+
+
+
+
+//google//
+// server.post('/google', 
+// passport.authenticate('local',{failureMessage:"An error appeared"}),
+//   async function(req, res) {
+//     try {
+//       const cliente=req.cliente
+//       if (cliente) {
+//         res.status(200).json({cliente})
+      
+//       } else {
+//         console.log('cliente no encontrado');
+//       }
+//     } catch (err) {
+//       res.status(400).json({msg: 'fallo'}) 
+//     }
+//   });
+//   server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
+
+  
 
 module.exports = router;
