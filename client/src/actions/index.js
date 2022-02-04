@@ -14,7 +14,8 @@ export const getClients = ()=>{
         }
         catch(e){
             console.log(e)
-        }
+        }}
+    }
 
 //POST
 

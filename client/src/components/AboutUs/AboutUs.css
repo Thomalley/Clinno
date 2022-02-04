@@ -3,27 +3,13 @@
 }
 
 .second{
-    height: 1000px;
+    height: 1400px;
     margin: 0px;
-    padding: 0px 200px;
-    background-color: rgb(21, 255, 0);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 
 }
-.third{
-    height: 100px;
-    margin: 0px;
-    padding: 0px;
-    background-color: aqua;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
 
 .footer{
     margin: auto;
@@ -34,12 +20,13 @@
 
 #btn{
     margin: 10px;
+    border-radius: 10px;
+    border: none;
 }
 
 .rights{
-    background-color: aqua;
-    margin: 0px;
-    padding-bottom: 20px;
+    margin-top: 100px;
+    font-size: 22px;
 }
 
 .container2{
@@ -49,14 +36,21 @@
     margin: 50px 50px;
     padding: 0px 20px;
     width: 250px;
-    height: 400px;
+    height: 320px;
     border-color: white;
     box-shadow: 0px 0px 36px 24px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
   }
 
   .abouth1{
-    background-color: rgb(21, 255, 0);
     margin: 0px;
   }
+
+  .container1234{
+    font-family: 'Poppins', sans-serif;
+  }
+
+  #sinfoto{
+      height: 150px;
+      width: 150px;
+  }
+
