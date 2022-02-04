@@ -2,10 +2,12 @@ import React,{ useState,useEffect  } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import {Link,useNavigate} from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
+import Cookies from 'universal-cookie'
 
 
 import './HomeStyle.css';
 
+const cookies = new Cookies()
 
 let newArray = [
             "Miguel Becerra",
@@ -52,6 +54,11 @@ export default function Home(){
         searchTurno: ""
     }
     
+    if (cookies.get('email')){
+        console.log("sesion iniciada por " + cookies.get('email'))
+    }
+    else console.log("no hay usuario logueado")
+
     const [state,setstate] = useState(initialState);
     const [loggeado,setLoggeado] = useState(false);//estado que determina si inicio sesion la persona
     // console.log(state);
