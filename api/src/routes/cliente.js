@@ -34,9 +34,10 @@ const { Cliente } = require('../db')
 
 router.post("/", async (req,res) => {  
      try{
-      const {email, password, nombre, apellido, direccion, dni, admin} = req.body;
+      const {email, password, nombre, apellido, direccion, dni} = req.body;
 
-      console.log(email, password, nombre, apellido, direccion, dni, admin)
+      console.log(email, password, nombre, apellido, direccion, dni)
+      const admin=false;
 
        const cliente = await Cliente.create({
          nombre,
