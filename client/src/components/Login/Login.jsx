@@ -10,21 +10,28 @@ import './loginStyle.css'
 
 export default function Login(){
 
+    const cookies = new Cookies();
     const dispatch = useDispatch();
     const cliente = useSelector((state)=> state.cliente);
     const [errors, setErrors] = useState({});
     const {loginWithRedirect} = useAuth0();
-    const cookies = new Cookies();
- 
-    const [loggeado,setLoggeado] = useState({"logged" : false});
+    const [loggeado,setLoggeado] = useState({"logged" : false});   
     const [input, setInput] = useState({
         email : '',
         password : '',
     });
-
+    
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_validate(input));
+        setTimeout(logreq(), 3000)
+    }  
+
+    useEffect(()=>{
+        dispatch(login_validate(input))
+    },[input])
+
+    function logreq(){
         if(cliente.length > 0){
             const data = cliente[0];
             cookies.set('email', data.email, {path: '/'});
@@ -44,14 +51,14 @@ export default function Login(){
                 password : '',
             });
             alert('Inicio de sesion autorizado');
-            console.log(cookies.get('email')+ " inicio sesion")
+            console.log(cookies.get('email')+ " inicio sesion");
             window.location.href='./home';
         }
         else {
             alert('Usuario o contrasena incorrectos')
         }
-    }   
-
+    }
+ 
     function handleChange(e){
         setInput({
             ...input,
@@ -143,7 +150,7 @@ export default function Login(){
                 <p>o</p>
                 <div className="row">
                 <div className="col-12">
-                    <button type="sub" className="btnloginWithAuth0" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
+                    <button className="btnloginWithAuth0" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
                 </div>
                 </div>
                 <Link to={'/home'}>
