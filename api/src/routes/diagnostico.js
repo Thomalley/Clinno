@@ -28,4 +28,19 @@ router.post('/', async (req,res) =>{
     }
 })
 
+router.get("/", async(req,res) => {
+    try{
+        const DiagComp = await Diagnostico.findAll({
+            include:  
+                    Cliente,
+                    Doctor
+        })
+        res.send(DiagComp)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+
 module.exports = router
