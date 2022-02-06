@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
+import HomeClients from './components/HomeClients/HomeClients';
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/' element={<LandingPage/>}/>
+          <Route path='/aboutClinno' element={<LandingPage/>}/>
+          <Route path='/' element={<HomeClients/>}/>
           <Route exact path='/register' element={<Register/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<Home/>}/>
