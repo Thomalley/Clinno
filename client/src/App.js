@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
+import RegisterClinic from './components/Register/RegisterClinic';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage/>}/>
           <Route exact path='/register' element={<Register/>}/>
+          <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<Home/>}/>
           <Route path='/home/clinica/:name' element={<DetailClinica/>}/>

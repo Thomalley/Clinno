@@ -22,6 +22,10 @@ export default function Login(){
         password : '',
     });
 
+    useEffect(() => {
+        dispatch(login_validate(input));
+    },[input])
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_validate(input));
@@ -45,7 +49,7 @@ export default function Login(){
             });
             alert('Inicio de sesion autorizado');
             console.log(cookies.get('email')+ " inicio sesion")
-            window.location.href='./home';
+            //window.location.href='./home';
         }
         else {
             alert('Usuario o contrasena incorrectos')
@@ -75,7 +79,6 @@ export default function Login(){
     }
 
     return(
-
         <div className="container">
             <form className="cont" onSubmit={(e)=> handleSubmit(e)}>
                 <div className="row">
@@ -128,7 +131,7 @@ export default function Login(){
                     ">
                     <button
                         type="submit"
-                        className={errors.username || errors.password? "btnlogincontinueBlocked" : "btnlogincontinue"}
+                        className={errors.username || errors.password ? "btnlogincontinueBlocked" : "btnlogincontinue"}
                     >Continuar
                     </button>
                     </div>
