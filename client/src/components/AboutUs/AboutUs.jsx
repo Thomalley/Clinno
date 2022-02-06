@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import logo from '../utils/images-landing/logo.png'
 import Demo from "../Demo/Demo";
 import NavLanding from '../NavLanding/NavLanding';
+import js from "../utils/js.png"
+import react from "../utils/react.png"
+import github from "../utils/github.png"
+import Footer from '../Home/Footer';
 
 export default function AboutUs(){
 
@@ -28,30 +32,26 @@ export default function AboutUs(){
              <div className="develops"> 
                 {develop.map((dev)=>(  <div className="container2"> <img id='sinfoto' src={img} alt={dev.name} /> <br/> <h4>{dev.name}</h4> <button className='btn-social' id='btn'>{dev.git}</button> <button className='btn-social' id='btn'>{dev.linkedin}</button> </div>      ))} 
             </div>
-            
-            <div className="text-conteiner1">
-          <img src={logo} alt="logo" />
-          <p>
-            
-            Es la solución ideal para grupos médicos que desean utilizar un
-            sistema de citas electrónico en linea, administrándolos
-            eficientemente de forma colaborativa, ágil y sencilla.
-          </p>
-          <h3>¡Lleva un mejor control de los clientes de tu clínica!</h3>
-        </div>
+    
             <Demo/>
-
+            <br/>
+            <h2>Tecnologias</h2>
             <div className='Tecnologias'>
-            <div>JS</div>
-            <div>REACT</div>
-            <div>EXPRESS</div>
+            <div>
+              <img id="images" src={js} alt="asd" />
             </div>
-            <div className='foot'>
-            <p className='rights'>© 2022 Clinno. All rights reserved</p>
+            <div>
+              <img id="images" src={react} alt="asd" />
+            </div>
+            <div>
+            <img id="images" src={github} alt="asd" />
+            </div>
+            </div>
+            <Footer />
             </div>
             </div>
         </div>
         </div>
-        </div>
+  
     )
 }

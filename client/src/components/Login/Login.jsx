@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { login_validate} from '../../actions'
 import Cookies from 'universal-cookie';
+import swal from 'sweetalert';
 import './loginStyle.css'
 
 
@@ -50,12 +51,17 @@ export default function Login(){
                 email : '',
                 password : '',
             });
-            alert('Inicio de sesion autorizado');
+            swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
             console.log(cookies.get('email')+ " inicio sesion");
-            window.location.href='./home';
+            setTimeout(()=> window.location.href='./home', 3000) ;
         }
         else {
-            alert('Usuario o contrasena incorrectos')
+            swal({
+                title: "Usuario o contrasena incorrectos",
+                text: "Ingrese los datos e intente nuevamente",
+                icon: "warning",
+                dangerMode: true,
+              })
         }
     }
  
@@ -80,6 +86,17 @@ export default function Login(){
         }
         return errors;
     }
+
+    function toggler(e) {
+        const pwd = document.getElementById('password');
+        if( e.innerHTML === 'Show' ) {
+            e.innerHTML = 'Hide'
+            pwd.type="text";
+        } if( e.innerHTML === 'Hide' ) {
+            e.innerHTML = 'Show'
+            pwd.type="password";
+        }
+      }
 
     return(
 
@@ -118,12 +135,13 @@ export default function Login(){
                 <input 
                     type='password'
                     placeholder="Password"
+                    name='password'
                     id="password"
                     className={errors.password? "inptwr" : "inpt"}
                     value={input.password}
-                    name='password'
                     onChange={(e)=>handleChange(e)}
                 />
+                {/* <button id="eyeeye" onclick={toggler(window)} type='button'>Show</button> */}
                 {errors.password && (
                         <p className='errorNotWrtd' >{errors.password}</p>
                     )}
@@ -163,5 +181,6 @@ export default function Login(){
 
     )
 }
+
 
 
