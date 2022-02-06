@@ -1,0 +1,115 @@
+[
+
+    {
+        "nombre":"Cardiología",
+        "hospitales": [
+            {  
+                "nombre":"Hospital Britanico",
+                "direccion":"Rodriguez 2893",
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hosp_britanico_logo.svg/1200px-Hosp_britanico_logo.svg.png"
+                
+            },
+            {
+                "nombre":"Clinica Manuel Quintela",
+                "direccion":"las heras 2917",
+                 "logo": "https://www.hc.edu.uy/images/imagenesarticulos/Logo_Hc.png"
+
+            }
+
+        ]
+    },
+
+    {
+        "nombre":"Gastroenterología",
+        "hospitales": [
+            {  
+                "nombre":"Hospital Britanico",
+                "direccion":"Rodriguez 2893",
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hosp_britanico_logo.svg/1200px-Hosp_britanico_logo.svg.png"
+                
+            },
+            {
+                "nombre":"Puerta de Hierro",
+                "direccion":"av. cabrera 210",
+                "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png"
+
+            }
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Kinesiología",
+        "hospitales": [
+
+            {  
+                "nombre":"Hospital Britanico",
+                "direccion":"Rodriguez 2893",
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hosp_britanico_logo.svg/1200px-Hosp_britanico_logo.svg.png"
+                
+            }
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Neurología",
+        "hospitales": [
+
+            {
+                "nombre":"Hospital Sierra Madre",
+                "direccion":"av. cabrera 210",
+                "logo": "https://marte.com.mx/wp-content/uploads/logo79.png"
+
+            }        
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Nutrición",
+        "hospitales": [ 
+           
+            {
+                "nombre":"Puerta de Hierro",
+                "direccion":"av. cabrera 210",
+                "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png"
+
+            }      
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Psiquiatría",
+        "hospitales": [
+
+            {
+                "nombre":"Hospital Sierra Madre",
+                "direccion":"av. cabrera 210",
+                "logo": "https://marte.com.mx/wp-content/uploads/logo79.png"
+
+            },
+            {
+                "nombre":"Puerta de Hierro",
+                "direccion":"av. cabrera 210",
+                "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png"
+
+            }       
+
+
+
+        ]
+    }
+     
+
+   
+]

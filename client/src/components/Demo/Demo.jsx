@@ -6,30 +6,28 @@ import mockup from "../utils/images-landing/clinno-app.png";
 
 export default function Demo() {
   return (
-      <div className="demo-container">
-    <div className="live">
+    <div className="demo-container">
+      <div className="live">
+        <div className="text-live">
+          <h2>Más que un sistema de reserva de citas, </h2>
+          <h2>un sistema que mejora la relación con tus pacientes</h2>
+        </div>
 
-      <div className="text-live">
-        <h2>Más que un sistema de reserva de citas, </h2>
-        <h2>un sistema que mejora la relación con tus pacientes</h2>
-      </div>
+        <div className="text-container2">
+          <h4>Ve a nuestra Demo Virtual:</h4>
 
-      <div className="text-container2">
-        <h4>Ve a nuestra Demo Virtual:</h4>
-
-        <div class="d-grid gap-2 col-12 mx-auto">
-          <Link to="/home">
-            <button class="btn btn-primary btn_demo" type="button">
-              LIVE DEMO
-            </button>
-          </Link>
+          <div class="d-grid gap-2 col-12 mx-auto">
+            <Link to="/home">
+              <button class="btn btn-primary btn_demo" type="button">
+                LIVE DEMO COMO CLINICA
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="img-container">
-
+      <div className="img-container">
         <img src={mockup} alt="mockup" />
-    </div>
+      </div>
     </div>
   );
 }
