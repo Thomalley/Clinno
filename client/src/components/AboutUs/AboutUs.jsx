@@ -1,5 +1,6 @@
 import './AboutUs.css';
 import React from 'react';
+import { useState,useEffect  } from "react";
 import develop from '../utils/develop.json'
 import img from'../utils/images-landing/usuario-sin-foto.png'
 import devs from "../utils/desarrolladores.png"
@@ -11,15 +12,49 @@ import js from "../utils/js.png"
 import react from "../utils/react.png"
 import github from "../utils/github.png"
 import Footer from '../Home/Footer';
+import NavBar from '../NavBar/NavBar';
+import Cookies from 'universal-cookie'
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 export default function AboutUs(){
+  const cookies = new Cookies()
 
+  const { isAuthenticated,isLoading} = useAuth0();
+
+
+  
+  let session;
+  // console.log("sesion iniciada por " + cookies.get('email'))  
+  if(cookies.get('email')){
+      session = true;
+  }else{
+      session = isLoading;
+  }
+  const [loggeado,setLoggeado] = useState(session);
+  //control de sesion
+  useEffect(()=>{
+    console.log(isLoading)
+    if(cookies.get('email')){
+        setLoggeado(true);
+    }else {
+        if(isAuthenticated){
+            setLoggeado(true);
+        }else{
+            setLoggeado(false);
+        }
+    }
+      
+  },[isLoading,cookies.get('email')])
 
 
     return(
+      
       <div className='about-container'>
+      <NavBar loggin={loggeado} />
+
         <div className='container1234'>
-          <NavLanding component="About"/>
         
         <img className="imgAbout" src={devs} alt="nf" />
         <div className='second'>
@@ -47,7 +82,7 @@ export default function AboutUs(){
             <img id="images" src={github} alt="asd" />
             </div>
             </div>
-            <Footer />
+              <Footer />
             </div>
             </div>
         </div>
