@@ -32,7 +32,7 @@ export default function HomeHospitals() {
 
   // }
 
-  console.log(input.clinic);
+  
 
   function handleSelectEscpecial(e) {
     if (e.target.value) {
