@@ -14,6 +14,9 @@ const cookies = new Cookies()
 
 
 export default function NavBar({loggin}){
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     let navigate = useNavigate();
     const {logout, isAuthenticated,isLoading,user} = useAuth0();
 
