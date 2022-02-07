@@ -52,7 +52,7 @@ export default function LandingPage() {
                 <div className="carousel-caption d-none d-md-block">
                   <Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
                   </Link>
                 </div>
@@ -62,7 +62,7 @@ export default function LandingPage() {
                 <div className="carousel-caption d-none d-md-block">
                   <Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
                   </Link>
                 </div>
@@ -72,7 +72,7 @@ export default function LandingPage() {
                 <div className="carousel-caption d-none d-md-block">
                   <Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
                   </Link>
                 </div>

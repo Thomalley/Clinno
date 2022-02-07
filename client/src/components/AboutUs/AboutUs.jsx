@@ -61,7 +61,7 @@ export default function AboutUs(){
         <div className='AboutUs'>
        
         </div>
-        <div className="conteiner-devs">
+        <div className="conteiner-devs col-12">
           <h3>Somos un equipo de programadores  que ofrecemos nuestros mejores conocimientos y experiencia, para conseguir que las clinicas de todo capital federal puedan realizar su parte administrativa de la forma más fácil y rápida posible.</h3>
                
              <div className="develops"> 
@@ -82,7 +82,9 @@ export default function AboutUs(){
             <img id="images" src={github} alt="asd" />
             </div>
             </div>
+            <div>
               <Footer />
+            </div>
             </div>
             </div>
         </div>
