@@ -20,7 +20,12 @@ export default function Login(){
         email : '',
         password : '',
     });
-    
+
+    useEffect(() => {
+        dispatch(login_validate(input));
+    },[input])
+
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_validate(input));
@@ -50,9 +55,10 @@ export default function Login(){
                 email : '',
                 password : '',
             });
+
             swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
             console.log(cookies.get('email')+ " inicio sesion");
-            setTimeout(()=> window.location.href='./home', 3000) ;
+            setTimeout(()=> window.location.href='/', 3000) ;
         }
         else {
             swal({
@@ -166,7 +172,7 @@ export default function Login(){
                 <p>o</p>
                 <div className="row">
                 <div className="col-12">
-                    <button className="btnloginWithAuth0" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
+                    <button className="btnloginWithAuth0" type="reset" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
                 </div>
                 </div>
                 <Link to={'/home'}>

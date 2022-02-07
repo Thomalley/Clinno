@@ -13,10 +13,10 @@ export default function Footer(){
             </div>
             <div>
                 {/* <button className="btn btn-outline-secondary logo_clinno">Logo Clinno!</button> */}
-                <Link className="navbar-brand logo-container_home logo_clinno" to='/home'>
+                <Link className="navbar-brand logo-container_home logo_clinno" to='/'>
                     <img src={logo} alt="logo" />
                 </Link>
-                <p ><Link className="texto_final" to="/login#">Login</Link>  | <Link className="texto_final#" to="/">Ladding Page </Link> | <Link  className="texto_final" to="/register#"> Registro </Link>  </p>
+                <p ><Link className="texto_final" to="/login#">Login</Link>  | <Link className="texto_final#" to="/aboutClinno"> Sobre Clino </Link> | <Link  className="texto_final" to="/register#"> Registro </Link>  </p>
             </div>
 
         </footer>
