@@ -126,6 +126,7 @@ export default function HomeHospitals() {
                     key="select"
                     onChange={(e) => handleSelectEscpecial(e)}
                   >
+                    <option>Seleccione una especialidad</option>
                     {especial.map((esp) => (
                       <option value={esp.nombre}>{esp.nombre}</option>
                     ))}
