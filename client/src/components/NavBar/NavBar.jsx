@@ -14,7 +14,10 @@ const cookies = new Cookies()
 
 
 export default function NavBar({loggin}){
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
+    let navigate = useNavigate();
     const {logout, isAuthenticated,isLoading,user} = useAuth0();
 
     // console.log("sesion iniciada por " + cookies.get('email'))
@@ -51,16 +54,20 @@ export default function NavBar({loggin}){
             cookies.remove('email');
         }
         setLoggeado(false);
-        window.location.href='./home';
+        // window.location.href='./home';
+        // window.location.origin;
+        // window.location.href='./'
+        setTimeout(()=> window.location.href='/', 1000);
+            
+
     }
 
-    // let navigate = useNavigate();
     return(
         <div className="">            
             <nav className=" navbar fixed-top  navbar-expand-lg navbar-light bg-light contenedor_navBar ">
                 <div className="container-fluid">
                     <div>
-                        <Link className="navbar-brand logo-container_home" to='/home'>
+                        <Link className="navbar-brand logo-container_home" to='/'>
                                 <img src={logo} alt="logo" />
                         </Link>
                     </div>

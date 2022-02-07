@@ -4,18 +4,51 @@ import NavLanding from "../NavLanding/NavLanding";
 import "./homeClients.css";
 // import clinics from "../utils/hospitals.json"
 import especial from "../utils/especialidades.json"
-import { useState } from "react";
+import { useState,useEffect  } from "react";
 import doc from "../utils/hipertencion.gif"
 import Footer from "../Home/Footer";
+import NavBar from '../NavBar/NavBar';
+import Cookies from 'universal-cookie'
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 import pp from "../utils/images-landing/pp.png"
 
 export default function HomeHospitals() {
+  const cookies = new Cookies()
   const [input, setInput] = useState({
     // clinic: [],
     especialidad: [],
   });
+  const { isAuthenticated,isLoading} = useAuth0();
+
+
+    
+  let session;
+  // console.log("sesion iniciada por " + cookies.get('email'))  
+  if(cookies.get('email')){
+      session = true;
+  }else{
+      session = isLoading;
+  }
+  const [loggeado,setLoggeado] = useState(session);
+  //control de sesion
+  useEffect(()=>{
+    console.log(isLoading)
+    if(cookies.get('email')){
+        setLoggeado(true);
+    }else {
+        if(isAuthenticated){
+            setLoggeado(true);
+        }else{
+            setLoggeado(false);
+        }
+    }
+      
+  },[isLoading,cookies.get('email')])
+
 
   // function handleSelectClinic(e) {
 
@@ -50,7 +83,9 @@ export default function HomeHospitals() {
 
   return (
     <>
-      <NavLanding component="HomeClients" />
+      <NavBar loggin={loggeado} />
+
+      {/* <NavLanding component="HomeClients" /> */}
       <div className="home-hospitals">
         <div className="big-box">
           <div className="left-box">
@@ -162,7 +197,7 @@ export default function HomeHospitals() {
                     </div>
 
                     <div>
-                      <Link to="/Home">
+                      <Link to={`/Home/clinica/hospital 1`}>
                         <button className="btn-go">Ir a Clinica</button>
                       </Link>
                     </div>

@@ -1,17 +1,17 @@
-import './Register.css'
+import './RegisterClinic.css'
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import {registrarCliente} from '../../actions/index';
+import {registrarHospital} from '../../actions/index';
 import swal from 'sweetalert';
 import logo from '../../components/utils/images-landing/logo.png'
 import Footer from '../Home/Footer';
 
 
 
-export default function Register(){
+export default function RegisterClinic(){
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -19,9 +19,9 @@ export default function Register(){
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
 
-      dispatch(registrarCliente(data))
-      swal('Usuario Creado!')
-      navigate('/login')
+      //dispatch(registrarHospital(data))
+      swal('Estamos verificando tu informacion!')
+      navigate('/home')
     }
 
   return (
@@ -31,7 +31,7 @@ export default function Register(){
     <img className="imglogoR" src={logo} alt="nf" />
     </Link>
     </nav>
-    <div className='container1'>
+    <div className='container11'>
     <div className="col-12">
     <img className="imglogo" src={logo} alt="nf" />
     </div>
@@ -43,22 +43,6 @@ export default function Register(){
         errors={errors}
         name="nombre"
         render={({ message }) => <p className="errorMsg">Nombre requerido</p>}
-      />
-      <input className="form-control" type="text" placeholder="Apellido" {...register("apellido", {required: true, pattern: /^[A-Za-z][a-zA-Z ]{3,40}$/})} />
-      <ErrorMessage errors={errors} name="apellido" />
-      
-      <ErrorMessage
-        errors={errors}
-        name="apellido"
-        render={({ message }) => <p className="errorMsg">Apellido requerido</p>}
-      />
-      <input className="form-control" type="text" placeholder="DNI  (Solo Numeros)" {...register("dni", {required: true, minLength: 7, maxLength: 8})} />
-      <ErrorMessage errors={errors} name="dni" />
-      
-      <ErrorMessage
-        errors={errors}
-        name="dni"
-        render={({ message }) => <p className="errorMsg">DNI requerido</p>}
       />
       <input className="form-control" type="text" placeholder="Mail" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
       <ErrorMessage errors={errors} name="email" />

@@ -18,7 +18,6 @@ export function getClients (){
     }
 }
 
-
 export function login_validate(payload){
     return async function(dispatch){
         try{
@@ -36,6 +35,7 @@ export function login_validate(payload){
                         admin : json.data[i].admin,
                         createdAt : json.data[i].createdAt
                     }]
+                    
                     return dispatch({
                         type : "VALIDATE_USER",
                         payload : data
