@@ -263,10 +263,11 @@ export default function DetailClinica(){
                         </div>
                     </div>
                 </div> */}
-                <h3 className="m-4">Quienes son nuestros doctores?</h3>
                 <div className='d-flex justify-content-center align-items-start '>
                     <div>
+                    <h3 className="m-4">Quienes son nuestros doctores?</h3>
                         <div className=" doctores_contenido">
+                        
                             {newArray.sort((a, b)=> {
                                 if (a < b) {
                                     return  -1 ;

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage'
 import Register from './components/Register/Register'
 import Login from './components/Login/Login';
-import Home from './components/Home/Home';
 import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
 import RegisterClinic from './components/Register/RegisterClinic';

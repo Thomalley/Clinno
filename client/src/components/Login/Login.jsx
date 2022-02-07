@@ -10,7 +10,6 @@ import './loginStyle.css'
 import logo from '../../components/utils/images-landing/logo.png'
 
 
-
 export default function Login(){
 
     const cookies = new Cookies();
@@ -59,6 +58,7 @@ export default function Login(){
             console.log(cookies.get('email')+ " inicio sesion");
 
             setTimeout(()=> window.location.href='/', 2000) ;
+
         }
         else {
             swal({
