@@ -72,5 +72,11 @@
   .Tecnologias{
       display: flex;
       flex-direction: row;
-      margin: auto;
+      margin: 70px auto;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+  }
+
+  #images{
+      height: 150px;
   }

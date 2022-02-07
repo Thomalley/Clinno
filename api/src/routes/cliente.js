@@ -1,6 +1,7 @@
 const { Router } = require("express");
 router = Router()
  var passport = require('passport');
+ const nodemailer = require("nodemailer");
 const { Cliente } = require('../db')
  // ruta que devuelva clientes//
  //Get/cliente//
@@ -190,6 +191,42 @@ router.post('/login', (req, res) => {
 //   });
 //   server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
 
-  
+
+
+
+
+//orden de mail confirmacion//
+
+router.post('/order-mail', (req,res)=> {
+const transporter = nodemailer.createTransport({
+  service:'gmail',
+  auth:{
+    user: "clinnoturnos@gmail.com",
+    pass: "Clinno2022"
+  }
+})
+
+const mailOptions = {
+from : "clinnoturnos@gmail.com",
+to: req.body.email,
+subject: `Usuario registrado con exito`,
+html: `
+     <html>
+<head>
+     <body>
+     <h2> Hola ${req.body.nombre} desde Clinno estamos contentos de informarte que tu registro de usuario ha sido confirmado con exito </h2>
+     </body>
+  </head>
+</html>`
+}
+transporter.sendMail(mailOptions, (error, info) => {
+  if(error){
+    res.status(500).send(error.message)
+  }else{
+    conmouseleave.log("Email enviado con exito")
+    res.status(200).json(req.body)
+  }
+})
+});
 
 module.exports = router;

@@ -1,0 +1,276 @@
+.contenedor_home{
+    padding-top: 82px;
+    /* margin: auto; */
+}
+.container_corrousel{
+    border-radius: 15px;
+}
+
+.nombre_hospital{
+    display: flex;
+    justify-content: center;
+}
+
+.imglogo{
+    width: 100px;
+    height: auto;
+}
+.imgLogo_Clinno{
+    width: 200px;
+    height: auto;
+}
+.blanco_carrousel{
+    color:#fff;
+}
+
+.carrousel_img{
+    background: #a09a9a12;
+}
+.nosotros {
+    padding: 24px 0px;
+}
+
+.direccion{
+    margin: 50px 0px 20px 0px;
+}
+
+.acordeon_direccion{
+    max-height: 100px;
+    overflow: hidden;
+    gap:20px
+}
+.acordeon_direccion > p{
+    margin: 0px;
+}
+.doctores{
+    padding: 20px 0px 0px 0px;
+} 
+
+.nosotros_item{
+    width: 200px;
+    cursor: default;
+    transition: transform .2s;
+}
+
+.nosotros_item > h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    text-align: center;
+}
+.nosotros_item > p{
+    text-align: center;
+    font-size: 1rem;
+}
+.nosotros_item:hover{
+    background:#f8f9fa;
+    transform:translateY(-10px);
+}
+
+
+
+/* Nosotros y doctores */
+
+.container_carta_doctor{
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    border: none;
+    margin: 40px 0px ;
+}
+.carta_doctor{
+    display: inline;
+    position: relative;
+    transition: 1s;
+    width: 400px;
+    overflow: hidden;
+}
+.carta_doctor >img{
+    transition: 1s;
+}
+.carta_doctor:hover >img{
+    transform:scale(1.1);transform:scale(1.1)
+}
+.carta_texto_doctor{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(
+        0deg
+        , black 0%, rgba(0, 0, 0, 0.5270483193) 40%, rgba(255, 255, 255, 0) 100%);
+        color: #f8f9fa;
+}
+.especialidades_contenido{
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1500px;
+    justify-content: center;
+
+}
+.doctores_contenido{
+    margin: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 1500px;
+    justify-content: center;
+    align-items: center;
+    max-height: 440px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.doctor{
+    background-color: #edf3f6;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    padding: 15px;
+    transition: background .4s,color .1s,box-shadow .2s;
+}
+.doctor >h4{
+    min-height: 58px;
+}
+.doctor:hover{
+    background: #3ccbe8;
+    color: #f8f9fa;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.especialidad{
+    background-color: #edf3f6;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 200px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    transition: background .4s,color .1s,box-shadow .2s;
+    
+}
+.especialidad > h4{
+    margin: 0px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.especialidad:hover{
+    background: #2982C4;
+    color: #f8f9fa;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.imagen_medico{
+    border-radius: 100%;
+}
+
+/* Fin Nosotros y doctores */
+
+.errorPagina{
+    margin-top: 100px;
+    min-height: 55vh;
+}
+
+/* Footer */
+
+.footer_home{
+    /* width: 100vh; */
+    height: 300px;
+    background:#181c23;
+    color:#f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.link{
+    text-decoration: none;
+    color: red;
+}
+
+.texto_final{
+    text-decoration: none;
+}
+.logo_clinno{
+    display: block;
+    position:absolute;
+    left: 7%;
+    top: 10%;
+}
+/* Fin Footer */
+
+
+
+/* Animacion inicial */
+
+.carrousel_slide{
+    z-index: 10;
+}
+
+.animation_carrousel{
+    -webkit-animation: backInRight 1s;
+    animation: backInRight 1s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+}
+
+@keyframes backInRight {
+    0% {
+      transform: translateX(-700px) scale(.7);
+      opacity: 0;
+    }
+  
+    80% {
+      transform: translateX(0px) scale(.7);
+      opacity: .1;
+    }
+  
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+/* Fin Animacion inicial */
+
+@media (max-width: 576px) { 
+    .contenedor_home{
+        width: 100%;
+        overflow: hidden;
+    }
+    .container_corrousel{
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        align-items: center;
+    }
+    .container_corrousel_col_I{
+        width: 100vh;
+    }
+    .logo_clinno{
+        top: 0px;
+        left: 25%;
+    }
+    .carta_texto_doctor > p{
+        display: none;
+    }
+    .none_item{
+        display: none;
+    }
+    .especialidad{
+        margin: 0px;
+        padding: 1px;
+    }
+    .especialidad > h4 {
+        font-size: 1rem;
+
+    }
+    /* .doctores_contenido{
+    }
+    .especialidades_contenido{
+    } */
+}

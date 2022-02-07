@@ -1,0 +1,39 @@
+[
+
+    {   "nombre":"Hospital Britanico",
+        "direccion":"Rodriguez 2893",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hosp_britanico_logo.svg/1200px-Hosp_britanico_logo.svg.png",
+        "especialidades": [
+            "Cardiología",
+            "Gastroenterología",
+            "Neurología",
+            "Psiquiatría",
+            "Kinesiología",
+            "Psicología",
+            "Psicología",
+            "Nutrición",
+            "Fonoaudiología"
+        ]
+    },
+    {   "nombre":"Clinica Manuel Quintela",
+        "direccion":"las heras 2917",
+        "logo": "https://www.hc.edu.uy/images/imagenesarticulos/Logo_Hc.png",
+        "especialidades": [
+            "Cardiología",
+            "Psiquiatría",
+            "Kinesiología",
+            "Psicología"
+        ]
+    },
+    {   "nombre":"Puerta de Hierro",
+        "direccion":"av. cabrera 210",
+        "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png",
+        "especialidades": [
+            "Cardiología",
+            "Gastroenterología",
+            "Fisiatría",
+            "Pediatría",
+            "Traumatología"
+        ]
+        }
+]

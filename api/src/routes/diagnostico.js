@@ -36,4 +36,18 @@ router.get("/", async(req,res) => {
     }
 })
 
+router.get('/', async (req,res) => {
+    try{
+        const diagRel = await Diagnostico.findAll({
+            include :
+            Cliente,
+            Doctor
+        })
+        res.send(diagRel)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
 module.exports = router

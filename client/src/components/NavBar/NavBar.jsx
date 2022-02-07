@@ -2,9 +2,11 @@ import React,{ useState,useEffect } from "react";
 import {Link,useNavigate} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import Cookies from 'universal-cookie'
-import logo from '../../components/utils/images-landing/logo.png'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
+import logo from "../utils/images-landing/logo.png"
+
 import './NavBarStyle.css';
+
 
 
 
@@ -58,8 +60,6 @@ export default function NavBar({loggin}){
             <nav className=" navbar fixed-top  navbar-expand-lg navbar-light bg-light contenedor_navBar ">
                 <div className="container-fluid">
                     <div>
-
-
                         <Link className="navbar-brand logo-container_home" to='/home'>
                                 <img src={logo} alt="logo" />
                         </Link>
@@ -69,7 +69,7 @@ export default function NavBar({loggin}){
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {window.location.pathname.toLowerCase() === '/home'?
+                            {window.location.pathname.toLowerCase().includes ('/home/clinica')?
                              <>
                                 <li className="nav-item">
                                     <a className="nav-link active  item_navBar" href='#nosotros'>Nosotros</a>
@@ -83,7 +83,7 @@ export default function NavBar({loggin}){
                             
                             {   loggin?
                                 <>
-                                    <li className="nav-item">                    
+                                    <li className="nav-item item_season">                    
                                         <button className="nav-link active item_navBar btn btn-outline border-start font_sesion" type="button" onClick={cerrarSesion}>Cerrar sesion</button>
                                     </li>
                                     {/* <li className="nav-item"> 

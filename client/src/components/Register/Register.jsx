@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import {registrarCliente} from '../../actions/index';
-
+import swal from 'sweetalert';
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -21,11 +21,17 @@ export default function Register(){
     const onSubmit = data => {
 
       dispatch(registrarCliente(data))
-      alert('Usuario Creado!')
+      swal('Usuario Creado!')
       //navigate('/home')
     }
 
   return (
+    <div>
+    <nav class="navbar sticky-top navbar-light bg-light">
+    <Link className="navbar-brand" to='/'>
+    <img className="imglogoR" src={logo} alt="nf" />
+    </Link>
+    </nav>
     <div className='container1'>
     <div className="col-12">
     <img className="imglogo" src={logo} alt="nf" />
@@ -82,5 +88,5 @@ export default function Register(){
       <input className="col-12 btn btn-primary" type="submit" />
     </form>
     </div>
-  );
-}
+    </div>
+  )}

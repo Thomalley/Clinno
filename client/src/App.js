@@ -4,8 +4,9 @@ import LandingPage from './components/LandingPage/LandingPage'
 import Register from './components/Register/Register'
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
-import NavBar from './components/NavBar/NavBar';
+import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
+import HomeClients from './components/HomeClients/HomeClients';
 
 
 function App() {
@@ -13,10 +14,12 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/' element={<LandingPage/>}/>
+          <Route path='/aboutClinno' element={<LandingPage/>}/>
+          <Route path='/' element={<HomeClients/>}/>
           <Route exact path='/register' element={<Register/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<Home/>}/>
+          <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
         </Routes>
       </div>
