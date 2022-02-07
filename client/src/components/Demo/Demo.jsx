@@ -17,7 +17,7 @@ export default function Demo() {
           <h4>Ve a nuestra Demo Virtual:</h4>
 
           <div class="d-grid gap-2 col-12 mx-auto">
-            <Link to="/home">
+            <Link to="/home/clinica/hospital 2">
               <button class="btn btn-primary btn_demo" type="button">
                 LIVE DEMO COMO CLINICA
               </button>
