@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import logo from '../../components/utils/images-landing/logo.png'
 import {Link} from 'react-router-dom';
 
@@ -6,7 +6,9 @@ import './FooterStyle.css';
 
 
 export default function Footer(){
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     return(<footer className="footer_home">
             <div className="">
                 <p>Clinno App | © Copyright 2022 | Pagina Diseñada por <Link className="link" to='/aboutus#'>Nuestro team</Link> de desarrolladores</p>

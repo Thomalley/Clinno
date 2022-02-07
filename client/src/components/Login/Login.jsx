@@ -57,7 +57,8 @@ export default function Login(){
 
             swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
             console.log(cookies.get('email')+ " inicio sesion");
-            setTimeout(()=> window.location.href='./', 2000) ;
+
+            setTimeout(()=> window.location.href='/', 2000) ;
         }
         else {
             swal({

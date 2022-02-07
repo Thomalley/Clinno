@@ -14,6 +14,9 @@ const cookies = new Cookies()
 
 
 export default function NavBar({loggin}){
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     let navigate = useNavigate();
     const {logout, isAuthenticated,isLoading,user} = useAuth0();
 
@@ -54,7 +57,7 @@ export default function NavBar({loggin}){
         // window.location.href='./home';
         // window.location.origin;
         // window.location.href='./'
-        setTimeout(()=> window.location.href='./', 1000);
+        setTimeout(()=> window.location.href='/', 1000);
             
 
     }
