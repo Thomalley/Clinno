@@ -1,0 +1,32 @@
+.footer_home{
+    /* width: 100vh; */
+    height: 300px;
+    background:#181c23;
+    color:#f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.link{
+    text-decoration: none;
+    color: red;
+}
+
+.texto_final{
+    text-decoration: none;
+}
+.logo_clinno{
+    display: block;
+    position:absolute;
+    left: 7%;
+    top: 10%;
+}
+
+@media (max-width: 576px) { 
+    .logo_clinno{
+        top: 0px;
+        left: 25%;
+    }
+}

@@ -9,28 +9,17 @@
     display: flex; 
 
     
-    width: 1500px;
-    height: auto;
+    
+    
     margin:auto;
    display: flex;
    flex-direction: column;
-   padding-bottom: 200px;
+   
 
 
 }
 
 
-.logo-container{
-    padding: 20px;
-    margin: 20px;
-}
-.logo-container img{
-    width: 300px;
-    height: auto
-    
-    
-
-}
 .top-slice{
     display: flex;
    

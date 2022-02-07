@@ -1,5 +1,13 @@
+.about-container{
+    width: 90vw;
+    margin: auto;
+    margin-top: 80px;
+}
+
+
 .imgAbout{
-    width: 100vw;
+    width: 90vw;
+    padding-bottom: 40px;
 }
 
 .second{
@@ -51,4 +59,25 @@
   #sinfoto{
       height: 150px;
       width: 150px;
+  }
+
+
+  .text-conteiner1 img{
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+
+      padding: 30px;
+  }
+
+  .Tecnologias{
+      display: flex;
+      flex-direction: row;
+      margin: 70px auto;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+  }
+
+  #images{
+      height: 150px;
   }

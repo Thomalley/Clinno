@@ -18,7 +18,8 @@ const rootReducer = (state = initialState, action)=>{
             return{
                 ...state,
             }
-        case "VALIDATE_USER" :
+        
+            case "VALIDATE_USER" :
             return{
                 ...state,
                 cliente : action.payload
