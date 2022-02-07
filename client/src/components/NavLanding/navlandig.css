@@ -8,9 +8,10 @@
     align-items: center;
 }
 
+
 .logo-container-logo{
     padding: 20px;
-    margin: 20px;
+    margin: 10px;
    
 
 }
@@ -21,10 +22,20 @@
     
 .logo-container-text{
    margin-right: 80px;
+   display: flex;
+   flex-direction: row;
 
 
 }  
-
+.logo-container-text h5{
+   margin: 20px;
+    
+}
+.logo-container-text div{
+    display: flex;
+    justify-content: flex-end;
+    
+}
 .logo-container-text a{
     text-decoration: none;
     color: #01AAC1;

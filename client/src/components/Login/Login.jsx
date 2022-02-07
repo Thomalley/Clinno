@@ -5,18 +5,18 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { login_validate} from '../../actions'
 import Cookies from 'universal-cookie';
+import swal from 'sweetalert';
 import './loginStyle.css'
 
 
 export default function Login(){
 
+    const cookies = new Cookies();
     const dispatch = useDispatch();
     const cliente = useSelector((state)=> state.cliente);
     const [errors, setErrors] = useState({});
     const {loginWithRedirect} = useAuth0();
-    const cookies = new Cookies();
- 
-    const [loggeado,setLoggeado] = useState({"logged" : false});
+    const [loggeado,setLoggeado] = useState({"logged" : false});   
     const [input, setInput] = useState({
         email : '',
         password : '',
@@ -26,9 +26,18 @@ export default function Login(){
         dispatch(login_validate(input));
     },[input])
 
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_validate(input));
+        setTimeout(logreq(), 3000)
+    }  
+
+    useEffect(()=>{
+        dispatch(login_validate(input))
+    },[input])
+
+    function logreq(){
         if(cliente.length > 0){
             const data = cliente[0];
             cookies.set('email', data.email, {path: '/'});
@@ -47,15 +56,21 @@ export default function Login(){
                 email : '',
                 password : '',
             });
-            alert('Inicio de sesion autorizado');
-            console.log(cookies.get('email')+ " inicio sesion")
-            //window.location.href='./home';
+
+            swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
+            console.log(cookies.get('email')+ " inicio sesion");
+            setTimeout(()=> window.location.href='./home', 3000) ;
         }
         else {
-            alert('Usuario o contrasena incorrectos')
+            swal({
+                title: "Usuario o contrasena incorrectos",
+                text: "Ingrese los datos e intente nuevamente",
+                icon: "warning",
+                dangerMode: true,
+              })
         }
-    }   
-
+    }
+ 
     function handleChange(e){
         setInput({
             ...input,
@@ -77,6 +92,17 @@ export default function Login(){
         }
         return errors;
     }
+
+    function toggler(e) {
+        const pwd = document.getElementById('password');
+        if( e.innerHTML === 'Show' ) {
+            e.innerHTML = 'Hide'
+            pwd.type="text";
+        } if( e.innerHTML === 'Hide' ) {
+            e.innerHTML = 'Show'
+            pwd.type="password";
+        }
+      }
 
     return(
         <div className="container">
@@ -114,12 +140,13 @@ export default function Login(){
                 <input 
                     type='password'
                     placeholder="Password"
+                    name='password'
                     id="password"
                     className={errors.password? "inptwr" : "inpt"}
                     value={input.password}
-                    name='password'
                     onChange={(e)=>handleChange(e)}
                 />
+                {/* <button id="eyeeye" onclick={toggler(window)} type='button'>Show</button> */}
                 {errors.password && (
                         <p className='errorNotWrtd' >{errors.password}</p>
                     )}
@@ -146,7 +173,7 @@ export default function Login(){
                 <p>o</p>
                 <div className="row">
                 <div className="col-12">
-                    <button type="sub" className="btnloginWithAuth0" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
+                    <button className="btnloginWithAuth0" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
                 </div>
                 </div>
                 <Link to={'/home'}>
@@ -159,5 +186,6 @@ export default function Login(){
 
     )
 }
+
 
 
