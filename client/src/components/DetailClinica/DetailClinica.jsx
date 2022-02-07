@@ -205,7 +205,7 @@ export default function DetailClinica(){
                         </div>
                         <div  className="col  shadow-lg p-3 mb-5  rounded nosotros_item">
                             <h2>Que te brindamos?</h2>
-                            <p> Como profesional de la salud, usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular.<Link to='/login'>Hazlo ya!</Link></p>
+                            <p> Usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular.</p>
                         </div>
                         <div  className="col  shadow-lg p-3 mb-5  rounded nosotros_item none_item">
                             <h2>y si te Registras?</h2>

@@ -7,6 +7,8 @@ import { login_validate} from '../../actions'
 import Cookies from 'universal-cookie';
 import swal from 'sweetalert';
 import './loginStyle.css'
+import logo from '../../components/utils/images-landing/logo.png'
+
 
 
 export default function Login(){
@@ -30,12 +32,8 @@ export default function Login(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_validate(input));
-        setTimeout(logreq(), 3000)
+        setTimeout(logreq(), 2000)
     }  
-
-    useEffect(()=>{
-        dispatch(login_validate(input))
-    },[input])
 
     function logreq(){
         if(cliente.length > 0){
@@ -59,7 +57,8 @@ export default function Login(){
 
             swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
             console.log(cookies.get('email')+ " inicio sesion");
-            setTimeout(()=> window.location.href='./', 3000) ;
+
+            setTimeout(()=> window.location.href='/', 2000) ;
         }
         else {
             swal({
@@ -80,6 +79,14 @@ export default function Login(){
             ...input,
             [e.target.name]: e.target.value
         }));
+        if (input.email !== ''){
+            const usr = document.getElementById("username");
+            usr.className = "inptValue"
+        }
+        if (input.password !== ''){
+            const pwd = document.getElementById("password");
+            pwd.className = "inptValue"
+        }
     }
 
     function validate(input) {
@@ -93,16 +100,14 @@ export default function Login(){
         return errors;
     }
 
-    function toggler(e) {
+    function handleCheckbox(e) {
         const pwd = document.getElementById('password');
-        if( e.innerHTML === 'Show' ) {
-            e.innerHTML = 'Hide'
+        if( e.target.checked) {
             pwd.type="text";
-        } if( e.innerHTML === 'Hide' ) {
-            e.innerHTML = 'Show'
-            pwd.type="password";
-        }
-      }
+        } 
+        else pwd.type="password";
+
+    }
 
     return(
         <div className="container">
@@ -110,7 +115,7 @@ export default function Login(){
                 <div className="row">
                 <div className="col-12">
                     <Link to='/home'>
-                    <img className="imglogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sansum_Clinic_logo.svg/640px-Sansum_Clinic_logo.svg.png" alt="nf" />
+                    <img className="imglogin" src={logo} alt="nf" />
                     </Link>
                     </div>
                 </div>
@@ -146,7 +151,8 @@ export default function Login(){
                     value={input.password}
                     onChange={(e)=>handleChange(e)}
                 />
-                {/* <button id="eyeeye" onclick={toggler(window)} type='button'>Show</button> */}
+                <br></br>
+                <input className="checkbocshowpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="showpass">Show password</p>
                 {errors.password && (
                         <p className='errorNotWrtd' >{errors.password}</p>
                     )}
@@ -170,10 +176,13 @@ export default function Login(){
                    <a className="noaccreg" href="/register">Registrarse</a>
                    </div>
                    </div>
-                <p>o</p>
+                <p> ━ o ━ </p>
                 <div className="row">
                 <div className="col-12">
-                    <button className="btnloginWithAuth0" type="reset" onClick={()=> loginWithRedirect()}>Continuar con Auth0</button>
+                    <button className="btnloginWithAuth0" type="reset" onClick={async()=> await loginWithRedirect({connection: 'google-oauth2'})}>
+                    <img className='googlelog' src="https://cdn.auth0.com/marketplace/catalog/content/assets/creators/google/google-avatar.png" alt="G"/>
+                        Continuar con Google
+                    </button>
                 </div>
                 </div>
                 <Link to={'/home'}>
