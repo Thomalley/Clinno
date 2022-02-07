@@ -19,7 +19,7 @@ router.post('/', async (req,res) => {
 })
 router.get('/:id', async (req, res) => {
     try{
-        const clinDb = await Clinca.findAll({})
+        const clinDb = await Clinica.findAll({})
         res.send(clinDb)
     }
     catch(err){

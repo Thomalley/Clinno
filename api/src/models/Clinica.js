@@ -16,8 +16,8 @@ module.exports = (sequelize) => {
     direccion:{
       type: DataTypes.STRING
     },
-    logo:{
-      type: DataTypes.STRING
+    telefono:{
+      type: DataTypes.INTEGER
     }
   });
 };

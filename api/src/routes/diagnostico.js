@@ -27,14 +27,7 @@ router.post('/', async (req,res) =>{
         console.log(err)
     }
 })
-router.get("/", async(req,res) => {
-    try{
 
-    }
-    catch(err){
-        console.log(err)
-    }
-})
 
 router.get('/', async (req,res) => {
     try{
