@@ -7,8 +7,9 @@ import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
 import RegisterClinic from './components/Register/RegisterClinic';
 import HomeClients from './components/HomeClients/HomeClients';
+import LoginClinica from './components/LoginClinica/LoginClinica';
+import AdminClinica from './components/AdminClinica/AdminClinica';
 import Reviews from './components/Reviews/Reviews'
-
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path='/Home' element={<HomeClients/>}/>
           <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
+          <Route path='/loginClinica' element={<LoginClinica/>}/>
+          <Route path='/adminClinica' element={<AdminClinica/>}/>
         </Routes>
       </div>
     </BrowserRouter>

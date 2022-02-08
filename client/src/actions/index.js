@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createSearchParams } from 'react-router-dom';
+import { createSearchParams, renderMatches } from 'react-router-dom';
 
 //acceso a informacion de todos los clientes para admin
 export function getClients (){
@@ -65,6 +65,48 @@ export function registrarCliente(payload){
     }
 }
 
+    
+//Clinica
+
+export function login_clinica(payload){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/clinica');
+            for(let i = 0 ; i < json.data.length ; i++){
+                if (json.data[i].email === payload.email && json.data[i].password === payload.password){
+                const datos = [{
+                    id : json.data[i].id,
+                    nombre : json.data[i].nombre,
+                    direccion : json.data[i].direccion,
+                    telefono : json.data[i].telefono,
+                    mail : json.data[i].mail,
+                    password : json.data[i].password,
+                    nombreEn : json.data[i].nombreEn,
+                    apellidoEn : json.data[i].apellidoEn,
+                    DNIEn : json.data[i].DNIEn,
+                    createdAt : json.data[i].createdAt
+                }]
+                return dispatch({
+                    type : "CLINICA_USER",
+                    payload : datos
+                    });
+                }
+                else {
+                    dispatch({
+                        type : "CLINICA_USER",
+                        payload : []
+                    });
+                }
+            }
+           
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}
+
+
 export function registrarClinica(payload){
     return async function (dispatch){
     console.log(payload)
@@ -73,3 +115,37 @@ export function registrarClinica(payload){
     return response
 }
 }
+
+
+
+
+//Password Reset :)//
+
+export function ResetPassword (id,password){
+    return function (dispatch){
+        const url = `/clientes/${id}/passwordReset`;
+        return axios.put(url, {password: password})
+        .then(res => res.data)
+        .then (data => {
+            console.log('aca esta', data.password);
+            dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
+        })
+        .then(() => 
+        swal("Changed password successfully!", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          })
+        )
+        .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))  
+}}
+
+export function logoutUser() {
+    return function (dispatch) {
+      const url = "/users/logout";
+      return axios.post(url)
+        .then(() => alert('La sesión se ha cerrado'))
+        .catch(error => alert(error, 'algo salio muy mal'))
+    }
+  }
+
