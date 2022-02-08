@@ -64,4 +64,12 @@ export function registrarCliente(payload){
         return response
     }
 }
-    
+
+export function registrarClinica(payload){
+    return async function (dispatch){
+    console.log(payload)
+    const response = await axios.post("http://localhost:3001/clinica", payload)
+    console.log(response)
+    return response
+}
+}

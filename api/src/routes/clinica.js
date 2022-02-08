@@ -4,13 +4,13 @@ router = Router()
 
 router.post('/', async (req,res) => {
     try{
-        const {nombre, direccion, telefono, mail, contraseña, nombreEn, apellidoEn, DNIEn} = req.body;
+        const {nombre, direccion, telefono, mail, password, nombreEn, apellidoEn, DNIEn} = req.body;
         const cli = await Clinica.create({
           nombre,
           direccion,
           telefono,
           mail,
-          contraseña,
+          password,
           nombreEn,
           apellidoEn,
           DNIEn
