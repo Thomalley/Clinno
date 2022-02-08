@@ -17,12 +17,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     telefono:{
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
     mail:{
       type: DataTypes.STRING
     },
-    constraseña:{
+    password:{
       type: DataTypes.STRING
     },
     nombreEn: {
