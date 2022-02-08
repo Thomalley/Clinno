@@ -21,7 +21,7 @@ export default function Register(){
 
       dispatch(registrarCliente(data))
       swal('Usuario Creado!')
-      navigate('/home')
+      navigate('/login')
     }
 
   return (
