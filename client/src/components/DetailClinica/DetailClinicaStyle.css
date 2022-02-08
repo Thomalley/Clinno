@@ -237,7 +237,7 @@
   }
 /* Fin Animacion inicial */
 
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
     .contenedor_home{
         width: 100%;
         overflow: hidden;
