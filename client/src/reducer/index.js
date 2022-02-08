@@ -19,6 +19,11 @@ const rootReducer = (state = initialState, action)=>{
             return{
                 ...state,
             }
+
+        case 'POST_CLINIC':
+            return{
+                ...state,
+            }
         
             case "VALIDATE_USER" :
             return{
