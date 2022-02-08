@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createSearchParams, renderMatches } from 'react-router-dom';
+import swal from 'sweetalert';
 
 //acceso a informacion de todos los clientes para admin
 export function getClients (){
@@ -128,7 +129,7 @@ export function ResetPassword (id,password){
         .then(res => res.data)
         .then (data => {
             console.log('aca esta', data.password);
-            dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
+            dispatch({ type: "RESET_PASSWORD", payload: {password: data.password} })
         })
         .then(() => 
         swal("Changed password successfully!", {
@@ -148,4 +149,3 @@ export function logoutUser() {
         .catch(error => alert(error, 'algo salio muy mal'))
     }
   }
-

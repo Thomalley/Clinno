@@ -67,7 +67,7 @@ export default function NavBar({loggin}){
                             </>}
                             
                             {   loggin?
-                                <>
+                                <> 
                                     <li className="nav-item item_season">                    
                                         <button className="nav-link active item_navBar btn btn-outline border-start font_sesion" type="button" onClick={cerrarSesion}>Cerrar sesion</button>
                                     </li>
@@ -75,10 +75,7 @@ export default function NavBar({loggin}){
                                         <Link className="nav-link active item_navBar " to='/me'>Mi Perfil</Link>
                                     </li> */}
                                     <li className="nav-item">
-                                        <Link to='/home' className="nav-link active  item_navBar" href='#nosotros'>{user?.name? user.name : cookies.get('nombre') }</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/home'><img className="usuario_navBar_imagen" src={user?.picture?user?.picture:usuario} alt="user"/></Link               >
+                                        <Link to='/me'><img className="usuario_navBar_imagen" src={user?.picture?user?.picture:usuario} alt="user"/><button>{user?.name? user.name : cookies.get('nombre') }</button></Link>
                                     </li>
                                     
                                 </>

@@ -10,12 +10,16 @@ import HomeClients from './components/HomeClients/HomeClients';
 import LoginClinica from './components/LoginClinica/LoginClinica';
 import AdminClinica from './components/AdminClinica/AdminClinica';
 import Reviews from './components/Reviews/Reviews'
+import ClientCard from './components/ClientCard/ClientCard';
+import PasswordReset from './components/ClientCard/PasswordReset';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/passwordreset' element={<PasswordReset/>}/>
+          <Route path='/me' element={<ClientCard/>}/>
           <Route path='/reviews' element={<Reviews/>}/>
           <Route path='/aboutClinno' element={<LandingPage/>}/>
           <Route path='/' element={<HomeClients/>}/>
