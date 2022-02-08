@@ -16,7 +16,22 @@ module.exports = (sequelize) => {
     direccion:{
       type: DataTypes.STRING
     },
-    logo:{
+    telefono:{
+      type: DataTypes.INTEGER
+    },
+    mail:{
+      type: DataTypes.STRING
+    },
+    constraseña:{
+      type: DataTypes.STRING
+    },
+    nombreEn: {
+     type: DataTypes.STRING
+    },
+    apellidoEn: {
+      type: DataTypes.STRING
+    },
+    DNIEn: {
       type: DataTypes.STRING
     }
   });

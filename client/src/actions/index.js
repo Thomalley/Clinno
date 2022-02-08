@@ -54,7 +54,6 @@ export function login_validate(payload){
     }
 }
 
-
 //POST
 
 export function registrarCliente(payload){
@@ -65,3 +64,4 @@ export function registrarCliente(payload){
         return response
     }
 }
+    

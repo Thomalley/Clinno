@@ -133,6 +133,7 @@ router.post("/", async (req,res) => {
            }).then(cliente => {res.status(200).json ({cliente})})
      }).catch(error => { res.status(400).json({ error }) })
      });
+     
     
     //ruta para ver cliente 'me'=== /GET /CLIENTE/ME"
      router.get('/me',
