@@ -7,6 +7,7 @@ import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
 import RegisterClinic from './components/Register/RegisterClinic';
 import HomeClients from './components/HomeClients/HomeClients';
+import Reviews from './components/Reviews/Reviews';
 import LoginClinica from './components/LoginClinica/LoginClinica';
 import AdminClinica from './components/AdminClinica/AdminClinica';
 
@@ -15,6 +16,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/reviews' element={<Reviews/>}/>
           <Route path='/aboutClinno' element={<LandingPage/>}/>
           <Route path='/' element={<HomeClients/>}/>
           <Route exact path='/register' element={<Register/>}/>

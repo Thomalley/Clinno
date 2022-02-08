@@ -1,0 +1,21 @@
+.card-deck{
+    width: 500px;
+    margin: auto;
+    padding-top: 90px;
+    
+
+}
+
+.carta-review{
+    margin-bottom: 30px;
+}
+
+.image-review{
+    width: 100px;
+    height: auto;
+    margin: auto;
+}
+
+.footer-review{
+    margin-bottom: 0px;
+}
