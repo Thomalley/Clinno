@@ -65,3 +65,42 @@ export function registrarCliente(payload){
     }
 }
     
+//Clinica
+
+export function login_clinica(payload){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/clinica');
+            for(let i = 0 ; i < json.data.length ; i++){
+                if (json.data[i].email === payload.email && json.data[i].password === payload.password){
+                const datos = [{
+                    id : json.data[i].id,
+                    nombre : json.data[i].nombre,
+                    direccion : json.data[i].direccion,
+                    telefono : json.data[i].telefono,
+                    mail : json.data[i].mail,
+                    password : json.data[i].password,
+                    nombreEn : json.data[i].nombreEn,
+                    apellidoEn : json.data[i].apellidoEn,
+                    DNIEn : json.data[i].DNIEn,
+                    createdAt : json.data[i].createdAt
+                }]
+                return dispatch({
+                    type : "CLINICA_USER",
+                    payload : datos
+                    });
+                }
+                else {
+                    dispatch({
+                        type : "CLINICA_USER",
+                        payload : []
+                    });
+                }
+            }
+           
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}

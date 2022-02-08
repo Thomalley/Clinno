@@ -1,6 +1,7 @@
 const initialState = {
     clientes : [],
-    cliente : []
+    cliente : [],
+    clinica: []
 };
 
 
@@ -30,6 +31,11 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 cliente : action.payload
 
+            }
+        case 'CLINICA_USER':
+            return{
+                ...state,
+                clinica: action.payload
             }
         default :
         return state;

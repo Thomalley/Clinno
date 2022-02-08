@@ -1,0 +1,98 @@
+.container_loggin_clinica{
+    padding: 0px;
+}
+
+.contenedor_loggin{
+    border: 1px solid black;
+    background-color: #c1e6fc;
+    border-radius: 15px;
+    margin: 100px auto;
+    padding: 0px 20px;
+    width: 420px;    
+    height: 550px;
+    border-color: transparent;
+    box-shadow: 0px 0px 140px -80px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.inptwr_clinica{
+    height: 40px;
+    width: 189px;
+    margin: 2px;
+    border-color: red;
+    border-radius: 5px;
+    padding-left: 2px;
+}
+.input_clinica{
+    height: 40px;
+    width: 189px;
+    margin: 2px;
+    border-radius: 5px;
+    padding-left: 2px;
+}
+
+.errorNot{
+    font-size: 12px;
+    color: red;
+    position: relative;
+    left: 92px;
+    margin: 2px;
+    display: flex;
+}
+
+.imgloginClinica{
+    width: 246px;
+    height: auto;
+    margin: 21px;
+}
+
+.btnLoggin{
+    height: 40px;
+    width: 184px;
+    border:1px solid #ababab;
+    color: #111;
+    font-weight: 500;
+    background-color: #f2ffff;
+}
+.btnLoggin_back{
+    height: 40px;
+    width: 184px;
+    border:1px solid #ababab;
+    color: white;
+    background-color: #12ace4;
+}
+
+.checkboc_showpass{
+    float: left;
+    position: relative;
+    left: 120px;
+    top: 5px;
+}
+
+.show_pass{
+    font-size: 13px;
+    display: initial;
+    position: relative;
+    right: 8px;
+    font-weight: 600;
+    color: gray;
+}
+.litle_text{
+    display: contents;
+    font-size: 13px;
+}
+.volver_inicio{
+    margin-top: 5.4rem;
+}
+
+@media (max-width: 375px) {
+    .contenedor_loggin{
+        width: 320px;
+    }
+    .checkboc_showpass{
+        left: 68px;
+    }
+
+}
