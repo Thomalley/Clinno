@@ -30,7 +30,7 @@ export default function NavLanding({ component }) {
           <h5> <img src={icono} alt="logo" width="25px"/>   Soy una clinica </h5>
           </Link>
         ) : (
-          <Link to="/aboutClinno">
+          <Link to="/">
             <h5>|   Volver a clinno   </h5>
           </Link>
         )}
