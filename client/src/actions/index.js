@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createSearchParams } from 'react-router-dom';
+import { createSearchParams, renderMatches } from 'react-router-dom';
 
 //acceso a informacion de todos los clientes para admin
 export function getClients (){
@@ -73,3 +73,35 @@ export function registrarClinica(payload){
     return response
 }
 }
+
+
+
+//Password Reset :)//
+
+export function ResetPassword (id,password){
+    return function (dispatch){
+        const url = `/clientes/${id}/passwordReset`;
+        return axios.put(url, {password: password})
+        .then(res => res.data)
+        .then (data => {
+            console.log('aca esta', data.password);
+            dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
+        })
+        .then(() => 
+        swal("Changed password successfully!", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          })
+        )
+        .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))  
+}}
+
+export function logoutUser() {
+    return function (dispatch) {
+      const url = "/users/logout";
+      return axios.post(url)
+        .then(() => alert('La sesión se ha cerrado'))
+        .catch(error => alert(error, 'algo salio muy mal'))
+    }
+  }
