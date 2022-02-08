@@ -31,7 +31,7 @@ export default function RegisterClinic(){
     </Link>
     </nav>
     <div className='container11'>
-    <div className="col-12">
+    <div className="col-12 m-1">
     <img className="imglogo" src={logo} alt="nf" />
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
