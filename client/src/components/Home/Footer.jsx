@@ -18,7 +18,7 @@ export default function Footer(){
                 <Link className="navbar-brand logo-container_home logo_clinno" to='/'>
                     <img src={logo} alt="logo" />
                 </Link>
-                <p ><Link className="texto_final#" to="/aboutClinno"> Sobre Clino </Link></p>
+                <p ><Link className="texto_final#" to="/aboutClinno"> Sobre Clino </Link> | <Link className="texto_final#" to="/adminClinica"> Soy Clinica </Link> </p>
             </div>
 
         </footer>

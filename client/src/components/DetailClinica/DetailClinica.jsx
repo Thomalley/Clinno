@@ -41,19 +41,6 @@ let newArray = [
     "Simon Urbano",
     "Judit Buendia",
 ]
-let arrayEsp = [
-    "Fisiatría",
-    "Pediatría",
-    "Traumatología",
-    "Cardiología",
-    "Gastroenterología",
-    "Neurología",
-    "Psiquiatría",
-    "Kinesiología",
-    "Psicología",
-    "Nutrición",
-    "Fonoaudiología"
-];
 
 export default function DetailClinica(){
     
@@ -220,15 +207,15 @@ export default function DetailClinica(){
                 <div id='doctores' className=" doctores">
                         <h2 className="m-4">Nuestra Clinica</h2>
                 </div>
-                <div class="accordion direccion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div className="accordion direccion" id="accordionExample">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingOne">
+                        <button className="accordion-button d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Donde estamos?
                         </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body d-flex justify-content-start align-items-center acordeon_direccion">
+                        <div id="collapseOne" className="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div className="accordion-body d-flex justify-content-start align-items-center acordeon_direccion">
                             <div className="nombre_hospital item_direccion"><img className="imglogo" src={clinic[0].logo} alt="nf" /></div>
                             <p className="item_direccion"> Estamos en {clinic[0].direccion}, Buenos Aires, Capital Federal </p>
                         </div>
