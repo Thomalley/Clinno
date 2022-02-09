@@ -8,6 +8,8 @@ import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
 import RegisterClinic from './components/Register/RegisterClinic';
 import HomeClients from './components/HomeClients/HomeClients';
+import Turno from './components/Turno/Turno';
+
 
 
 
@@ -24,6 +26,7 @@ function App() {
           <Route path='/Home' element={<HomeClients/>}/>
           <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
+          <Route path='/test' element={<Turno/>}/>
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 router = Router()
-const { Especialidad } = require('../db')
+const { Especialidad, Clinica } = require('../db')
 
 router.get('/', async (req, res, next) => {
     try {
@@ -35,12 +35,29 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try{
+        const {id} = req.params
+        const clinDb = await Especialidad.findByPk(
+            id,
+            {include: Clinica}
+        )
+        res.send(clinDb)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 router.post('/', async (req, res, next) => {
     try{
-        const {nombre} = req.body
+        const {
+            nombre,
+            horaComienzo,
+            horaFinal
+        } = req.body
 
-        const newEspe = await Especialidad.create({nombre})
+        const newEspe = await Especialidad.create({nombre, horaComienzo, horaFinal})
         res.send(newEspe)
     }catch(err){
         next(err)

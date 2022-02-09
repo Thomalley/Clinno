@@ -12,12 +12,7 @@ module.exports = (sequelize) => {
     },
     nombre: {
       type: DataTypes.STRING,
-    },
-    disponibilidad:{
-      type: DataTypes.BOOLEAN,
-    }
-    
-
+    } 
   });
 };
 

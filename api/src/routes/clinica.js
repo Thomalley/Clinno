@@ -1,30 +1,41 @@
 const { Router } = require("express");
-const {Clinica} = require("../db")
+const {Clinica, Especialidad} = require("../db")
 router = Router()
+
+// router.post('/', async (req,res) => {
+//     try{
+//         const {nombre, direccion} = req.body;
+//         const cli = await Clinica.create({
+//           nombre,
+//           direccion
+//         })
+
+//         res.send(cli)
+//     }
+//     catch(err){
+//         console.log(err)
+//     }
+// })
+
 
 router.post('/', async (req,res) => {
     try{
-        const {nombre, direccion, logo} = req.body;
+        const {nombre, direccion, telefono, mail, password, nombreEn, apellidoEn, DNIEn, especialidad} = req.body;
         const cli = await Clinica.create({
           nombre,
           direccion,
-          logo
+          telefono,
+          mail,
+          password,
+          nombreEn,
+          apellidoEn,
+          DNIEn,
         })
-
+        await cli.addEspecialidad(especialidad)
         res.send(cli)
     }
     catch(err){
         console.log(err)
     }
 })
-router.get('/:id', async (req, res) => {
-    try{
-        const clinDb = await Clinca.findAll({})
-        res.send(clinDb)
-    }
-    catch(err){
-        console.log(err)
-    }
-})
-
 module.exports = router
