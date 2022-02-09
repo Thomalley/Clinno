@@ -50,31 +50,31 @@ export default function LandingPage() {
               <div className="carousel-item active">
                 <img src={slide1} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  <Link to="/home">
+                  {/*<Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
-                  </Link>
+  </Link>*/}
                 </div>
               </div>
               <div className="carousel-item">
                 <img src={slide2} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  <Link to="/home">
+                  {/*<Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
-                  </Link>
+  </Link>*/}
                 </div>
               </div>
               <div className="carousel-item">
                 <img src={slide3} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  <Link to="/home">
+                  {/*<Link to="/home">
                     <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLINICA
+                      LIVE DEMO COMO CLIENTE
                     </button>
-                  </Link>
+  </Link>*/}
                 </div>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-        <Demo />
+        {/*<Demo />*/}
 
         <div className="top-slice">
           <div className="text-conteiner1">

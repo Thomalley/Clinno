@@ -2,62 +2,63 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
-import { login_validate} from '../../actions'
+import { login_clinica} from '../../actions'
 import Cookies from 'universal-cookie';
 import swal from 'sweetalert';
-import './loginStyle.css'
-import logo from '../../components/utils/images-landing/logo.png'
+
+import logo from '../../components/utils/images-landing/logo.png';
+import './LoginClinicaStyle.css';
 
 
-export default function Login(){
+export default function LoginClinica(){
 
     const cookies = new Cookies();
     const dispatch = useDispatch();
-    const cliente = useSelector((state)=> state.cliente);
+    const clinica = useSelector((state)=> state.clinica);
     const [errors, setErrors] = useState({});
-    const {loginWithRedirect} = useAuth0();
     const [loggeado,setLoggeado] = useState({"logged" : false});   
     const [input, setInput] = useState({
-        email : '',
+        mail : '',
         password : '',
     });
 
     useEffect(() => {
-        dispatch(login_validate(input));
+        // dispatch(login_validate(input));
+        dispatch(login_clinica(input));
     },[input])
 
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(login_validate(input));
-        setTimeout(logreq(), 2000)
+        dispatch(login_clinica(input));
+        setTimeout(logreq(), 2000);
     }  
 
     function logreq(){
-        if(cliente.length > 0){
-            const data = cliente[0];
-            cookies.set('email', data.email, {path: '/'});
-            cookies.set('nombre', data.nombre, {path: '/'});
-            cookies.set('apellido', data.apellido, {path: '/'});
-            cookies.set('direccion', data.direccion, {path: '/'});
-            cookies.set('id', data.id, {path: '/'});
-            cookies.set('dni', data.dni, {path: '/'});
-            cookies.set('admin', data.admin, {path: '/'});
-            cookies.set('createdAt', data.createdAt, {path: '/'});
+        if(clinica.length > 0){
+            const data = clinica[0];
+            cookies.set('clinica_mail', data.mail, {path: '/'});
+            cookies.set('clinica_nombre', data.nombre, {path: '/'});
+            cookies.set('clinica_telefono', data.telefono, {path: '/'});
+            cookies.set('clinica_direccion', data.direccion, {path: '/'});
+            cookies.set('clinica_id', data.id, {path: '/'});
+            cookies.set('clinica_nombreEn', data.nombreEn, {path: '/'});
+            cookies.set('clinica_apellidoEn', data.apellidoEn, {path: '/'});
+            cookies.set('clinica_DNIEn', data.DNIEn, {path: '/'});
+            cookies.set('clinica_createdAt', data.createdAt, {path: '/'});
             setLoggeado({
                 ...loggeado,
                 logged : true
             });
             setInput({
-                email : '',
+                mail : '',
                 password : '',
             });
 
             swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
-            console.log(cookies.get('email')+ " inicio sesion");
+            console.log(cookies.get('clinica_mail')+ " inicio sesion de Clinica");
 
-            setTimeout(()=> window.location.href='/', 2000) ;
+            setTimeout(()=> window.location.href='/adminClinica', 2000) ;
 
         }
         else {
@@ -79,7 +80,7 @@ export default function Login(){
             ...input,
             [e.target.name]: e.target.value
         }));
-        if (input.email !== ''){
+        if (input.mail !== ''){
             const usr = document.getElementById("username");
             usr.className = "inptValue"
         }
@@ -91,8 +92,8 @@ export default function Login(){
 
     function validate(input) {
         const errors = {};
-        if (!input.email) {
-            errors.email = '*E-mail requerido ';
+        if (!input.mail) {
+            errors.mail = '*E-mail requerido ';
         }
         if (!input.password) {
             errors.password = '*Contrasena requerida ';
@@ -110,32 +111,32 @@ export default function Login(){
     }
 
     return(
-        <div className="container">
-            <form className="cont" onSubmit={(e)=> handleSubmit(e)}>
+        <div className="container container_loggin_clinica ">
+            <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}>
                 <div className="row">
                 <div className="col-12">
                     <Link to='/home'>
-                    <img className="imglogin" src={logo} alt="nf" />
+                    <img className="imgloginClinica" src={logo} alt="logo Clinno" />
                     </Link>
                     </div>
                 </div>
                 <div className="row">
-                <h2>Bienvenido</h2>
+                <h2>Bienvenido </h2>
                 </div>
-                <p className="desclogin">Inicie sesion para continuar..</p>
+                <p>Debes iniciar sesion para continuar..</p>
                 <div className="row">
                     <div className="col-12">
                 <input 
                     type='text'
                     placeholder="Email adress"
                     id="username"
-                    className={errors.email? "inptwr" : "inpt"}
-                    value={input.email}
-                    name='email'
+                    className={errors.mail? "inptwr_clinica" : "input_clinica"}
+                    value={input.mail}
+                    name='mail'
                     onChange={(e)=>handleChange(e)}
                 />
-                {errors.email && (
-                        <p className='errorNotWrtd' >{errors.email}</p>
+                {errors.mail && (
+                        <p className='errorNot' >{errors.mail}</p>
                     )}
                     </div>
                 </div>
@@ -147,46 +148,36 @@ export default function Login(){
                     placeholder="Password"
                     name='password'
                     id="password"
-                    className={errors.password? "inptwr" : "inpt"}
+                    className={errors.password? "inptwr_clinica" : "input_clinica"}
                     value={input.password}
                     onChange={(e)=>handleChange(e)}
                 />
                 <br></br>
-                <input className="checkbocshowpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="showpass">Show password</p>
+                <input className="checkboc_showpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="show_pass">Show password</p>
                 {errors.password && (
-                        <p className='errorNotWrtd' >{errors.password}</p>
+                        <p className='errorNot' >{errors.password}</p>
                     )}
                 </div>
                 </div>
-                {/*<a className="noaccreg" href="/recover">Olvidaste tu contraseña?</a>*/}
                 <div className="row">
                     <div className="col-12 
                     ">
                     <button
                         type="submit"
-                        className={errors.username || errors.password ? "btnlogincontinueBlocked" : "btnlogincontinue"}
+                        className="btnLoggin"
                     >Continuar
                     </button>
                     </div>
                     </div>
                 <div className="row">
-                <div className="col-12 
-                ">
-                    <p className="noaccreg">No tenes cuenta? </p>
-                   <a className="noaccreg" href="/register">Registrarse</a>
+                    <div className="col-12">
+                        <p className="litle_text">No tenes cuenta de clinica? </p>
+                        <a className="litle_text" href="/registerClinic">Registrarse</a>
                    </div>
-                   </div>
-                <p> ━ o ━ </p>
-                <div className="row">
-                <div className="col-12">
-                    <button className="btnloginWithAuth0" type="reset" onClick={async()=> await loginWithRedirect({connection: 'google-oauth2'})}>
-                    <img className='googlelog' src="https://cdn.auth0.com/marketplace/catalog/content/assets/creators/google/google-avatar.png" alt="G"/>
-                        Continuar con Google
-                    </button>
                 </div>
-                </div>
-                <Link to={'/home'}>
-                    <button className="btnloginback">Volver a inicio</button>
+                
+                <Link className="volver_inicio" to={'/home'}>
+                    <button className="btnLoggin_back">Volver a inicio</button>
                 </Link>
             </form> 
         </div>
@@ -195,6 +186,3 @@ export default function Login(){
 
     )
 }
-
-
-

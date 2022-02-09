@@ -61,14 +61,14 @@ export default function AboutUs(){
         <div className='AboutUs'>
        
         </div>
-        <div className="conteiner-devs">
-          <h3>Somos un equipo de programadores  que ofrecemos nuestros mejores conocimientos y experiencia, para conseguir que las clinicas de todo capital federal puedan realizar su parte administrativa de la forma más fácil y rápida posible.</h3>
+        <div className="conteiner-devs col-12">
+          <h3>Somos un grupo de desarrolladores que nos enfocamos en resolver las problemáticas que le surgen a las personas en el día a día de la manera más rápida y eficaz posible</h3>
                
              <div className="develops"> 
                 {develop.map((dev)=>(  <div className="container2"> <img id='sinfoto' src={img} alt={dev.name} /> <br/> <h4>{dev.name}</h4> <button className='btn-social' id='btn'>{dev.git}</button> <button className='btn-social' id='btn'>{dev.linkedin}</button> </div>      ))} 
             </div>
     
-            <Demo/>
+            {/*<Demo/>*/}
             <br/>
             <h2>Tecnologias</h2>
             <div className='Tecnologias'>
@@ -82,7 +82,9 @@ export default function AboutUs(){
             <img id="images" src={github} alt="asd" />
             </div>
             </div>
+            <div>
               <Footer />
+            </div>
             </div>
             </div>
         </div>

@@ -36,6 +36,7 @@
 }
 
 .big-box{
+   
     
     background-color: #A5DBD2;
     display: flex;
@@ -66,6 +67,38 @@
     font-size: 30px;
 
 }
+
+.button-allclinics-box button {background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC  51%, #02AAB0  100%)}
+.button-allclinics-box button {
+    
+   margin: auto ;
+   padding: 10px;
+   
+   
+   
+   transition: 0.5s;
+   background-size: 100% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 4px;
+   display: flex;
+   justify-content: center;
+ }
+
+ .button-allclinics-box:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+
+ .button-allclinics-box a{
+      text-decoration: none;
+      color: #ffffff;
+    font-size: 5px;
+  }
+
+
+  
 
 .esp-box{
 
@@ -99,8 +132,10 @@
 .clinics{
     display:flex;
     flex-direction: row;
-    margin: auto;
+    margin: 100px;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+    
 
 }
 
@@ -111,11 +146,13 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 30%;
-    height: 450px;
+    width: 20%;
+    height: 350px;
     justify-content: center;
-    box-shadow: 0px 0px 36px 24px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 26px 14px rgba(0,0,0,0.1),0px 5px 10px -3px rgba(0,0,0,0.1);
    margin-bottom: 50px;
+   margin-left: 30px;
+   margin-right: 30px;
    border-radius: 5px;
 
 
@@ -123,12 +160,13 @@
 
 .card-clinic h5{
     font-weight: bold;
+    font-size: 20px;
 
 }
 
 .img-logo-clinics{
     display: flex;
-   
+    overflow: hidden;
     height: 200px;
     align-items: center;
     
@@ -138,7 +176,7 @@
 
 }
 .img-logo-clinics img{
-    width: 200px;
+    width: 125px;
     margin: auto;
 
 }
@@ -163,7 +201,7 @@
      padding: 10px;
      
      
-     text-transform: uppercase;
+     
      transition: 0.5s;
      background-size: 100% auto;
      color: white;            
@@ -191,7 +229,9 @@
         flex-direction: column;
     }
 
-@media (max-width: 850px) {
+
+
+@media (max-width: 950px) {
     .steps-box{
         display: flex;
         flex-direction: column;

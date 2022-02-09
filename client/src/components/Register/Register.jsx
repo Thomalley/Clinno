@@ -1,10 +1,11 @@
 import './Register.css'
+import { useSelector } from 'react-redux';
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import {registrarCliente} from '../../actions/index';
+import {registrarCliente, getClients} from '../../actions/index';
 import swal from 'sweetalert';
 import logo from '../../components/utils/images-landing/logo.png'
 import Footer from '../Home/Footer';
@@ -13,16 +14,33 @@ import Footer from '../Home/Footer';
 
 export default function Register(){
 
+  useEffect ( () => {
+    dispatch(getClients())
+},[])
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const clientes = useSelector((state)=> state.clientes);
+
+    console.log(clientes)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
 
+    let registrado = false;
+    
+      for(let i=0; i<clientes.length; i++){
+        if (clientes[i].email === data.email || clientes[i].dni === data.dni){
+          swal('El mail ya corresponde a un usuario registrado')
+          registrado = true;
+          break;
+        }
+      }
+      if (!registrado){
       dispatch(registrarCliente(data))
       swal('Usuario Creado!')
-      navigate('/home')
-    }
+      navigate('/login')
+    }}
 
   return (
     <div>

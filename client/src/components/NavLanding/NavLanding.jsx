@@ -12,17 +12,17 @@ export default function NavLanding({ component }) {
       </div>
       <div className="logo-container-text">
         {component === "Landing" ? (
-          <div>
-            <Link to="/register">
+         <div>
+            {/* {<Link to="/register">
               <h5>|  Registrarme </h5> 
             </Link>
 
             <Link to="/login">
               <h5> |  Iniciar sesión   </h5>
-            </Link>
+            </Link>} */}
 
             <Link to="/">
-              <h5>| Soy cliente   </h5>
+              <h5>| Home   </h5>
             </Link>
           </div>
         ) : component === "HomeClients" ? (
@@ -30,7 +30,7 @@ export default function NavLanding({ component }) {
           <h5> <img src={icono} alt="logo" width="25px"/>   Soy una clinica </h5>
           </Link>
         ) : (
-          <Link to="/aboutClinno">
+          <Link to="/">
             <h5>|   Volver a clinno   </h5>
           </Link>
         )}

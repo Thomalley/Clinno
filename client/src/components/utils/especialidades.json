@@ -49,6 +49,21 @@
                 "direccion":"Rodriguez 2893",
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hosp_britanico_logo.svg/1200px-Hosp_britanico_logo.svg.png"
                 
+            },
+            {
+                "nombre":"Sacred Health",
+                "direccion":"av. Constitucion politica 456",
+                "logo": "https://www.seekpng.com/png/full/313-3136999_https-upload-wikimedia-heart-hospital-nbc-urdaneta-sacred.png"
+            },
+            {
+                "nombre":"Yale New Haven Health",
+                "direccion":"av. Solidarios Constituyentes 764",
+                "logo": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1462015876/yhgrpnorv1ixb5s0gysi.png"
+            },
+            {
+                "nombre":"Miraflores",
+                "direccion":"av. Solidaridad 874",
+                "logo": "http://www.hospitalmiraflores.com/wp-content/uploads/2018/07/hospital-miraflores-logo1.png"
             }
 
 
@@ -65,7 +80,22 @@
                 "direccion":"av. cabrera 210",
                 "logo": "https://marte.com.mx/wp-content/uploads/logo79.png"
 
-            }        
+            } ,
+            {
+                "nombre":"Sacred Health",
+                "direccion":"av. Constitucion politica 456",
+                "logo": "https://www.seekpng.com/png/full/313-3136999_https-upload-wikimedia-heart-hospital-nbc-urdaneta-sacred.png"
+            },
+            {
+                "nombre":"Yale New Haven Health",
+                "direccion":"av. Solidarios Constituyentes 764",
+                "logo": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1462015876/yhgrpnorv1ixb5s0gysi.png"
+            },
+            {
+                "nombre":"Miraflores",
+                "direccion":"av. Solidaridad 874",
+                "logo": "http://www.hospitalmiraflores.com/wp-content/uploads/2018/07/hospital-miraflores-logo1.png"
+            }      
 
 
 
@@ -81,6 +111,16 @@
                 "direccion":"av. cabrera 210",
                 "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png"
 
+            },
+            {
+                "nombre":"Sacred Health",
+                "direccion":"av. Constitucion politica 456",
+                "logo": "https://www.seekpng.com/png/full/313-3136999_https-upload-wikimedia-heart-hospital-nbc-urdaneta-sacred.png"
+            },
+            {
+                "nombre":"Miraflores",
+                "direccion":"av. Solidaridad 874",
+                "logo": "http://www.hospitalmiraflores.com/wp-content/uploads/2018/07/hospital-miraflores-logo1.png"
             }      
 
 
@@ -103,7 +143,266 @@
                 "direccion":"av. cabrera 210",
                 "logo": "https://iconape.com/wp-content/files/pc/261610/png/261610.png"
 
-            }       
+            },
+            { "nombre":"Metropolitan",
+                "direccion":"av. las misiones del cardonal  210",
+                "logo": "https://getvectorlogo.com/wp-content/uploads/2019/01/metropolitan-hospital-vector-logo.png"
+            },
+            
+            {
+            "nombre":"Las Cruces S.A.",
+            "direccion":"av. Conquistadores de america  567",
+            "logo": "https://thumbs.dreamstime.com/b/icono-del-logo-hospital-de-salud-m%C3%A9dica-dise%C3%B1o-vectorial-162511972.jpg"
+            }
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Dermatología",
+        "hospitales": [
+            {
+            "nombre":"Helsinski S.A",
+            "direccion":"av. maria california 210",
+            "logo": "https://tukuz.com/wp-content/uploads/2020/01/hus-helsinki-university-hospital-huh-logo-vector.png"
+            },
+            {
+                "nombre":"Sacred Health",
+                "direccion":"av. Constitucion politica 456",
+                "logo": "https://www.seekpng.com/png/full/313-3136999_https-upload-wikimedia-heart-hospital-nbc-urdaneta-sacred.png"
+
+
+            },
+            {
+                "nombre":"Yale New Haven Health",
+                "direccion":"av. Solidarios Constituyentes 764",
+                "logo": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1462015876/yhgrpnorv1ixb5s0gysi.png"
+            }
+
+
+
+               
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Ginegología y Obstetricia",
+        "hospitales": [
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            },
+            {
+                "nombre":"Sacred Health",
+                "direccion":"av. Constitucion politica 456",
+                "logo": "https://www.seekpng.com/png/full/313-3136999_https-upload-wikimedia-heart-hospital-nbc-urdaneta-sacred.png"
+            },
+            {
+                "nombre":"Yale New Haven Health",
+                "direccion":"av. Solidarios Constituyentes 764",
+                "logo": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1462015876/yhgrpnorv1ixb5s0gysi.png"
+            },
+            {
+                "nombre":"Miraflores",
+                "direccion":"av. Solidaridad 874",
+                "logo": "http://www.hospitalmiraflores.com/wp-content/uploads/2018/07/hospital-miraflores-logo1.png"
+            }
+
+
+               
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Hematología",
+        "hospitales": [
+            {
+            "nombre":"Helsinski S.A",
+            "direccion":"av. maria california 210",
+            "logo": "https://tukuz.com/wp-content/uploads/2020/01/hus-helsinki-university-hospital-huh-logo-vector.png"
+
+            },
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            }
+
+               
+
+
+
+        ]
+    },
+    {
+        "nombre":"Medicina General",
+        "hospitales": [
+            {
+            "nombre":"Helsinski S.A",
+            "direccion":"av. maria california 210",
+            "logo": "https://tukuz.com/wp-content/uploads/2020/01/hus-helsinki-university-hospital-huh-logo-vector.png"
+            },
+            {
+                "nombre":"Metropolitan",
+                "direccion":"av. las misiones del cardonal  210",
+                "logo": "https://getvectorlogo.com/wp-content/uploads/2019/01/metropolitan-hospital-vector-logo.png"
+
+            },
+            {
+            "nombre":"Las Cruces S.A.",
+            "direccion":"av. Conquistadores de america  567",
+            "logo": "https://thumbs.dreamstime.com/b/icono-del-logo-hospital-de-salud-m%C3%A9dica-dise%C3%B1o-vectorial-162511972.jpg"
+
+
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            }
+
+               
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Nefrología",
+        "hospitales": [
+            {
+             "nombre":"Helsinski S.A",
+            "direccion":"av. maria california 210",
+            "logo": "https://tukuz.com/wp-content/uploads/2020/01/hus-helsinki-university-hospital-huh-logo-vector.png"
+
+            },
+            {
+            "nombre":"Metropolitan",
+            "direccion":"av. las misiones del cardonal  210",
+            "logo": "https://getvectorlogo.com/wp-content/uploads/2019/01/metropolitan-hospital-vector-logo.png"
+            },
+
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            }
+
+               
+
+
+
+        ]
+    },
+    {
+        "nombre":"Pediatria",
+        "hospitales": [
+
+            {
+
+                "nombre":"Metropolitan",
+                "direccion":"av. las misiones del cardonal  210",
+                "logo": "https://getvectorlogo.com/wp-content/uploads/2019/01/metropolitan-hospital-vector-logo.png"
+
+            },
+            {
+            "nombre":"Las Cruces S.A.",
+            "direccion":"av. Conquistadores de america  567",
+            "logo": "https://thumbs.dreamstime.com/b/icono-del-logo-hospital-de-salud-m%C3%A9dica-dise%C3%B1o-vectorial-162511972.jpg"
+
+            },
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            }
+
+        
+            
+
+               
+
+
+
+        ]
+    },
+
+    {
+        "nombre":"Ortopedia",
+        "hospitales": [
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+            },
+            {
+                "nombre":"Paul Jones",
+                "direccion":"av. Saint Jones 567",
+                "logo": "https://jpauljones.com/wp-content/uploads/2019/04/JPJ-Logo.png"
+            }
+
+               
+
+
+
+        ]
+    },
+    {
+        "nombre":"Traumatologia",
+        "hospitales": [
+
+            {
+                "nombre":"Metropolitan",
+                "direccion":"av. las misiones del cardonal  210",
+                "logo": "https://getvectorlogo.com/wp-content/uploads/2019/01/metropolitan-hospital-vector-logo.png"
+            },
+
+            {
+                
+            "nombre":"Las Cruces S.A.",
+            "direccion":"av. Conquistadores de america  567",
+            "logo": "https://thumbs.dreamstime.com/b/icono-del-logo-hospital-de-salud-m%C3%A9dica-dise%C3%B1o-vectorial-162511972.jpg"
+            },
+
+            {
+                "nombre":"Medicare",
+                "direccion":"av. Juan Cortinez Cardenal 5968",
+                "logo": "https://logodesign.business/wp-content/uploads/2019/11/Medical-logo-07.png"
+            }
+
+
+               
 
 
 
@@ -113,3 +412,13 @@
 
    
 ]
+
+
+
+
+
+
+
+
+
+

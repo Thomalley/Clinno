@@ -41,19 +41,6 @@ let newArray = [
     "Simon Urbano",
     "Judit Buendia",
 ]
-let arrayEsp = [
-    "Fisiatría",
-    "Pediatría",
-    "Traumatología",
-    "Cardiología",
-    "Gastroenterología",
-    "Neurología",
-    "Psiquiatría",
-    "Kinesiología",
-    "Psicología",
-    "Nutrición",
-    "Fonoaudiología"
-];
 
 export default function DetailClinica(){
     
@@ -205,7 +192,7 @@ export default function DetailClinica(){
                         </div>
                         <div  className="col  shadow-lg p-3 mb-5  rounded nosotros_item">
                             <h2>Que te brindamos?</h2>
-                            <p> Como profesional de la salud, usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular.<Link to='/login'>Hazlo ya!</Link></p>
+                            <p> Usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular.</p>
                         </div>
                         <div  className="col  shadow-lg p-3 mb-5  rounded nosotros_item none_item">
                             <h2>y si te Registras?</h2>
@@ -220,15 +207,15 @@ export default function DetailClinica(){
                 <div id='doctores' className=" doctores">
                         <h2 className="m-4">Nuestra Clinica</h2>
                 </div>
-                <div class="accordion direccion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div className="accordion direccion" id="accordionExample">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingOne">
+                        <button className="accordion-button d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Donde estamos?
                         </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body d-flex justify-content-start align-items-center acordeon_direccion">
+                        <div id="collapseOne" className="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div className="accordion-body d-flex justify-content-start align-items-center acordeon_direccion">
                             <div className="nombre_hospital item_direccion"><img className="imglogo" src={clinic[0].logo} alt="nf" /></div>
                             <p className="item_direccion"> Estamos en {clinic[0].direccion}, Buenos Aires, Capital Federal </p>
                         </div>
@@ -263,10 +250,11 @@ export default function DetailClinica(){
                         </div>
                     </div>
                 </div> */}
-                <h3 className="m-4">Quienes son nuestros doctores?</h3>
                 <div className='d-flex justify-content-center align-items-start '>
                     <div>
+                    <h3 className="m-4">Quienes son nuestros doctores?</h3>
                         <div className=" doctores_contenido">
+                        
                             {newArray.sort((a, b)=> {
                                 if (a < b) {
                                     return  -1 ;

@@ -14,14 +14,14 @@ export default function Demo() {
         </div>
 
         <div className="text-container2">
-          <h4>Ve a nuestra Demo Virtual:</h4>
+          {/*<h4>Ve a nuestra Demo Virtual:</h4>*/}
 
           <div class="d-grid gap-2 col-12 mx-auto">
-            <Link to="/home/clinica/hospital 2">
+            {/*<Link to="/home/clinica/hospital 2">
               <button class="btn btn-primary btn_demo" type="button">
                 LIVE DEMO COMO CLINICA
               </button>
-            </Link>
+  </Link>*/}
           </div>
         </div>
       </div>
