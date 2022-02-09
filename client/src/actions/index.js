@@ -134,6 +134,33 @@ export function login_clinica(payload){
     }
 }
 
+export function get_clinica(payload){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/clinica');
+            const datos = json.data.filter((e)=>( e.id === payload))
+            const datosFiltrados = [{
+                id : datos[0].id,
+                nombre : datos[0].nombre,
+                direccion : datos[0].direccion,
+                telefono : datos[0].telefono,
+                mail : datos[0].mail,
+                password : datos[0].password,
+                nombreEn : datos[0].nombreEn,
+                apellidoEn : datos[0].apellidoEn,
+                DNIEn : datos[0].DNIEn,
+            }]
+            return dispatch({
+                type : "CLINICA_USER",
+                payload : datosFiltrados
+            });
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}
+
 
 export function registrarClinica(payload){
     return async function (dispatch){
