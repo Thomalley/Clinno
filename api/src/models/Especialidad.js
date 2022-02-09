@@ -7,5 +7,11 @@ module.exports = (sequelize) => {
     nombre: {
       type: DataTypes.STRING,
     },
+    horaComienzo: {
+      type: DataTypes.INTEGER,
+    },
+    horaFinal: {
+      type: DataTypes.INTEGER,
+    }
   });
 };

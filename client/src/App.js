@@ -7,11 +7,13 @@ import DetailClinica from './components/DetailClinica/DetailClinica';
 import AboutUs from './components/AboutUs/AboutUs';
 import RegisterClinic from './components/Register/RegisterClinic';
 import HomeClients from './components/HomeClients/HomeClients';
+import Turno from './components/Turno/Turno';
 import LoginClinica from './components/LoginClinica/LoginClinica';
 import AdminClinica from './components/AdminClinica/AdminClinica';
 import Reviews from './components/Reviews/Reviews'
 import ClientCard from './components/ClientCard/ClientCard';
 import PasswordReset from './components/ClientCard/PasswordReset';
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path='/Home' element={<HomeClients/>}/>
           <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
+          <Route path='/test' element={<Turno/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
         </Routes>

@@ -18,6 +18,33 @@ export function getClients (){
         }
     }
 }
+export function getEspecialidad () {
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/especialidad');
+            return dispatch({
+                type: "GET_ESPECIALIDAD",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+export function getClinicas(id){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/especialidad/${id}`);
+            return dispatch({
+                type : "GET_CLINICAS",
+                payload : json.data
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}
 
 export function login_validate(payload){
     return async function(dispatch){

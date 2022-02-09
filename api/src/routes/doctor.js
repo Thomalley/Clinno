@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {Doctor, Especialidad} = require("../db")
+const {Doctor, Especialidad, Clinica} = require("../db")
 router = Router()
 
 router.get("/", async (req, res, next) => {
@@ -41,19 +41,16 @@ router.post("/", async (req, res, next) => {
         
         const {
             nombre,
-            disponibilidad,
+            clinica,
             especialidad
         } = req.body
-        console.log(nombre,
-            disponibilidad,
-            especialidad)
 
         const newDoctor = await Doctor.create({
             nombre,
-            disponibilidad
         })
         await newDoctor.addEspecialidad(especialidad)
-        console.log(newDoctor)
+        await newDoctor.addClinica(clinica)
+
     res.json(newDoctor)
     }catch(err){
         next(err)
