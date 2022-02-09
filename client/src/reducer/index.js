@@ -3,7 +3,8 @@ const initialState = {
     cliente : [],
     especialidades : [],
     clinicas : [],
-    clinica: []
+    clinica: [],
+    doctor: []
 };
 
 
@@ -56,6 +57,12 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 clinica: action.payload
               
+            }
+        case 'VALIDATE_DOCTOR':
+            return{
+                ...state,
+                doctor: action.payload
+                
             }
         default :
         return state;

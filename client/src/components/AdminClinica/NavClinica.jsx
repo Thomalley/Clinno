@@ -44,7 +44,7 @@ return (
                 <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
             </li>
             <li>
-                <Link to='/' className="nav-link text-white boton_nav_clinica">Volver a cliente</Link>
+                <Link to='/' className="nav-link text-white boton_nav_clinica">Volver a home</Link>
             </li>
             <li>
                 <Link to='/' className="nav-link text-white boton_nav_clinica">Hacer un turno</Link>
@@ -53,7 +53,16 @@ return (
                 <Link  to='/' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
             </li>
             <li>
+                <Link  to='/' className="nav-link text-white boton_nav_clinica">Agregar Especialidad</Link>
+            </li>
+            <li>
                 <Link to='/' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
+            </li>
+            <li>
+                <Link to='/estadisticas' className="nav-link text-white boton_nav_clinica">Ver Estadisticas</Link>
+            </li>
+            <li>
+                <Link  to='/' className="nav-link text-white boton_nav_clinica">Ver Email pacientes</Link>
             </li>
         </ul>
         <hr/>
