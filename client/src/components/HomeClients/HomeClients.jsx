@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavLanding from "../NavLanding/NavLanding";
+
 import "./homeClients.css";
-// import clinics from "../utils/hospitals.json"
+import clinics from "../utils/hospitals.json"
 import especial from "../utils/especialidades.json"
 import { useState,useEffect  } from "react";
 import doc from "../utils/hipertencion.gif"
@@ -11,17 +11,27 @@ import NavBar from '../NavBar/NavBar';
 import Cookies from 'universal-cookie'
 
 import { useAuth0 } from "@auth0/auth0-react";
-
-
-
 import pp from "../utils/images-landing/pp.png"
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+
+
+
+
 
 export default function HomeHospitals() {
   const cookies = new Cookies()
+  
   const [input, setInput] = useState({
-    // clinic: [],
+    clinic: [],
     especialidad: [],
+    
   });
+  
+
+  const dispatch= useDispatch()
+    
+
   const { isAuthenticated,isLoading} = useAuth0();
 
 
@@ -50,42 +60,88 @@ export default function HomeHospitals() {
   },[isLoading,cookies.get('email')])
 
 
-  // function handleSelectClinic(e) {
+  function handleSelectClinic(e) {   
 
-  //   if (e.target.value){
-
-  //     let busqueda =clinics.find( c=> c.nombre === e.target.value)
-
-  //     setInput({
-  //       ...input,
-
-  //       clinic: [busqueda],
-  //     });
-  //   }
-
-  // }
-
-  
-
-  function handleSelectEscpecial(e) {
-    if (e.target.value) {
-      let busqueda = especial.find((c) => c.nombre === e.target.value);
+    if (e.target.value === " "){
 
       setInput({
         ...input,
 
-        especialidad: [busqueda],
-      });
+        especialidad: [],
+        clinic: []
+      }); 
+
+    }else{    
+
+      let busqueda =clinics.find( c=> c.nombre === e.target.value)
+            
+
+      setInput({
+        ...input,
+
+        clinic: [busqueda],
+        especialidad: []
+      });  
+
     }
   }
 
-  console.log(input.especialidad);
+  
+
+  function handleSelectEscpecial(e) {
+
+    if (e.target.value === " "){
+
+      setInput({
+        ...input,
+
+        especialidad: [],
+        clinic: []
+      }); 
+
+    } else {  
+      let busqueda = especial.find((c) => c.nombre === e.target.value); 
+
+    
+      setInput({
+        ...input,
+
+        especialidad: [busqueda],
+        clinic: []
+      }); 
+           
+    }     
+    }
+
+    function handleAllClinics(e){
+
+      if(e.target.value ){
+
+      
+      let allclinics= clinics;
+
+      setInput({
+        ...input,
+
+        clinic:[...allclinics],
+        especialidad: []
+
+
+      }); 
+    }
+      
+    }
+
+    
+  
+
+ 
 
   return (
     <>
       <NavBar loggin={loggeado} />
 
-      {/* <NavLanding component="HomeClients" /> */}
+     +
       <div className="home-hospitals">
         <div className="big-box">
           <div className="left-box">
@@ -101,22 +157,23 @@ export default function HomeHospitals() {
                 <div>POR LA ESPECIALIDAD QUE NECESITES</div>
               </h5>
             </div>
-
+            
             <div className="selet-container">
-              {/* <div>
+              <div>
             <h5>Busca por clinica</h5>
             <select
               className="select"
               key="select"
-              onChange={(e) => handleSelectClinic(e)}
+              onChange={(e) => handleSelectClinic(e) }
             >
-              {clinics.map((esp) => (
+              <option value=" ">Selecciona una clinica</option>
+              {clinics?.map((esp) => (
                 <option value={esp.nombre}>{esp.nombre}</option>
               ))}
 
              
-            </select>
-          </div> */}
+              </select>
+               </div>
 
               <div>
                 <h5>Buscar clinicas por especialidad</h5>
@@ -125,9 +182,11 @@ export default function HomeHospitals() {
                     className="select"
                     key="select"
                     onChange={(e) => handleSelectEscpecial(e)}
+                    
                   >
-                    {/*<option>Seleccione una especialidad</option>*/}
-                    {especial.map((esp) => (
+                    <option value=" ">Selecciona una especiallidad</option>
+                    
+                    {especial?.map((esp) => (
                       <option value={esp.nombre}>{esp.nombre}</option>
                     ))}
                   </select>
@@ -135,6 +194,12 @@ export default function HomeHospitals() {
                 </div>
               </div>
             </div>
+
+            <div className="button-allclinics-box">
+              <button value="all" onClick={(e) => handleAllClinics(e)}> Ver todas las clinicas </button>
+              
+            </div>
+
 
             <div className="steps-box">
               <div>
@@ -180,51 +245,77 @@ export default function HomeHospitals() {
               </h5>
             </div>
           </div>
-          <div className="clinics">
-            {input.especialidad.map((clinica) =>
-              clinica.hospitales.map((e) => (
-                <div className="card-clinic">
-                  <h5>{e.nombre} </h5>
-                  <div className="img-logo-clinics">
-                    <img src={e.logo} alt={e.name} />
-                  </div>
 
-                  <div className="datos-box">
-                    <div>
-                      <h6>Dirección:</h6>
-                    </div>
-                    <div>
-                      <p>{e.direccion}</p>
-                    </div>
 
-                    <div>
-                      <Link to={`/Home/clinica/hospital 1`}>
-                        <button className="btn-go">Ir a Clinica</button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
+          <div className="clinics">            
 
-            {/* {input.clinic.map((clinica) => (
+            {          
+
+            input.clinic.map((clinica) => (
           
             <div className="card-clinic">
-              <h5>Busqueda por clinica:</h5>
+              
               <h5>{clinica.nombre} </h5>
               <div className="img-logo-clinics"><img src={clinica.logo} alt={clinica.name} /></div>
 
-              <div className="esp-box">
-                {clinica.especialidades.map((especialidades) => (
-                  <button>{especialidades}</button>
-                ))}
+              <div className="datos-box">
+                <div>
+                  <h6>Dirección:</h6>
+                </div>
+                <div>
+                  <p>{clinica.direccion}</p>
+                </div>
+
+                <div>
+                  <Link to={`/Home/clinica/hospital 1`}>
+                    <button className="btn-go">Ir a clinica</button>
+                  </Link>
+                </div>
               </div>
 
              
             </div>
-          ))}
+          ))} 
 
-           */}
+          {input.especialidad.map((clinica) =>
+          clinica.hospitales.map((e) => (
+            <div className="card-clinic">
+              <h5>{e.nombre} </h5>
+              <div className="img-logo-clinics">
+                <img src={e.logo} alt={e.name} />
+              </div>
+
+              <div className="datos-box">
+                <div>
+                  <h6>Dirección:</h6>
+                </div>
+                <div>
+                  <p>{e.direccion}</p>
+                </div>
+
+                <div>
+                  <Link to={`/Home/clinica/hospital 1`}>
+                    <button className="btn-go">Ir a clinica</button>
+                  </Link>
+                  
+                </div>
+                
+              </div>
+            </div>
+          ))
+        )}
+
+        
+
+
+
+
+
+
+
+          
+
+          
           </div>
         </div>
 
