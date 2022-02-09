@@ -203,3 +203,42 @@ export function logoutUser() {
         .catch(error => alert(error, 'algo salio muy mal'))
     }
   }
+
+
+  //Doctor
+  export function validate_doctor (payload){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/doctor');
+            for(let i = 0 ; i < json.data.length ; i++){
+                if (json.data[i].codigo === parseInt(payload.password,10) ){
+                console.log(json.data[i]);
+                const datosDoc = [{
+                    id : json.data[i].id,
+                    nombre : json.data[i].nombre,
+                    especialidad: { 
+                        id: json.data[i].especialidads[0].id,
+                        nombre: json.data[i].especialidads[0].nombre,
+                        horaComienzo: json.data[i].especialidads[0].horaComienzo ,
+                        horaFinal:  json.data[i].especialidads[0].horaFinal,                        
+                    }
+                }]
+                return dispatch({
+                    type : "VALIDATE_DOCTOR",
+                    payload : datosDoc
+                    });
+                }
+                else {
+                    dispatch({
+                        type : "VALIDATE_DOCTOR",
+                        payload : []
+                    });
+                }
+            }
+           
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+  }

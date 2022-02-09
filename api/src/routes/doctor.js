@@ -2,10 +2,22 @@ const { Router } = require("express");
 const {Doctor, Especialidad, Clinica} = require("../db")
 router = Router()
 
-router.get("/", async (req, res, next) => {
+router.get("/:idEspecialidad/:idClinica", async (req, res, next) => {
     try{
+        console.log(req.params)
+        const {idEspecialidad, idClinica} = req.params
         const docDb = await Doctor.findAll({
-            include: Especialidad,
+            include: [{
+                model: Especialidad,
+                where: {
+                    id:idEspecialidad
+                }
+            }, {
+                model:Clinica,
+                where:{
+                    id: idClinica
+                }
+            }]
         })
         res.send(docDb)
     }catch(err){
@@ -44,9 +56,20 @@ router.post("/", async (req, res, next) => {
             clinica,
             especialidad
         } = req.body
-
+        let codigo=Math.floor(Math.random() * 10000);
+        //check unique
+        let check = true;
+        const docDb = await Doctor.findAll({});
+        while(check){
+            let arr = docDb.filter(e =>{ return e.codigo ===codigo});
+            if (arr.length > 0){
+                codigo=Math.floor(Math.random() * 10000);
+            }else{
+                check=false;
+            }
+        }
         const newDoctor = await Doctor.create({
-            nombre,
+            nombre,codigo
         })
         await newDoctor.addEspecialidad(especialidad)
         await newDoctor.addClinica(clinica)
@@ -57,7 +80,16 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-
+router.get("/", async (req, res, next) => {
+    try{
+        const docDb = await Doctor.findAll({
+            include: Especialidad,
+        })
+        res.send(docDb)
+    }catch(err){
+        next(err)
+    }
+})
 
 
 module.exports = router
