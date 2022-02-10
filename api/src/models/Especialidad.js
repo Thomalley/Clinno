@@ -6,12 +6,10 @@ module.exports = (sequelize) => {
   sequelize.define('especialidad', {
     nombre: {
       type: DataTypes.STRING,
+      unique: true
     },
-    horaComienzo: {
-      type: DataTypes.INTEGER,
-    },
-    horaFinal: {
-      type: DataTypes.INTEGER,
+    horario: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
     }
   });
 };
