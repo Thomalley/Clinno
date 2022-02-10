@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie'
-import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec } from '../../actions'
+import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno } from '../../actions'
 import swal from 'sweetalert';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
@@ -14,18 +14,18 @@ export default function Turno() {
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
     const dispatch = useDispatch();
+    const cookies = new Cookies()
+    const idUser = cookies.get('id')
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
         idClinica: "",
-        doctor: [],   //falta pasar tambien el id
+        horarioDoctor: [],
+        idDoctor: "", 
         fecha: "",
-        hora: ""
+        hora: "",
+        idCliente: idUser
     })
-    const cookies = new Cookies()
     const [date, setDate] = useState(new Date());
-    const [fecha, setFecha] = useState({
-        fecha: undefined
-    })
     const onChange = date => {
         setDate(date)
     }
@@ -79,9 +79,8 @@ export default function Turno() {
         diaTurno = data[2];
         yearTurno = data[3];
         finalDate = diaTurno + '/' + mesTurno + '/' + yearTurno;
-        setFecha({ fecha: finalDate })
+        setidValue({ ...idValue, fecha: finalDate })
     }
-
 
     useEffect(() => {
         dispatch(getEspecialidad())
@@ -97,9 +96,22 @@ export default function Turno() {
     }, [idValue])
 
     function handleSelectDoc(e) {
+        const value = e.target.value
+        const doc = doctoresDeEspe.filter((d)=> d.nombre === value)
+        const horario = doc[0].especialidads[0].horario
+        const docId = doc[0].id
+        console.log(docId)
         setidValue({
             ...idValue,
-            doctor: e.target.value.split(',').map((e) => parseInt(e))
+            horarioDoctor: horario,
+            idDoctor: docId
+        })
+    }
+
+    function handleSelectHora(e) {
+        setidValue({
+            ...idValue,
+            hora: e.target.value
         })
     }
 
@@ -117,8 +129,10 @@ export default function Turno() {
         })
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
+        dispatch(crearTurno(idValue))
+        swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
     }
 
     return (
@@ -134,7 +148,7 @@ export default function Turno() {
             <h3>A que clinica asistiras?</h3>
             <select onChange={(e) => handleSelectClinica(e)}>
                 <option value="" disabled selected>Clinicas</option>
-                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e)=>(
+                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
                     <option value={e.id}> {e.nombre} </option>
                 ))}
             </select>
@@ -142,12 +156,12 @@ export default function Turno() {
             <select onChange={(e) => handleSelectDoc(e)}>
                 <option value="" disabled selected>Doctores</option>
                 {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                    <option value={e.especialidads[0].horario}> {e.nombre} </option>
+                    <option value={e.nombre}> {e.nombre} </option>
                 ))}
             </select>
             <h3>Selecciona el dia: </h3>
             <div>
-                {fecha.fecha !== undefined ?
+                {idValue.fecha !== '' ?
                     <div>
                         <div className='calendarioContainer'>
                             <Calendar
@@ -157,9 +171,9 @@ export default function Turno() {
                             />
                         </div>
                         <h3>Selecciona el Horario: </h3>
-                        <select>
+                        <select onChange={(e) => handleSelectHora(e)}>
                             <option value="" disabled selected>Horarios</option>
-                            {idValue.doctor && idValue.doctor.map((e)=>(
+                            {idValue.horarioDoctor && idValue.horarioDoctor.map((e) => (
                                 <option value={e}>{e}</option>
                             ))}
                         </select>
@@ -177,5 +191,3 @@ export default function Turno() {
         </div>
     )
 }
-
-//manejar datos de clinica de espe

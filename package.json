@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@sendgrid/mail": "^7.6.1",
     "react-calendar": "^3.7.0"
   }
 }
