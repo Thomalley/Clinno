@@ -13,12 +13,14 @@ import Reviews from './components/Reviews/Reviews'
 import ClientCard from './components/ClientCard/ClientCard';
 import PasswordReset from './components/ClientCard/PasswordReset';
 import AdminDoctor from './components/AdminDoctor/AdminDoctor'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
           <Route path='/reviews' element={<Reviews/>}/>
