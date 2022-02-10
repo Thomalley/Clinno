@@ -176,24 +176,24 @@ export function registrarClinica(payload){
 
 //Password Reset :)//
 
-export function ResetPassword (id,password){
-    return function (dispatch){
-        const url = `/clientes/${id}/passwordReset`;
-        return axios.put(url, {password: password})
-        .then(res => res.data)
-        .then (data => {
-            console.log('aca esta', data.password);
-            dispatch({ type: "RESET_PASSWORD", payload: {password: data.password} })
-        })
-        .then(() => 
-        swal("Changed password successfully!", {
-            buttons: false,
-            icon: 'success',
-            timer: 1500,
-          })
-        )
-        .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))  
-}}
+export function ResetPassword(id, password) {
+    return function (dispatch) {
+        const url = `http://localhost:3001/clientes/${id}/passwordReset`;
+        return axios.put(url, { password })
+            .then(res => res.data)
+            .then(data => {
+                dispatch({ type: "RESET_PASSWORD", payload: { password: data.password } })
+            })
+            .then(() =>
+                swal("Changed password successfully!", {
+                    buttons: false,
+                    icon: 'success',
+                    timer: 1500,
+                })
+            )
+            .catch(error => alert(error, 'Algo salió mal al modificar la contraseña'))
+    }
+}
 
 export function logoutUser() {
     return function (dispatch) {

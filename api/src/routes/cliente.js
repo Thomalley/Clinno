@@ -145,6 +145,7 @@ router.post("/", async (req,res) => {
 //reset password//
 router.put('/:id/passwordReset', async (req, res) => {
   try {
+    console.log(req.body)
     let cliente = await Cliente.findByPk(req.params.id);
     await cliente.update({password: req.body.password})
     await cliente.save()
