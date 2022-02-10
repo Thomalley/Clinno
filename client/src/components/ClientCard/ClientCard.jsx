@@ -1,44 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ResetPassword } from '../../actions/index';
 import "../ClientCard/ClientCardModule.css"
 import Footer from "../Home/Footer"
 import NavBar from '../NavLanding/NavLanding'
 import { Link} from "react-router-dom";
+import Cookies from 'universal-cookie'
+import { getClients } from "../../actions/index";
+import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
+
+export default function ClientCard(){
+    const dispatch = useDispatch();
+
+    const cookies = new Cookies();
+    const userMail = (cookies.get("email"))
+
+    let currentUser = {};
+    let currentUser2 = {};
+    const allClients = useSelector((state)=> state.clientes);
+
+    useEffect ( () => {
+      dispatch(getClients())
+    },[])
 
 
-
-
-const ClientCard = () => {
-    const user = JSON.parse(window.localStorage.getItem('login'))
-    const dispatch = useDispatch()
-    const [password, setPassword] = useState('');
-    const orders = useSelector(state => state.orders)
-    const cliente = useSelector((state)=> state.cliente);
-  
-    function handleClick(e) {
-      e.preventDefault();
-      dispatch(ResetPassword(user.id, password))
-      setPassword('')
-    }
-    const handleChange = (e) => {
-        setPassword(e.target.value);
+    for(let i=0; i<allClients.length; i++){
+      if (allClients[i].email === userMail){
+        currentUser = allClients[i]
+        break;
       }
-    
+    }
 
-      console.log(cliente)
+    let arrayUser = Object.entries(currentUser)
+  
+      for(let i = 1; i < arrayUser.length - 4; i++){
+        currentUser2[arrayUser[i][0]] = arrayUser[i][1]
+      }
+
+      console.log(currentUser2)
 
       return (
         <div>
         <NavBar/>
-        <div className="container3">
+    
+        <ul class="nav justify-content-center">
+
+        <li class="nav-item">
+        <Link to="/passwordreset" class="nav-link" href="#">Modificar datos de usuario</Link>
+        </li>
+
+        <li class="nav-item">
+        <Link to="/" class="nav-link" href="#">Historial de visitas y diagnosticos</Link>
+        </li>
+
+        <li class="nav-item">
+        <Link to="/" class="nav-link" href="#">Historial de pagos</Link>
+        </li>
         
-        <Link to="/passwordreset"><button>PASSWORD RESET</button></Link>
+        <li class="nav-item">
+        <Link to="/" class="nav-link" href="#">Historial de reseñas</Link>
+        </li>
+
+        <li class="nav-item">
+        <Link to="/" class="nav-link" href="#">hacer una cita</Link>
+        </li>
+
+        </ul>
+
+        <div className="container3">
+        <img src={photo} alt="png" className="fotoDetail"/>
+        <div className="detailCard">
+        <div class="card">
+        <label>Nombre</label>
+        <label>{currentUser2.nombre}</label>
+        </div>
+        <div class="card">
+        <label>Apellido</label>
+        <label>{currentUser2.apellido}</label>
+        </div>
+        <div class="card">
+        <label>DNI</label>
+        <label>{currentUser2.dni}</label>
+        </div>
+        <div class="card">
+        <label>Mail</label>
+        <label>{currentUser2.email}</label>
+        </div>
+        <div class="card">
+        <label>Direccion</label>
+        <label>{currentUser2.direccion}</label>
+        </div>
+        </div>
         </div>
         <Footer/>
         </div>)
-  }
+  
 
-
-  export default ClientCard;
+      }
+  
 

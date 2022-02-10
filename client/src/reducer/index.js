@@ -1,3 +1,8 @@
+import {
+    RESET_PASSWORD,
+} from "../actions"
+
+
 const initialState = {
     clientes : [],
     cliente : [],
@@ -34,7 +39,6 @@ const rootReducer = (state = initialState, action)=>{
             return{
                 ...state,
                 cliente : action.payload
-
             }
         
         case "VALIDATE_USER_WRONG" :
@@ -67,6 +71,11 @@ const rootReducer = (state = initialState, action)=>{
                 doctoresByEspec : action.payload
             }
         
+        case RESET_PASSWORD:
+                return{
+                    ...state,
+                }
+
         case 'VALIDATE_DOCTOR':
             return{
                 ...state,
