@@ -37,9 +37,6 @@ export default function ClientCard(){
         currentUser2[arrayUser[i][0]] = arrayUser[i][1]
       }
 
-      console.log(currentUser2)
-      console.log(currentUser2)
-
       return (
         <div>
         <NavBar/>
