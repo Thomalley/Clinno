@@ -51,9 +51,9 @@ export default function Register(){
     </nav>
     <div className='container1'>
     <div className="col-12">
-    <img className="imglogo" src={logo} alt="nf" />
+    <img className="imglogoform" src={logo} alt="nf" />
     </div>
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form action="?" onSubmit={handleSubmit(onSubmit)}>
       <input className="form-control" type="text" placeholder="Nombre" {...register("nombre", {required: true, pattern: /^[A-Za-z][a-zA-Z ]{3,40}$/})} />
       <ErrorMessage errors={errors} name="nombre" />
       
@@ -102,7 +102,10 @@ export default function Register(){
         name="direccion"
         render={({ message }) => <p className="errorMsg">Direccion requerido</p>}
       />
-      <input className="col-12 btn btn-primary" type="submit" />
+      <div className='reCap'>
+      <div class="g-recaptcha" data-sitekey="6Lf_tG4eAAAAANiXKNaplUlHjzZi8STHvQLzDO_f"></div>
+      </div>
+      <input value="Submit" className="col-12 btn btn-primary" type="submit" />
     </form>
     </div>
     <Footer/>
