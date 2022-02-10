@@ -30,3 +30,13 @@
     margin: 0px;
     padding: 0px;
   }
+
+  .imglogoform{
+    width: 146px;
+    margin: 22px;
+    height: auto;
+  }
+
+  .reCap{
+    display: inline-block;
+  }

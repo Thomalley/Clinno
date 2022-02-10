@@ -52,15 +52,15 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res, next) => {
     try{
         const {
-            nombre,
-            horaComienzo,
-            horaFinal
+            nombre
         } = req.body
-        let horario = [];
-            for(let i = horaComienzo ; i <= horaFinal ; i++){
-                horario.push(i) 
-            }
+        let horario = [8,9,10,11,12,13,14,15,16,17];
+
+        //     for(let i = horaComienzo ; i <= horaFinal ; i++){
+        //         horario.push(i) 
+        //     }
         // let hora = horario.toString(', ')
+
         const newEspe = await Especialidad.create({nombre, horario})
         res.send(newEspe)
     }catch(err){
