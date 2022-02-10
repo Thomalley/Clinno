@@ -9,6 +9,14 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
+    },    
+    fecha: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    hora: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     turno: {
       type: DataTypes.STRING,

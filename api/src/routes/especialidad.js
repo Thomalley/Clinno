@@ -56,11 +56,15 @@ router.post('/', async (req, res, next) => {
             horaComienzo,
             horaFinal
         } = req.body
-
-        const newEspe = await Especialidad.create({nombre, horaComienzo, horaFinal})
+        let horario = [];
+            for(let i = horaComienzo ; i <= horaFinal ; i++){
+                horario.push(i) 
+            }
+        // let hora = horario.toString(', ')
+        const newEspe = await Especialidad.create({nombre, horario})
         res.send(newEspe)
     }catch(err){
-        next(err)
+        next(err) 
     }
 })
 module.exports = router

@@ -2,10 +2,22 @@ const { Router } = require("express");
 const {Doctor, Especialidad, Clinica} = require("../db")
 router = Router()
 
-router.get("/", async (req, res, next) => {
+router.get("/:idEspecialidad/:idClinica", async (req, res, next) => {
     try{
+        console.log(req.params)
+        const {idEspecialidad, idClinica} = req.params
         const docDb = await Doctor.findAll({
-            include: Especialidad,
+            include: [{
+                model: Especialidad,
+                where: {
+                    id:idEspecialidad
+                }
+            }, {
+                model:Clinica,
+                where:{
+                    id: idClinica
+                }
+            }]
         })
         res.send(docDb)
     }catch(err){

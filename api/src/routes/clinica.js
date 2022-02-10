@@ -25,7 +25,10 @@ router.post('/', async (req,res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        const clinDb = await Clinica.findAll({})
+        const {id} = req.params
+        const clinDb = await Clinica.findByPk({
+            where: {id: id}
+        })
         res.send(clinDb)
     }
     catch(err){
