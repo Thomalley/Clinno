@@ -23,7 +23,6 @@ export default function LoginClinica(){
     });
 
     useEffect(() => {
-        // dispatch(login_validate(input));
         dispatch(login_clinica(input));
     },[input])
 
@@ -31,7 +30,7 @@ export default function LoginClinica(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch(login_clinica(input));
-        setTimeout(logreq(), 2000);
+        setTimeout(logreq(), 1000);
     }  
 
     function logreq(){

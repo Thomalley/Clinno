@@ -49,7 +49,10 @@ export default function NavBar({loggin}){
                                 <img src={logo} alt="logo" />
                         </Link>
                     </div>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" 
+                        aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -69,13 +72,26 @@ export default function NavBar({loggin}){
                             {   loggin?
                                 <> 
                                     <li className="nav-item item_season">                    
-                                        <button className="nav-link active item_navBar btn btn-outline border-start font_sesion" type="button" onClick={cerrarSesion}>Cerrar sesion</button>
+                                        <button 
+                                            className="nav-link active item_navBar btn btn-outline border-start font_sesion" 
+                                            type="button" 
+                                            onClick={cerrarSesion}
+                                        >Cerrar sesion</button>
                                     </li>
                                     {/* <li className="nav-item"> 
                                         <Link className="nav-link active item_navBar " to='/me'>Mi Perfil</Link>
                                     </li> */}
                                     <li className="nav-item">
-                                        <Link to='/me'><img className="usuario_navBar_imagen" src={user?.picture?user?.picture:usuario} alt="user"/><button>{user?.name? user.name : cookies.get('nombre') }</button></Link>
+                                        <Link to='/me' 
+                                            className="nav-link active  item_navBar" 
+                                            href='#nosotros'
+                                        >{user?.name? user.name : cookies.get('nombre') }</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to='/me'>
+                                            <img className="usuario_navBar_imagen" 
+                                            src={user?.picture?user?.picture:usuario} 
+                                            alt="user"/></Link>
                                     </li>
                                     
                                 </>
