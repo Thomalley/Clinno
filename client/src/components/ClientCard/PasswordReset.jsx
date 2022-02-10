@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { ResetPassword, logoutUser } from '../../actions/index';
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from 'universal-cookie'
+import { getClients } from '../../actions/index';
+
 
 const PasswordReset = () => {
 
@@ -9,20 +12,29 @@ const PasswordReset = () => {
         password: "",
     });
 
-    const user = useSelector(state => state.currentUser)
-
     const dispatch = useDispatch();
+    const cookies = new Cookies();
+    const userMail = (cookies.get("email"))
+    const allClients = useSelector((state)=> state.clientes);
+    let user = {};
 
-    function UpdatePassword(e, user, input) {
+    useEffect ( () => {
+      dispatch(getClients())
+    },[])
+
+    
+    for(let i=0; i<allClients.length; i++){
+        if (allClients[i].email === userMail){
+          user = allClients[i]
+          break;
+        }
+      }
+
+    let userId = user.id;
+
+    function UpdatePassword(e, userId, input) {
         e.preventDefault();
-        console.log(user)
-        console.log(input)
-        dispatch(ResetPassword(user, input))
-        dispatch(logoutUser())
-         .then(() => {
-             window.location.reload();
-            })
-
+        dispatch(ResetPassword(userId, input))
         setInputs({
             password: "",
         });
@@ -46,7 +58,7 @@ const PasswordReset = () => {
     }
     return (
         <div className='container4'>
-            <form className="m-auto col-12" onSubmit={(e) => UpdatePassword(e, user.id, input)}>
+            <form className="m-auto col-12" onSubmit={(e) => UpdatePassword(e, userId, input)}>
                 <h2>Cambiar Contraseña</h2>
                 <div className="m-3">
                     <input type="password" className="form-control" placeholder="Nueva contraseña" name="password" id="pass1" onChange={(e) => handleInputChange(e)} />
@@ -56,7 +68,7 @@ const PasswordReset = () => {
                 </div>
                 {errors.name && (<p className="alert alert-danger ocultar">{errors.name}</p>)}
                 <div className="container text-center  d-flex justify-content-center align-items-center">
-                    <input type="submit" disabled={isNotEmpty(errors)} className="btn btn-warning" value="MODIFICAR CONTRASEÑA" />
+                    <button type="submit" disabled={isNotEmpty(errors)} className="btn btn-warning">modificar</button>
                 </div>
             </form>
         </div>

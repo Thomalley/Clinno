@@ -2,7 +2,6 @@ import axios from 'axios';
 import { createSearchParams, renderMatches } from 'react-router-dom';
 import swal from 'sweetalert';
 
-//acceso a informacion de todos los clientes para admin
 export function getClients() {
     return async function (dispatch) {
         try {
@@ -220,32 +219,19 @@ export function registrarClinica(payload) {
 //Password Reset :)//
 
 export function ResetPassword(id, password) {
-    return function (dispatch) {
-        const url = `http://localhost:3001/clientes/${id}/passwordReset`;
-        return axios.put(url, { password })
-            .then(res => res.data)
-            .then(data => {
-                dispatch({ type: "RESET_PASSWORD", payload: { password: data.password } })
-            })
-            .then(() =>
-                swal("Changed password successfully!", {
-                    buttons: false,
-                    icon: 'success',
-                    timer: 1500,
-                })
-            )
-            .catch(error => alert(error, 'Algo salió mal al modificar la contraseña'))
+    return async function (dispatch) {
+        try{
+        console.log(password)
+        const response = await axios.put(`http://localhost:3001/cliente/${id}/passwordReset`, password )
+        console.log(response)
+        return response
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 }
 
-export function logoutUser() {
-    return function (dispatch) {
-        const url = "/users/logout";
-        return axios.post(url)
-            .then(() => alert('La sesión se ha cerrado'))
-            .catch(error => alert(error, 'algo salio muy mal'))
-    }
-}
 
 
 //Doctor

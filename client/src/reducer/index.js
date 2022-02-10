@@ -66,14 +66,15 @@ const rootReducer = (state = initialState, action) => {
                 doctoresByEspec: action.payload
             }
 
-        case "RESET_PASSWORD":
-            return {
-                ...state,
-            }
         case "CREAR_TURNO":
             return {
                 ...state,
             }
+        
+        case "RESET_PASSWORD":
+                return{
+                    ...state,
+                }
 
         case 'VALIDATE_DOCTOR':
             return {
