@@ -38,6 +38,7 @@ export default function ClientCard(){
       }
 
       console.log(currentUser2)
+      console.log(currentUser2)
 
       return (
         <div>
