@@ -1,0 +1,22 @@
+.nav_clinica{
+    width: 280px;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo_clinno_navC{
+    width: 200px;
+}
+
+.item_boton_nav{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.boton_nav_clinica:hover{
+    background-color: #12ace4;
+}
+

@@ -1,0 +1,10 @@
+.contenedor_adminClinica{
+    height: 100vh;
+    padding-top: 40px;
+    margin-left: 280px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+::-webkit-scrollbar {
+    display: none;
+}

@@ -12,7 +12,12 @@ module.exports = (sequelize) => {
     },
     nombre: {
       type: DataTypes.STRING,
-    } 
+    },
+    codigo:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+    }
   });
 };
 
