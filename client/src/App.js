@@ -17,6 +17,8 @@ import AddDoctor from './components/AddDoctor/AddDoctor'
 import AddEspecialidad from './components/AddEspecialidad/AddEspecialidad'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
+import ClinicaCard from './components/ClinicaCard/ClinicaCard';
+import VerDoctores from './components/VerDoctores/VerDoctores';
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
           <Route path='/AddDoctor' element={<AddDoctor/>}/>
           <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
           <Route path='/test' element={<Turno/>}/>
+          <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
+          <Route path='/VerDoctores' element={<VerDoctores/>}/>
         </Routes>
       </div>
     </BrowserRouter>
