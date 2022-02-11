@@ -50,12 +50,12 @@ export default function AddDoctor(){
     const [add,setAdd] = useState(false);
     const doctor = useSelector((state)=> state.doctor);
 
+
     const clinica = useSelector((state)=> state.clinica[0]);
-
-    useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id'))); },[])
-
-    const especialidades =clinica?.especialidad;
-
+    const especialidades = useSelector((state)=> state.especialidades);
+    
+    useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id')));
+    dispatch(getEspecialidad()); },[])
     
     //control se dession
     let session=false;
