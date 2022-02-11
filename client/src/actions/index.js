@@ -3,23 +3,34 @@ import { createSearchParams, renderMatches } from 'react-router-dom';
 import swal from 'sweetalert';
 
 export function getClients() {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/cliente');
             return dispatch({
                 type: "GET_CLIENTES",
                 payload: json.data
             })
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
 
         }
     }
 }
-
+export function getDisponibilidad(fecha, idDoctor) {
+    return async function(dispatch) {
+        try {
+            const json = await axios.get(`http://localhost:3001/turno/${fecha}/${idDoctor}`);
+            return dispatch({
+                type: "GET_DISPONIBILIDAD",
+                payload: json.data
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
 export function getEspecialidad() {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/especialidad');
             return dispatch({
@@ -33,37 +44,35 @@ export function getEspecialidad() {
 }
 
 export function getClinicasByEspec(id) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get(`http://localhost:3001/especialidad/${id}`);
             return dispatch({
                 type: "GET_CLINICAS_BY_ESPE",
                 payload: json.data
             })
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 }
 
 export function getDoctoresByEspec(data) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get(`http://localhost:3001/doctor/${data.idEspecialidad}/${data.idClinica}`);
             return dispatch({
                 type: "GET_DOCTORES_BY_ESPEC_ID",
                 payload: json.data
             })
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 }
 
 export function login_validate(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/cliente');
             for (let i = 0; i < json.data.length; i++) {
@@ -84,15 +93,13 @@ export function login_validate(payload) {
                         type: "VALIDATE_USER",
                         payload: data
                     });
-                }
-                else
+                } else
                     dispatch({
                         type: "VALIDATE_USER_WRONG",
                         payload: []
                     });
             }
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
@@ -101,7 +108,7 @@ export function login_validate(payload) {
 //POST
 
 export function registrarCliente(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         console.log(payload)
         const response = await axios.post("http://localhost:3001/cliente", payload)
         console.log(response)
@@ -110,27 +117,26 @@ export function registrarCliente(payload) {
 }
 
 export function crearTurno(input) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const newTurno = await axios({
                 method: "post",
                 url: "http://localhost:3001/turno",
                 data: {
-                  fecha: input.fecha,
-                  idEspecialidad: input.idEspecialidad,
-                  idClinica: input.idClinica,
-                  idDoctor: input.idDoctor,
-                  hora: input.hora,
-                  idCliente: input.idCliente
+                    fecha: input.fecha,
+                    idEspecialidad: input.idEspecialidad,
+                    idClinica: input.idClinica,
+                    idDoctor: input.idDoctor,
+                    hora: input.hora,
+                    idCliente: input.idCliente
                 },
-              });
+            });
             return dispatch({
                 type: "CREAR_TURNO",
                 payload: newTurno
             })
-            
-        }
-        catch (e) {
+
+        } catch (e) {
             console.log(e)
         }
     }
@@ -139,7 +145,7 @@ export function crearTurno(input) {
 //Clinica
 
 export function login_clinica(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/clinica');
             for (let i = 0; i < json.data.length; i++) {
@@ -160,8 +166,7 @@ export function login_clinica(payload) {
                         type: "CLINICA_USER",
                         payload: datos
                     });
-                }
-                else {
+                } else {
                     dispatch({
                         type: "CLINICA_USER",
                         payload: []
@@ -169,15 +174,14 @@ export function login_clinica(payload) {
                 }
             }
 
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 }
 
 export function get_clinica(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/clinica');
             const datos = json.data.filter((e) => (e.id === payload))
@@ -196,8 +200,7 @@ export function get_clinica(payload) {
                 type: "CLINICA_USER",
                 payload: datosFiltrados
             });
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
@@ -205,7 +208,7 @@ export function get_clinica(payload) {
 
 
 export function registrarClinica(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         console.log(payload)
         const response = await axios.post("http://localhost:3001/clinica", payload)
         console.log(response)
@@ -219,14 +222,13 @@ export function registrarClinica(payload) {
 //Password Reset :)//
 
 export function ResetPassword(id, password) {
-    return async function (dispatch) {
-        try{
-        console.log(password)
-        const response = await axios.put(`http://localhost:3001/cliente/${id}/passwordReset`, password )
-        console.log(response)
-        return response
-        }
-        catch(err){
+    return async function(dispatch) {
+        try {
+            console.log(password)
+            const response = await axios.put(`http://localhost:3001/cliente/${id}/passwordReset`, password)
+            console.log(response)
+            return response
+        } catch (err) {
             console.log(err)
         }
     }
@@ -236,7 +238,7 @@ export function ResetPassword(id, password) {
 
 //Doctor
 export function validate_doctor(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/doctor');
             for (let i = 0; i < json.data.length; i++) {
@@ -256,8 +258,7 @@ export function validate_doctor(payload) {
                         type: "VALIDATE_DOCTOR",
                         payload: datosDoc
                     });
-                }
-                else {
+                } else {
                     dispatch({
                         type: "VALIDATE_DOCTOR",
                         payload: []
@@ -265,8 +266,7 @@ export function validate_doctor(payload) {
                 }
             }
 
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }

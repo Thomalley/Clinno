@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie'
-import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno } from '../../actions'
+import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno, getDisponibilidad } from '../../actions'
 import swal from 'sweetalert';
+import NavBar from '../NavBar/NavBar'
+import Footer from '../Home/Footer'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
+import './turno.css'
 
 
 export default function Turno() {
@@ -14,15 +17,15 @@ export default function Turno() {
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
     const dispatch = useDispatch();
-    
     const cookies = new Cookies()
-
+    const [loggeado,setLoggeado] = useState();
+    var userLog = cookies.get('email');
     const idUser = cookies.get('id')
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
         idClinica: "",
         horarioDoctor: [],
-        idDoctor: "", 
+        idDoctor: "",
         fecha: "",
         hora: "",
         idCliente: idUser
@@ -80,10 +83,16 @@ export default function Turno() {
         }
         diaTurno = data[2];
         yearTurno = data[3];
-        finalDate = diaTurno + '/' + mesTurno + '/' + yearTurno;
+        finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
         setidValue({ ...idValue, fecha: finalDate })
     }
 
+    useEffect(()=>{
+        userLog ? setLoggeado(true) : setLoggeado(false)
+    }, [])
+    useEffect(()=>{
+        dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
+    }, [])
     useEffect(() => {
         dispatch(getEspecialidad())
     }, [dispatch])
@@ -99,10 +108,10 @@ export default function Turno() {
 
     function handleSelectDoc(e) {
         const value = e.target.value
-        const doc = doctoresDeEspe.filter((d)=> d.nombre === value)
+        const doc = doctoresDeEspe.filter((d) => d.nombre === value)
         var horario = doc[0].especialidads[0].horario
         const docId = doc[0].id
-        
+
         setidValue({
             ...idValue,
             horarioDoctor: horario,
@@ -130,74 +139,85 @@ export default function Turno() {
             idClinica: e.target.value
         })
     }
-    
-    console.log(idValue)
+
     function handleSubmit(e) {
         e.preventDefault()
         console.log('entre al handel submit')
         dispatch(crearTurno(idValue))
-        swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
+        swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
     }
-    function handleDeleteHora(e){
-        e.preventDefault()
-        const hora = idValue.hora
-    }
+
     return (
         <form onSubmit={handleSubmit}>
-        <div>
-            <h3>Elige la especialidad que buscas:</h3>
-            <select onChange={(e) => handleSelect(e)}>
-                <option value="" disabled selected>Especialidades</option>
-                {especialidades.map((e) => (
-                    <option value={e.id}> {e.nombre} </option>
-                ))}
-            </select>
-            <br></br>
-            <h3>A que clinica asistiras?</h3>
-            <select onChange={(e) => handleSelectClinica(e)}>
-                <option value="" disabled selected>Clinicas</option>
-                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                    <option value={e.id}> {e.nombre} </option>
-                ))}
-            </select>
-            <h3>Selecciona el Doctor: </h3>
-            <select onChange={(e) => handleSelectDoc(e)}>
-                <option value="" disabled selected>Doctores</option>
-                {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                    <option value={e.nombre}> {e.nombre} </option>
-                ))}
-            </select>
-            <h3>Selecciona el dia: </h3>
-            <div>
-                {idValue.fecha !== '' ?
-                    <div>
-                        <div className='calendarioContainer'>
-                            <Calendar
-                                onChange={onChange}
-                                value={date}
-                                onClickDay={(value, event) => validateDate(value)}
-                            />
+            <NavBar loggin={loggeado ? true : false} />
+            <div className="entre_nav_turno"></div>
+            <div className="contenedor_turno">
+                <h3>Elige la especialidad que buscas:</h3>
+                <select onChange={(e) => handleSelect(e)}>
+                    <option value="" disabled selected>Especialidades</option>
+                    {especialidades.map((e) => (
+                        <option value={e.id}> {e.nombre} </option>
+                    ))}
+                </select>
+                <br></br>
+                <h3>A que clinica asistiras?</h3>
+                <select onChange={(e) => handleSelectClinica(e)}>
+                    <option value="" disabled selected>Clinicas</option>
+                    {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                        <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                    ))}
+                </select>
+                <h3>Selecciona el Doctor: </h3>
+                <select onChange={(e) => handleSelectDoc(e)}>
+                    <option value="" disabled selected>Doctores</option>
+                    {doctoresDeEspe && doctoresDeEspe.map((e) => (
+                        <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                    ))}
+                </select>
+                <div>
+                    {idValue.idDoctor !== '' ?
+                        <div>
+                            <h3>Selecciona el dia: </h3>
+                            <div className='calendarioContainer'>
+                                <Calendar
+                                    onChange={onChange}
+                                    value={date}
+                                    onClickDay={(value, event) => validateDate(value)}
+                                />
+                            </div>
+                            <h3>Y horario: </h3>
+                            <select onChange={(e) => handleSelectHora(e)}>
+                                <option value="" disabled selected>Horarios</option>
+                                {idValue.horarioDoctor && idValue.horarioDoctor.map((e) => (
+                                    <option value={e}>{e}</option>
+                                ))}
+                            </select>
+                            <button type="submit" >Crear turno</button>
+                            <div className="entre_nav_turno"></div>
+                            <div className="out_footer">
+                                <Footer />
+                            </div>
                         </div>
-                        <h3>Selecciona el Horario: </h3>
-                        <select onChange={(e) => handleSelectHora(e)}>
-                            <option value="" disabled selected>Horarios</option>
-                            {idValue.horarioDoctor && idValue.horarioDoctor.map((e) => (
-                                <option value={e}>{e}</option>
-                            ))}
-                        </select>
-                        <button type="submit" >Crear turno</button>
-                    </div>
-                    :
-                    <div className='calendarioContainer'>
-                        <Calendar
-                            onChange={onChange}
-                            value={date}
-                            onClickDay={(value, event) => validateDate(value)}
-                        />
-                    </div>
-                }
+                        :
+                        <div>
+                            <div className="out_footer">
+                            <Footer />
+                            </div>
+                            {/* <div className='calendarioContainer'>
+                                <Calendar
+                                    onChange={onChange}
+                                    value={date}
+                                    onClickDay={(value, event) => validateDate(value)}
+                                />
+                                <div className="entre_nav_turno"></div>
+                                <div className="out_footer">
+                                    <Footer />
+                                </div>
+                            </div> */}
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
         </form>
     )
 }
