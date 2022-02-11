@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
         //         }
         //     })
         // })
-        const espe = await Especialidad.findAll({})
+        const espe = await Especialidad.findAll({include: Clinica})
         res.send(espe)
     }catch(error){
         next(error)
@@ -62,6 +62,8 @@ router.post('/', async (req, res, next) => {
         // let hora = horario.toString(', ')
 
         const newEspe = await Especialidad.create({nombre, horario})
+        
+        
         res.send(newEspe)
     }catch(err){
         next(err) 

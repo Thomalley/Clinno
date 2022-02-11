@@ -13,13 +13,20 @@ import Reviews from './components/Reviews/Reviews'
 import ClientCard from './components/ClientCard/ClientCard';
 import PasswordReset from './components/ClientCard/PasswordReset';
 import AdminDoctor from './components/AdminDoctor/AdminDoctor'
+import AddDoctor from './components/AddDoctor/AddDoctor'
+import AddEspecialidad from './components/AddEspecialidad/AddEspecialidad'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
+import ClinicaCard from './components/ClinicaCard/ClinicaCard';
+import VerDoctores from './components/VerDoctores/VerDoctores';
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
           <Route path='/reviews' element={<Reviews/>}/>
@@ -34,7 +41,11 @@ function App() {
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
+          <Route path='/AddDoctor' element={<AddDoctor/>}/>
+          <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
           <Route path='/test' element={<Turno/>}/>
+          <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
+          <Route path='/VerDoctores' element={<VerDoctores/>}/>
         </Routes>
       </div>
     </BrowserRouter>
