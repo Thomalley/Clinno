@@ -109,6 +109,13 @@ export function registrarCliente(payload) {
     }
 }
 
+export function passworForgot(payload) {
+    return async function (dispatch) {
+        const response = await axios.post("http://localhost:3001/cliente/order-mail", payload)
+        return response
+    }
+}
+
 export function crearTurno(input) {
     return async function (dispatch) {
         try {
