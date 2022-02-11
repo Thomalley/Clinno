@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
 })
 router.get('/', async (req, res) => {
     try{
-        const clinAllDb = await Clinica.findAll({})
+        const clinAllDb = await Clinica.findAll({include:Especialidad})
         res.send(clinAllDb)
     }
     catch(err){

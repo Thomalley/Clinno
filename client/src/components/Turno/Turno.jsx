@@ -14,7 +14,9 @@ export default function Turno() {
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
     const dispatch = useDispatch();
+    
     const cookies = new Cookies()
+
     const idUser = cookies.get('id')
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
@@ -98,9 +100,9 @@ export default function Turno() {
     function handleSelectDoc(e) {
         const value = e.target.value
         const doc = doctoresDeEspe.filter((d)=> d.nombre === value)
-        const horario = doc[0].especialidads[0].horario
+        var horario = doc[0].especialidads[0].horario
         const docId = doc[0].id
-        console.log(docId)
+        
         setidValue({
             ...idValue,
             horarioDoctor: horario,
@@ -128,14 +130,20 @@ export default function Turno() {
             idClinica: e.target.value
         })
     }
-
+    
+    console.log(idValue)
     function handleSubmit(e) {
         e.preventDefault()
+        console.log('entre al handel submit')
         dispatch(crearTurno(idValue))
         swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
     }
-
+    function handleDeleteHora(e){
+        e.preventDefault()
+        const hora = idValue.hora
+    }
     return (
+        <form onSubmit={handleSubmit}>
         <div>
             <h3>Elige la especialidad que buscas:</h3>
             <select onChange={(e) => handleSelect(e)}>
@@ -177,6 +185,7 @@ export default function Turno() {
                                 <option value={e}>{e}</option>
                             ))}
                         </select>
+                        <button type="submit" >Crear turno</button>
                     </div>
                     :
                     <div className='calendarioContainer'>
@@ -189,5 +198,6 @@ export default function Turno() {
                 }
             </div>
         </div>
+        </form>
     )
 }

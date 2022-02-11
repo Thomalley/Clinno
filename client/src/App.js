@@ -13,8 +13,11 @@ import Reviews from './components/Reviews/Reviews'
 import ClientCard from './components/ClientCard/ClientCard';
 import PasswordReset from './components/ClientCard/PasswordReset';
 import AdminDoctor from './components/AdminDoctor/AdminDoctor'
+import AddDoctor from './components/AddDoctor/AddDoctor'
+import AddEspecialidad from './components/AddEspecialidad/AddEspecialidad'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
+
 
 function App() {
   return (
@@ -36,6 +39,8 @@ function App() {
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
+          <Route path='/AddDoctor' element={<AddDoctor/>}/>
+          <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
           <Route path='/test' element={<Turno/>}/>
         </Routes>
       </div>
