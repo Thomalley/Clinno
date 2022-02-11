@@ -158,7 +158,7 @@ export default function Login(){
                     )}
                 </div>
                 </div>
-                {/*<a className="noaccreg" href="/recover">Olvidaste tu contraseña?</a>*/}
+                <a className="noaccreg" href="/recover">Olvidaste tu contraseña?</a>
                 <div className="row">
                     <div className="col-12 
                     ">
