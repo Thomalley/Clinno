@@ -1,0 +1,46 @@
+.contenedor_addDoctor{
+    display: flex;
+    justify-content: center;   
+    flex-direction: column;
+    align-items: center;
+}
+.show_especialidades{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 365px;
+    background: #3331;
+    overflow: hidden;
+    min-height: 80px;
+}
+.delete_esp{
+    background: #ef4565;
+    padding: 3px;
+    color: #d8eefe;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.esp_Show{
+    color: #fffffe;
+    display: flex;
+    height:30px;
+    min-width: 5px;
+    flex-direction: row;
+    border-radius: 5px;
+    border: 2px solid  #ef4565;
+    margin: 4px;
+}
+.texto_esp{
+    box-sizing: border-box;
+    display: inline-flex;
+    height: 23px;
+    text-align: center;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+    padding: 0px 2px 4px 2px;
+    margin: 0px 2px;
+    cursor: default;
+}
