@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
-    },    
+    },
     fecha: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,31 +18,41 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    turno: {
+    idClinica: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    estado: {
-      type: DataTypes.ENUM('abierto', 'creado', 'proceso', 'cancelado', 'completado'),
-      allowNull: false
+    idCliente: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    payment_id:{
+    idDoctor: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    idEspecialidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    // estado: {
+    //   type: DataTypes.ENUM('abierto', 'creado', 'proceso', 'cancelado', 'completado'),
+    //   allowNull: false
+    // },
+    //Mercado pago 👇
+    payment_id: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    payment_status:{
-        type: DataTypes.STRING,
-        defaultValue: ""
+    payment_status: {
+      type: DataTypes.STRING,
+      defaultValue: ""
     },
     merchant_order_id: {
-        type: DataTypes.BIGINT,
-        defaultValue: 0
-    },
-    title: {
-      type: DataTypes.STRING
+      type: DataTypes.BIGINT,
+      defaultValue: 0
     }
   });
- 
+
 };
 
 

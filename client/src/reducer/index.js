@@ -1,69 +1,74 @@
 const initialState = {
-    clientes : [],
-    cliente : [],
-    especialidades : [],
-    clinicasByEspec : [],
-    clinicas : [],
+    clientes: [],
+    cliente: [],
+    especialidades: [],
+    clinicasByEspec: [],
+    clinicas: [],
     clinica: [],
-    doctoresByEspec : [],
+    doctoresByEspec: [],
     doctor: []
 };
 
 
 
 
-const rootReducer = (state = initialState, action)=>{
-    switch(action.type){
-        case "GET_CLIENTES" :
+const rootReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case "GET_CLIENTES":
             return {
                 ...state,
-                clientes : action.payload
+                clientes: action.payload
             }
-            
-        case 'POST_USER' :
-            return{
+
+        case 'POST_USER':
+            return {
                 ...state,
             }
 
-        case 'POST_CLINIC' :
-            return{
+        case 'POST_CLINIC':
+            return {
                 ...state,
             }
-        
-        case "VALIDATE_USER" :
-            return{
+
+        case "VALIDATE_USER":
+            return {
                 ...state,
-                cliente : action.payload
+                cliente: action.payload
             }
-        
-        case "VALIDATE_USER_WRONG" :
-            return{
+
+        case "VALIDATE_USER_WRONG":
+            return {
                 ...state,
-                cliente : action.payload
+                cliente: action.payload
             }
-        
-        case "GET_ESPECIALIDAD" :
-            return{
+
+        case "GET_ESPECIALIDAD":
+            return {
                 ...state,
-                especialidades : action.payload
+                especialidades: action.payload
             }
-        
-        case "GET_CLINICAS_BY_ESPE" : 
-            return{
+
+        case "GET_CLINICAS_BY_ESPE":
+            return {
                 ...state,
-                clinicasByEspec : action.payload
+                clinicasByEspec: action.payload
             }
-        
-        case 'CLINICA_USER' :
-            return{
+
+        case 'CLINICA_USER':
+            return {
                 ...state,
-                clinica : action.payload   
+                clinica: action.payload
             }
-        
-        case "GET_DOCTORES_BY_ESPEC_ID" :
-            return{
+
+        case "GET_DOCTORES_BY_ESPEC_ID":
+            return {
                 ...state,
-                doctoresByEspec : action.payload
+                doctoresByEspec: action.payload
+            }
+
+        case "CREAR_TURNO":
+            return {
+                ...state,
             }
         
         case "RESET_PASSWORD":
@@ -72,13 +77,13 @@ const rootReducer = (state = initialState, action)=>{
                 }
 
         case 'VALIDATE_DOCTOR':
-            return{
+            return {
                 ...state,
                 doctor: action.payload
             }
-        
-        default :
-        return state;
+
+        default:
+            return state;
     }
 }
 

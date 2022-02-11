@@ -1,8 +1,7 @@
 const { Router } = require("express");
 router = Router()
- var passport = require('passport');
- const nodemailer = require("nodemailer");
-const { Cliente } = require('../db')
+var passport = require('passport');
+const { Cliente } = require('../db');
  // ruta que devuelva clientes//
  //Get/cliente//
  router.get('/', (req, res,next) => {
@@ -50,6 +49,31 @@ router.post("/", async (req,res) => {
          password,
        }) 
        res.json(cliente)
+
+       const sgMail = require('@sendgrid/mail')
+
+  const API_KEY = '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';
+  
+  sgMail.setApiKey(API_KEY)
+  
+  const message = {
+    to: req.body.email,
+    from : "clinnoturnos@gmail.com",
+    subject: `Usuario registrado con exito!`,
+    html: `
+     <html>
+ <head>
+      <body>
+      <h2> Hola ${req.body.nombre} desde Clinno estamos contentos de informarte que tu registro de usuario ha sido confirmado con exito </h2>
+      </body>
+   </head>
+ </html>`
+  }
+
+  sgMail
+  .send(message)
+  .then((response) => console.log ('Email sent...'))
+  .catch((error) => console.log (error.message))
  }
  catch(error){
    console.log(error)
@@ -199,35 +223,71 @@ router.post('/login', (req, res) => {
 //orden de mail confirmacion//
 
 router.post('/order-mail', (req,res)=> {
-const transporter = nodemailer.createTransport({
-  service:'gmail',
-  auth:{
-    user: "clinnoturnos@gmail.com",
-    pass: "Clinno2022"
-  }
-})
+  try{
+    const {email, password, nombre, apellido, direccion, dni} = req.body;
 
-const mailOptions = {
-from : "clinnoturnos@gmail.com",
-to: req.body.email,
-subject: `Usuario registrado con exito`,
-html: `
-     <html>
-<head>
-     <body>
-     <h2> Hola ${req.body.nombre} desde Clinno estamos contentos de informarte que tu registro de usuario ha sido confirmado con exito </h2>
-     </body>
-  </head>
-</html>`
-}
-transporter.sendMail(mailOptions, (error, info) => {
-  if(error){
-    res.status(500).send(error.message)
-  }else{
-    conmouseleave.log("Email enviado con exito")
-    res.status(200).json(req.body)
-  }
-})
-});
+    console.log(email)
+
+     const sgMail = require('@sendgrid/mail')
+
+      const API_KEY = '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';
+
+      sgMail.setApiKey(API_KEY)
+
+      const message = {
+        to: email,
+        from : "clinnoturnos@gmail.com",
+        subject: `contrase;a!`,
+        html: `
+        <html>
+      <head>
+          <body>
+          <h2> Hola ${nombre} tu contrase;a es ${password} </h2>
+          </body>
+      </head>
+      </html>`
+      }
+
+      sgMail
+      .send(message)
+      .then((response) => console.log ('Email sent...'))
+      .catch((error) => console.log (error.message))
+      }
+      catch(error){
+      console.log(error)
+      }
+      });
+
+
+// // const transporter = nodemailer.createTransport({
+// //   service:'gmail',
+// //   auth:{
+// //     user: "clinnoturnos@gmail.com",
+// //     pass: "Clinno2022"
+// //   }
+// // })
+
+// // const mailOptions = {
+// // from : "clinnoturnos@gmail.com",
+// // to: req.body.email,
+// // subject: `Usuario registrado con exito`,
+// // html: `
+//      <html>
+// <head>
+//      <body>
+//      <h2> Hola ${req.body.nombre} desde Clinno estamos contentos de informarte que tu registro de usuario ha sido confirmado con exito </h2>
+//      </body>
+//   </head>
+// </html>`
+// }
+// transporter.sendMail(mailOptions, (error, info) => {
+//   if(error){
+//     res.status(500).send(error.message)
+//   }else{
+//     conmouseleave.log("Email enviado con exito")
+//     res.status(200).json(req.body)
+//   }
+// })
+
 
 module.exports = router;
