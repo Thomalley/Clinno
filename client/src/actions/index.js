@@ -128,9 +128,30 @@ export function crearTurno(input) {
                 type: "CREAR_TURNO",
                 payload: newTurno
             })
-            
         }
         catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export function nuevoHorarioDoc(input) {
+    return async function(dispatch) {
+        try{
+            const horario = await axios({
+                method: "put",
+                url: "http://localhost:3001/especialidad",
+                data: {
+                    nombre : input.nombre,
+                    horario: input.horario
+                },
+            });
+            // return dispatch({
+            //     type: "NUEVO_HORARIO_DOC",
+            //     payload: horario
+            // })
+        }
+        catch(e){
             console.log(e)
         }
     }
