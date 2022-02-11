@@ -44,5 +44,43 @@ router.get('/', async (req, res) => {
         console.log(err)
     }
 })
+router.post('/order-mail', (req,res)=> {
+    try{
+      const {email, password, nombre} = req.body;
+  
+      console.log(email)
+  
+       const sgMail = require('@sendgrid/mail')
+  
+        const API_KEY = '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';
+  
+        sgMail.setApiKey(API_KEY)
+  
+        const message = {
+          to: email,
+          from : "clinnoturnos@gmail.com",
+          subject: `El proceso de baja ha comenzado`,
+          html: `
+          <html>
+        <head>
+            <body>
+            <h2> Hola ${nombre } queremos informarte que ya estamos trabajando con la anulacion de suscripción de su clinica.  </h2>
+            <h2> Desde Clinno nos entristece mucho esta noticia y nos gustaria saber el porque de la misma. Si no es mucha molestia agrdaeceriamos si pudieran completar esta pequeña encuesta: </h2>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeu_6FNiYnlIQHNOmVh47ZUrBYr9b4EYKmXB0vBIjSmLaZOkA/viewform?embedded=true" width="640" height="1387" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            </body>
+        </head>
+        </html>`
+        }
+  
+        sgMail
+        .send(message)
+        .then((response) => console.log ('Email sent...'))
+        .catch((error) => console.log (error.message))
+        }
+        catch(error){
+        console.log(error)
+        }
+        });
+
 
 module.exports = router
