@@ -21,22 +21,11 @@ export default function AdminDoctor(){
     const dispatch = useDispatch();
     const doctor = useSelector((state)=> state.doctor);
     const cookies = new Cookies();
-
-   
-    let session=false;
     
+   
     //control se dession
-    useEffect(() => {
-        if(cookies.get('clinica_id')) {
-            setLoggeado(true)
-        }else{
-            setLoggeado(false)
-        }
-    },[cookies.get('clinica_id')])
-
-    if(cookies.get('clinica_id')){
-        session = true;
-    }
+    let session=false;
+    if(cookies.get('clinica_id')) session = true; 
     const [loggeado,setLoggeado] = useState(session);
     const [check,setCheck] = useState(false);
     const [input, setInput] = useState({
@@ -46,21 +35,24 @@ export default function AdminDoctor(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch(validate_doctor(input));
+        logear();
+    }
+    function logear(){
         if( doctor.length > 0){
-            setTimeout(()=> swal("Bienvenido!", "Hola Doc", "success"),200);
+            setInput({ password : '' });
+            swal("Bienvenido!", "Hola Doc", "success");
             setTimeout(()=> setCheck(true), 2000) ;
         }
-        //else{
-        //     if(!check){
-        //     swal({
-        //         title: "Usuario o contrasena incorrectos",
-        //         text: "Ingrese los datos e intente nuevamente",
-        //         icon: "warning",
-        //         dangerMode: true,
-        //       })
-        //     }
-        // }
+        else{
+            swal({
+                title: "Usuario o contrasena incorrectos",
+                text: "Ingrese los datos e intente nuevamente",
+                icon: "warning",
+                dangerMode: true,
+              })            
+        }
     }
+    
     useEffect(() => {
         dispatch(validate_doctor(input));
     },[input])

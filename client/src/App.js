@@ -13,6 +13,9 @@ import Reviews from './components/Reviews/Reviews'
 import ClientCard from './components/ClientCard/ClientCard';
 import PasswordReset from './components/ClientCard/PasswordReset';
 import AdminDoctor from './components/AdminDoctor/AdminDoctor'
+import AddDoctor from './components/AddDoctor/AddDoctor'
+import AddEspecialidad from './components/AddEspecialidad/AddEspecialidad'
+
 
 function App() {
   return (
@@ -33,6 +36,8 @@ function App() {
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
+          <Route path='/AddDoctor' element={<AddDoctor/>}/>
+          <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
         </Routes>
       </div>
     </BrowserRouter>

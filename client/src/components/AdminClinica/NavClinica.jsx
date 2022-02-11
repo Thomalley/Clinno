@@ -26,9 +26,6 @@ export default function LoginClinica(){
 
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
         setTimeout(()=> window.location.href='/', 700) ;
-
-
-
     }
 
 return (
@@ -50,11 +47,11 @@ return (
                 <Link to='/' className="nav-link text-white boton_nav_clinica">Hacer un turno</Link>
             </li>
             <li>
-                <Link  to='/' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
+                <Link  to='/AddDoctor' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
             </li>
-            <li>
-                <Link  to='/' className="nav-link text-white boton_nav_clinica">Agregar Especialidad</Link>
-            </li>
+            {/* <li>
+                <Link  to='/AddEspecialidad' className="nav-link text-white boton_nav_clinica">Agregar Especialidad</Link>
+            </li> */}
             <li>
                 <Link to='/' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
             </li>

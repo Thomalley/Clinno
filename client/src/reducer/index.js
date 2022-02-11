@@ -58,7 +58,16 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 clinicasByEspec : action.payload
             }
-        
+        // case 'ADD_ESPECIALIDAD':
+        //     return{
+        //         ...state,
+        //         especialidades : action.payload
+        //     }
+        case 'ADD_DOCTOR': 
+            return{
+                ...state,
+                doctor : action.payload
+            }
         case 'CLINICA_USER' :
             return{
                 ...state,
@@ -71,10 +80,10 @@ const rootReducer = (state = initialState, action)=>{
                 doctoresByEspec : action.payload
             }
         
-        case RESET_PASSWORD:
-                return{
-                    ...state,
-                }
+        // case RESET_PASSWORD:
+        //         return{
+        //             ...state,
+        //         }
 
         case 'VALIDATE_DOCTOR':
             return{

@@ -17,27 +17,14 @@ export default function LoginClinica(){
     const dispatch = useDispatch();
 
     const cookies = new Cookies();
+    
+    useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id'))); },[])
+    
     const clinica = useSelector((state)=> state.clinica[0]);
-
-    useEffect(() => {
-        dispatch(get_clinica(cookies.get('clinica_id')));
-    },[])
-
-    let session=false;
-
+    
     //control se dession
-    useEffect(() => {
-        console.log('workin')
-        if(cookies.get('clinica_id')) {
-            setLoggeado(true)
-        }else{
-            setLoggeado(false)
-        }
-    },[cookies.get('clinica_id')])
-
-    if(cookies.get('clinica_id')){
-        session = true;
-    }
+    let session=false;
+    if(cookies.get('clinica_id')) session = true;    
     const [loggeado,setLoggeado] = useState(session);
 
     
