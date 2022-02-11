@@ -18,10 +18,6 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    horario: {
-      type: DataTypes.NUMBER,
-      allowNull: true
-    },
   });
 };
 
