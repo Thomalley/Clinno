@@ -8,6 +8,8 @@ import { Link} from "react-router-dom";
 import Cookies from 'universal-cookie'
 import { getClients } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
+import PasswordReset from "./PasswordReset"
+
 
 export default function ClientCard(){
     const dispatch = useDispatch();
@@ -37,18 +39,17 @@ export default function ClientCard(){
         currentUser2[arrayUser[i][0]] = arrayUser[i][1]
       }
 
-      console.log(currentUser2)
-      console.log(currentUser2)
-
       return (
         <div>
         <NavBar/>
     
         <ul class="nav justify-content-center">
 
-        <li class="nav-item">
-        <Link to="/passwordreset" class="nav-link" href="#">Modificar datos de usuario</Link>
-        </li>
+        
+          <li class="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Modificar contraseña
+          </li>
+        
 
         <li class="nav-item">
         <Link to="/" class="nav-link" href="#">Historial de visitas y diagnosticos</Link>
@@ -65,8 +66,21 @@ export default function ClientCard(){
         <li class="nav-item">
         <Link to="/" class="nav-link" href="#">hacer una cita</Link>
         </li>
-
         </ul>
+
+        <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <PasswordReset/>
+        </div>
+        </div>
+
+
+        
+      
+
+
+
+
 
         <div className="container3">
         <img src={photo} alt="png" className="fotoDetail"/>

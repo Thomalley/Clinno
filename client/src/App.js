@@ -15,6 +15,8 @@ import PasswordReset from './components/ClientCard/PasswordReset';
 import AdminDoctor from './components/AdminDoctor/AdminDoctor'
 import AddDoctor from './components/AddDoctor/AddDoctor'
 import AddEspecialidad from './components/AddEspecialidad/AddEspecialidad'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Turno from './components/Turno/Turno';
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
           <Route path='/reviews' element={<Reviews/>}/>
@@ -38,6 +41,7 @@ function App() {
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
           <Route path='/AddDoctor' element={<AddDoctor/>}/>
           <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
+          <Route path='/test' element={<Turno/>}/>
         </Routes>
       </div>
     </BrowserRouter>
