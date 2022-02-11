@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { getClients } from '../../actions';
 import {useDispatch} from 'react-redux';
 import swal from 'sweetalert';
-const nodemailer = require("nodemailer");
+import {passworForgot} from '../../actions';
 
 export default function ForgotPassword(){
 
@@ -21,35 +21,10 @@ export default function ForgotPassword(){
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
         for(let i=0; i<clientes.length; i++){
-            if (clientes[i].email === data){
-                
-                const sgMail = require('@sendgrid/mail')
-
-                const API_KEY = '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';
-  
-                sgMail.setApiKey(API_KEY)
-  
-                const message = {
-                to: data,
-                from : "clinnoturnos@gmail.com",
-                subject: `Usuario registrado con exito!`,
-                html: `
-                <html>
-                <head>
-                <body>
-                <h2> Hola ${data} tu contraseña es ${clientes[i].password}</h2>
-                </body>
-                </head>
-                </html>`
-                }
-
-                sgMail
-                    .send(message)
-                    .then((response) => console.log ('Email sent...'))
-                    .catch((error) => console.log (error.message))
-
-              swal("se ha enviado un correo con su contraseña actual")
-              break;
+            if (clientes[i].email === data.email){
+                dispatch(passworForgot(clientes[i]))
+                swal("se ha enviado un correo con su contraseña actual")
+                break;
             }
           }
     }

@@ -54,8 +54,20 @@ const rootReducer = (state = initialState, action) => {
                 clinicasByEspec: action.payload
             }
 
-        case 'CLINICA_USER':
-            return {
+        // case 'ADD_ESPECIALIDAD':
+        //     return{
+        //         ...state,
+        //         especialidades : action.payload
+        //     }
+        case 'ADD_DOCTOR': 
+            return{
+                ...state,
+                doctor : action.payload
+            }
+        
+        case 'CLINICA_USER' :
+            return{
+
                 ...state,
                 clinica: action.payload
             }
