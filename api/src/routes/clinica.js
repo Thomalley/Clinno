@@ -81,6 +81,21 @@ router.post('/order-mail', (req,res)=> {
         console.log(error)
         }
         });
+router.post('/addEspecialidad', async (req, res) => {
+    try{
+        const payload = req.body;
+        const {clinica, especialidad} = payload;
+        const clinDb = await Clinica.findByPk(clinica)
+        especialidad.map(async (e)=>{
+            await clinDb.addEspecialidad(parseInt(e,10))
+        })
+        res.send(clinDb)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
 
 
 module.exports = router

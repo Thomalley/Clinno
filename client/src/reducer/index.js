@@ -7,6 +7,7 @@ const initialState = {
     clinica: [],
     doctoresByEspec: [],
     doctor: [],
+    doctores: [],
     horarioDisponibleParaTurno: []
 };
 
@@ -87,7 +88,13 @@ const rootReducer = (state = initialState, action) => {
         case 'VALIDATE_DOCTOR':
             return {
                 ...state,
-                doctor: action.payload
+                doctor: action.payload,
+            }
+
+        case 'GET_ALL_DOCTOR_CLINICA':
+            return {
+                ...state,
+                doctores: action.payload
             }
         case "GET_DISPONIBILIDAD":
             return {
