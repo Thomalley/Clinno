@@ -2,147 +2,88 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./homeClients.css";
-import clinics from "../utils/hospitals.json"
-import especial from "../utils/especialidades.json"
-import { useState,useEffect  } from "react";
-import doc from "../utils/hipertencion.gif"
+import { useState, useEffect } from "react";
+import doc from "../utils/hipertencion.gif";
 import Footer from "../Home/Footer";
-import NavBar from '../NavBar/NavBar';
-import Cookies from 'universal-cookie'
-
+import NavBar from "../NavBar/NavBar";
+import Cookies from "universal-cookie";
+import {
+  getEspecialidad,
+  getClinicasByEspec,
+  getClinicas,
+} from "../../actions";
 import { useAuth0 } from "@auth0/auth0-react";
-import pp from "../utils/images-landing/pp.png"
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-
-// const clinicas = useSelector((state) => state.clinicasByEspec)
-// const especialidades = useSelector((state) => state.especialidades)
-
-
-
+import pp from "../utils/images-landing/pp.png";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import logo from "../utils/favicon.png";
 export default function HomeHospitals() {
-  const cookies = new Cookies()
-  
-  const [input, setInput] = useState({
-    clinic: [],
-    especialidad: [],
-    
+  const dispatch = useDispatch();
+  // const clinicas = useSelector((state) => state.clinicas)
+  const especialidades = useSelector((state) => state.especialidades);
+  const clinicas = useSelector((state) => state.clinicasByEspec);
+  const [idValue, setidValue] = useState({
+    idEspecialidad: "",
+    idClinica: "",
   });
-  
+  const cookies = new Cookies();
 
-  const dispatch= useDispatch()
-    
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  const { isAuthenticated,isLoading} = useAuth0();
-
-
-    
   let session;
-  // console.log("sesion iniciada por " + cookies.get('email'))  
-  if(cookies.get('email')){
-      session = true;
-  }else{
-      session = isLoading;
+
+  if (cookies.get("email")) {
+    session = true;
+  } else {
+    session = isLoading;
   }
-  const [loggeado,setLoggeado] = useState(session);
+  const [loggeado, setLoggeado] = useState(session);
   //control de sesion
-  useEffect(()=>{
-    console.log(isLoading)
-    if(cookies.get('email')){
+  useEffect(() => {
+    if (cookies.get("email")) {
+      setLoggeado(true);
+    } else {
+      if (isAuthenticated) {
         setLoggeado(true);
-    }else {
-        if(isAuthenticated){
-            setLoggeado(true);
-        }else{
-            setLoggeado(false);
-        }
+      } else {
+        setLoggeado(false);
+      }
     }
-      
-  },[isLoading,cookies.get('email')])
+  }, [isLoading, cookies.get("email")]);
+  console.log("soy especialidades", especialidades);
+  // const clin = clinicas?.map(e => e.clinicas)
+  // const icas = clin?.map(e => e.nombre)
 
+  console.log("soy id value", idValue);
 
-  function handleSelectClinic(e) {   
+  useEffect(() => {
+    dispatch(getEspecialidad());
+  }, []);
 
-    if (e.target.value === " "){
+  // useEffect(() => {
+  //   dispatch(getClinicas())
+  // }, []);
+  useEffect(() => {
+    dispatch(getClinicasByEspec(idValue.idEspecialidad));
+  }, [idValue.idEspecialidad]);
 
-      setInput({
-        ...input,
+  // function handleSelectClinica(e) {
+  //   setidValue({
+  //     ...idValue,
+  //     idClinica: e.target.value,
+  //   });
+  // }
 
-        especialidad: [],
-        clinic: []
-      }); 
-
-    }else{    
-
-      let busqueda =clinics.find( c=> c.nombre === e.target.value)
-            
-
-      setInput({
-        ...input,
-
-        clinic: [busqueda],
-        especialidad: []
-      });  
-
-    }
+  function handleSelectEspec(e) {
+    setidValue({
+      ...idValue,
+      idEspecialidad: e.target.value,
+    });
   }
-
-  
-
-  function handleSelectEscpecial(e) {
-
-    if (e.target.value === " "){
-
-      setInput({
-        ...input,
-
-        especialidad: [],
-        clinic: []
-      }); 
-
-    } else {  
-      let busqueda = especial.find((c) => c.nombre === e.target.value); 
-
-    
-      setInput({
-        ...input,
-
-        especialidad: [busqueda],
-        clinic: []
-      }); 
-           
-    }     
-    }
-
-    function handleAllClinics(e){
-
-      if(e.target.value ){
-
-      
-      let allclinics= clinics;
-
-      setInput({
-        ...input,
-
-        clinic:[...allclinics],
-        especialidad: []
-
-
-      }); 
-    }
-      
-    }
-
-    
-  
-
- 
 
   return (
     <>
-      <NavBar loggin={loggeado} />
-
-     +
+      <NavBar loggin={loggeado} />+
       <div className="home-hospitals">
         <div className="big-box">
           <div className="left-box">
@@ -158,49 +99,31 @@ export default function HomeHospitals() {
                 <div>POR LA ESPECIALIDAD QUE NECESITES</div>
               </h5>
             </div>
-            
-            <div className="selet-container">
-              <div>
-            <h5>Busca por clinica</h5>
-            <select
-              className="select"
-              key="select"
-              onChange={(e) => handleSelectClinic(e) }
-            >
-              <option value=" ">Selecciona una clinica</option>
-              {clinics?.map((esp) => (
-                <option value={esp.nombre}>{esp.nombre}</option>
-              ))}
 
-             
-              </select>
-               </div>
-
+            <div>
+              <h5>Buscar clinicas por especialidad</h5>
               <div>
-                <h5>Buscar clinicas por especialidad</h5>
-                <div>
-                  <select
-                    className="select"
-                    key="select"
-                    onChange={(e) => handleSelectEscpecial(e)}
-                    
-                  >
-                    <option value=" ">Selecciona una especiallidad</option>
-                    
-                    {especial?.map((esp) => (
-                      <option value={esp.nombre}>{esp.nombre}</option>
-                    ))}
-                  </select>
-                  {/* boton handlesumint */}
-                </div>
+                <select
+                  className="select"
+                  key="select"
+                  onChange={(e) => handleSelectEspec(e)}
+                >
+                  <option value=" ">Selecciona una especiallidad</option>
+
+                  {especialidades?.map((e) => (
+                    <option value={e.id}>{e.nombre}</option>
+                  ))}
+                </select>
+                {/* boton handlesumint */}
               </div>
             </div>
 
-            <div className="button-allclinics-box">
-              <button value="all" onClick={(e) => handleAllClinics(e)}> Ver todas las clinicas </button>
-              
-            </div>
-
+            {/* <div className="button-allclinics-box">
+                <button value="all" onClick={(e) => handleClinicas(e)}>
+                  {" "}
+                  Ver todas las clinicas{" "}
+                </button>
+              </div> */}
 
             <div className="steps-box">
               <div>
@@ -247,76 +170,58 @@ export default function HomeHospitals() {
             </div>
           </div>
 
+          <div className="clinics">
+            {console.log("soy clinicas", clinicas)}
+            {clinicas?.clinicas?.map((c) => (
+                <div className="card-clinic">
+                  <h5>{c.nombre} </h5>
+                  <div className="img-logo-clinics">
+                    <img src={logo} alt={c.nombre} />
+                  </div>
 
-          <div className="clinics">            
+                  <div className="datos-box">
+                    <div>
+                      <h6>Dirección:</h6>
+                    </div>
+                    <div>
+                      <p>{c.direccion}</p>
+                    </div>
 
-            {          
-
-            input.clinic.map((clinica) => (
-          
-            <div className="card-clinic">
-              
-              <h5>{clinica.nombre} </h5>
-              <div className="img-logo-clinics"><img src={clinica.logo} alt={clinica.name} /></div>
-
-              <div className="datos-box">
-                <div>
-                  <h6>Dirección:</h6>
+                    <div>
+                      <Link to={`/Home/clinica/${c.id}`}>
+                        <button className="btn-go">Ir a clinica</button>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p>{clinica.direccion}</p>
+              )
+            )}
+
+            {/* {idValue.idEspecialidad?.map((clinica) =>
+              clinica.hospitales.map((e) => (
+                <div className="card-clinic">
+                  <h5>{e.nombre} </h5>
+                  <div className="img-logo-clinics">
+                    <img src={e.logo} alt={e.nombre} />
+                  </div>
+
+                  <div className="datos-box">
+                    <div>
+                      <h6>Dirección:</h6>
+                    </div>
+                    <div>
+                      <p>"aca va la direccion"</p>
+                    </div>
+
+                    <div>
+                      <Link to={`/Home/clinica/hospital 1`}>
+                        <button className="btn-go">Ir a clinica</button>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-
-                <div>
-                  <Link to={`/Home/clinica/hospital 1`}>
-                    <button className="btn-go">Ir a clinica</button>
-                  </Link>
-                </div>
-              </div>
-
-             
-            </div>
-          ))} 
-
-          {input.especialidad.map((clinica) =>
-          clinica.hospitales.map((e) => (
-            <div className="card-clinic">
-              <h5>{e.nombre} </h5>
-              <div className="img-logo-clinics">
-                <img src={e.logo} alt={e.name} />
-              </div>
-
-              <div className="datos-box">
-                <div>
-                  <h6>Dirección:</h6>
-                </div>
-                <div>
-                  <p>{e.direccion}</p>
-                </div>
-
-                <div>
-                  <Link to={`/Home/clinica/hospital 1`}>
-                    <button className="btn-go">Ir a clinica</button>
-                  </Link>
-                  
-                </div>
-                
-              </div>
-            </div>
-          ))
-        )}
-
-        
-
-
-
-
-
-
-
-          
-
-          
+              ))
+            )} */}
           </div>
         </div>
 

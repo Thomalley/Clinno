@@ -16,9 +16,7 @@ export default function Turno() {
     const especialidades = useSelector((state) => state.especialidades)
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
-
     const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
-
     const dispatch = useDispatch();
     const cookies = new Cookies()
     const [loggeado, setLoggeado] = useState();
@@ -100,11 +98,9 @@ export default function Turno() {
         userLog ? setLoggeado(true) : setLoggeado(false)
     }, [])
 
-    useEffect(()=>{
-        dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
-        console.log(horarioDispo)
-    }, [idValue.fecha])
-
+    useEffect(() => {
+        dispatch(getEspecialidad())
+    }, [])
 
     useEffect(() => {
         dispatch(getClinicasByEspec(idValue.idEspecialidad))
@@ -155,6 +151,7 @@ export default function Turno() {
         dispatch(crearTurno(idValue))
         swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
     }
+    console.log("soy clinicas de espe",clinicasDeEspe)
 
     return (
         <form onSubmit={handleSubmit}>
