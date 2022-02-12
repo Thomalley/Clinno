@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx'
-import { validate_doctor} from '../../actions'
+import { validate_doctor,get_doctor_id} from '../../actions'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -22,26 +22,45 @@ export default function AdminDoctor(){
     const doctor = useSelector((state)=> state.doctor);
     const cookies = new Cookies();
     
-   
-    //control se dession
+    useEffect(()=>{
+        if( cookies.get('doctor_id') ){
+            dispatch(get_doctor_id(cookies.get('doctor_codigo')));
+        }else{
+            setCheck(false);
+        }
+    },[])
+    //control se dession Clinica
     let session=false;
     if(cookies.get('clinica_id')) session = true; 
     const [loggeado,setLoggeado] = useState(session);
-    const [check,setCheck] = useState(false);
+
+    //control sesion Doctor
+    let sessionD=false;
+    if(cookies.get('doctor_id')) sessionD = true;    
+    const [check,setCheck] = useState(sessionD);
+
     const [input, setInput] = useState({
-        password : ''
+        password : '',
+        idClinica:cookies.get('clinica_id')
     });
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(validate_doctor(input));
-        logear();
+        dispatch(validate_doctor(input))
+        logear()
     }
     function logear(){
-        if( doctor.length > 0){
-            setInput({ password : '' });
-            swal("Bienvenido!", "Hola Doc", "success");
-            setTimeout(()=> setCheck(true), 2000) ;
+        
+        if( doctor){
+            const data = doctor[0];
+            cookies.set('doctor_id', data.id, {path: '/'});
+            cookies.set('doctor_nombre', data.nombre, {path: '/'});
+            cookies.set('doctor_codigo', data.codigo, {path: '/'});
+            cookies.set('doctor_especialidades', data.especialidades, {path: '/'});
+            setInput({password : ''})
+            dispatch(get_doctor_id(cookies.get('doctor_codigo')));
+            swal("Bienvenido!", "Hola Doc", "success")
+            setCheck(true)
         }
         else{
             swal({
@@ -49,25 +68,28 @@ export default function AdminDoctor(){
                 text: "Ingrese los datos e intente nuevamente",
                 icon: "warning",
                 dangerMode: true,
-              })            
+            })          
         }
     }
     
     useEffect(() => {
-        dispatch(validate_doctor(input));
+        if(!cookies.get('doctor_id')){
+            dispatch(validate_doctor(input));
+        }
     },[input])
-
+    
+    
     function handleChange(e){
         setInput({
             ...input,
-            password : e.target.value
+            password : e.target.value,
+            idClinica:cookies.get('clinica_id')
         });
     }
 
     if(loggeado){
         return(
-            <div >
-
+            <div>
                 {  !check?
                 <div className="container">
                     <div className="row d-flex flex-column gap-3 contenedor_Doctor">
@@ -80,6 +102,7 @@ export default function AdminDoctor(){
                                     type="submit"
                                     className="btn btn-primary">Continuar</button>
                             </form>
+                            <Link to='/verDoctores' >No Te Acordas tu Codigo?</Link>
                         </div>
                     </div>
                 </div>
@@ -88,7 +111,12 @@ export default function AdminDoctor(){
                 <>
                     <div className="contenedor_adminClinica">
                         <NavClinica/>
-                        <h1>Bienvenido Nombre Doctor</h1>
+                        <h1>Bienvenido {doctor[0]?.nombre}</h1>
+                        <h6>Codigo {doctor[0]?.codigo}</h6>
+                        <h6>Especialista en:  </h6>
+                        <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
+
+
 
                     </div>
 
