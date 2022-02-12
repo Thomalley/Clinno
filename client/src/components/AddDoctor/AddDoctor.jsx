@@ -140,6 +140,7 @@ export default function AddDoctor(){
 
                             <form onSubmit={(e)=> handleSubmit(e)}>
                                 <select className="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+                                    <option  disabled selected>Selecione sus especialidades</option>
                                     {
                                     especialidades?.sort(function (a, b) {
                                         if (a.nombre > b.nombre) {
