@@ -35,7 +35,7 @@ router.get('/', async(req, res) => {
     }
 })
 
-router.get('/:fecha/:idDoctor', async(req, res) => {
+router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
     const { fecha, idDoctor } = req.params
     try {
         const turnos = await Turno.findAll({
@@ -45,7 +45,7 @@ router.get('/:fecha/:idDoctor', async(req, res) => {
             }
         })
         let horariosOcupados = []
-        let horario = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+        let horario = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
         if (turnos.length !== 0) {
             turnos.map(e => horariosOcupados.push(e.hora))
             const horariosLibres = horario.filter(e => {
@@ -53,9 +53,9 @@ router.get('/:fecha/:idDoctor', async(req, res) => {
                     return e
                 }
             });
-            res.send(horariosLibres)
+            return res.send(horariosLibres)
         } else {
-            res.send(horario)
+            return res.send(horario)
         }
     } catch (e) {
         console.log(e)
