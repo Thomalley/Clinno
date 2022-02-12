@@ -16,6 +16,7 @@ export default function Turno() {
     const especialidades = useSelector((state) => state.especialidades)
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
+    const horarioDispo = useSelector((state) => state.horarioDisponibleParaTurno)
     const dispatch = useDispatch();
     const cookies = new Cookies()
     const [loggeado,setLoggeado] = useState();
@@ -92,7 +93,8 @@ export default function Turno() {
     }, [])
     useEffect(()=>{
         dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
-    }, [])
+        console.log(horarioDispo)
+    }, [idValue.fecha])
     useEffect(() => {
         dispatch(getEspecialidad())
     }, [dispatch])

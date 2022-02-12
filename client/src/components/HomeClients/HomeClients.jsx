@@ -15,7 +15,8 @@ import pp from "../utils/images-landing/pp.png"
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
-
+// const clinicas = useSelector((state) => state.clinicasByEspec)
+// const especialidades = useSelector((state) => state.especialidades)
 
 
 
