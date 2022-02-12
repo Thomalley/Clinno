@@ -7,7 +7,8 @@ const initialState = {
     clinica: [],
     doctoresByEspec: [],
     doctor: [],
-    doctores: []
+    doctores: [],
+    horarioDisponibleParaTurno: []
 };
 
 
@@ -55,19 +56,14 @@ const rootReducer = (state = initialState, action) => {
                 clinicasByEspec: action.payload
             }
 
-        // case 'ADD_ESPECIALIDAD':
-        //     return{
-        //         ...state,
-        //         especialidades : action.payload
-        //     }
-        case 'ADD_DOCTOR': 
-            return{
+        case 'ADD_DOCTOR':
+            return {
                 ...state,
-                doctor : action.payload
+                doctor: action.payload
             }
-        
-        case 'CLINICA_USER' :
-            return{
+
+        case 'CLINICA_USER':
+            return {
 
                 ...state,
                 clinica: action.payload
@@ -83,11 +79,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
-        
+
         case "RESET_PASSWORD":
-                return{
-                    ...state,
-                }
+            return {
+                ...state,
+            }
 
         case 'VALIDATE_DOCTOR':
             return {
@@ -99,6 +95,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 doctores: action.payload
+            }
+        case "GET_DISPONIBILIDAD":
+            return {
+                ...state,
+                horarioDisponibleParaTurno: action.payload
             }
 
         default:

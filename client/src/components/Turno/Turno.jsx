@@ -16,9 +16,10 @@ export default function Turno() {
     const especialidades = useSelector((state) => state.especialidades)
     const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
+    const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
     const dispatch = useDispatch();
     const cookies = new Cookies()
-    const [loggeado,setLoggeado] = useState();
+    const [loggeado, setLoggeado] = useState();
     var userLog = cookies.get('email');
     const idUser = cookies.get('id')
     const [idValue, setidValue] = useState({
@@ -86,32 +87,37 @@ export default function Turno() {
         finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
         setidValue({ ...idValue, fecha: finalDate })
     }
+    
+    useEffect(() => {
+        if (idValue.fecha) {
+            dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
+        }
+    }, [idValue.fecha])
 
-    useEffect(()=>{
+    useEffect(() => {
         userLog ? setLoggeado(true) : setLoggeado(false)
     }, [])
-    useEffect(()=>{
-        dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
-    }, [])
+
     useEffect(() => {
         dispatch(getEspecialidad())
-    }, [dispatch])
+    }, [])
 
     useEffect(() => {
         dispatch(getClinicasByEspec(idValue.idEspecialidad))
-
     }, [idValue.idEspecialidad])
 
     useEffect(() => {
         dispatch(getDoctoresByEspec(idValue))
-    }, [idValue])
+    }, [idValue.idClinica])
+
+
+
 
     function handleSelectDoc(e) {
         const value = e.target.value
         const doc = doctoresDeEspe.filter((d) => d.nombre === value)
         var horario = doc[0].especialidads[0].horario
         const docId = doc[0].id
-
         setidValue({
             ...idValue,
             horarioDoctor: horario,
@@ -142,7 +148,6 @@ export default function Turno() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log('entre al handel submit')
         dispatch(crearTurno(idValue))
         swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
     }
@@ -188,7 +193,7 @@ export default function Turno() {
                             <h3>Y horario: </h3>
                             <select onChange={(e) => handleSelectHora(e)}>
                                 <option value="" disabled selected>Horarios</option>
-                                {idValue.horarioDoctor && idValue.horarioDoctor.map((e) => (
+                                {horariosDispoDoc && horariosDispoDoc.map((e) => (
                                     <option value={e}>{e}</option>
                                 ))}
                             </select>
@@ -201,19 +206,8 @@ export default function Turno() {
                         :
                         <div>
                             <div className="out_footer">
-                            <Footer />
+                                <Footer />
                             </div>
-                            {/* <div className='calendarioContainer'>
-                                <Calendar
-                                    onChange={onChange}
-                                    value={date}
-                                    onClickDay={(value, event) => validateDate(value)}
-                                />
-                                <div className="entre_nav_turno"></div>
-                                <div className="out_footer">
-                                    <Footer />
-                                </div>
-                            </div> */}
                         </div>
                     }
                 </div>
