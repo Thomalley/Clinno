@@ -8,9 +8,11 @@ const initialState = {
     clinicaById: [],
     doctoresByEspec: [],
     doctor: [],
+    turnos: [],
     doctores: [],
     horarioDisponibleParaTurno: [],
     turnosClinica:[]
+
 
 };
 
@@ -29,6 +31,18 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 clientes: action.payload
+            }
+
+            case "GET_TURNOS":
+            return {
+                ...state,
+                turnos: action.payload
+            }
+
+            case "GET_CLINICAS":
+            return {
+                ...state,
+                clinicas: action.payload
             }
 
         case 'POST_USER':

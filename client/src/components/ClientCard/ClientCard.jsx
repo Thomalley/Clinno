@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie'
 import { getClients } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
 import PasswordReset from "./PasswordReset"
+import TurnoMe from './TurnoMe'
 
 
 export default function ClientCard(){
@@ -42,42 +43,43 @@ export default function ClientCard(){
       return (
         <div>
         <NavBar/>
-    
+        <Link to="/test" class="btn btn-primary" href="#">hacer una cita</Link>
         <ul class="nav justify-content-center">
 
         
-          <li class="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <li class="nav-link" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
             Modificar contraseña
           </li>
         
-
-        <li class="nav-item">
-        <Link to="/" class="nav-link" href="#">Historial de visitas y diagnosticos</Link>
-        </li>
-
-        <li class="nav-item">
-        <Link to="/" class="nav-link" href="#">Historial de pagos</Link>
-        </li>
+          <li><Link className="nav-link" to='/TurnoMe'>Mis Turnos</Link></li>
+            
+          <li class="nav-link" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
+            Pagos
+          </li>
         
-        <li class="nav-item">
-        <Link to="/" class="nav-link" href="#">Historial de reseñas</Link>
-        </li>
+          <li class="nav-link" data-bs-toggle="collapse" href="#multiCollapseExample4" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
+            Reseñas
+          </li>
+          
+          </ul>
 
-        <li class="nav-item">
-        <Link to="/" class="nav-link" href="#">hacer una cita</Link>
-        </li>
-        </ul>
-
-        <div class="collapse" id="collapseExample">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
         <div class="card card-body">
           <PasswordReset/>
         </div>
         </div>
-
-
         
-      
+        <div class="collapse multi-collapse" id="multiCollapseExample3">
+        <div class="card card-body">
+          <p>Pagos</p>
+        </div>
+        </div>
 
+        <div class="collapse multi-collapse" id="multiCollapseExample4">
+        <div class="card card-body">
+          <p>Reseñas</p>
+        </div>
+        </div>
 
 
 
