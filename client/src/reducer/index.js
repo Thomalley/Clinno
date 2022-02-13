@@ -5,6 +5,7 @@ const initialState = {
     clinicasByEspec: [],
     clinicas: [],
     clinica: [],
+    clinicaById: [],
     doctoresByEspec: [],
     doctor: [],
     doctores: [],
@@ -55,6 +56,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 clinicas: action.payload
+            }
+
+        case "GET_CLINICA_ID":
+            return{
+                ...state,
+                clinicaById: action.payload
             }
         case "GET_CLINICAS_BY_ESPE":
             return {

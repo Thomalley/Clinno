@@ -50,11 +50,11 @@ export default function HomeHospitals() {
       }
     }
   }, [isLoading, cookies.get("email")]);
-  console.log("soy especialidades", especialidades);
+
   // const clin = clinicas?.map(e => e.clinicas)
   // const icas = clin?.map(e => e.nombre)
 
-  console.log("soy id value", idValue);
+
 
   useEffect(() => {
     dispatch(getEspecialidad());
@@ -171,7 +171,7 @@ export default function HomeHospitals() {
           </div>
 
           <div className="clinics">
-            {console.log("soy clinicas", clinicas)}
+        
             {clinicas?.clinicas?.map((c) => (
                 <div className="card-clinic">
                   <h5>{c.nombre} </h5>

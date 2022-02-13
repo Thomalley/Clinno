@@ -2,7 +2,7 @@ const { Router } = require("express");
 router = Router()
 const { Especialidad, Clinica } = require('../db')
 
-router.get('/espec', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         // let newArray = [
         //     "Fisiatría",
