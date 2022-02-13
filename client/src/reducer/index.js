@@ -8,7 +8,8 @@ const initialState = {
     doctoresByEspec: [],
     doctor: [],
     doctores: [],
-    horarioDisponibleParaTurno: []
+    horarioDisponibleParaTurno: [],
+    turnosClinica:[]
 };
 
 
@@ -16,6 +17,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "GET_TURNO":
+            return {
+                ...state,
+                turnosClinica: action.payload
+            }
+
         case "GET_CLIENTES":
             return {
                 ...state,
@@ -101,7 +108,6 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 horarioDisponibleParaTurno: action.payload
             }
-
         default:
             return state;
     }

@@ -100,6 +100,17 @@ router.get("/clinica", async (req, res, next) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try{
+        const {id} = req.params
+        const docDb = await Doctor.findByPk(id)
+        res.send(docDb)
+    }
+    catch(err){
+        console.log(err)
+    }
+  })
+
 
 
 module.exports = router

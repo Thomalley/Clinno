@@ -377,3 +377,35 @@ export function get_Doctores_Esp (payload){
         }
     }
 }
+export function turno_clinica (payload){
+    return async function (dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/turno`);
+            console.log('json mAlo',json.data);
+            const filterTurnos = json.data.filter(t =>( t.idClinica === payload ))
+            console.log('Filtered',filterTurnos);
+            let turnos=[];
+            filterTurnos.forEach( async (f) =>{
+                let cliente = await axios.get(`http://localhost:3001/cliente/${f.idCliente}`);
+                let especialidad = await axios.get(`http://localhost:3001/especialidad/${f.idEspecialidad}`);
+                let doctor = await axios.get(`http://localhost:3001/doctor/${f.idDoctor}`);
+                turnos.push( {
+                    id:f.id,
+                    cliente: cliente.data.nombre+' '+cliente.data.apellido,
+                    doctor: doctor.data.nombre,
+                    especialidad: especialidad.data.nombre,
+                    fecha: f.fecha,
+                    hora: f.hora,
+                    status: f.payment_status,
+                    merchant_order_id: f.merchant_order_id
+                })
+                console.log("turn turn",turnos);
+            });
+            console.log('estoy en acction',turnos);
+            return dispatch({type: 'GET_TURNO', payload: turnos})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
