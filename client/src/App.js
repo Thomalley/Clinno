@@ -19,7 +19,7 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
-import MercadoPago from './components/MercadoPago/MercadoPago'
+import MercadoPago from './components/MercadoPago/Mercadopago'
 
 function App() {
   return (
