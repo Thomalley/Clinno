@@ -11,7 +11,8 @@ const initialState = {
     turnos: [],
     doctores: [],
     horarioDisponibleParaTurno: [],
-    turnosClinica:[]
+    turnosClinica:[],
+    turnosDoctor:[]
 
 
 };
@@ -135,6 +136,19 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 horarioDisponibleParaTurno: action.payload
             }
+
+        case "GET_TURNO_DOCTOR":
+            return {
+                ...state,
+                turnosDoctor: action.payload
+            }
+
+        case "GET_TURNO_CLINICA":
+            return {
+                ...state,
+                turnosClinica: action.payload
+            }
+            
         default:
             return state;
     }
