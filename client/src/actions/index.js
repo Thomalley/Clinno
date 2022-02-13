@@ -16,6 +16,22 @@ export function getClients() {
         }
     }
 }
+
+export function getTurnos() {
+    return async function(dispatch) {
+        try {
+            const json = await axios.get('http://localhost:3001/turno');
+            return dispatch({
+                type: "GET_TURNOS",
+                payload: json.data
+            })
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
+}
+
 export function getDisponibilidad(fecha, idDoctor) {
     return async function(dispatch) {
         try {
@@ -35,6 +51,20 @@ export function getEspecialidad() {
             const json = await axios.get('http://localhost:3001/especialidad');
             return dispatch({
                 type: "GET_ESPECIALIDAD",
+                payload: json.data
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export function getClinicas() {
+    return async function(dispatch) {
+        try {
+            const json = await axios.get('http://localhost:3001/clinica');
+            return dispatch({
+                type: "GET_CLINICAS",
                 payload: json.data
             })
         } catch (e) {

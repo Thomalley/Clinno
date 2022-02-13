@@ -19,13 +19,14 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
-
+import TurnoMe from './components/ClientCard/TurnoMe'
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+        <Route path='/TurnoMe' element={<TurnoMe/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
