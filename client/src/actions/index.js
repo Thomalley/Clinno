@@ -16,11 +16,37 @@ export function getClients() {
         }
     }
 }
+export function getClinicaId(id){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/clinica/${id}`);
+            return dispatch({
+                type:"GET_CLINICA_ID",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+export function getClinicas(){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/clinica');
+            return dispatch({
+                type: "GET_CLINICAS",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
 export function getDisponibilidad(fecha, idDoctor) {
     return async function(dispatch) {
         try {
             const json = await axios.get(`http://localhost:3001/turno/disponibilidad/${fecha}/${idDoctor}`);
-            console.log("soy json data", json.data)
+            
             return dispatch({
                 type: "GET_DISPONIBILIDAD",
                 payload: json.data
@@ -48,6 +74,7 @@ export function getClinicasByEspec(id) {
     return async function(dispatch) {
         try {
             const json = await axios.get(`http://localhost:3001/especialidad/${id}`);
+        
             return dispatch({
                 type: "GET_CLINICAS_BY_ESPE",
                 payload: json.data
@@ -143,8 +170,29 @@ export function crearTurno(input) {
                 type: "CREAR_TURNO",
                 payload: newTurno
             })
-
         } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export function nuevoHorarioDoc(input) {
+    return async function(dispatch) {
+        try{
+            const horario = await axios({
+                method: "put",
+                url: "http://localhost:3001/especialidad",
+                data: {
+                    nombre : input.nombre,
+                    horario: input.horario
+                },
+            });
+            // return dispatch({
+            //     type: "NUEVO_HORARIO_DOC",
+            //     payload: horario
+            // })
+        }
+        catch(e){
             console.log(e)
         }
     }

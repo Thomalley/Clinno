@@ -26,7 +26,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path = '/mercadopago' element ={<MercadoPago/>}/>
+          {/* <Route path = '/mercadopago' element ={<MercadoPago/>}/> */}
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
@@ -37,7 +37,7 @@ function App() {
           <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<HomeClients/>}/>
-          <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
+          <Route path='/home/clinica/:id' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
