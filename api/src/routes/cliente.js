@@ -288,6 +288,15 @@ router.post('/order-mail', (req,res)=> {
 //     res.status(200).json(req.body)
 //   }
 // })
-
+router.get('/:id', async (req, res) => {
+  try{
+      const {id} = req.params
+      const clienDb = await Cliente.findByPk(id)
+      res.send(clienDb)
+  }
+  catch(err){
+      console.log(err)
+  }
+})
 
 module.exports = router;

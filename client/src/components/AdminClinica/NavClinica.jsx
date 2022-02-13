@@ -69,7 +69,7 @@ return (
                         <Link to='/' className="nav-link text-white boton_nav_clinica">Volver a home</Link>
                     </li>
                     <li>
-                        <Link to='/' className="nav-link text-white boton_nav_clinica">Hacer un turno</Link>
+                        <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica">Ver proximos turnos</Link>
                     </li>
                     <li>
                         <Link  to='/AddDoctor' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
