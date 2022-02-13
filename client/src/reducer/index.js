@@ -5,10 +5,12 @@ const initialState = {
     clinicasByEspec: [],
     clinicas: [],
     clinica: [],
+    clinicaById: [],
     doctoresByEspec: [],
     doctor: [],
     doctores: [],
     horarioDisponibleParaTurno: []
+
 };
 
 
@@ -50,6 +52,17 @@ const rootReducer = (state = initialState, action) => {
                 especialidades: action.payload
             }
 
+        case "GET_CLINICAS":
+            return {
+                ...state,
+                clinicas: action.payload
+            }
+
+        case "GET_CLINICA_ID":
+            return{
+                ...state,
+                clinicaById: action.payload
+            }
         case "GET_CLINICAS_BY_ESPE":
             return {
                 ...state,

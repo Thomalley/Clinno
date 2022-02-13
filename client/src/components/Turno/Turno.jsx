@@ -151,6 +151,7 @@ export default function Turno() {
         dispatch(crearTurno(idValue))
         swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
     }
+    console.log("soy clinicas de espe",clinicasDeEspe)
 
     return (
         <form onSubmit={handleSubmit}>
