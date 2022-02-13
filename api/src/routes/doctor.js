@@ -89,5 +89,17 @@ router.get("/", async (req, res, next) => {
     }
 })
 
+router.get("/clinica", async (req, res, next) => {
+    try {
+        const docDb = await Doctor.findAll({
+            include: [{ model: Especialidad,}, {model: Clinica,}]
+        })
+        res.send(docDb)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
 
 module.exports = router

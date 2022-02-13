@@ -5,9 +5,12 @@ const initialState = {
     clinicasByEspec: [],
     clinicas: [],
     clinica: [],
+    clinicaById: [],
     doctoresByEspec: [],
     doctor: [],
-    turnos: []
+    turnos: [],
+    doctores: [],
+    horarioDisponibleParaTurno: []
 };
 
 
@@ -61,25 +64,31 @@ const rootReducer = (state = initialState, action) => {
                 especialidades: action.payload
             }
 
+        case "GET_CLINICAS":
+            return {
+                ...state,
+                clinicas: action.payload
+            }
+
+        case "GET_CLINICA_ID":
+            return{
+                ...state,
+                clinicaById: action.payload
+            }
         case "GET_CLINICAS_BY_ESPE":
             return {
                 ...state,
                 clinicasByEspec: action.payload
             }
 
-        // case 'ADD_ESPECIALIDAD':
-        //     return{
-        //         ...state,
-        //         especialidades : action.payload
-        //     }
-        case 'ADD_DOCTOR': 
-            return{
+        case 'ADD_DOCTOR':
+            return {
                 ...state,
-                doctor : action.payload
+                doctor: action.payload
             }
-        
-        case 'CLINICA_USER' :
-            return{
+
+        case 'CLINICA_USER':
+            return {
 
                 ...state,
                 clinica: action.payload
@@ -95,16 +104,27 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
-        
+
         case "RESET_PASSWORD":
-                return{
-                    ...state,
-                }
+            return {
+                ...state,
+            }
 
         case 'VALIDATE_DOCTOR':
             return {
                 ...state,
-                doctor: action.payload
+                doctor: action.payload,
+            }
+
+        case 'GET_ALL_DOCTOR_CLINICA':
+            return {
+                ...state,
+                doctores: action.payload
+            }
+        case "GET_DISPONIBILIDAD":
+            return {
+                ...state,
+                horarioDisponibleParaTurno: action.payload
             }
 
         default:

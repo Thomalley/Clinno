@@ -32,10 +32,39 @@ export function getTurnos() {
     }
 }
 
+export function getClinicaId(id){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/clinica/${id}`);
+            return dispatch({
+                type:"GET_CLINICA_ID",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+
+export function getClinicas(){
+    return async function(dispatch){
+        try{
+            const json = await axios.get('http://localhost:3001/clinica');
+            return dispatch({
+                type: "GET_CLINICAS",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+
 export function getDisponibilidad(fecha, idDoctor) {
     return async function(dispatch) {
         try {
-            const json = await axios.get(`http://localhost:3001/turno/${fecha}/${idDoctor}`);
+            const json = await axios.get(`http://localhost:3001/turno/disponibilidad/${fecha}/${idDoctor}`);
+            
             return dispatch({
                 type: "GET_DISPONIBILIDAD",
                 payload: json.data
@@ -77,6 +106,7 @@ export function getClinicasByEspec(id) {
     return async function(dispatch) {
         try {
             const json = await axios.get(`http://localhost:3001/especialidad/${id}`);
+        
             return dispatch({
                 type: "GET_CLINICAS_BY_ESPE",
                 payload: json.data
@@ -147,7 +177,7 @@ export function registrarCliente(payload) {
 }
 
 export function passworForgot(payload) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         const response = await axios.post("http://localhost:3001/cliente/order-mail", payload)
         return response
     }
@@ -172,8 +202,29 @@ export function crearTurno(input) {
                 type: "CREAR_TURNO",
                 payload: newTurno
             })
-
         } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export function nuevoHorarioDoc(input) {
+    return async function(dispatch) {
+        try{
+            const horario = await axios({
+                method: "put",
+                url: "http://localhost:3001/especialidad",
+                data: {
+                    nombre : input.nombre,
+                    horario: input.horario
+                },
+            });
+            // return dispatch({
+            //     type: "NUEVO_HORARIO_DOC",
+            //     payload: horario
+            // })
+        }
+        catch(e){
             console.log(e)
         }
     }
@@ -185,36 +236,34 @@ export function login_clinica(payload) {
     return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/clinica');
-            for(let i = 0 ; i < json.data.length ; i++){
+            for (let i = 0; i < json.data.length; i++) {
 
-                if (json.data[i].mail === payload.mail && json.data[i].password === payload.password){
-                  const datos = [{
-                      id : json.data[i].id,
-                      nombre : json.data[i].nombre,
-                      direccion : json.data[i].direccion,
-                      telefono : json.data[i].telefono,
-                      mail : json.data[i].mail,
-                      password : json.data[i].password,
-                      nombreEn : json.data[i].nombreEn,
-                      apellidoEn : json.data[i].apellidoEn,
-                      DNIEn : json.data[i].DNIEn,
-                      createdAt : json.data[i].createdAt
-                  }]
-                  return dispatch({
-                      type : "CLINICA_USER",
-                      payload : datos
+                if (json.data[i].mail === payload.mail && json.data[i].password === payload.password) {
+                    const datos = [{
+                        id: json.data[i].id,
+                        nombre: json.data[i].nombre,
+                        direccion: json.data[i].direccion,
+                        telefono: json.data[i].telefono,
+                        mail: json.data[i].mail,
+                        password: json.data[i].password,
+                        nombreEn: json.data[i].nombreEn,
+                        apellidoEn: json.data[i].apellidoEn,
+                        DNIEn: json.data[i].DNIEn,
+                        createdAt: json.data[i].createdAt
+                    }]
+                    return dispatch({
+                        type: "CLINICA_USER",
+                        payload: datos
 
-                      });
-                }
-                else {
+                    });
+                } else {
                     dispatch({
                         type: "CLINICA_USER",
                         payload: []
                     });
                 }
             }
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
@@ -224,22 +273,24 @@ export function get_clinica(payload) {
     return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/clinica');
-            const datos = json.data.filter((e)=>( e.id === payload))
-            const esp =datos[0].especialidads.map((e)=>{ return{
-                id:e.id,
-                nombre:e.nombre,
-                horario: e.horario
-            }})
+            const datos = json.data.filter((e) => (e.id === payload))
+            const esp = datos[0].especialidads.map((e) => {
+                return {
+                    id: e.id,
+                    nombre: e.nombre,
+                    horario: e.horario
+                }
+            })
             const datosFiltrados = [{
-                id : datos[0].id,
-                nombre : datos[0].nombre,
-                direccion : datos[0].direccion,
-                telefono : datos[0].telefono,
-                mail : datos[0].mail,
-                nombreEn : datos[0].nombreEn,
-                apellidoEn : datos[0].apellidoEn,
-                DNIEn : datos[0].DNIEn,
-                especialidad : esp
+                id: datos[0].id,
+                nombre: datos[0].nombre,
+                direccion: datos[0].direccion,
+                telefono: datos[0].telefono,
+                mail: datos[0].mail,
+                nombreEn: datos[0].nombreEn,
+                apellidoEn: datos[0].apellidoEn,
+                DNIEn: datos[0].DNIEn,
+                especialidad: esp
             }]
             return dispatch({
                 type: "CLINICA_USER",
@@ -285,24 +336,26 @@ export function ResetPassword(id, password) {
 export function validate_doctor(payload) {
     return async function(dispatch) {
         try {
-            const json = await axios.get('http://localhost:3001/doctor');
+            const json = await axios.get('http://localhost:3001/doctor/clinica');
             for(let i = 0 ; i < json.data.length ; i++){
-                if (json.data[i].codigo === parseInt(payload.password,10) ){                  
-                  const datosDoc = [{
-                      codigo : json.data[i].codigo
-                  }]
-                  return dispatch({
-                      type : "VALIDATE_DOCTOR",
-                      payload : datosDoc
-                      });
-                }
-                else {
-                    dispatch({
-                        type: "VALIDATE_DOCTOR",
-                        payload: []
+                if (json.data[i].codigo === parseInt(payload.password,10) && json.data[i].clinicas[0].id ===payload.idClinica ){
+                    const datosDoc = [{
+                        id:json.data[i].id,
+                        codigo : json.data[i].codigo,
+                        nombre:json.data[i].nombre,
+                        especialidades: json.data[i].especialidads
+                    }]
+
+                    return dispatch({
+                        type : "VALIDATE_DOCTOR",
+                        payload : datosDoc
                     });
                 }
             }
+            return dispatch({
+                type: "VALIDATE_DOCTOR",
+              payload : []
+            });
         }
         catch (e) {
             console.log(e)
@@ -310,12 +363,50 @@ export function validate_doctor(payload) {
     }
 }
 
+export function get_doctor_id(payload) {
+    return async function(dispatch) {
+        try {
+            const json = await axios.get('http://localhost:3001/doctor');
+            for(let i = 0 ; i < json.data.length ; i++){
+                console.log(payload)
+                if (json.data[i].codigo === parseInt(payload,10)  ){
+                    const datosDoc = [{
+                        id:json.data[i].id,
+                        codigo : json.data[i].codigo,
+                        nombre:json.data[i].nombre,
+                        especialidades: json.data[i].especialidads
+                  }]
+                  return dispatch({
+                      type : "VALIDATE_DOCTOR",
+                      payload : datosDoc
+
+                    });
+                }
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}   
   // Admin Clinica
   export function addEspecialidad (payload){
     return async function (dispatch){
         try{
+
             const addEsp = await axios.post('http://localhost:3001/especialidad', payload)
-            return dispatch ({type: 'ADD_ESPECIALIDAD', payload: addEsp.data})
+            return dispatch({ type: 'ADD_ESPECIALIDAD', payload: addEsp.data })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export function addDoctor(payload) {
+    return async function(dispatch) {
+        try {
+            const addDoc = await axios.post('http://localhost:3001/doctor', payload)
+            await axios.post(`http://localhost:3001/clinica/addEspecialidad`,payload)
+            return dispatch({type: 'ADD_DOCTOR', payload: addDoc.data})
         }
         catch (err){
             console.log(err)
@@ -323,11 +414,43 @@ export function validate_doctor(payload) {
     }
 }
 
-export function addDoctor (payload){
+export function get_All_Doctor (payload){
     return async function (dispatch){
         try{
-            const addDoc = await axios.post('http://localhost:3001/doctor', payload)
-            return dispatch({type: 'ADD_DOCTOR', payload: addDoc.data})
+            const json = await axios.get(`http://localhost:3001/doctor/clinica`);
+            const datoDoc = json.data.filter( doc =>{ 
+                let arrId = doc.clinicas.map(c =>{ return c.id })
+                if(arrId.includes(payload)){
+                    return doc
+                }
+            })
+            const filterDoc = datoDoc.map(doc =>{
+                return {
+                    id:doc.id,
+                    nombre: doc.nombre,
+                    codigo: doc.codigo,
+                    especialidad: doc.especialidads,
+            }})
+            return dispatch({type: 'GET_ALL_DOCTOR_CLINICA', payload: filterDoc})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function get_Doctores_Esp (payload){
+    return async function (dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/doctor/${payload.idEspecialidad}/${payload.idClinica}`);
+            const filterDoc = json.data.map(doc =>{
+                return {
+                    id:doc.id,
+                    nombre: doc.nombre,
+                    codigo: doc.codigo,
+                    especialidad: doc.especialidads,
+            }})
+            return dispatch({type: 'GET_ALL_DOCTOR_CLINICA', payload: filterDoc})
         }
         catch (err){
             console.log(err)

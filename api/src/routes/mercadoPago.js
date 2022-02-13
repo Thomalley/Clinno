@@ -1,16 +1,15 @@
-// const { Order} = require('../db');
-// const server = require('express').Router();
-// const nodemailer = require("nodemailer");
+const { Turno} = require('../db');
+const nodemailer = require("nodemailer");
 const { Router } = require("express");
 router = Router()
 
-module.exports = router
-// // SDK de Mercado Pago
+
+// SDK de Mercado Pago
 // const mercadopago = require ('mercadopago');
 
-// const { ACCESS_TOKEN } = process.env;
+const { ACCESS_TOKEN } = process.env;
 
-// //Agrega credenciales
+//Agrega credenciales
 // mercadopago.configure({
 //   access_token: "TEST-8165276433250363-120722-129ddb09bd6c5a032ed6a9f98d41eb04-1034725152"
 // });
@@ -18,67 +17,81 @@ module.exports = router
 
 
 // //Ruta que genera la URL de MercadoPago
-// // server.get("/", (req, res, next) => {
-// //   const { title, totalPrice, quantity, id} = req.body
-// //   // const id_orden= 1
+router.get("/", (req, res, next) => {
+    //PASAMOS LAS COSAS POR BODY
+//   const { title, totalPrice, quantity, id} = req.body
+// CARRITO HARCODEADO
+const id_orden= 1
 
-// // //   Cargamos el carrido de la bd
-// // // const carrito = req.body ? [{...req.body}] : {msg: 'no hay nada'}
+const carrito = [
+    {title: "Producto 1", quantity: 5, price: 10.52},
+    {title: "Producto 2", quantity: 15, price: 100.52},
+    {title: "Producto 3", quantity: 6, price: 200}
+  ]
 
-// // //   console.log(carrito, "linea 28 del mercadopago")
-// //   const items_ml =[ 
-// //   {
-// //     title: title,
-// //     unit_price: totalPrice,
-// //     quantity: totalPrice,
-// //   }
-// // ]
-  
+//   Cargamos el carrido de la bd
+// LAS CARGAMOS POR BODY
+// const carrito = req.body ? [{...req.body}] : {msg: 'no hay nada'}
+console.log(carrito, "linea 28 del mercadopago")
 
-// //   // Crea un objeto de preferencia
-// //   let preference = {
-// //     items: items_ml,
-// //     external_reference : `${id}`,
-// //     payment_methods: {
-// //       excluded_payment_types: [
-// //         {
-// //           id: "atm"
-// //         }
-// //       ],
-// //       installments: 3  //Cantidad máximo de cuotas
-// //     },
-// //     back_urls: {
-// //       success: 'http://localhost:3001/mercadopago/pagos',
-// //       failure: 'http://localhost:3001/mercadopago/pagos',
-// //       pending: 'http://localhost:3001/mercadopago/pagos',
-// //     },
-// //   };
+// ASI SE PASA SIN HARCODEAR
 
-// //   mercadopago.preferences.create(preference)
+//   const items_ml =[ 
+//   {
+//     title: title,
+//     unit_price: totalPrice,
+//     quantity: totalPrice,
+//   }
+// ]
 
-// //   .then(function(response){
-// //     // console.info('respondio')
-// //   //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-// //     global.id = response.body.id;
-// //     res.json({ id: global.id });
-// //   })
-// //   .catch(function(error){
-// //     console.log( 'error del mercadopago', error);
-// //   })
-// // }) 
+// ASI SE PASA HARCODEADO
+const items_ml = carrito.map(i => ({
+    title: i.title,
+    unit_price: i.price,
+    quantity: i.quantity,
+}))
 
-// // let preference = {
-// //   items: items_ml,
-// //   external_reference : `${id}`, //`${new Date().valueOf()}`,
-// //   back_urls: {
-// //     success: 'http://localhost:3001/mercadopago/pagos',
-// //     failure: 'http://localhost:3001/mercadopago/pagos',
-// //     pending: 'http://localhost:3001/mercadopago/pagos',
-// //   }
-// // };
-// // res.json({id: global.id, init_point: response.body.init_point})
+//   // Crea un objeto de preferencia
+  let preference = {
+    items: items_ml,
+    // hay que pasar el por body, esta esta harcodeada
+    external_reference : `${id_orden}`,
+    payment_methods: {
+      excluded_payment_types: [
+        {
+          id: "atm"
+        }
+      ],
+      installments: 3  //Cantidad máximo de cuotas
+    },
+    back_urls: {
+      success: 'http://localhost:3001/mercadopago/pagos',
+      failure: 'http://localhost:3001/mercadopago/pagos',
+      pending: 'http://localhost:3001/mercadopago/pagos',
+    },
+  };
 
-// server.post('/', (req, res, next) => {
+  mercadopago.preferences.create(preference)
+
+  .then(function(response){
+    // console.info('respondio')
+  //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+    global.id = response.body.id;
+    res.json({ id: global.id });
+  })
+  .catch(function(error){
+    console.log( 'error del mercadopago', error);
+  })
+}) 
+
+// esto no tengo idea porque esta
+
+// res.json({id: global.id, init_point: response.body.init_point})
+
+// ESTA RUTA NO SE PARA QUE ESTA, SI NO FUNCIONA EL GET PROBA CON EL POST
+
+// router.post('/', (req, res, next) => {
+
 //     // const {  title, totalPrice, quantity, id } = req.body
 //     // let {carrito}  = req.body
 //     let {body}  = req
@@ -127,27 +140,28 @@ module.exports = router
 // })
 
 
-// //Ruta que recibe la información del pago
-// server.get("/pagos", (req, res)=>{
-//   // console.info("EN LA RUTA PAGOS ", req)
-//   const payment_id= req.query.payment_id
-//   const payment_status= req.query.status
-//   const external_reference = req.query.external_reference
-//   const merchant_order_id= req.query.merchant_order_id
-//   console.log("EXTERNAL REFERENCE ", external_reference)
+//Ruta que recibe la información del pago
+router.get("/pagos", (req, res)=>{
+  // console.info("EN LA RUTA PAGOS ", req)
+  const payment_id= req.query.payment_id
+  const payment_status= req.query.status
+  const external_reference = req.query.external_reference
+  const merchant_order_id= req.query.merchant_order_id
+  console.log("EXTERNAL REFERENCE ", external_reference)
 
-//   //Aquí edito el status de mi orden
-//   Order.findByPk(external_reference)
-//   .then((order) => {
-//     order.payment_id= payment_id
-//     order.payment_status= payment_status
-//     order.merchant_order_id = merchant_order_id
-//     order.status = "completed"
-//     console.info('Salvando order')
-//     order.save()
-//     .then((_) => {
-//       console.info('redirect success')
+  //Aquí edito el status de mi orden
+  Order.findByPk(external_reference)
+  .then((order) => {
+    order.payment_id= payment_id
+    order.payment_status= payment_status
+    order.merchant_order_id = merchant_order_id
+    order.status = "completed"
+    console.info('Salvando order')
+    order.save()
+    .then((_) => {
+      console.info('redirect success')
       
+// ACA HAY ALGO DE NODEMAILER, MIRALO PORQUE YO NO TENGO NI IDEA
 
 //       const transporter = nodemailer.createTransport({
 //         service: 'gmail',
@@ -186,39 +200,40 @@ module.exports = router
 
 
 
-//       return res.redirect("http://localhost:3000/beers")
-//     })
-//     .catch((err) =>{
-//       console.error('error al salvar', err)
-//       return res.redirect(`:http//localhost:3000/?error=${err}&where=al+salvar`)
-//     })
-//   })
-//   .catch(err =>{
-//     console.error('error al buscar', err)
-//     return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
-//   })
+      return res.redirect("http://localhost:3000")
+    })
+    .catch((err) =>{
+      console.error('error al salvar', err)
+      return res.redirect(`:http//localhost:3000/?error=${err}&where=al+salvar`)
+    })
+  })
+  .catch(err =>{
+    console.error('error al buscar', err)
+    return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
+  })
 
-//   //proceso los datos del pago 
-//   //redirijo de nuevo a react con mensaje de exito, falla o pendiente
-// })
+  //proceso los datos del pago 
+  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
+})
 
 
-// //Busco información de una orden de pago
-// server.get("/pagos/:id", (req, res)=>{
-//   const mp = new mercadopago(ACCESS_TOKEN)
-//   const id = req.params.id
-//   console.info("Buscando el id", id)
-//   mp.get(`/v1/payments/search`, {'status': 'pending'}) //{"external_reference":id})
-//   .then(resultado  => {
-//     console.info('resultado', resultado)
-//     res.json({"resultado": resultado})
-//   })
-//   .catch(err => {
-//     console.error('No se consulto:', err)
-//     res.json({
-//       error: err
-//     })
-//   })
-// })
+//Busco información de una orden de pago
+router.get("/pagos/:id", (req, res)=>{
+  const mp = new mercadopago(ACCESS_TOKEN)
+  const id = req.params.id
+  console.info("Buscando el id", id)
+  mp.get(`/v1/payments/search`, {'status': 'pending'}) //{"external_reference":id})
+  .then(resultado  => {
+    console.info('resultado', resultado)
+    res.json({"resultado": resultado})
+  })
+  .catch(err => {
+    console.error('No se consulto:', err)
+    res.json({
+      error: err
+    })
+  })
+})
 
-// module.exports = server;
+
+module.exports = router;

@@ -20,6 +20,7 @@ import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
 import TurnoMe from './components/ClientCard/TurnoMe'
+// import MercadoPago from './components/MercadoPago/MercadoPago.jsx'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <div className="App">
         <Routes>
         <Route path='/TurnoMe' element={<TurnoMe/>}/>
+          {/* <Route path = '/mercadopago' element ={<MercadoPago/>}/> */}
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
@@ -37,7 +39,7 @@ function App() {
           <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<HomeClients/>}/>
-          <Route path='/home/clinica/:name' element={<DetailClinica/>}/>
+          <Route path='/home/clinica/:id' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
