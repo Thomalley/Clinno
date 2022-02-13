@@ -50,8 +50,7 @@ export default function AdminDoctor(){
         logear()
     }
     function logear(){
-        
-        if( doctor){
+        if( doctor.length >0){
             const data = doctor[0];
             cookies.set('doctor_id', data.id, {path: '/'});
             cookies.set('doctor_nombre', data.nombre, {path: '/'});
@@ -91,22 +90,24 @@ export default function AdminDoctor(){
         return(
             <div>
                 {  !check?
-                <div className="container">
+                <div className="background_doc">
                     <div className="row d-flex flex-column gap-3 contenedor_Doctor">
-                        <div className="col-12 ">
-                            <h3>Bienvenido Doctor</h3>
-                            <form onSubmit={(e)=> handleSubmit(e)}>
+                        <div className="contedor_doc_but">
+                            <Link to="/adminClinica"><img src={logo} alt="logo Clinno"  className="logo_clinno_navC"/></Link>
+                            <form className="Form_doc" onSubmit={(e)=> handleSubmit(e)}>
+                                <h3>Bienvenido Doctor</h3>
                                 <h4>Por favor ingrese su codigo:</h4>
-                                <input type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary">Continuar</button>
+                                <div className="d-flex flex-column gap-3">
+                                    <input type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary">Continuar</button>
+                                    <div><Link to='/verDoctores' >No Te Acordas tu Codigo?</Link></div>
+                                </div>
                             </form>
-                            <Link to='/verDoctores' >No Te Acordas tu Codigo?</Link>
                         </div>
                     </div>
                 </div>
-                
                     :
                 <>
                     <div className="contenedor_adminClinica">
@@ -115,9 +116,7 @@ export default function AdminDoctor(){
                         <h6>Codigo {doctor[0]?.codigo}</h6>
                         <h6>Especialista en:  </h6>
                         <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
-
-
-
+                        
                     </div>
 
                     <Footer />
