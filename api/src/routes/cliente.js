@@ -32,47 +32,37 @@ router.get('/', (req, res, next) => {
 //      }
 //    });
 
-router.post("/", async(req, res) => {
-    try {
-        const { email, password, nombre, apellido, direccion, dni } = req.body;
 
-        console.log(email, password, nombre, apellido, direccion, dni)
-        const admin = false;
+router.post("/", async (req,res) => {  
+     try{
+      const {email, password, nombre, apellido, direccion, dni} = req.body;
 
-        const cliente = await Cliente.create({
-                nombre,
-                apellido,
-                email,
-                direccion,
-                dni,
-                admin,
-                password,
-            })
-            .then(cliente => {
-                Order.create({
-                    status: "created",
-                    price: 0,
-                    quantity: 0,
-                    userId: cliente.dataValues.id
-                })
-            })
-            .catch(error => {
-                console.log(error)
-                res.sendStatus(400)
-            })
-        res.json(cliente)
+      console.log(email, password, nombre, apellido, direccion, dni)
+      const admin=false;
 
-        const sgMail = require('@sendgrid/mail')
+       const cliente = await Cliente.create({
+         nombre,
+         apellido,
+         email,
+         direccion,
+         dni,
+         admin,
+         password,
+       }) 
+       res.json(cliente)
 
-        const API_KEY = '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';
+       const sgMail = require('@sendgrid/mail')
 
-        sgMail.setApiKey(API_KEY)
+  const API_KEY = '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';
+  
+  sgMail.setApiKey(API_KEY)
+  
+  const message = {
+    to: req.body.email,
+    from : "clinnoturnnos@gmail.com",
+    subject: `Usuario registrado con exito!`,
+    html: `
 
-        const message = {
-            to: req.body.email,
-            from: "clinnoturnos@gmail.com",
-            subject: `Usuario registrado con exito!`,
-            html: `
      <html>
  <head>
       <body>
@@ -239,15 +229,19 @@ router.post('/order-mail', (req, res) => {
 
         const sgMail = require('@sendgrid/mail')
 
-        const API_KEY = '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';
+
+      const API_KEY = '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';
+
 
         sgMail.setApiKey(API_KEY)
 
-        const message = {
-            to: email,
-            from: "clinnoturnos@gmail.com",
-            subject: `contrase;a!`,
-            html: `
+
+      const message = {
+        to: email,
+        from : "clinnoturnnos@gmail.com",
+        subject: `contrase;a!`,
+        html: `
+
         <html>
       <head>
           <body>
@@ -296,6 +290,15 @@ router.post('/order-mail', (req, res) => {
 //     res.status(200).json(req.body)
 //   }
 // })
-
+router.get('/:id', async (req, res) => {
+  try{
+      const {id} = req.params
+      const clienDb = await Cliente.findByPk(id)
+      res.send(clienDb)
+  }
+  catch(err){
+      console.log(err)
+  }
+})
 
 module.exports = router;

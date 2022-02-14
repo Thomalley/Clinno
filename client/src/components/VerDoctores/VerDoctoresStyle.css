@@ -1,0 +1,39 @@
+.container_table_verDoc{
+    margin: 20px 0px;
+}
+.grid_doctor_table{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border-top: 1px solid black;
+}
+.grid_doctor_tables > span{
+    padding: 8px 4px;
+    border: 1px solid black;
+    margin: 15px 0px;
+}
+.tesx_nombre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+.tesx_esp{
+    margin:10px 0px;
+}
+.container_ver_form{
+    display: flex;
+    justify-content: center;
+}
+.form_ver_doc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 60%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.select_doctor{
+    /* background: red; */
+}

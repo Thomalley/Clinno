@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {Clinica, Especialidad} = require("../db")
+const {Clinica, Especialidad, Doctor} = require("../db")
 router = Router()
 
 router.post('/', async (req,res) => {
@@ -26,9 +26,15 @@ router.post('/', async (req,res) => {
 router.get('/:id', async (req, res) => {
     try{
         const {id} = req.params
-        const clinDb = await Clinica.findByPk({
-            where: {id: id}
-        })
+        
+        const clinDb = await Clinica.findByPk(
+            id,
+            {include: [{
+                model: Especialidad,
+            }, {
+                model: Doctor,
+            }]}
+        )
         res.send(clinDb)
     }
     catch(err){
@@ -46,19 +52,20 @@ router.get('/', async (req, res) => {
 })
 router.post('/order-mail', (req,res)=> {
     try{
-      const {email, password, nombre} = req.body;
+      const {mail, password, nombre} = req.body;
   
-      console.log(email)
+      console.log(mail)
   
        const sgMail = require('@sendgrid/mail')
   
-        const API_KEY = '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';
+        const API_KEY = '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';
   
         sgMail.setApiKey(API_KEY)
   
         const message = {
+
           to: email,
-          from : "clinnoturnos@gmail.com",
+          from : "clinnoturnnos@gmail.com",
           subject: `El proceso de baja ha comenzado`,
           html: `
           <html>

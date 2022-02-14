@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { ResetPassword, logoutUser } from '../../actions/index';
+import { ResetPassword } from '../../actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'universal-cookie'
 import { getClients } from '../../actions/index';

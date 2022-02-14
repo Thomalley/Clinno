@@ -5,6 +5,18 @@
     overflow-y: auto;
     overflow-x: auto;
 }
+
 ::-webkit-scrollbar {
     display: none;
+}
+
+.grid_turno_table{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+.grid_turno_tables > span{
+    padding: 8px 4px;
+    border: 1px solid black;
 }

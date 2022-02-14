@@ -39,6 +39,12 @@ export default function Turno() {
     let mesTurno = undefined;
     let yearTurno = undefined;
     var finalDate = undefined;
+    const [submit, setSubmit] = useState({ canSubmit: undefined })
+    const [hasClinic, setHasClinic] = useState({ clinic: true })
+    const [hasDoctor, setHasDoctor] = useState({ doctor: true })
+    // const [hasHorario, setHasHorario] = useState({ horario: true }) // implementar en caso de dia sin turnos
+    const [errors, setErrors] = useState({})
+    var [progressTur, setProgressTur] = useState({ "width": "0%" })
 
     function validateDate(value) {
         const data = value.toString('').split(' ');
@@ -86,11 +92,17 @@ export default function Turno() {
         yearTurno = data[3];
         finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
         setidValue({ ...idValue, fecha: finalDate })
+        setProgressTur({
+            ...setProgressTur,
+            "width": "80%"
+        })
+
     }
-    
+
     useEffect(() => {
         if (idValue.fecha) {
             dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
+            validateInfo()
         }
     }, [idValue.fecha])
 
@@ -104,14 +116,51 @@ export default function Turno() {
 
     useEffect(() => {
         dispatch(getClinicasByEspec(idValue.idEspecialidad))
+        if (clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.length < 1) {
+            setHasClinic({ clinic: false })
+            setErrors({ ...errors, clinica: true })
+        }
+        else {
+            setHasClinic({ clinic: true })
+            setErrors({ ...errors, clinica: false })
+        }
     }, [idValue.idEspecialidad])
 
     useEffect(() => {
         dispatch(getDoctoresByEspec(idValue))
+        if (idValue.idClinica && doctoresDeEspe.length < 1) {
+            setHasDoctor({ doctor: false })
+            setErrors({ ...errors, doc: true })
+        }
+        else {
+            setHasDoctor({ doctor: true })
+            setErrors({ ...errors, doc: false })
+        }
     }, [idValue.idClinica])
 
 
+    function handleSelect(e) {
+        setidValue({
+            ...idValue,
+            idEspecialidad: e.target.value
+        })
+        setProgressTur({
+            ...setProgressTur,
+            "width": "20%"
+        })
+    }
 
+    function handleSelectClinica(e) {
+        setidValue({
+            ...idValue,
+            idClinica: e.target.value
+        })
+        setProgressTur({
+            ...setProgressTur,
+            "width": "40%"
+        })
+
+    }
 
     function handleSelectDoc(e) {
         const value = e.target.value
@@ -123,6 +172,10 @@ export default function Turno() {
             horarioDoctor: horario,
             idDoctor: docId
         })
+        setProgressTur({
+            ...setProgressTur,
+            "width": "60%"
+        })
     }
 
     function handleSelectHora(e) {
@@ -130,88 +183,202 @@ export default function Turno() {
             ...idValue,
             hora: e.target.value
         })
-    }
-
-    function handleSelect(e) {
-        setidValue({
-            ...idValue,
-            idEspecialidad: e.target.value
-        })
-
-    }
-    function handleSelectClinica(e) {
-        setidValue({
-            ...idValue,
-            idClinica: e.target.value
+        setProgressTur({
+            ...setProgressTur,
+            "width": "100%"
         })
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(crearTurno(idValue))
-        swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
+        if (submit.canSubmit === true) {
+            dispatch(crearTurno(idValue))
+            swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
+        }
+        else if (submit.canSubmit === false)
+            swal("No se ha podido registrar su turno", "Por favor complete todos los campos e intente nuevamente", "warning")
     }
 
+    function validateInfo() {
+        if (idValue.idEspecialidad.length < 1 ||
+            idValue.idClinica.length < 1 ||
+            idValue.horarioDoctor.length < 1 ||
+            idValue.idDoctor.length < 1 ||
+            idValue.fecha.length < 1 ||
+            idValue.hora.length < 1
+        )
+            setSubmit({ canSubmit: false })
+        else
+            setSubmit({ canSubmit: true })
+    }
+    console.log("soy clinicas de espe",clinicasDeEspe)
+
     return (
-        <form onSubmit={handleSubmit}>
-            <NavBar loggin={loggeado ? true : false} />
-            <div className="entre_nav_turno"></div>
-            <div className="contenedor_turno">
-                <h3>Elige la especialidad que buscas:</h3>
-                <select onChange={(e) => handleSelect(e)}>
-                    <option value="" disabled selected>Especialidades</option>
-                    {especialidades.map((e) => (
-                        <option value={e.id}> {e.nombre} </option>
-                    ))}
-                </select>
-                <br></br>
-                <h3>A que clinica asistiras?</h3>
-                <select onChange={(e) => handleSelectClinica(e)}>
-                    <option value="" disabled selected>Clinicas</option>
-                    {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                        <option id="clinica_selected" value={e.id}> {e.nombre} </option>
-                    ))}
-                </select>
-                <h3>Selecciona el Doctor: </h3>
-                <select onChange={(e) => handleSelectDoc(e)}>
-                    <option value="" disabled selected>Doctores</option>
-                    {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                        <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
-                    ))}
-                </select>
-                <div>
-                    {idValue.idDoctor !== '' ?
-                        <div>
-                            <h3>Selecciona el dia: </h3>
-                            <div className='calendarioContainer'>
-                                <Calendar
-                                    onChange={onChange}
-                                    value={date}
-                                    onClickDay={(value, event) => validateDate(value)}
-                                />
-                            </div>
-                            <h3>Y horario: </h3>
-                            <select onChange={(e) => handleSelectHora(e)}>
-                                <option value="" disabled selected>Horarios</option>
-                                {horariosDispoDoc && horariosDispoDoc.map((e) => (
-                                    <option value={e}>{e}</option>
-                                ))}
-                            </select>
-                            <button type="submit" >Crear turno</button>
-                            <div className="entre_nav_turno"></div>
-                            <div className="out_footer">
-                                <Footer />
-                            </div>
-                        </div>
-                        :
-                        <div>
-                            <div className="out_footer">
-                                <Footer />
-                            </div>
-                        </div>
-                    }
+        <div className=".container">
+            <form onSubmit={handleSubmit}>
+                <NavBar loggin={loggeado ? true : false} />
+                <div class="progress" id='progressTurn' style={progressTur}>
+                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-            </div>
-        </form>
+                <div className="entre_nav_turno"></div>
+                <div className="container">
+                    <div className="contenedor_turno">
+
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="titleTurn">
+                                    <h2 className="display-4" id="title_turn_id">Sacar turno Online</h2>
+                                    <h6 className="display-4" id="aboveTitle_turn_id">Facil, rapido y en el momento</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="cont_tur_BG">
+
+                                    <h3 className="display-6" id="Esp_Tur_Crea">Elige la especialidad que buscas:</h3>
+                                    <select id='Sel_Tur_Crea_Esp' class="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+                                        <option value="" disabled selected>Especialidades</option>
+                                        {especialidades.map((e) => (
+                                            <option value={e.id}> {e.nombre} </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        {
+                            hasClinic.clinic === true ?
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="cont_tur_BG">
+                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
+                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                                <option value="" disabled selected>Clinicas</option>
+                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div className="cont_tur_BG">
+                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
+                                            <div class="alert alert-warning" role="alert">
+                                                Actualmente no contamos con Clinicas de la especialidad seleccionada
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+
+                        {hasDoctor.doctor === true ?
+
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="cont_tur_BG">
+                                        <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
+                                        <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
+                                            <option value="" disabled selected>Doctores</option>
+                                            {doctoresDeEspe && doctoresDeEspe.map((e) => (
+                                                <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            :
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="cont_tur_BG">
+                                        <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
+                                        <div class="alert alert-warning" role="alert">
+                                            Actualmente no contamos con Doctores disponibles de la clinica seleccionada
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="cont_tur_BG">
+                                    <div>
+                                        <h3 className="display-6" id="Dia_Tur_Crea">Selecciona el dia: </h3>
+                                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                                            <div class="accordion-item" id="Sel_Tur_Crea_Dia">
+                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        Abrir calendario
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div className='calendarioContainer'>
+                                                        <Calendar
+                                                            onChange={onChange}
+                                                            value={date}
+                                                            onClickDay={(value, event) => validateDate(value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="cont_tur_BG">
+                                        <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
+                                        <select id="Sel_Tur_Crea_Hora" class="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
+                                            <option value="" disabled selected>{`Horarios disponibles el ${idValue.fecha.replace('-', '/')}`}</option>
+                                            {horariosDispoDoc && horariosDispoDoc.map((e) => (
+                                                <option value={e}>{e}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {
+                                errors.clinica || errors.doc ?
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Revisa los errores antes de continuar
+                                                </div>
+                                                <Link to={'/home'}>
+                                                    <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div>
+                                                <button onClick={()=> validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
+                                                <Link to={'/home'}>
+                                                    <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div className="entre_nav_turno"></div>
+                <div className="out_footer">
+                    <Footer />
+                </div>
+            </form>
+        </div>
     )
 }

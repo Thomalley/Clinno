@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx'
-import { validate_doctor,get_doctor_id} from '../../actions'
+import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
+import VerMisTurnos from "./VerMisTurnos";
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -17,11 +18,41 @@ import "./AdminDoctorStyle.css";
 
 
 export default function AdminDoctor(){
+    
+    useEffect(()=>{
+        console.log(turnos)
+        if(cookies.get('doctor_id')){
+            dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+            dispatch(getClinicas())
+            dispatch(getClients())
+            dispatch(getEspecialidad())
+            console.log('funca');
+            setTurn(turnos);
+        }
+    },[])
 
+    const cookies = new Cookies();
     const dispatch = useDispatch();
     const doctor = useSelector((state)=> state.doctor);
-    const cookies = new Cookies();
+    const turnos = useSelector((state)=> state.turnos);
+    const especialidades = useSelector((state)=> state.especialidades);
+    const cliente = useSelector((state)=> state.clientes);
     
+    const [turn,setTurn] = useState([]);
+    
+    // useEffect(()=>{
+    //     if(turnos){
+    //         setTurn(turnos);
+    //     }else{
+    //         dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+    //         dispatch(getClinicas())
+    //         dispatch(getClients())
+    //         dispatch(getEspecialidad())
+    //         console.log('funca');
+    //         setTurn(turnos);
+    //     }
+    // },[turnos])
+
     useEffect(()=>{
         if( cookies.get('doctor_id') ){
             dispatch(get_doctor_id(cookies.get('doctor_codigo')));
@@ -50,8 +81,7 @@ export default function AdminDoctor(){
         logear()
     }
     function logear(){
-        
-        if( doctor){
+        if( doctor.length >0){
             const data = doctor[0];
             cookies.set('doctor_id', data.id, {path: '/'});
             cookies.set('doctor_nombre', data.nombre, {path: '/'});
@@ -59,7 +89,7 @@ export default function AdminDoctor(){
             cookies.set('doctor_especialidades', data.especialidades, {path: '/'});
             setInput({password : ''})
             dispatch(get_doctor_id(cookies.get('doctor_codigo')));
-            swal("Bienvenido!", "Hola Doc", "success")
+            // swal("Bienvenido!", "Hola Doc", "success")
             setCheck(true)
         }
         else{
@@ -86,27 +116,32 @@ export default function AdminDoctor(){
             idClinica:cookies.get('clinica_id')
         });
     }
+    function verTurnos(){
+        return(<VerMisTurnos/>)
+    }
 
     if(loggeado){
         return(
             <div>
                 {  !check?
-                <div className="container">
+                <div className="background_doc">
                     <div className="row d-flex flex-column gap-3 contenedor_Doctor">
-                        <div className="col-12 ">
-                            <h3>Bienvenido Doctor</h3>
-                            <form onSubmit={(e)=> handleSubmit(e)}>
+                        <div className="contedor_doc_but">
+                            <Link to="/adminClinica"><img src={logo} alt="logo Clinno"  className="logo_clinno_navC"/></Link>
+                            <form className="Form_doc" onSubmit={(e)=> handleSubmit(e)}>
+                                <h3>Bienvenido Doctor</h3>
                                 <h4>Por favor ingrese su codigo:</h4>
-                                <input type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary">Continuar</button>
+                                <div className="d-flex flex-column gap-3">
+                                    <input type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary">Continuar</button>
+                                    <div><Link to='/verDoctores' >No Te Acordas tu Codigo?</Link></div>
+                                </div>
                             </form>
-                            <Link to='/verDoctores' >No Te Acordas tu Codigo?</Link>
                         </div>
                     </div>
                 </div>
-                
                     :
                 <>
                     <div className="contenedor_adminClinica">
@@ -115,9 +150,13 @@ export default function AdminDoctor(){
                         <h6>Codigo {doctor[0]?.codigo}</h6>
                         <h6>Especialista en:  </h6>
                         <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
-
-
-
+                        <button onClick={verTurnos} data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body">
+                                <VerMisTurnos/>
+                            </div>
+                        </div>
+                    
                     </div>
 
                     <Footer />

@@ -2,14 +2,18 @@ const { Order } = require('../db.js');
 const router = require('express').Router();
 
 // SDK de Mercado Pago
+
 const mercadopago = require('mercadopago');
+
 
 // const { ACCESS_TOKEN } = process.env;
 
 //Agrega credenciales
+
 mercadopago.configure({
     access_token: "TEST-8165276433250363-120722-129ddb09bd6c5a032ed6a9f98d41eb04-1034725152"
 });
+
 
 
 //Ruta que genera la URL de MercadoPago

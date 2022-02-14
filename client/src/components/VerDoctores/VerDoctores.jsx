@@ -13,6 +13,8 @@ import logo from '../../components/utils/images-landing/logo.png';
 
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
+import "./VerDoctoresStyle.css";
+
 
 
 export default function VerDoctores (){
@@ -47,26 +49,43 @@ export default function VerDoctores (){
                 <div className="contenedor_adminClinica">
                     <NavClinica/>
                     <h2>VER DOCTORES</h2>
-                    <select className="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
-                        <option  value="todas_All">Todos Los Medicos</option>
-                        {
-                            especialidades?.sort(function (a, b) {
-                                if (a.nombre > b.nombre) return 1;
-                                if (a.nombre< b.nombre) return -1;
-                                return 0;
-                            }).map((el) => <option name={el.nombre} key={el.id} value={el.id}>{el.nombre}</option>)
-                        }
-                    </select>
-                    {doctores && doctores?.map(d=>{
-                        return <div key={d.id} className="d-flex justify-content-center">
-                            <p>Nombre Completo: {d.nombre}</p> |
-                                <div>Especialidades: {d.especialidad?.map(esp=>{
-                                return <div key={esp.id}><p>{esp.nombre}</p></div>
-                            })}
-                            </div> |
-                            <p>Codigo Medico: {d.codigo}</p>
+                    <div className="container_ver_form">
+                        <div className="form_ver_doc">
+                            <h4>Filtrar Doctores por especialidad:</h4>
+                            <select className="form-select select_doctor" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+                            <option  value="todas_All">Todos Los Medicos</option>
+                            {
+                                especialidades?.sort(function (a, b) {
+                                    if (a.nombre > b.nombre) return 1;
+                                    if (a.nombre< b.nombre) return -1;
+                                    return 0;
+                                }).map((el) => <option name={el.nombre} key={el.id} value={el.id}>{el.nombre}</option>)
+                            }
+                        </select>
                         </div>
-                    })}
+                    </div>
+                    <div className="container_table_verDoc">
+                        <div className="grid_doctor_table">
+                            <span>
+                                <strong>Doctor</strong>
+                            </span>
+                            <span>
+                                <strong>Especialidad</strong>
+                            </span>
+                            <span>
+                                <strong>Codigo Medico</strong>
+                            </span>                        
+                        </div>
+                        {doctores && doctores?.map(d=>(
+                            <div key={d.id} className="grid_doctor_table">
+                                <span className="tesx_nombre">{d.nombre}</span>
+                                <span> {d.especialidad?.map(esp=>{
+                                    return <p className="tesx_esp">{esp.nombre}</p>
+                                })}</span>
+                                <span className="tesx_nombre">{d.codigo}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <Footer />
             </div>

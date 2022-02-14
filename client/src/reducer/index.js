@@ -5,10 +5,16 @@ const initialState = {
     clinicasByEspec: [],
     clinicas: [],
     clinica: [],
+    clinicaById: [],
     doctoresByEspec: [],
     doctor: [],
+    turnos: [],
     doctores: [],
-    horarioDisponibleParaTurno: []
+    horarioDisponibleParaTurno: [],
+    turnosClinica:[],
+    turnosDoctor:[]
+
+
 };
 
 
@@ -16,10 +22,28 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "GET_TURNO":
+            return {
+                ...state,
+                turnosClinica: action.payload
+            }
+
         case "GET_CLIENTES":
             return {
                 ...state,
                 clientes: action.payload
+            }
+
+            case "GET_TURNOS":
+            return {
+                ...state,
+                turnos: action.payload
+            }
+
+            case "GET_CLINICAS":
+            return {
+                ...state,
+                clinicas: action.payload
             }
 
         case 'POST_USER':
@@ -50,6 +74,17 @@ const rootReducer = (state = initialState, action) => {
                 especialidades: action.payload
             }
 
+        case "GET_CLINICAS":
+            return {
+                ...state,
+                clinicas: action.payload
+            }
+
+        case "GET_CLINICA_ID":
+            return{
+                ...state,
+                clinicaById: action.payload
+            }
         case "GET_CLINICAS_BY_ESPE":
             return {
                 ...state,
@@ -102,6 +137,18 @@ const rootReducer = (state = initialState, action) => {
                 horarioDisponibleParaTurno: action.payload
             }
 
+        case "GET_TURNO_DOCTOR":
+            return {
+                ...state,
+                turnosDoctor: action.payload
+            }
+
+        case "GET_TURNO_CLINICA":
+            return {
+                ...state,
+                turnosClinica: action.payload
+            }
+            
         default:
             return state;
     }

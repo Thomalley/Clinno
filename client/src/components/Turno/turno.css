@@ -1,12 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+.container {
+    font-family: 'Poppins', sans-serif;
+}
+
 .contenedor_turno {
-    display: inline-block;
-    width: 1200px;
-    height: 625px;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 15px;
-    border-color: white;
-    box-shadow: 0px 0px 200px -80px;
+    background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-nunny-246-g.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=d8ee441f91c4ca8ae879bce41e9c1a28);
+    background-attachment: fixed;
 }
 
 .entre_nav_turno {
@@ -14,9 +14,125 @@
     height: 128px;
 }
 
-.out_footer {
+#Esp_Tur_Crea {
+    color: #6a6a6a;
+    display: flex;
+    font-size: 28px;
+    margin-left: 50px;
+}
+
+#Sel_Tur_Crea_Esp {
+    width: 461px;
+    margin: 20px;
     position: relative;
-    top: 443px;
-    width: 210.7vh;
-    right: 85px;
+    left: 29px;
+    background-color: #f7f7f7;
+    color: #838383;
+}
+
+#Cli_Tur_Crea {
+    color: #6a6a6a;
+    display: flex;
+    font-size: 28px;
+    margin-left: 50px;
+}
+
+#Sel_Tur_Crea_Cli {
+    width: 312px;
+    margin: 20px;
+    position: relative;
+    left: 29px;
+    background-color: #f7f7f7;
+    color: #838383;
+}
+
+#Doc_Tur_Crea {
+    color: #6a6a6a;
+    display: flex;
+    font-size: 28px;
+    margin-left: 50px;
+}
+
+#Sel_Tur_Crea_Doc {
+    width: 292px;
+    margin: 20px;
+    position: relative;
+    left: 29px;
+    background-color: #f7f7f7;
+    color: #838383;
+}
+
+#Dia_Tur_Crea {
+    color: #6a6a6a;
+    display: flex;
+    font-size: 28px;
+    margin-left: 50px;
+}
+
+#Sel_Tur_Crea_Dia {
+    width: 240px;
+    margin: 20px;
+    position: relative;
+    left: 29px;
+    background-color: #f7f7f7;
+    color: #838383;
+}
+
+#Hor_Tur_Crea {
+    color: #6a6a6a;
+    display: flex;
+    font-size: 28px;
+    margin-left: 50px;
+}
+
+#Sel_Tur_Crea_Hora {
+    width: 128px;
+    margin: 20px;
+    position: relative;
+    left: 29px;
+    background-color: #f7f7f7;
+    color: #838383;
+}
+
+#progressTurn {
+    background-color: #0fab63;
+    position: fixed;
+    top: 55px;
+}
+
+.titleTurn {
+    background-color: #01aac1;
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+}
+
+#title_turn_id {
+    color: #ffffff;
+    display: -webkit-inline-box;
+    margin: 15px;
+}
+
+#aboveTitle_turn_id {
+    color: #e3e3e3;
+    font-size: 23px;
+    position: relative;
+    bottom: 14px;
+}
+
+.imgCreTur {
+    filter: brightness(0.5);
+}
+
+.cont_tur_BG {
+    background-color: #88a9bf5e;
+    height: 130px;
+    margin: 9px;
+    padding: 7px;
+    border-bottom-left-radius: 45px;
+    border-top-right-radius: 45px;
+}
+
+#But_bottom_Tur {
+    margin: 5px;
+    width: 350px;
 }

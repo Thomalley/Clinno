@@ -1,3 +1,31 @@
+.background_doc{
+    margin: 0px;
+    width: 100%;
+    background-color: #f2ffff;
+}
+
 .contenedor_Doctor{
     height: 100vh;
+    justify-content: start;
+    align-items: center;
+    box-shadow: -20px 60px 200px -20px black;
+}
+
+.contedor_doc_but{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+    padding: 60px 60px;
+    width: auto;
+    min-height: 560px;
+    background: #c1e6fc;
+    border-radius: 10px;
+    box-shadow: 0px 10px 204px -60px #9c9c9a;
+
+}
+.Form_doc{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
