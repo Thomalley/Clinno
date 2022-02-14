@@ -67,7 +67,7 @@ return (
                         <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
                     </li>
                     <li>
-                        <Link to={`/home/clinica/${cookies.get('clinica_id')}`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
+                        <Link to={`/estamostrabajando`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
                     </li>
                     {/* <li>
                         <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica">Ver proximos turnos</Link>
