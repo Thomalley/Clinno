@@ -19,9 +19,11 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
+import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
-// import MercadoPago from './components/MercadoPago/MercadoPago.jsx';
+
+
 
 
 function App() {
