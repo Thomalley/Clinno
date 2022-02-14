@@ -39,6 +39,7 @@ export default function LoginClinica(){
         cookies.remove('doctor_especialidades');
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
         window.location.href='/adminClinica';
+        setTimeout(()=> window.location.href='/', 3000) ;
     }
 return (
     <main>        
