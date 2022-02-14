@@ -4,17 +4,42 @@
     margin-left: 280px;
     overflow-y: auto;
     overflow-x: auto;
+    box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
+.contenedor_adminClinica::-webkit-scrollbar {
     display: none;
 }
+.adminClinica_presentacion{
+    background: #c1e9fc97;
+    margin: 0px 60px;
+    padding: 20px;
+}
+.logo_hospi_clinic{
+    width: 100px;
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+.render_turno{
+    margin: 30px 60px 0px 60px;
+    box-shadow: 0px 10px 204px -60px #9c9c9a;
+}
 
+.btn_clinic{
+    margin-top: 5px;
+    width: 244px;
+    background: #FF5959;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #f1f1f1;
+    font-weight: 700;
+}
 .grid_turno_table{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     border-top: 1px solid black;
-    border-right: 1px solid black;
+
 }
 .grid_turno_tables > span{
     padding: 8px 4px;

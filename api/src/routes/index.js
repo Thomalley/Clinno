@@ -10,6 +10,7 @@ const turnoRouter = require('./turno.js');
 const doctorRouter = require('./doctor.js');
 const especialidadRouter = require('./especialidad.js');
 const clinicaRouter = require('./clinica.js')
+const orderRouter = require('./order.js')
 const router = Router();
 
 // Configurar los routers
@@ -22,6 +23,8 @@ router.use("/mercadoPago", mercadoPagoRouter);
 router.use("/reseña", reseñaRouter);
 router.use("/turno", turnoRouter);
 router.use("/doctor", doctorRouter);
+router.use("/order", orderRouter);
 router.use("/especialidad", especialidadRouter);
 router.use("/clinica", clinicaRouter)
+
 module.exports = router;

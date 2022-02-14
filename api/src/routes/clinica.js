@@ -4,7 +4,7 @@ router = Router()
 
 router.post('/', async (req,res) => {
     try{
-        const {nombre, direccion, telefono, mail, password, nombreEn, apellidoEn, DNIEn, especialidad} = req.body;
+        const {nombre, direccion, telefono, password, mail, nombreEn, apellidoEn, DNIEn, especialidad} = req.body;
         const cli = await Clinica.create({
           nombre,
           direccion,
@@ -58,14 +58,18 @@ router.post('/order-mail', (req,res)=> {
   
        const sgMail = require('@sendgrid/mail')
   
-        const API_KEY = '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';
+
+        const API_KEY = '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';
+
   
         sgMail.setApiKey(API_KEY)
   
         const message = {
 
           to: email,
-          from : "clinnoturnnos@gmail.com",
+
+          from : "brunosentinelli@gmail.com",
+
           subject: `El proceso de baja ha comenzado`,
           html: `
           <html>

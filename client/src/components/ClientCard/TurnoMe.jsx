@@ -134,9 +134,6 @@ console.log(especialidades)
                     </div>
                 )   
             }
-
-    
-        
         </div>
         <Footer/>
         </div>
