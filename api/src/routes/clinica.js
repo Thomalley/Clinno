@@ -52,9 +52,9 @@ router.get('/', async (req, res) => {
 })
 router.post('/order-mail', (req,res)=> {
     try{
-      const {email, password, nombre} = req.body;
+      const {mail, password, nombre} = req.body;
   
-      console.log(email)
+      console.log(mail)
   
        const sgMail = require('@sendgrid/mail')
   
@@ -63,6 +63,7 @@ router.post('/order-mail', (req,res)=> {
         sgMail.setApiKey(API_KEY)
   
         const message = {
+
           to: email,
           from : "clinnoturnnos@gmail.com",
           subject: `El proceso de baja ha comenzado`,
