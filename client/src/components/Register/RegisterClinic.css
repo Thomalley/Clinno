@@ -5,7 +5,7 @@
     margin: 100px auto;
     padding: 0px 20px;
     width: 700px;
-    height: 600px;
+    height: 770px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
     display: flex;
@@ -23,4 +23,8 @@
     border-radius: 5px;
     box-shadow: 0px 0px 200px -80px;
     padding: 5px;
+  }
+
+  .especialidadesP{
+    margin: auto;
   }
