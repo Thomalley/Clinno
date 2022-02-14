@@ -20,7 +20,7 @@ import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
 import TurnoMe from './components/ClientCard/TurnoMe';
-// import MercadoPago from './components/MercadoPago/MercadoPago.jsx';
+import MercadoPago from './components/MercadoPago/MercadoPago.jsx';
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
       <div className="App">
         <Routes>
         <Route path='/TurnoMe' element={<TurnoMe/>}/>
-          {/* <Route path = '/mercadopago' element ={<MercadoPago/>}/> */}
+          <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
@@ -47,7 +47,7 @@ function App() {
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
           <Route path='/AddDoctor' element={<AddDoctor/>}/>
           <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
-          <Route path='/test' element={<Turno/>}/>
+          <Route path='/turno' element={<Turno/>}/>
           <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
           <Route path='/VerDoctores' element={<VerDoctores/>}/>
         </Routes>
