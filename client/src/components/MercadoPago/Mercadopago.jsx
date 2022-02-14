@@ -18,9 +18,8 @@ function MercadoPago() {
 
 
   const productos = [
-    {title: "Producto 1", quantity: 5, price: 10.52},
-    {title: "Producto 2", quantity: 15, price: 100.52},
-    {title: "Producto 3", quantity: 6, price: 200}
+    {title: "Consulta", quantity: 1, price: 2000},
+
   ]
   return (
     <div className="mercadopago">
