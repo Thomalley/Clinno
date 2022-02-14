@@ -46,20 +46,6 @@ export function getClinicaId(id){
     }
 }
 
-export function getClinicas(){
-    return async function(dispatch){
-        try{
-            const json = await axios.get('http://localhost:3001/clinica');
-            return dispatch({
-                type: "GET_CLINICAS",
-                payload: json.data
-            })
-        }catch(e){
-            console.log(e)
-        }
-    }
-}
-
 export function getDisponibilidad(fecha, idDoctor) {
     return async function(dispatch) {
         try {
@@ -483,6 +469,46 @@ export function turno_clinica (payload){
             });
             console.log('estoy en acction',turnos);
             return dispatch({type: 'GET_TURNO', payload: turnos})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function getTurnosClinica(payload){
+    return async function (dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/turno/clinica/${payload}`);
+            return dispatch({type: 'GET_TURNO_CLINICA', payload: json.data})
+            
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function getTurnosDoctor (payload){
+    return async function (dispatch){
+        try{
+            const json = await axios.get(`http://localhost:3001/turno/doctor/${payload}`);
+            console.log(json.data)
+            return dispatch({type: 'GET_TURNO_DOCTOR', payload: json.data})
+            
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function darBajaEmail(payload){
+    return async function (dispatch){
+        try{
+            const json = await axios.post(`http://localhost:3001/clinica/order-mail`,payload);
+            console.log(json.data)
+            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
         }
         catch (err){
             console.log(err)
