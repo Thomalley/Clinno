@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx'
-import { validate_doctor,get_doctor_id} from '../../actions'
+import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
+import VerMisTurnos from "./VerMisTurnos";
+import icono from '../../components/utils/icono-clinica.png'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -17,11 +19,41 @@ import "./AdminDoctorStyle.css";
 
 
 export default function AdminDoctor(){
+    
+    useEffect(()=>{
+        console.log(turnos)
+        if(cookies.get('doctor_id')){
+            dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+            dispatch(getClinicas())
+            dispatch(getClients())
+            dispatch(getEspecialidad())
+            console.log('funca');
+            setTurn(turnos);
+        }
+    },[])
 
+    const cookies = new Cookies();
     const dispatch = useDispatch();
     const doctor = useSelector((state)=> state.doctor);
-    const cookies = new Cookies();
+    const turnos = useSelector((state)=> state.turnos);
+    const especialidades = useSelector((state)=> state.especialidades);
+    const cliente = useSelector((state)=> state.clientes);
     
+    const [turn,setTurn] = useState([]);
+    
+    // useEffect(()=>{
+    //     if(turnos){
+    //         setTurn(turnos);
+    //     }else{
+    //         dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+    //         dispatch(getClinicas())
+    //         dispatch(getClients())
+    //         dispatch(getEspecialidad())
+    //         console.log('funca');
+    //         setTurn(turnos);
+    //     }
+    // },[turnos])
+
     useEffect(()=>{
         if( cookies.get('doctor_id') ){
             dispatch(get_doctor_id(cookies.get('doctor_codigo')));
@@ -58,7 +90,7 @@ export default function AdminDoctor(){
             cookies.set('doctor_especialidades', data.especialidades, {path: '/'});
             setInput({password : ''})
             dispatch(get_doctor_id(cookies.get('doctor_codigo')));
-            swal("Bienvenido!", "Hola Doc", "success")
+            // swal("Bienvenido!", "Hola Doc", "success")
             setCheck(true)
         }
         else{
@@ -84,6 +116,9 @@ export default function AdminDoctor(){
             password : e.target.value,
             idClinica:cookies.get('clinica_id')
         });
+    }
+    function verTurnos(){
+        return(<VerMisTurnos/>)
     }
 
     if(loggeado){
@@ -112,11 +147,21 @@ export default function AdminDoctor(){
                 <>
                     <div className="contenedor_adminClinica">
                         <NavClinica/>
+                    <div className="adminClinica_presentacion"> 
+                        <img src={icono} alt="hospital" className="logo_hospi_clinic"/>
                         <h1>Bienvenido {doctor[0]?.nombre}</h1>
                         <h6>Codigo {doctor[0]?.codigo}</h6>
                         <h6>Especialista en:  </h6>
                         <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
-                        
+                    </div>
+                    <hr/>
+                        <button onClick={verTurnos} className="btn_clinic" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body render_turno">
+                                <VerMisTurnos/>
+                            </div>
+                        </div>
+                    
                     </div>
 
                     <Footer />

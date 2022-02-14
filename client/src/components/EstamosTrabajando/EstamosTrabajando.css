@@ -1,0 +1,17 @@
+.workingImage{
+    height: 540px;
+}
+
+.contiene{
+    background-color: #a5dbd2;
+}
+
+#work{
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+#build{
+    font-size: 25px;
+    margin-bottom: 30px;
+}

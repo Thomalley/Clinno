@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import logo from "../utils/images-landing/logo.png";
-import {getClinicaId} from '../../actions/index.js'
+import {getClinicaId} from '../../actions/index'
 
 import Cookies from "universal-cookie";
 

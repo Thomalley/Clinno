@@ -8,6 +8,9 @@ import NavClinica from '../AdminClinica/NavClinica.jsx'
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 
+import "../AddDoctor/AddDoctorStyle.css"
+
+
 const validate = values =>{
     const errors ={}
 
@@ -59,7 +62,7 @@ function AddEspecialidades() {
         if(!Object.keys(result).length){
             dispatch(addEspecialidad(input));
             swal("Especialidad Agregada!", "En instantes seras redirigido nuevamente a Agregar Doctor", "success")
-            setTimeout(()=> window.location.href='/addDoctor', 2000);
+            setTimeout(()=> window.location.href='/addDoctor', 2400);
         }
     }
 
@@ -70,11 +73,10 @@ function AddEspecialidades() {
                 <NavClinica/>
                 <div className="contenedor_adminClinica">
                     
-                    <div className="row d-flex flex-column gap-3 ">
-                        <div className="col-12 ">
-                                <h3>Agrega una nueva especialidad!</h3>
-                                <br/><br/><br/>
-                            <form onSubmit={(e)=> handleSubmit(e)}>
+                    <div className="row d-flex flex-column gap-3 add_especialidad ">
+                        <div className="col-12 d-flex flex-column align-items-center ">
+                            <h3 className="agrega_nueva">Agrega una nueva especialidad!</h3>
+                            <form className="formu_addespecialidad" onSubmit={(e)=> handleSubmit(e)}>
                                 <h4>Por favor ingrese su especialidad:</h4>
                                 <input type='text' name="nombre" value={input.nombre }placeholder="Ingrese su especialidad aqui." onChange={(e)=>handleChange(e)} />
                                 {input.errors.nombre? <p className='errors'>{input.errors.nombre}</p>:<p> </p>}

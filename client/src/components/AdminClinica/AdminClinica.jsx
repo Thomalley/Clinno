@@ -6,25 +6,25 @@ import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from './NavClinica.jsx'
 import {get_clinica,turno_clinica} from '../../actions';
+import Turnos from './Turnos'
+import icono from '../../components/utils/icono-clinica.png'
 
 
 import Cookies from 'universal-cookie';
 import "./AdminClinicaStyle.css";
 
 
-export default function LoginClinica(){
+export default function AdminClinica(){
     
     const cookies = new Cookies();
     const dispatch = useDispatch();
 
     const clinica = useSelector((state)=> state.clinica);
-    const turnos = useSelector((state)=> state.turnosClinica);
     //control se dession
     let session=false;
     if(cookies.get('clinica_id')) session = true;
     const [loggeado,setLoggeado] = useState(session);
 
-    const [turn,setTurn] = useState(turnos);
     
 
     async function dispa (){
@@ -32,74 +32,32 @@ export default function LoginClinica(){
             dispatch(get_clinica(cookies.get('clinica_id')))            
         }
     }
-    async function dispa2 (){
-    dispatch(turno_clinica(cookies.get('clinica_id')))
-        if(loggeado){
-            if(turnos.length<1){
-                dispatch(turno_clinica(cookies.get('clinica_id')))
-            }
-            setTurn(turnos)
-        }
-    }
 
-    useEffect(() => {
-        setTimeout(()=>{dispa2()},1000)
-        dispa()
-    },[])
-    useEffect(() => {
-        console.log(turnos.length)
-        if(turnos.length >0){
-            setTurn(turnos)
-        }
-    },[turnos])
-    
-    
-    console.log("turno:",turn)
-    console.log("turnos Redux:",turnos)
+    useEffect(() => {dispatch(get_clinica(cookies.get('clinica_id')))},[])
 
     if(loggeado){
         return(
             <div >
                 <div className="contenedor_adminClinica">
                     <NavClinica/>
-                    <h1>Bienvenido {clinica[0]?.nombre}</h1>
-                    <h3>Proximos Turnos</h3>
-
-                    <div className="grid_turno_table">
-                        <span>
-                            <strong>Cliente</strong>
-                        </span>
-                        <span>
-                            <strong>Fecha</strong>
-                        </span>
-                        <span>
-                            <strong>Hora</strong>
-                        </span>
-                        <span>
-                            <strong>Doctor</strong>
-                        </span>
-                        <span>
-                            <strong>Especialidad</strong>
-                        </span>
+                    <div className="adminClinica_presentacion">
+                        <img src={icono} alt="hospital" className="logo_hospi_clinic"/>
+                        <h1>Bienvenido {clinica[0]?.nombre}</h1>
+                        <h4>Administacion de Clinica</h4>
                     </div>
-                    {turn &&turn?.sort(function(a, b) {
-                        if (a.fecha < b.fecha) {
-                            return -1;
-                        }
-                        if (a.fecha > b.fecha) {
-                            return 1;
-                        }
-                        return (a.hora < b.hora)?  -1:1;
-
-                    }).map(t=>{ 
-                        return <div className="grid_turno_table">
-                            <span>{t.cliente }</span>
-                            <span>{t.fecha }</span>   
-                            <span>{t.hora }</span>
-                            <span>{t.doctor }</span>
-                            <span>{t.especialidad}</span>
+                    <hr/>
+                    <h3>Proximos Turnos</h3>
+                    <button className="btn_clinic"
+                        data-bs-toggle="collapse" 
+                        href="#multiCollapseExample1"
+                        role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body render_turno">
+                                <Turnos/>
+                            </div>
                         </div>
-                    })}
+
+                
                 </div>
 
                 <Footer />
