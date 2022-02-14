@@ -33,8 +33,7 @@ export default function Comprar({ productos, data }){
                 <div className={s.products} key={i}>
                   <ul className={s.ul} >
                     <li>{producto.title}</li>
-                    <li>{'$' + producto.price}</li> 
-                    <li>{producto.quantity}</li>
+                    <li>{'$' + producto.price}</li>
                   </ul>
                 </div>   
             )

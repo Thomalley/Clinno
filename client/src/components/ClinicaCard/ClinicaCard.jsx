@@ -39,7 +39,7 @@ export default function ClinicaCard (){
         cookies.remove('clinica_createdAt');
 
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-        setTimeout(()=> window.location.href='/', 2000) ;
+        setTimeout(()=> window.location.href='/', 4000) ;
     }
     function meVoy(){
         console.log(clinica);

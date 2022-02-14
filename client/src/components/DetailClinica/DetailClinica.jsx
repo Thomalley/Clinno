@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import logo from "../utils/images-landing/logo.png";
-import {getClinicaId} from '../../actions/index.js'
+import { getClinicaId } from "../../actions/index.js";
 
 import Cookies from "universal-cookie";
 
@@ -22,15 +22,15 @@ export default function DetailClinica() {
   let { id } = useParams();
 
   useEffect(() => {
-      dispatch(getClinicaId(id));
+    dispatch(getClinicaId(id));
   }, []);
-  
+
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
   const { isAuthenticated, isLoading } = useAuth0();
-  console.log('soy clinic', clinic)
+  console.log("soy clinic", clinic);
   let session;
   // console.log("sesion iniciada por " + cookies.get('email'))
   if (cookies.get("email")) {
@@ -56,7 +56,6 @@ export default function DetailClinica() {
   const goToLogin = () => {
     navigate("/login");
   };
-
 
   return (
     <>
@@ -224,18 +223,17 @@ export default function DetailClinica() {
                     {/* <img className="imglogo" src={clinic[0].logo} alt="nf" /> */}
                   </div>
                   <div className="nombre_hospital">
-                    <img
-                      className="imgLogo_Clinno"
-                      src={logo}
-                      alt="Logo Clinno"
-                    />
                   </div>
-                  {/* <button 
-                                                type="button" 
-                                                className="btn btn-primary animation_carrousel" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#exampleModal"
-                                            >Busca tu cita medica! </button> */}
+                    <Link to="/turno">
+                  <button
+                    type="button"
+                    className="btn btn-primary animation_carrousel"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Agendá tu cita medica!{" "}
+                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -251,10 +249,9 @@ export default function DetailClinica() {
                 <h2>{clinic.nombre}</h2>
                 <p>
                   {" "}
-                  En {clinic.nombre}, contamos con un staff de primer nivel
-                  para brindar un servicio de excelencia, promoviendo un
-                  ambiente de confort y atención personalizada para los
-                  pacientes.{" "}
+                  En {clinic.nombre}, contamos con un staff de primer nivel para
+                  brindar un servicio de excelencia, promoviendo un ambiente de
+                  confort y atención personalizada para los pacientes.{" "}
                 </p>
               </div>
               <div className="col shadow-lg p-3 mb-5  rounded nosotros_item none_item">
@@ -323,14 +320,13 @@ export default function DetailClinica() {
                   </div>
                   <p className="item_direccion">
                     {" "}
-                    Estamos en {clinic.direccion}, Buenos Aires, Capital
-                    Federal{" "}
+                    Estamos en {clinic.direccion}, Buenos Aires, Capital Federal{" "}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-       
+
           {/* <div className="container_carta_doctor">
                     <div className=" carta_doctor">
                         <img src="https://cdn.pixabay.com/photo/2020/05/26/19/48/stethoscope-5224534_960_720.jpg" className="card-img" alt="..."/>
@@ -357,12 +353,12 @@ export default function DetailClinica() {
                         </div>
                     </div>
                 </div> */}
-            
+
           <div className="d-flex justify-content-center align-items-start ">
             <div>
               <h3 className="m-4">Quienes son nuestros doctores?</h3>
-                <div className=" doctores_contenido">
-                 {/* {clinic.doctors.sort((a, b) => {
+              <div className=" doctores_contenido">
+                {/* {clinic.doctors.sort((a, b) => {
                     if (a < b) {
                       return -1;
                     }
@@ -373,7 +369,8 @@ export default function DetailClinica() {
                   })
                   .map((e, i) => {
                     {console.log(e)} */}
-                    {clinic.doctors && clinic.doctors.map(e =>{
+                {clinic.doctors &&
+                  clinic.doctors.map((e) => {
                     return (
                       <div className="doctor">
                         <h4>{e.nombre}</h4>
@@ -384,7 +381,7 @@ export default function DetailClinica() {
                       </div>
                     );
                   })}
-              </div> 
+              </div>
             </div>
             <div>
               <h3 className="m-4">Contamos con las especialidades:</h3>
@@ -400,7 +397,8 @@ export default function DetailClinica() {
                     return 0;
                   })
                   ?.map((e, i) => { */}
-                  {clinic.especialidads && clinic.especialidads.map(e => {
+                {clinic.especialidads &&
+                  clinic.especialidads.map((e) => {
                     return (
                       <div className="especialidad">
                         <h4>{e.nombre}</h4>

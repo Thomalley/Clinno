@@ -127,7 +127,7 @@ export default function Login(){
                     <div className="col-12">
                 <input 
                     type='text'
-                    placeholder="Email adress"
+                    placeholder="Dirección de email"
                     id="username"
                     className={errors.email? "inptwr" : "inpt"}
                     value={input.email}
@@ -144,7 +144,7 @@ export default function Login(){
                 ">
                 <input 
                     type='password'
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     name='password'
                     id="password"
                     className={errors.password? "inptwr" : "inpt"}
@@ -158,7 +158,7 @@ export default function Login(){
                     )}
                 </div>
                 </div>
-                <a className="noaccreg" href="/recover">Olvidaste tu contraseña?</a>
+                <a className="noaccreg" href="/forgotpassword">Olvidaste tu contraseña?</a>
                 <div className="row">
                     <div className="col-12 
                     ">
@@ -172,8 +172,8 @@ export default function Login(){
                 <div className="row">
                 <div className="col-12 
                 ">
-                    <p className="noaccreg">No tenes cuenta? </p>
-                   <a className="noaccreg" href="/register">Registrarse</a>
+                    <p className="noaccreg">No tienes cuenta? </p>
+                   <a className="noaccreg" href="/register">Regístrate</a>
                    </div>
                    </div>
                 <p> ━ o ━ </p>
@@ -185,7 +185,7 @@ export default function Login(){
                     </button>
                 </div>
                 </div>
-                <Link to={'/home'}>
+                <Link to={'/'}>
                     <button className="btnloginback">Volver a inicio</button>
                 </Link>
             </form> 

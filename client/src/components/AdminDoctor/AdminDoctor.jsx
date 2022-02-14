@@ -94,8 +94,8 @@ export default function AdminDoctor(){
         }
         else{
             swal({
-                title: "Usuario o contrasena incorrectos",
-                text: "Ingrese los datos e intente nuevamente",
+                title: "El código ingresado no corresponde a ningun doctor",
+                text: "Verifique los datos e intente nuevamente",
                 icon: "warning",
                 dangerMode: true,
             })          
