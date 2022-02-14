@@ -100,6 +100,13 @@ export default function Turno() {
     }
 
     useEffect(() => {
+        if (!userLog) {
+            setLoggeado(false)
+        }
+        else setLoggeado(true)
+    }, [])
+
+    useEffect(() => {
         if (idValue.fecha) {
             dispatch(getDisponibilidad(idValue.fecha, idValue.idDoctor))
             validateInfo()
@@ -191,12 +198,37 @@ export default function Turno() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        if (loggeado === false) {
+            setErrors({ ...errors, login: false })
+            return swal("No estas Logueado!", "Por favor inicie sesion para registrar su turno", "warning")
+        }
         if (submit.canSubmit === true) {
             dispatch(crearTurno(idValue))
-            swal("Confirmado!", `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `, "success")
+            return swal({
+                title: "Turno confirmado!",
+                text: `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
+                icon: "success",
+                buttons: {
+                    catch: "Abonar turno",
+                    text: "Volver a inicio"
+                }
+            }) 
+                .then((value) => {
+                    switch (value) {
+                        case "catch":
+                            swal("En instantes seras redirigido..", {});
+                            setTimeout(() => window.location.href = '/turno/abonar', 2000)
+                            break
+                        case "text":
+                            swal("En instantes seras redirigido a inicio..", {});
+                            setTimeout(() => window.location.href = '/', 2000)
+                            break
+                        default: return
+                    }
+                });
         }
         else if (submit.canSubmit === false)
-            swal("No se ha podido registrar su turno", "Por favor complete todos los campos e intente nuevamente", "warning")
+            return swal("No se ha podido registrar su turno", "Por favor complete todos los campos e intente nuevamente", "warning")
     }
 
     function validateInfo() {
@@ -211,7 +243,6 @@ export default function Turno() {
         else
             setSubmit({ canSubmit: true })
     }
-    console.log("soy clinicas de espe",clinicasDeEspe)
 
     return (
         <div className=".container">
@@ -362,7 +393,7 @@ export default function Turno() {
                                     <div className="row">
                                         <div className="col-12">
                                             <div>
-                                                <button onClick={()=> validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
+                                                <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
                                                 <Link to={'/home'}>
                                                     <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
                                                 </Link>
