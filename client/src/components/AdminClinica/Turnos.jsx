@@ -52,7 +52,8 @@ export default function TurnosClinica({idClinica}){
         "idEspecialidad": "",
         "idClinica": ""
     }   
-    
+    const date = new Date();
+    const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return (
         <>
         <h3>Proximos Turnos</h3>
@@ -84,13 +85,16 @@ export default function TurnosClinica({idClinica}){
                 return (a.hora < b.hora)?  -1:1;
 
             }).map(t=>{
-            return <div className="grid_turno_table">
-                <span>{(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}</span>
-                <span>{t.fecha }</span>   
-                <span>{t.hora }</span>
-                <span>{(doctores?.find(el => el.id === t.idDoctor,10))?.nombre}</span>
-                <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-            </div>
+                if(finalDate<t.fecha){
+
+                return <div className="grid_turno_table">
+                    <span>{(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}</span>
+                    <span>{t.fecha }</span>   
+                    <span>{t.hora }</span>
+                    <span>{(doctores?.find(el => el.id === t.idDoctor,10))?.nombre}</span>
+                    <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
+                </div>
+                }
         })} 
         </>
     )

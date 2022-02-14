@@ -67,7 +67,7 @@
 .checkboc_showpass{
     float: left;
     position: relative;
-    left: 120px;
+    left: 104px;
     top: 5px;
 }
 
@@ -92,7 +92,7 @@
         width: 320px;
     }
     .checkboc_showpass{
-        left: 68px;
+        left: 52px;
     }
 
 }

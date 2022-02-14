@@ -134,8 +134,11 @@ export default function RegisterClinic(){
       />
       <label>Seleccione las especialidades de su clinica</label>
       <select class="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+      <option  disabled selected>Selecione sus especialidades</option>
         {
+
           especialidad?.map((el) => <option value={el.id}>{el.nombre}</option>)
+          
         }
       </select>
       <br/>

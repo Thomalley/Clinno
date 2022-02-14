@@ -11,7 +11,7 @@ import logo from '../../components/utils/images-landing/logo.png';
 
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
-
+import './ClinicaCardStyle.css'
 
 export default function ClinicaCard (){
 
@@ -21,7 +21,7 @@ export default function ClinicaCard (){
     useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id'))); },[])
     const clinica = useSelector((state)=> state.clinica[0]);
     console.log(clinica);
-    //control se dession
+    //control se de sesion
     let session=false;
     if(cookies.get('clinica_id')) session = true;
     const [loggeado,setLoggeado] = useState(session);
@@ -39,7 +39,7 @@ export default function ClinicaCard (){
         cookies.remove('clinica_createdAt');
 
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-        setTimeout(()=> window.location.href='/', 2000) ;
+        setTimeout(()=> window.location.href='/', 4000) ;
     }
     function meVoy(){
         console.log(clinica);
@@ -52,21 +52,24 @@ export default function ClinicaCard (){
             <div >
                 <div className="contenedor_adminClinica">
                     <NavClinica/>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        
+                        <img src={logo} className='logo_clinno_adminC' />
+                        <div className="d-flex justify-content-center align-items-center">
+                            <div className="contenedor_me_clinic">
+                                <h1>Perfil de {clinica?.nombre}</h1>
+                                <hr/>
+                                <h4>Nombre: {clinica?.nombre}</h4>
+                                <h4>Direccion: {clinica?.direccion}</h4>
+                                <h4>Telefono: {clinica?.telefono}</h4>
+                                <h4>Mail: {clinica?.mail}</h4>
+                                <h4>Nombre Titular:{clinica?.nombreEn}</h4>
+                                <h4>Apellido Titular: {clinica?.apellidoEn}</h4>
+                                <h4>Dni Titular: {clinica?.DNIEn}</h4>
+                            </div>
+                        </div>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Dar de Baja
                         </button>
-                    <div>
-
-                        <img src={logo} className='logo_clinno_navC' />
-                        <h1>Perfil de {clinica?.nombre}</h1>
-                        <h2>Nombre: {clinica?.nombre}</h2>
-                        <h2>Direccion: {clinica?.direccion}</h2>
-                        <h2>Telefono: {clinica?.telefono}</h2>
-                        <h2>Mail: {clinica?.mail}</h2>
-                        <h2>Nombre Titular:{clinica?.nombreEn}</h2>
-                        <h2>Apellido Titular: {clinica?.apellidoEn}</h2>
-                        <h2>Dni Titular: {clinica?.DNIEn}</h2>
-                    </div>
                 </div>
                 <Footer />
                 {/* <!-- Modal --> */}

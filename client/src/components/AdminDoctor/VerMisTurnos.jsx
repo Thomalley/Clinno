@@ -20,6 +20,7 @@ export default function VerMisTurnos(){
 
     const turnos = useSelector((state)=> state.turnosDoctor);
 
+
     useEffect(()=>{
         console.log(turnos)
         dispatch(getTurnosDoctor(cookies.get('doctor_id')))
@@ -45,10 +46,12 @@ export default function VerMisTurnos(){
     const dispatch = useDispatch();
     const especialidades = useSelector((state)=> state.especialidades);
     const cliente = useSelector((state)=> state.clientes);
+    const date = new Date();
+    const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
     return (
         <>
-        <h3>Proximos Turnos</h3>
+        <h3>Turnos de {cookies.get('doctor_nombre')}</h3>
 
         <div className="grid_turno_table">
             <span>
@@ -74,12 +77,15 @@ export default function VerMisTurnos(){
                 return (a.hora < b.hora)?  -1:1;
 
             }).map(t=>{
-            return <div className="grid_turno_table">
+                if(finalDate<t.fecha){
+
+                    return <div className="grid_turno_table">
                 <span>{(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}</span>
                 <span>{t.fecha }</span>   
                 <span>{t.hora }</span>
                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
             </div>
+            }
         })} 
         </>
     )

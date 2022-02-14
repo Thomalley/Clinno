@@ -97,10 +97,10 @@ export default function NavBar({loggin}){
                                 </>
                                 : <>
                                     <li className="nav-item item_navBar">
-                                        <Link className="nav-link active item_navBar" to='/register'>Register</Link>
+                                        <Link className="nav-link active item_navBar" to='/register'>Regístrate</Link>
                                     </li>
                                     <li className="nav-item item_navBar"> 
-                                        <Link className="nav-link active item_navBar" to='/login'>Login</Link>
+                                        <Link className="nav-link active item_navBar" to='/login'>Iniciar sesión</Link>
                                     </li>
                                 </>
                             }

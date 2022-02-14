@@ -1,0 +1,15 @@
+.contenedor_me_clinic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #c1e9fc97;
+    width: 600px;
+    padding: 40px;
+    margin-top: 20px;
+}
+.logo_clinno_adminC{
+    width: 200px;
+    background: #f1f1f1;
+    border-radius: 5px;
+}
