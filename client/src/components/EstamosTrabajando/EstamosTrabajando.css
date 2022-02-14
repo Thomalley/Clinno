@@ -1,0 +1,15 @@
+.workingImage{
+    margin: auto;
+    width: auto;
+    height: 500px;
+    
+}
+
+.workingDiv{
+    height: 100vh;
+    background-color: #A5DBD2;
+}
+
+.workingTitulo{
+    padding-top: 100px;
+}

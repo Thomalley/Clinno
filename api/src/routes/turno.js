@@ -62,4 +62,32 @@ router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
     }
 })
 
+router.get('/doctor/:idDoctor', async(req, res) => {
+    try {
+        const {idDoctor} = req.params
+
+        const turnos = await Turno.findAll({
+            where:{
+            idDoctor:idDoctor}
+        })
+        res.send(turnos)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+router.get('/clinica/:idClinica', async(req, res) => {
+    try {
+        const {idClinica} = req.params
+
+        const turnos = await Turno.findAll({
+            where:{
+            idClinica:idClinica}
+        })
+        res.send(turnos)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 module.exports = router

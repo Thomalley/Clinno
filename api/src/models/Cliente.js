@@ -4,6 +4,7 @@ const { DataTypes, Sequelize, UUIDV4 } = require('sequelize');
 module.exports = (sequelize) => {
 // defino el modelo
  sequelize.define('cliente', {
+ 
   nombre: {
      type: DataTypes.STRING,
      allowNull: false,
