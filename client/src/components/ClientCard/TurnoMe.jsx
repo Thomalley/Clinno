@@ -121,7 +121,7 @@ console.log(especialidades)
                 </div>
                 ) 
                 :
-                <p>no hay turnos pasados</p>  
+                <p>No se han generado citas médicas aún</p>  
             }
         </div>
         </div>

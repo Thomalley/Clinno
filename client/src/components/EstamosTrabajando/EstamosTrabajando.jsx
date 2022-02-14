@@ -4,6 +4,7 @@ import photo from '../utils/hipertencion.gif'
 export default function EstamosTrabajando() {
 
 
+
     return (
         <div className="contiene">
             <div className="container">

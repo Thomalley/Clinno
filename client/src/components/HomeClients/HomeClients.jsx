@@ -188,7 +188,7 @@ export default function HomeHospitals() {
                     </div>
 
                     <div>
-                      <Link to={`/Home/clinica/${c.id}`}>
+                      <Link to={`/clinica/${c.id}`}>
                         <button className="btn-go">Ir a clinica</button>
                       </Link>
                     </div>

@@ -52,8 +52,8 @@ return (
                 <ul className="nav nav-pills flex-column mb-auto ">
                     {/* <li className="nav-item">
                         <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
-                    </li>
-                    <li className="nav-item">
+                    </li> */}
+                    {/* <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
                     </li> */}
                     <li className="nav-item">
@@ -95,7 +95,10 @@ return (
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
-                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver mi Perfil</Link></li>
+
+                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver Mi Perfil</Link></li>
+
+
                 </ul>
             </div>
             :
