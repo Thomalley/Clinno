@@ -96,7 +96,10 @@ return (
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
+
                     <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver Mi Perfil</Link></li>
+
+
                 </ul>
             </div>
             :
