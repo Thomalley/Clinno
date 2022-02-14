@@ -6,27 +6,37 @@ import axios from 'axios'
 function MercadoPago() {
   const [datos, setDatos] = useState("")
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    .get("http://localhost:3001/mercadopago")
-    .then((data)=>{
-      setDatos(data.data)
-      console.info('Contenido de data:', data)
-    })
-    .catch(err => console.error(err)) 
-  },[])
+      .get("http://localhost:3001/mercadopago")
+      .then((data) => {
+        setDatos(data.data)
+        console.info('Contenido de data:', data)
+      })
+      .catch(err => console.error(err))
+  }, [])
 
 
   const productos = [
-    {title: "Consulta", quantity: 1, price: 2000},
+    { title: "Consulta", quantity: 1, price: 2000 },
 
   ]
   return (
-    <div className="mercadopago">
-      { !datos
-        ? <p>Aguarde un momento....</p> 
-        : <Checkout productos={productos} data={datos}/>
-      }
+    <div className='container'>
+      <div className='row'>
+        <div className='col-12'>
+          <div className="mercadopago">
+            {!datos
+              ? 
+              <div>
+                <img src='https://booking.smu.edu.sg/images/loader.gif' alt='Loading' />
+                <p>Aguarde un momento....</p>
+              </div>
+              : <Checkout productos={productos} data={datos} />
+            }
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

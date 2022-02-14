@@ -136,9 +136,11 @@ export default function AddDoctor(){
                     </div>
                     :
                         <div className="contenedor_addDoctor">
-                            <h4>Estas en add Doctor</h4>
+                            <h4>Agregue un Doctor</h4>
 
-                            <form onSubmit={(e)=> handleSubmit(e)}>
+                            <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
+                                <h4>Formulario de Doctor</h4>
+
                                 <select className="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
                                     <option  disabled selected>Selecione sus especialidades</option>
                                     {

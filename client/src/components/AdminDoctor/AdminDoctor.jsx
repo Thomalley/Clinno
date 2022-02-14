@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx'
 import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
 import VerMisTurnos from "./VerMisTurnos";
+import icono from '../../components/utils/icono-clinica.png'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -146,13 +147,17 @@ export default function AdminDoctor(){
                 <>
                     <div className="contenedor_adminClinica">
                         <NavClinica/>
+                    <div className="adminClinica_presentacion"> 
+                        <img src={icono} alt="hospital" className="logo_hospi_clinic"/>
                         <h1>Bienvenido {doctor[0]?.nombre}</h1>
                         <h6>Codigo {doctor[0]?.codigo}</h6>
                         <h6>Especialista en:  </h6>
                         <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
-                        <button onClick={verTurnos} data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
+                    </div>
+                    <hr/>
+                        <button onClick={verTurnos} className="btn_clinic" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <div class="card card-body">
+                            <div class="card card-body render_turno">
                                 <VerMisTurnos/>
                             </div>
                         </div>

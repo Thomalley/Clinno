@@ -26,14 +26,15 @@ import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
 
 
 
+
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+        <Route path='/TurnoMe' element={<TurnoMe/>}/>
+          <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
-          <Route path='/TurnoMe' element={<TurnoMe/>}/>
-          <Route path='/mercadopago' element ={<MercadoPago/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
           <Route path='/me' element={<ClientCard/>}/>
