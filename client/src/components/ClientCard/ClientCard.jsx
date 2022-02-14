@@ -53,14 +53,10 @@ export default function ClientCard(){
         
           <li><Link className="nav-link" to='/TurnoMe'>Mis Turnos</Link></li>
             
-          <li class="nav-link" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-            Pagos
-          </li>
-        
-          <li class="nav-link" data-bs-toggle="collapse" href="#multiCollapseExample4" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-            Reseñas
-          </li>
+          <li><Link className="nav-link" to='/EstamosTrabajando'>Pagos</Link></li>
           
+          <li><Link className="nav-link" to='/EstamosTrabajando'>Reseñas</Link></li>
+
           </ul>
 
         <div class="collapse multi-collapse" id="multiCollapseExample1">

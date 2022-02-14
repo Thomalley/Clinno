@@ -46,20 +46,6 @@ export function getClinicaId(id){
     }
 }
 
-export function getClinicas(){
-    return async function(dispatch){
-        try{
-            const json = await axios.get('http://localhost:3001/clinica');
-            return dispatch({
-                type: "GET_CLINICAS",
-                payload: json.data
-            })
-        }catch(e){
-            console.log(e)
-        }
-    }
-}
-
 export function getDisponibilidad(fecha, idDoctor) {
     return async function(dispatch) {
         try {
