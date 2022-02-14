@@ -371,7 +371,7 @@ export default function Turno() {
                                 <div className="cont_tur_BG">
                                     <div>
                                         <h3 className="display-6" id="Dia_Tur_Crea">Selecciona el dia: </h3>
-                                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion accordion-flush" id="acordeao">
                                             <div class="accordion-item" id="Sel_Tur_Crea_Dia">
                                                 <h2 class="accordion-header" id="flush-headingOne">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
