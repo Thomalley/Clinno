@@ -21,9 +21,8 @@ export default function Register(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const clientes = useSelector((state)=> state.clientes);
-
-    console.log(clientes)
-
+  
+    
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
 
