@@ -1,6 +1,5 @@
 .background_doc{
     margin: 0px;
-    width: 100%;
     background-color: #f2ffff;
 }
 
@@ -9,6 +8,9 @@
     justify-content: start;
     align-items: center;
     box-shadow: -20px 60px 200px -20px black;
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
 .contedor_doc_but{

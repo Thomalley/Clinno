@@ -50,12 +50,12 @@ return (
             <hr/>
             {window.location.pathname.toLowerCase().includes ('/soydoctor')?
                 <ul className="nav nav-pills flex-column mb-auto ">
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
                     </li>
                     <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <button className="nav-link text-white boton_nav_clinica" aria-current="page" onClick={cerrarSD}>Cerrar sesion como Doctor</button>
                     </li>
@@ -66,40 +66,44 @@ return (
                         <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
                     </li>
                     <li>
-                        <Link to='/' className="nav-link text-white boton_nav_clinica">Volver a home</Link>
+                        <Link to={`/home/clinica/${cookies.get('clinica_id')}`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica">Ver proximos turnos</Link>
-                    </li>
+                    </li> */}
                     <li>
                         <Link  to='/AddDoctor' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
                     </li>
                     <li>
                         <Link to='/verDoctores' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to='/estadisticas' className="nav-link text-white boton_nav_clinica">Ver Estadisticas</Link>
                     </li>
                     <li>
                         <Link  to='/' className="nav-link text-white boton_nav_clinica">Ver Email pacientes</Link>
-                    </li>
+                    </li> */}
                 </ul>
             }
             
             <hr/>
+                {!window.location.pathname.toLowerCase().includes('/soydoctor')?
             <div className="dropdown d-flex  align-items-end justify-conter-end ">
                 <a href="#" className="d-flex align-items-center justify-conter-center text-white btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {/* <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"/> */}
-            
                     <strong>{cookies.get('clinica_nombre')}</strong>
                 </a>
-
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
-                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver Mi Pefil</Link></li>
+                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver mi Perfil</Link></li>
                 </ul>
             </div>
+            :
+            <div className="dropdown d-flex  align-items-end justify-conter-end ">
+                    <button className="btn btn-primary " type="button" onClick={cerrarSesion}>Cerrar sesion</button>
+            </div>
+
+                }
         </div>
     </main>  
 )}
