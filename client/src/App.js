@@ -20,6 +20,7 @@ import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
 import TurnoMe from './components/ClientCard/TurnoMe';
+import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
 // import MercadoPago from './components/MercadoPago/MercadoPago.jsx';
 
 
@@ -28,7 +29,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-        <Route path='/TurnoMe' element={<TurnoMe/>}/>
+          <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
+          <Route path='/TurnoMe' element={<TurnoMe/>}/>
           {/* <Route path = '/mercadopago' element ={<MercadoPago/>}/> */}
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>

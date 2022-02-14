@@ -58,13 +58,14 @@ router.post('/order-mail', (req,res)=> {
   
        const sgMail = require('@sendgrid/mail')
   
-        const API_KEY = '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';
+        const API_KEY = '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';
   
         sgMail.setApiKey(API_KEY)
   
         const message = {
-          to: mail,
-          from : "clinnoturnos@gmail.com",
+
+          to: email,
+          from : "clinnoturnnos@gmail.com",
           subject: `El proceso de baja ha comenzado`,
           html: `
           <html>
