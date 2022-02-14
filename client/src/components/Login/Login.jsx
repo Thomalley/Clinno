@@ -114,7 +114,7 @@ export default function Login(){
             <form className="cont" onSubmit={(e)=> handleSubmit(e)}>
                 <div className="row">
                 <div className="col-12">
-                    <Link to='/home'>
+                    <Link to='/'>
                     <img className="imglogin" src={logo} alt="nf" />
                     </Link>
                     </div>
@@ -152,7 +152,7 @@ export default function Login(){
                     onChange={(e)=>handleChange(e)}
                 />
                 <br></br>
-                <input className="checkbocshowpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="showpass">Show password</p>
+                <input className="checkbocshowpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="showpass">Mostrar Contraseña</p>
                 {errors.password && (
                         <p className='errorNotWrtd' >{errors.password}</p>
                     )}

@@ -114,7 +114,7 @@ export default function LoginClinica(){
             <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}>
                 <div className="row">
                 <div className="col-12">
-                    <Link to='/home'>
+                    <Link to='/'>
                     <img className="imgloginClinica" src={logo} alt="logo Clinno" />
                     </Link>
                     </div>
@@ -152,7 +152,7 @@ export default function LoginClinica(){
                     onChange={(e)=>handleChange(e)}
                 />
                 <br></br>
-                <input className="checkboc_showpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="show_pass">Show password</p>
+                <input className="checkboc_showpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="show_pass">Mostrar Contraseña</p>
                 {errors.password && (
                         <p className='errorNot' >{errors.password}</p>
                     )}
@@ -175,7 +175,7 @@ export default function LoginClinica(){
                    </div>
                 </div>
                 
-                <Link className="volver_inicio" to={'/home'}>
+                <Link className="volver_inicio" to={'/'}>
                     <button className="btnLoggin_back">Volver a inicio</button>
                 </Link>
             </form> 

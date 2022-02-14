@@ -1,15 +1,17 @@
 .workingImage{
-    margin: auto;
-    width: auto;
-    height: 500px;
-    
+    height: 540px;
 }
 
-.workingDiv{
-    height: 100vh;
-    background-color: #A5DBD2;
+.contiene{
+    background-color: #a5dbd2;
 }
 
-.workingTitulo{
-    padding-top: 100px;
+#work{
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+#build{
+    font-size: 25px;
+    margin-bottom: 30px;
 }
