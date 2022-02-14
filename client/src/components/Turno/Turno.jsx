@@ -295,13 +295,29 @@ export default function Turno() {
                                     </div>
                                 </div>
                                 :
+
+                                //arreglar render
+
+                                // <div className="row">
+                                //     <div className="col-12">
+                                //         <div className="cont_tur_BG">
+                                //             <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
+                                //             <div class="alert alert-warning" role="alert">
+                                //                 Actualmente no contamos con Clinicas de la especialidad seleccionada
+                                //             </div>
+                                //         </div>
+                                //     </div>
+                                // </div>
                                 <div className="row">
                                     <div className="col-12">
                                         <div className="cont_tur_BG">
                                             <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                            <div class="alert alert-warning" role="alert">
-                                                Actualmente no contamos con Clinicas de la especialidad seleccionada
-                                            </div>
+                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                                <option value="" disabled selected>Clinicas</option>
+                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                                                ))}
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -323,13 +339,29 @@ export default function Turno() {
                                 </div>
                             </div>
                             :
+
+                            //Arreglar render
+
+                            // <div className="row">
+                            //     <div className="col-12">
+                            //         <div className="cont_tur_BG">
+                            //             <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
+                            //             <div class="alert alert-warning" role="alert">
+                            //                 Actualmente no contamos con Doctores disponibles de la clinica seleccionada
+                            //             </div>
+                            //         </div>
+                            //     </div>
+                            // </div>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="cont_tur_BG">
                                         <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
-                                        <div class="alert alert-warning" role="alert">
-                                            Actualmente no contamos con Doctores disponibles de la clinica seleccionada
-                                        </div>
+                                        <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
+                                            <option value="" disabled selected>Doctores</option>
+                                            {doctoresDeEspe && doctoresDeEspe.map((e) => (
+                                                <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -394,7 +426,7 @@ export default function Turno() {
                                         <div className="col-12">
                                             <div>
                                                 <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
-                                                <Link to={'/home'}>
+                                                <Link to={'/'}>
                                                     <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
                                                 </Link>
                                             </div>
