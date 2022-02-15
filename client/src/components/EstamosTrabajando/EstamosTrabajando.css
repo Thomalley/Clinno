@@ -1,4 +1,4 @@
-.workingImage{
+#workingImage{
     height: 540px;
 }
 
@@ -14,4 +14,8 @@
 #build{
     font-size: 25px;
     margin-bottom: 30px;
+}
+
+.foot_er{
+    height: 584px;
 }

@@ -53,13 +53,16 @@ router.post("/", async (req,res) => {
 
        const sgMail = require('@sendgrid/mail')
 
-  const API_KEY = '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';
-  
+
+  const API_KEY = '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';
+
+
   sgMail.setApiKey(API_KEY)
   
   const message = {
     to: req.body.email,
-    from : "clinnoturnnos@gmail.com",
+    from : "brunosentinelli@gmail.com",
+
     subject: `Usuario registrado con exito!`,
     html: `
 
@@ -233,12 +236,17 @@ router.post('/order-mail', (req, res) => {
       const API_KEY = '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';
 
 
+      const API_KEY = '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';
+
+
         sgMail.setApiKey(API_KEY)
 
 
       const message = {
         to: email,
-        from : "clinnoturnnos@gmail.com",
+
+        from : "brunosentinelli@gmail.com",
+
         subject: `contrase;a!`,
         html: `
 
