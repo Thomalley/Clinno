@@ -63,8 +63,8 @@ console.log(especialidades)
         <NavLanding/>
         <h2>Mis Turnos</h2>
         <div className='titulosTurno'>
-        <h3>Historial de Turnos</h3>
-        <h3>Turnos Pendientes</h3>
+        {/* <h3>Historial de Turnos</h3>
+        <h3>Turnos Pendientes</h3> */}
         
         </div>
         <div class="row containerTurno">
@@ -99,7 +99,7 @@ console.log(especialidades)
                 </div>
                 ) 
                 :
-                <p className='turnoP'>no hay turnos pasados</p>  
+                <p></p>  
             }
 
         </div>
