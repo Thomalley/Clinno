@@ -233,7 +233,6 @@ router.post('/order-mail', (req, res) => {
         const sgMail = require('@sendgrid/mail')
 
 
-      const API_KEY = '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';
 
 
       const API_KEY = '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';
