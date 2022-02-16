@@ -57,11 +57,12 @@ router.post("/", async (req,res) => {
        const sgMail = require('@sendgrid/mail')
 
 
+
   sgMail.setApiKey(API_KEY)
   
   const message = {
     to: req.body.email,
-    from : "brunosentinelli@gmail.com",
+    from : "clinnoturnno@gmail.com",
 
     subject: `Usuario registrado con exito!`,
     html: `
@@ -234,13 +235,14 @@ router.post('/order-mail', (req, res) => {
 
 
 
+
         sgMail.setApiKey(API_KEY)
 
 
       const message = {
         to: email,
 
-        from : "brunosentinelli@gmail.com",
+        from : "clinnoturnno@gmail.com",
 
         subject: `contrase;a!`,
         html: `

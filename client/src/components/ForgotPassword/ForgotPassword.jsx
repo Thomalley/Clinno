@@ -48,8 +48,8 @@ export default function ForgotPassword(){
         for(let i=0; i<clientes.length; i++){
             if (clientes[i].email === data.email){
                 dispatch(passworForgot(clientes[i]))
-                swal("se ha enviado un correo con su contraseña actual")
-                setTimeout(()=> window.location.href='/', 1500) ;
+                swal("Listo!", "Si ingresaste tu correo electronico correctamente, recibiras una nueva contraseña", "success");
+                setTimeout(()=> window.location.href='/', 2500) ;
                 break;
             }
           }

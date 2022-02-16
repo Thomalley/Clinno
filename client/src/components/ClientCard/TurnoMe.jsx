@@ -93,8 +93,8 @@ export default function TurnoMe(){
         <Link class="btn btn-primary"to="/me">Volver a mi perfil</Link>
         <h2>Mis Turnos</h2>
         <div className='titulosTurno'>
-        <h3>Historial de Turnos</h3>
-        <h3>Turnos Pendientes</h3>
+        {/* <h3>Historial de Turnos</h3>
+        <h3>Turnos Pendientes</h3> */}
         
         </div>
         <div class="row containerTurno">

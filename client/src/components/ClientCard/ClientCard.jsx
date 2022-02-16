@@ -43,7 +43,7 @@ export default function ClientCard(){
       return (
         <div>
         <NavBar/>
-        <Link to="/test" class="btn btn-primary" href="#">hacer una cita</Link>
+        <Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link>
         <ul class="nav justify-content-center">
 
         
