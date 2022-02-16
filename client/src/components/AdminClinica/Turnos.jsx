@@ -47,6 +47,7 @@ export default function TurnosClinica({idClinica}){
     const doctor = useSelector((state)=> state.doctor);
 
    
+    //esto va a cambiar a ver si funciona
 
     let dataDoctor = {
         "idEspecialidad": "",
