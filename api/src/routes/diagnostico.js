@@ -1,10 +1,15 @@
 const { Router } = require("express");
 router = Router()
-const { Diagnostico, Cliente, Doctor } = require("../db")
+const { Diagnostico, Turno } = require("../db")
 
-router.get('/:id', async(req,res) =>{
+router.get('/turno/:idTurno', async(req,res) =>{
+    const {idTurno} = req.params
     try{
-        const diagnDb = await Diagnostico.findAll({})
+        const diagnDb = await Diagnostico.findAll({
+            where: {
+                idTurno : idTurno
+            }
+        })
         res.send(diagnDb)
     }
     catch(err){
@@ -12,32 +17,29 @@ router.get('/:id', async(req,res) =>{
     }
 }
 )
-
-router.post('/', async (req,res) =>{
+router.get('/', async (req, res) => {
+    const {id} = req.params
     try{
-         const{ sintomas, diagnostico, medicamentos} = req.body
-          const diag = await Diagnostico.create({
-              sintomas,
-              diagnostico,
-              medicamentos
-          })  
-          res.send(diag)
-        }
-    catch(err){
+        const diagDetail = await Diagnostico.findAll({})
+        res.send(diagDetail)
+    }
+    catch (err){
         console.log(err)
     }
 })
 
-
-router.get('/', async (req,res) => {
+router.post('/', async (req,res) =>{
     try{
-        const diagRel = await Diagnostico.findAll({
-            include :
-            Cliente,
-            Doctor
-        })
-        res.send(diagRel)
-    }
+         const{ sintomas, diagnostico, receta, idTurno} = req.body
+          const diag = await Diagnostico.create({
+              sintomas,
+              diagnostico,
+              receta,
+              idTurno
+          })  
+        //    diag.addTurno(idTurno)
+          res.send(diag)
+        }
     catch(err){
         console.log(err)
     }

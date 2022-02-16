@@ -90,4 +90,15 @@ router.get('/clinica/:idClinica', async(req, res) => {
     }
 })
 
+router.get('/:id', async(req, res) => {
+    try{
+        const {id} = req.params
+        const turnoDbID = await Turno.findByPk(id)
+        res.send(turnoDbID)
+    }
+    catch (err){
+        console.log(err)
+    }
+})
+
 module.exports = router

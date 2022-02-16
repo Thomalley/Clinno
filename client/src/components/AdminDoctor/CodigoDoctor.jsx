@@ -69,9 +69,9 @@ export default function CodigoDoctor(){
                         <button type="submit"className="btn btn-primary">Continuar</button>
                     </div>
                 </form>
-                <Link className="volver_inicio" to={'/adminClinica'}>
-                    <button className="btnLoggin_back">Ir a Clinica</button>
-                </Link>
+                <Link className="volver_inicio" to={'/'}>
+                    <button className="btnLoggin_back">Volver a Home</button>
+                </Link>                
                 <button onClick={cerrarSesion} className="btnLoggin_back">Cerrar sesión</button>
             </div>      
                 :<>

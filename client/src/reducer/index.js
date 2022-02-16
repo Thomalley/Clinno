@@ -12,9 +12,10 @@ const initialState = {
     doctores: [],
     horarioDisponibleParaTurno: [],
     turnosClinica:[],
-    turnosDoctor:[]
-
-
+    turnosDoctor:[],
+    diagDoctor: [],
+    diagnosticos: [],
+    turnoById: []
 };
 
 
@@ -27,19 +28,31 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
-
+        case "GET_TURNOS_ID":
+            return {
+                ...state,
+                turnoById: action.payload
+            }
         case "GET_CLIENTES":
             return {
                 ...state,
                 clientes: action.payload
             }
-
+        case "GET_DIAG":
+            return{
+                ...state,
+                diagnosticos: action.payload
+            }
             case "GET_TURNOS":
             return {
                 ...state,
                 turnos: action.payload
             }
-
+            case "DIAG_BY_TURNO":
+                return{
+                    ...state,
+                    diagDoctor: action.payload
+                }
             case "GET_CLINICAS":
             return {
                 ...state,
@@ -56,6 +69,10 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case 'ADD_DIAG':
+            return {
+                ...state
+            }
         case "VALIDATE_USER":
             return {
                 ...state,

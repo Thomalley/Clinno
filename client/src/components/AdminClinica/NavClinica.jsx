@@ -44,16 +44,29 @@ export default function LoginClinica(){
 return (
     <main>        
         <div className="d-flex flex-column align-items-center flex-shrink-0 p-3 text-white bg-dark nav_clinica" >
-            <Link to="/adminClinica" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
-                {/* <span className="fs-4">Sidebar</span> */}
-                <img src={logo} className='logo_clinno_navC' />
-            </Link>
+            {window.location.pathname.toLowerCase().includes ('/soydoctor')?
+                <Link to="/soyDoctor" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
+                    {/* <span className="fs-4">Sidebar</span> */}
+                    <img src={logo} className='logo_clinno_navC' />
+                </Link>
+            :
+                <Link to="/adminClinica" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
+                    {/* <span className="fs-4">Sidebar</span> */}
+                    <img src={logo} className='logo_clinno_navC' />
+                </Link>
+            }
             <hr/>
             {window.location.pathname.toLowerCase().includes ('/soydoctor')?
                 <ul className="nav nav-pills flex-column mb-auto ">
-                    {/* <li className="nav-item">
-                        <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
-                    </li> */}
+                    <li className="nav-item">
+                        <Link to='/soyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='/soyDoctor/turnosDelDia' className="nav-link text-white boton_nav_clinica" aria-current="page">Turnos Del Día</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='/soyDoctor/historialTurnos' className="nav-link text-white boton_nav_clinica" aria-current="page">Historial de Turnos</Link>
+                    </li>
                     {/* <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
                     </li> */}
@@ -63,6 +76,9 @@ return (
                 </ul>
             :
                 <ul className="nav nav-pills flex-column mb-auto ">
+                    <li className="nav-item">
+                        <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica" aria-current="page">Administración de Clinica </Link>
+                    </li>
                     <li>
                         <Link to={`/estamosTrabajando`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
                     </li>
