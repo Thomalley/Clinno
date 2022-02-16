@@ -13,9 +13,7 @@ import Footer from '../Home/Footer';
 
 export default function RegisterClinic(){
 
-  useEffect ( () => {
-    dispatch(getEspecialidad())
-  },[])
+  
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,6 +23,9 @@ export default function RegisterClinic(){
       especialidad:[]
   })
 
+  useEffect ( () => {
+    dispatch(getEspecialidad())
+  },[dispatch])
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -36,9 +37,10 @@ export default function RegisterClinic(){
     }
 
     function handleSelect(e){
+      
       setInput({
         ...input,
-        especialidad: input.especialidad.includes(e.target.value) ? [...input.especialidad] : [...input.especialidad, parseInt(e.target.value)]
+        especialidad: input?.especialidad?.includes(parseInt(e.target.value)) ? [...input.especialidad] : [...input.especialidad, parseInt(e.target.value)]
     })
 
     }
@@ -49,6 +51,10 @@ export default function RegisterClinic(){
         especialidad: input.especialidad.filter(esp => esp !== el)
     })
     }
+
+    
+
+    
 
   return (
     <div>
@@ -128,19 +134,27 @@ export default function RegisterClinic(){
       />
       <label>Seleccione las especialidades de su clinica</label>
       <select class="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+      <option  disabled selected>Selecione sus especialidades</option>
         {
+
           especialidad?.map((el) => <option value={el.id}>{el.nombre}</option>)
+          
         }
       </select>
       <br/>
-      <label>especialidades seleccionadas:</label>
+      
+      {
+        input.especialidad.length === 0 ? <div></div> : <p className="especialidadesP">Especialidades seleccionadas:</p>
+      }
+      
       <div className='especialidades-div'>
+      
       {
           input.especialidad.map(el =>
               <div className='especialidad-div-2'>
                 <button type="button" class="btn-close" aria-label="Close" onClick={() => handleDelete(el)}></button>
                   
-                  <p>{especialidad[el-1].nombre}</p>                  
+                  <p>{especialidad?.find(esp => esp.id === el).nombre}</p>                  
               </div>)
       }
       </div>

@@ -22,6 +22,7 @@ export default function LoginClinica(){
         cookies.remove('clinica_nombreEn', );
         cookies.remove('clinica_apellidoEn');
         cookies.remove('clinica_DNIEn');
+        cookies.remove('clinica_codigo');
         cookies.remove('clinica_createdAt');
         cookies.remove('doctor_nombre');
         cookies.remove('doctor_id');
@@ -52,8 +53,8 @@ return (
                 <ul className="nav nav-pills flex-column mb-auto ">
                     {/* <li className="nav-item">
                         <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
-                    </li>
-                    <li className="nav-item">
+                    </li> */}
+                    {/* <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
                     </li> */}
                     <li className="nav-item">
@@ -62,20 +63,17 @@ return (
                 </ul>
             :
                 <ul className="nav nav-pills flex-column mb-auto ">
-                    <li className="nav-item">
-                        <Link to='/SoyDoctor' className="nav-link text-white boton_nav_clinica" aria-current="page">Soy Doctor</Link>
-                    </li>
                     <li>
-                        <Link to={`/home/clinica/${cookies.get('clinica_id')}`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
+                        <Link to={`/estamosTrabajando`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
                     </li>
                     {/* <li>
                         <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica">Ver proximos turnos</Link>
                     </li> */}
                     <li>
-                        <Link  to='/AddDoctor' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
+                        <Link  to='/adminClinica/AddDoctor' className="nav-link text-white boton_nav_clinica">Agregar Doctor</Link>
                     </li>
                     <li>
-                        <Link to='/verDoctores' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
+                        <Link to='/adminClinica/verDoctores' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
                     </li>
                     {/* <li>
                         <Link to='/estadisticas' className="nav-link text-white boton_nav_clinica">Ver Estadisticas</Link>
@@ -95,7 +93,10 @@ return (
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
-                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver mi Perfil</Link></li>
+
+                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver Mi Perfil</Link></li>
+
+
                 </ul>
             </div>
             :

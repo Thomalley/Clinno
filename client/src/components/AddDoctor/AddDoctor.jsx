@@ -18,23 +18,48 @@ import "./AddDoctorStyle.css";
 const validate = values =>{
     const errors ={}
 
-    const vald = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/
+    const vald = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/;
+    const valdEmail= /^\S+@\S+$/i;
+    const valdDNI = /^[0-9]+$/;
+
     if(!values.nombre){
         errors.nombre = 'Agrege un nombre';
     }else{
         if(values.nombre.length<5 || values.nombre.length>24){
             errors.nombre = 'El nombre no es valido';
-        } 
+        }
     }
     if(!(RegExp(vald).test(values.nombre))){
         errors.nombre = 'El nombre no es valido';
     }
     
+    if(!values.email){
+        errors.email = 'Agrege un email';
+    }else{
+        if(values.nombre.length<5 || values.nombre.length>24){
+            errors.email = 'El email no es valido';
+        }
+    }
+    if(!(RegExp(valdEmail).test(values.email))){
+        errors.email = 'El email no es valido';
+    }
+
+    if(!values.dni){
+        errors.dni = 'Agrege un dni';
+    }else{
+        if(values.dni.length<7 || values.dni.length>8){
+            errors.dni = 'El dni no es valido';
+        }
+    }
+    if(!(RegExp(valdDNI).test(values.dni))){
+        errors.dni = 'El dni no es valido';
+    }
+    
     if(values.especialidad.length<1){
         errors.especialidad = 'Ingresa una Especialidad';
     }else{
-        if(values.especialidad.length>3){
-            errors.especialidad = 'Maximo 2 especialidades';
+        if(values.especialidad.length>1){
+            errors.especialidad = 'Solo 1 especialidad';
         }
     }
     
@@ -59,26 +84,27 @@ export default function AddDoctor(){
     
     //control se dession
     let session=false;
-    if(cookies.get('clinica_id')) session = true;    
+    if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
     const [loggeado,setLoggeado] = useState(session);
 
     const [input,setInput] = useState({
         errors:{},
         nombre: "",
+        email: "",
         especialidad: [],
         clinica: [],
     });
 
     function handleChange(e){
+        const {name,value} = e.target;
         const {errors,...sinErrors} = input;
         const result = validate(sinErrors);
         setInput({
             ...input,
-            nombre : e.target.value,
+            [name] : value,
             clinica : cookies.get('clinica_id'),
             errors: result
         });
-
     }
 
     function handleSubmit(e){
@@ -136,7 +162,7 @@ export default function AddDoctor(){
                     </div>
                     :
                         <div className="contenedor_addDoctor">
-                            <h4>Agregue un Doctor</h4>
+                            <h4 className="text-white mt-5">Agregar un Doctor</h4>
 
                             <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
                                 <h4>Formulario de Doctor</h4>
@@ -155,7 +181,7 @@ export default function AddDoctor(){
                                     }).map((el) => <option name={el.nombre} key={el.id} value={el.id}>{el.nombre}</option>)
                                     }
                                 </select>
-                                <Link to='/AddEspecialidad'>Deseas Agregar una nueva especialidad?</Link>
+                                <Link to='/adminClinica/AddEspecialidad'>Deseas Agregar una nueva especialidad?</Link>
                                 <div className="show_especialidades">
                                     {showEsp.especialidad?.sort().map(e =>(
                                         <div className="esp_Show" key ={e}>
@@ -167,7 +193,7 @@ export default function AddDoctor(){
                                         ))
                                     }
                                 </div>
-                                {input.errors.especialidad? <p className='errors'>{input.errors.especialidad}</p>:<p> </p>}
+                                {input.errors.especialidad? <p className='errors_add'>{input.errors.especialidad}</p>:<p className='errors_add'> </p>}
                                 <input 
                                     type='text'
                                     placeholder="Nombre Doctor"
@@ -175,7 +201,23 @@ export default function AddDoctor(){
                                     name='nombre'
                                     onChange={(e)=>handleChange(e)}
                                 />
-                                {input.errors.nombre? <p className='errors'>{input.errors.nombre}</p>:<p> </p>}
+                                {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>}
+                                <input 
+                                    type='text'
+                                    placeholder="DNI Doctor"
+                                    value={input.dni}
+                                    name='dni'
+                                    onChange={(e)=>handleChange(e)}
+                                />
+                                {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>}
+                                <input 
+                                    type='text'
+                                    placeholder="Email Doctor"
+                                    value={input.email}
+                                    name='email'
+                                    onChange={(e)=>handleChange(e)}
+                                />
+                                {input.errors.email? <p className='errors_add'>{input.errors.email}</p>:<p className='errors_add'> </p>}
                                 <div className="row">
                                     <div className="col-12 ">
                                         <button type="submit" className="btn btn-primary " >Continuar</button>
@@ -194,6 +236,6 @@ export default function AddDoctor(){
             </div>
         )
     }else{
-        window.location.href='/loginClinica';
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
     }
 }

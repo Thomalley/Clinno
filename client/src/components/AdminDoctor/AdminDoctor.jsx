@@ -8,6 +8,7 @@ import NavClinica from '../AdminClinica/NavClinica.jsx'
 import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
 import VerMisTurnos from "./VerMisTurnos";
 import icono from '../../components/utils/icono-clinica.png'
+import CodigoDoctor from './CodigoDoctor'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -21,13 +22,11 @@ import "./AdminDoctorStyle.css";
 export default function AdminDoctor(){
     
     useEffect(()=>{
-        console.log(turnos)
         if(cookies.get('doctor_id')){
             dispatch(getTurnosDoctor(cookies.get('doctor_id')))
             dispatch(getClinicas())
             dispatch(getClients())
             dispatch(getEspecialidad())
-            console.log('funca');
             setTurn(turnos);
         }
     },[])
@@ -95,8 +94,8 @@ export default function AdminDoctor(){
         }
         else{
             swal({
-                title: "Usuario o contrasena incorrectos",
-                text: "Ingrese los datos e intente nuevamente",
+                title: "El código ingresado no corresponde a ningun doctor",
+                text: "Verifique los datos e intente nuevamente",
                 icon: "warning",
                 dangerMode: true,
             })          
@@ -117,8 +116,25 @@ export default function AdminDoctor(){
             idClinica:cookies.get('clinica_id')
         });
     }
-    function verTurnos(){
-        return(<VerMisTurnos/>)
+    const cerrarSesion=()=>{
+
+        cookies.remove('clinica_mail');
+        cookies.remove('clinica_nombre');
+        cookies.remove('clinica_telefono');
+        cookies.remove('clinica_direccion');
+        cookies.remove('clinica_id');
+        cookies.remove('clinica_nombreEn', );
+        cookies.remove('clinica_apellidoEn');
+        cookies.remove('clinica_DNIEn');
+        cookies.remove('clinica_codigo');
+        cookies.remove('clinica_createdAt');
+        cookies.remove('doctor_nombre');
+        cookies.remove('doctor_id');
+        cookies.remove('doctor_codigo');
+        cookies.remove('doctor_especialidades');
+
+        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
+        setTimeout(()=> window.location.href='/', 700) ;
     }
 
     if(loggeado){
@@ -137,9 +153,18 @@ export default function AdminDoctor(){
                                     <button
                                         type="submit"
                                         className="btn btn-primary">Continuar</button>
-                                    <div><Link to='/verDoctores' >No Te Acordas tu Codigo?</Link></div>
                                 </div>
                             </form>
+                            <div>
+                                <Link to='/SoyDoctor/forgotpassword' >No Te Acordas tu Codigo?</Link>
+                                
+                            </div>
+                            <Link className="volver_inicio" to={'/'}>
+                                <button className="btnLoggin_back">Volver a Inicio</button>
+                            </Link>
+                            <div>
+                                <button className="btnLoggin_Cerrar" onClick={cerrarSesion}>Cerrar Sesion</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,7 +180,7 @@ export default function AdminDoctor(){
                         <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
                     </div>
                     <hr/>
-                        <button onClick={verTurnos} className="btn_clinic" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
+                        <button className="btn_clinic" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
                             <div class="card card-body render_turno">
                                 <VerMisTurnos/>

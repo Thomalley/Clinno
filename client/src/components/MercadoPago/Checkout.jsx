@@ -29,6 +29,7 @@ export default function Comprar({ productos, data }) {
   return (
     <div className='container'>
       <form id='form1'>
+
         <NavBar loggin={true} />
         <div className="entre_nav_turno_res"></div>
         <div className='contenedor_resumen'>

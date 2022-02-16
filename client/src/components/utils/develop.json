@@ -1,5 +1,10 @@
 
     [
+        {
+            "name": "Nahuel",
+            "git":"www.git.com/nahuel",
+            "linkedin": "linkedin.com/nahuel"
+        },
         {   "name":"Manuel",
             "git":"www.git.com/manu",
             "linkedin": "linkedin.com/manu"
@@ -10,20 +15,10 @@
             "linkedin": "linkedin.com/Bruno"
         },
 
-        {
-            "name": "Nahuel",
-            "git":"www.git.com/nahuel",
-            "linkedin": "linkedin.com/nahuel"
-        },
             {
             "name":"Joaquin",
             "git":"www.git.com/Joaquin",
             "linkedin": "linkedin.com/Joaquin"
-        },
-        {
-            "name":"Yessica",
-            "git":"www.git.com/yessica",
-            "linkedin": "linkedin.com/yessica"
         },
         {
             "name":"Nasser",

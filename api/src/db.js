@@ -6,6 +6,7 @@ const {
     DB_USER,
     DB_PASSWORD,
     DB_HOST,
+    DB_NAME
 } = process.env;
 
 // const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clinno`, {
@@ -65,6 +66,9 @@ Order.hasOne(Order_detail)
 Turno.hasOne(Order_detail)
 Order_detail.belongsTo(Turno)
 
+
+Turno.hasOne(Reseña)
+Reseña.belongsTo(Turno)
 
 Doctor.belongsToMany(Especialidad, {
     through: "Doctor_Esp",

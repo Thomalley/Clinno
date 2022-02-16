@@ -12,10 +12,10 @@ class MessageParser {
       }
   
       if (lowercase.includes("especialidades") || lowercase.includes("esp")) {
-        this.actionProvider.handleJavascriptQuiz();
+        this.actionProvider.handleEspecialidad();
       }
       if (lowercase.includes("registrarme") || lowercase.includes("res")) {
-        this.actionProvider.handleRegister();
+        this.actionProvider.handleRegistrarse();
       }
       if (lowercase.includes("turno") || lowercase.includes("tur")) {
         this.actionProvider.handleTurno();

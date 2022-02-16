@@ -136,3 +136,8 @@
     margin: 5px;
     width: 350px;
 }
+
+#acordeao{
+    position: relative;
+    z-index: 1;
+}

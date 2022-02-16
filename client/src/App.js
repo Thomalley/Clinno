@@ -22,9 +22,8 @@ import VerDoctores from './components/VerDoctores/VerDoctores';
 import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
+import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import Bot from './components/Bot/Bot'
-
-
 
 
 function App() {
@@ -46,16 +45,17 @@ function App() {
           <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
           <Route path='/Home' element={<HomeClients/>}/>
-          <Route path='/home/clinica/:id' element={<DetailClinica/>}/>
+          <Route path='/clinica/:id' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
-          <Route path='/AddDoctor' element={<AddDoctor/>}/>
-          <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
+          <Route path='/adminClinica/AddDoctor' element={<AddDoctor/>}/>
+          <Route path='/adminClinica/addEspecialidad' element={<AddEspecialidad/>}/>
           <Route path='/turno' element={<Turno/>}/>
           <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
-          <Route path='/VerDoctores' element={<VerDoctores/>}/>
+          <Route path='/adminClinica/VerDoctores' element={<VerDoctores/>}/>
+          <Route path='/SoyDoctor/forgotpassword' element={<CodigoDoctor/>}/>
         </Routes>
       </div>
     </BrowserRouter>

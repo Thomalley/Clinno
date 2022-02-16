@@ -53,7 +53,9 @@ router.post("/", async (req, res, next) => {
         const {
             nombre,
             clinica,
-            especialidad
+            especialidad,
+            email,
+            dni,
         } = req.body
         let codigo = Math.floor(Math.random() * 10000);
         //check unique
@@ -68,7 +70,7 @@ router.post("/", async (req, res, next) => {
             }
         }
         const newDoctor = await Doctor.create({
-            nombre, codigo
+            nombre, codigo, email, dni
         })
         await newDoctor.addEspecialidad(especialidad)
         await newDoctor.addClinica(clinica)
