@@ -258,7 +258,9 @@ export function get_clinica(payload) {
     return async function(dispatch) {
         try {
             const json = await axios.get('http://localhost:3001/clinica');
+            console.log(json)
             const datos = json.data.filter((e) => (e.id === payload))
+            console.log(datos);
             const esp = datos[0].especialidads.map((e) => {
                 return {
                     id: e.id,
@@ -272,6 +274,7 @@ export function get_clinica(payload) {
                 direccion: datos[0].direccion,
                 telefono: datos[0].telefono,
                 mail: datos[0].mail,
+                codigo: datos[0].codigo,
                 nombreEn: datos[0].nombreEn,
                 apellidoEn: datos[0].apellidoEn,
                 DNIEn: datos[0].DNIEn,
@@ -323,7 +326,7 @@ export function validate_doctor(payload) {
         try {
             const json = await axios.get('http://localhost:3001/doctor/clinica');
             for (let i = 0; i < json.data.length; i++) {
-                if (json.data[i].codigo === parseInt(payload.password, 10) && json.data[i].clinicas[0].id === payload.idClinica) {
+                if (json.data[i].codigo === payload.password && json.data[i].clinicas[0].id === payload.idClinica) {
                     const datosDoc = [{
                         id: json.data[i].id,
                         codigo: json.data[i].codigo,
@@ -353,7 +356,7 @@ export function get_doctor_id(payload) {
             const json = await axios.get('http://localhost:3001/doctor');
             for (let i = 0; i < json.data.length; i++) {
                 console.log(payload)
-                if (json.data[i].codigo === parseInt(payload, 10)) {
+                if (json.data[i].codigo === payload) {
                     const datosDoc = [{
                         id: json.data[i].id,
                         codigo: json.data[i].codigo,
@@ -411,7 +414,7 @@ export function get_All_Doctor(payload) {
                 return {
                     id: doc.id,
                     nombre: doc.nombre,
-                    codigo: doc.codigo,
+                    email: doc.email,
                     especialidad: doc.especialidads,
                 }
             })
@@ -435,37 +438,6 @@ export function get_Doctores_Esp(payload) {
                 }
             })
             return dispatch({ type: 'GET_ALL_DOCTOR_CLINICA', payload: filterDoc })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-}
-export function turno_clinica(payload) {
-    return async function(dispatch) {
-        try {
-            const json = await axios.get(`http://localhost:3001/turno`);
-            console.log('json mAlo', json.data);
-            const filterTurnos = json.data.filter(t => (t.idClinica === payload))
-            console.log('Filtered', filterTurnos);
-            let turnos = [];
-            filterTurnos.forEach(async(f) => {
-                let cliente = await axios.get(`http://localhost:3001/cliente/${f.idCliente}`);
-                let especialidad = await axios.get(`http://localhost:3001/especialidad/${f.idEspecialidad}`);
-                let doctor = await axios.get(`http://localhost:3001/doctor/${f.idDoctor}`);
-                turnos.push({
-                    id: f.id,
-                    cliente: cliente.data.nombre + ' ' + cliente.data.apellido,
-                    doctor: doctor.data.nombre,
-                    especialidad: especialidad.data.nombre,
-                    fecha: f.fecha,
-                    hora: f.hora,
-                    status: f.payment_status,
-                    merchant_order_id: f.merchant_order_id
-                })
-                console.log("turn turn", turnos);
-            });
-            console.log('estoy en acction', turnos);
-            return dispatch({ type: 'GET_TURNO', payload: turnos })
         } catch (err) {
             console.log(err)
         }
