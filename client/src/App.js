@@ -23,13 +23,14 @@ import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
 import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
-
+import Bot from './components/Bot/Bot'
 
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Bot/>  
         <Routes>
         <Route path='/TurnoMe' element={<TurnoMe/>}/>
           <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
