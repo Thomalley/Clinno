@@ -9,10 +9,17 @@ module.exports = (sequelize) => {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+
    calificacion: {
     type: DataTypes.INTEGER,  //( "1", "2", "3", "4", "5", ),
     allowNull: true,
    },
+
+   reviewed: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+   }
 
   });
 };
