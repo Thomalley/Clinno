@@ -2,6 +2,9 @@ const { Router } = require("express");
 router = Router()
 var passport = require('passport');
 const { Cliente, Order } = require('../db');
+const {
+    API_KEY
+} = process.env;
 // ruta que devuelva clientes//
 //Get/cliente//
 router.get('/', (req, res, next) => {
@@ -53,8 +56,6 @@ router.post("/", async (req,res) => {
 
        const sgMail = require('@sendgrid/mail')
 
-
-  const API_KEY = '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';
 
 
   sgMail.setApiKey(API_KEY)
@@ -233,9 +234,6 @@ router.post('/order-mail', (req, res) => {
         const sgMail = require('@sendgrid/mail')
 
 
-
-
-      const API_KEY = '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';
 
 
         sgMail.setApiKey(API_KEY)

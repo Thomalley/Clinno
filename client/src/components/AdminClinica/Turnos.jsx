@@ -56,7 +56,6 @@ export default function TurnosClinica({idClinica}){
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return (
         <>
-        <h3>Proximos Turnos</h3>
 
         <div className="grid_turno_table">
         <span>
