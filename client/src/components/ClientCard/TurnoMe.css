@@ -5,7 +5,7 @@
     margin: 20px auto;
     padding: 20px;
     width: 300px;
-    height: 300px;
+    height: 330px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
     display: flex;
@@ -24,4 +24,12 @@
 
   .turnoP{
     margin-top: 50px;
+  }
+
+  .botonReseña{
+    margin: 10px;
+  }
+
+  #turnopendiente{
+    height: 295px;
   }
