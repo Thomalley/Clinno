@@ -36,7 +36,7 @@ function AddEspecialidades() {
 
     // control de sesion
     let session=false;
-    if(cookies.get('clinica_id')) session = true;    
+    if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
     const [loggeado,setLoggeado] = useState(session);
 
     const [input,setInput] = useState({
@@ -62,7 +62,7 @@ function AddEspecialidades() {
         if(!Object.keys(result).length){
             dispatch(addEspecialidad(input));
             swal("Especialidad Agregada!", "En instantes seras redirigido nuevamente a Agregar Doctor", "success")
-            setTimeout(()=> window.location.href='/addDoctor', 2400);
+            setTimeout(()=> window.location.href='/adminClinica/addDoctor', 2400);
         }
     }
 
@@ -79,7 +79,7 @@ function AddEspecialidades() {
                             <form className="formu_addespecialidad" onSubmit={(e)=> handleSubmit(e)}>
                                 <h4>Por favor ingrese su especialidad:</h4>
                                 <input type='text' name="nombre" value={input.nombre }placeholder="Ingrese su especialidad aqui." onChange={(e)=>handleChange(e)} />
-                                {input.errors.nombre? <p className='errors'>{input.errors.nombre}</p>:<p> </p>}
+                                {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>}
                                 <button
                                     type="submit"
                                     className="btn btn-primary">Continuar</button>
@@ -91,7 +91,7 @@ function AddEspecialidades() {
             </div>
         )
     }else{
-        window.location.href='/loginClinica';
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
     }
 }
 

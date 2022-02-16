@@ -16,7 +16,8 @@ export default function LoginClinica(){
     const dispatch = useDispatch();
     const clinica = useSelector((state)=> state.clinica);
     const [errors, setErrors] = useState({});
-    const [loggeado,setLoggeado] = useState({"logged" : false});   
+    const [loggeado,setLoggeado] = useState({"logged" : false});
+    const [doc,setDoc] = useState(false);
     const [input, setInput] = useState({
         mail : '',
         password : '',
@@ -54,11 +55,12 @@ export default function LoginClinica(){
                 password : '',
             });
 
-            swal("Bienvenido!", "En instantes seras redirigido a Inicio", "success")
-            console.log(cookies.get('clinica_mail')+ " inicio sesion de Clinica");
-
-            setTimeout(()=> window.location.href='/adminClinica', 2000) ;
-
+            swal("Bienvenido!", "En instantes seras redirigido", "success")
+            if(doc){
+                setTimeout(()=> window.location.href='/soyDoctor', 2000);
+            }else{
+                setTimeout(()=> window.location.href='/adminClinica', 2000);
+            }
         }
         else {
             swal({
@@ -108,66 +110,68 @@ export default function LoginClinica(){
         else pwd.type="password";
 
     }
+    function soyDoctor(e) {
+        const pwd = document.getElementById('checkboxSoyDoctor');
+        ( e.target.checked)?setDoc(true): setDoc(false);
+    }
 
     return(
         <div className="container container_loggin_clinica ">
             <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}>
                 <div className="row">
-                <div className="col-12">
-                    <Link to='/'>
-                    <img className="imgloginClinica" src={logo} alt="logo Clinno" />
-                    </Link>
+                    <div className="col-12">
+                        <Link to='/'>
+                        <img className="imgloginClinica" src={logo} alt="logo Clinno" />
+                        </Link>
                     </div>
                 </div>
                 <div className="row">
-                <h2>Bienvenido </h2>
+                    <h2>Bienvenido </h2>
+                    <p className="m-0">Para ingresar a Clinica o SoyDoctor,</p>
+                    <p> debes iniciar sesión.</p>
                 </div>
-                <p>Debes iniciar sesion para continuar..</p>
                 <div className="row">
                     <div className="col-12">
-                <input 
-                    type='text'
-                    placeholder="Email adress"
-                    id="username"
-                    className={errors.mail? "inptwr_clinica" : "input_clinica"}
-                    value={input.mail}
-                    name='mail'
-                    onChange={(e)=>handleChange(e)}
-                />
-                {errors.mail && (
-                        <p className='errorNot' >{errors.mail}</p>
-                    )}
+                        <input 
+                            type='text'
+                            placeholder="Email"
+                            id="username"
+                            className={errors.mail? "inptwr_clinica" : "input_clinica"}
+                            value={input.mail}
+                            name='mail'
+                            onChange={(e)=>handleChange(e)}
+                        />
+                        {errors.mail ?<p className='errorNot' >{errors.mail}</p>:<p className='errorNot'></p>}
+
                     </div>
                 </div>
                 <div className="row">
-                <div className="col-12 
-                ">
-                <input 
-                    type='password'
-                    placeholder="Password"
-                    name='password'
-                    id="password"
-                    className={errors.password? "inptwr_clinica" : "input_clinica"}
-                    value={input.password}
-                    onChange={(e)=>handleChange(e)}
-                />
-                <br></br>
-                <input className="checkboc_showpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="show_pass">Mostrar Contraseña</p>
-                {errors.password && (
-                        <p className='errorNot' >{errors.password}</p>
-                    )}
+                    <div className="col-12 ">
+                    <input 
+                        type='password'
+                        placeholder="Password"
+                        name='password'
+                        id="password"
+                        className={errors.password? "inptwr_clinica" : "input_clinica"}
+                        value={input.password}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                    <br></br>
+                    <input className="checkboc_showpass" type='checkbox' onChange={(e)=> handleCheckbox(e)}/><p className="show_pass">Mostrar Contraseña</p>
+                    {errors.password ?<p className='errorNot' >{errors.password}</p>:<p className='errorNot'></p>}
+                    </div>
                 </div>
+                <div>
+                    <div class="form-check form-switch container_soyDoctor">
+                        <input class="form-check-input soyDoctor_inpu" type="checkbox" id="checkboxSoyDoctor" onChange={(e)=>soyDoctor(e)}/>
+                        <label class="form-check-label soyDoctor_lab" for="checkboxSoyDoctor">Soy Doctor</label>
+                    </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 
-                    ">
-                    <button
-                        type="submit"
-                        className="btnLoggin"
-                    >Continuar
-                    </button>
+                    <div className="col-12">
+                        <button type="submit" className="btnLoggin" >Continuar</button>
                     </div>
-                    </div>
+                </div>                
                 <div className="row">
                     <div className="col-12">
                         <p className="litle_text">No tenes cuenta de clinica? </p>

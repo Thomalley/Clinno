@@ -40,7 +40,8 @@ export default function VerDoctores (){
 
     //control se dession
     let session=false;
-    if(cookies.get('clinica_id')) session = true;
+    if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
+
     const [loggeado,setLoggeado] = useState(session);
 
     if(loggeado){
@@ -73,7 +74,7 @@ export default function VerDoctores (){
                                 <strong>Especialidad</strong>
                             </span>
                             <span>
-                                <strong>Codigo Medico</strong>
+                                <strong>Email</strong>
                             </span>                        
                         </div>
                         {doctores && doctores?.map(d=>(
@@ -82,7 +83,7 @@ export default function VerDoctores (){
                                 <span> {d.especialidad?.map(esp=>{
                                     return <p className="tesx_esp">{esp.nombre}</p>
                                 })}</span>
-                                <span className="tesx_nombre">{d.codigo}</span>
+                                <span className="tesx_nombre">{d.email}</span>
                             </div>
                         ))}
                     </div>
@@ -91,6 +92,6 @@ export default function VerDoctores (){
             </div>
         )
     }else{
-        window.location.href='/loginClinica';
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
     }
 }

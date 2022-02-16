@@ -51,7 +51,7 @@ export default function VerMisTurnos(){
 
     return (
         <>
-        <h3>Turnos de {cookies.get('doctor_nombre')}</h3>
+        <h3 className="text-dark">Turnos de {cookies.get('doctor_nombre')}</h3>
 
         <div className="grid_turno_table">
             <span>
