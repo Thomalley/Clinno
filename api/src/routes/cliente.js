@@ -307,5 +307,14 @@ router.get('/:id', async (req, res) => {
       console.log(err)
   }
 })
-
+router.get('/dni/:documento', async (req, res) => {
+    try{
+        const {documento} = req.params
+        const clienDb = await Cliente.findAll({where: {dni: documento}})
+        res.send(clienDb)
+    }
+    catch(err){
+        console.log(err)
+    }
+  })
 module.exports = router;

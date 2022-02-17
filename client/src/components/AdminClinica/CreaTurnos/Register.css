@@ -25,11 +25,6 @@
     padding: 0px;
   }
 
-  .imglogoR{
-    height: 70px;
-    margin: 0px;
-    padding-left: 3pc;
-  }
 
   .imglogoform{
     width: 146px;
@@ -39,4 +34,13 @@
 
   .reCap{
     display: inline-block;
+  }
+
+  #valida_register_dni{
+    margin-bottom: 7px;
+    display: block;
+  }
+
+  #detalle_btn_reg{
+    margin-bottom: 3px;
   }

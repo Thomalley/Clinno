@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { createSearchParams, renderMatches } from 'react-router-dom';
-import swal from 'sweetalert';
+
 
 export function getClients() {
     return async function(dispatch) {
@@ -16,7 +15,32 @@ export function getClients() {
         }
     }
 }
-
+export function getClienteByDni(documento){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/cliente/dni/${documento}`);
+            return dispatch({
+                type: "GET_CLIENTE_BY_DNI",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+export function getTurnosByDni(documento){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/turno/documento/${documento}`);
+            return dispatch({
+                type:"GET_TURNOS_DNI",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
 export function getTurnos() {
     return async function(dispatch) {
         try {
@@ -181,7 +205,7 @@ export function crearTurno(input) {
                     idClinica: input.idClinica,
                     idDoctor: input.idDoctor,
                     hora: input.hora,
-                    idCliente: input.idCliente
+                    dniCliente: input.dniCliente
                 },
             });
             return dispatch({
@@ -346,7 +370,19 @@ export function validate_doctor(payload) {
         }
     }
 }
-
+export function getDoctorById(id){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/doctor/${id}`);
+            return dispatch({
+                type:"GET_DOCTOR_ID",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
 export function get_doctor_id(payload) {
     return async function(dispatch) {
         try {

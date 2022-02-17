@@ -2,35 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie'
-import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno, getDisponibilidad } from '../../actions'
+import { getEspecialidad, getDoctoresByEspec, crearTurno, getDisponibilidad, getClinicaId } from '../../../../actions'
 import swal from 'sweetalert';
-import NavBar from '../NavBar/NavBar'
-import Footer from '../Home/Footer'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
 import './turno.css'
 
 
-export default function Turno() {
-    const especialidades = useSelector((state) => state.especialidades)
-    const clinicasDeEspe = useSelector((state) => state.clinicasByEspec)
+export default function TurnoDesdeAdm() {
+    const especialidades = useSelector((state) => state.clinicaById)
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
     const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const cookies = new Cookies()
-    const [loggeado, setLoggeado] = useState();
-    var userLog = cookies.get('email');
-    const idUser = cookies.get('dni')
+    const idClinica = cookies.get("clinica_id")
+    const dniUser = cookies.get('dni_new_client')
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
-        idClinica: "",
+        idClinica: idClinica,
         horarioDoctor: [],
         idDoctor: "",
         fecha: "",
         hora: "",
-        dniCliente: idUser
+        dniCliente: dniUser
     })
+    const jsdate = new Date();
+    const jsFinalDate = `${jsdate.getDate()}-${jsdate.getMonth() + 1}-${jsdate.getFullYear()}`;
     const [date, setDate] = useState(new Date());
     const onChange = date => {
         setDate(date)
@@ -40,12 +38,11 @@ export default function Turno() {
     let yearTurno = undefined;
     var finalDate = undefined;
     const [submit, setSubmit] = useState({ canSubmit: undefined })
-    const [hasClinic, setHasClinic] = useState({ clinic: true })
+    // const [hasClinic, setHasClinic] = useState({ clinic: true })
     const [hasDoctor, setHasDoctor] = useState({ doctor: true })
     // const [hasHorario, setHasHorario] = useState({ horario: true }) // implementar en caso de dia sin turnos
     const [errors, setErrors] = useState({})
     var [progressTur, setProgressTur] = useState({ "width": "0%" })
-    const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
     function validateDate(value) {
         const data = value.toString('').split(' ');
@@ -103,13 +100,17 @@ export default function Turno() {
         })
 
     }
-   
-    useEffect(() => {
-        if (!userLog) {
-            setLoggeado(false)
-        }
-        else setLoggeado(true)
-    }, [])
+
+    useEffect(()=>{
+        dispatch(getClinicaId(idClinica))
+    },[])
+
+    // useEffect(() => {
+    //     if (!userLog) {
+    //         setLoggeado(false)
+    //     }
+    //     else setLoggeado(true)
+    // }, [])
 
     useEffect(() => {
         if (idValue.fecha) {
@@ -118,37 +119,37 @@ export default function Turno() {
         }
     }, [idValue.fecha])
 
-    useEffect(() => {
-        userLog ? setLoggeado(true) : setLoggeado(false)
-    }, [])
+    // useEffect(() => {
+    //     userLog ? setLoggeado(true) : setLoggeado(false)
+    // }, [])
 
     useEffect(() => {
         dispatch(getEspecialidad())
     }, [])
 
-    useEffect(() => {
-        dispatch(getClinicasByEspec(idValue.idEspecialidad))
-        if (clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.length < 1) {
-            setHasClinic({ clinic: false })
-            setErrors({ ...errors, clinica: true })
-        }
-        else {
-            setHasClinic({ clinic: true })
-            setErrors({ ...errors, clinica: false })
-        }
-    }, [idValue.idEspecialidad])
+    // useEffect(() => {
+    //     dispatch(getClinicasByEspec(idValue.idEspecialidad))
+    //     if (clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.length < 1) {
+    //         setHasClinic({ clinic: false })
+    //         setErrors({ ...errors, clinica: true })
+    //     }
+    //     else {
+    //         setHasClinic({ clinic: true })
+    //         setErrors({ ...errors, clinica: false })
+    //     }
+    // }, [idValue.idEspecialidad])
 
     useEffect(() => {
         dispatch(getDoctoresByEspec(idValue))
-        if (idValue.idClinica && doctoresDeEspe.length < 1) {
-            setHasDoctor({ doctor: false })
-            setErrors({ ...errors, doc: true })
-        }
-        else {
+        // if (idValue.idClinica && doctoresDeEspe.length < 1) {
+        //     setHasDoctor({ doctor: false })
+        //     setErrors({ ...errors, doc: true })
+        // }
+        // else {
             setHasDoctor({ doctor: true })
             setErrors({ ...errors, doc: false })
-        }
-    }, [idValue.idClinica])
+        // }
+    }, [idValue.idEspecialidad])
 
 
     function handleSelect(e) {
@@ -162,17 +163,16 @@ export default function Turno() {
         })
     }
 
-    function handleSelectClinica(e) {
-        setidValue({
-            ...idValue,
-            idClinica: e.target.value
-        })
-        setProgressTur({
-            ...setProgressTur,
-            "width": "40%"
-        })
-
-    }
+    // function handleSelectClinica(e) {
+    //     setidValue({
+    //         ...idValue,
+    //         idClinica: e.target.value
+    //     })
+    //     setProgressTur({
+    //         ...setProgressTur,
+    //         "width": "40%"
+    //     })
+    // }
 
     function handleSelectDoc(e) {
         const value = e.target.value
@@ -203,30 +203,25 @@ export default function Turno() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        if (loggeado === false) {
-            setErrors({ ...errors, login: false })
-            return swal("No estas Logueado!", "Por favor inicie sesion para registrar su turno", "warning")
-        }
+        // if (loggeado === false) {
+        //     setErrors({ ...errors, login: false })
+        //     return swal("No estas Logueado!", "Por favor inicie sesion para registrar su turno", "warning")
+        // }
         if (submit.canSubmit === true) {
             dispatch(crearTurno(idValue))
             return swal({
-                title: "Turno confirmado!",
-                text: `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
+                title: "Turno creado correctamente!",
+                text: `El turno para el paciente se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
                 icon: "success",
                 buttons: {
-                    catch: "Abonar turno",
                     text: "Volver a inicio"
                 }
             }) 
                 .then((value) => {
                     switch (value) {
-                        case "catch":
-                            swal("En instantes seras redirigido..", {});
-                            setTimeout(() => window.location.href = '/turno/abonar', 2000)
-                            break
                         case "text":
                             swal("En instantes seras redirigido a inicio..", {});
-                            setTimeout(() => window.location.href = '/', 2000)
+                            setTimeout(() => window.location.href = '/adminClinica', 2000)
                             break
                         default: return
                     }
@@ -238,9 +233,9 @@ export default function Turno() {
 
     function validateInfo() {
         if (idValue.idEspecialidad.length < 1 ||
-            idValue.idClinica.length < 1 ||
-            idValue.horarioDoctor.length < 1 ||
+            // idValue.idClinica.length < 1 ||
             idValue.idDoctor.length < 1 ||
+            idValue.horarioDoctor.length < 1 ||
             idValue.fecha.length < 1 ||
             idValue.hora.length < 1
         )
@@ -249,10 +244,13 @@ export default function Turno() {
             setSubmit({ canSubmit: true })
     }
 
+    console.log(idValue)
+    console.log(doctoresDeEspe)
+
     return (
         <div className=".container">
             <form onSubmit={handleSubmit}>
-                <NavBar loggin={loggeado ? true : false} />
+                {/* <NavBar loggin={loggeado ? true : false} /> */}
                 <div class="progress" id='progressTurn' style={progressTur}>
                     <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -263,7 +261,7 @@ export default function Turno() {
                         <div className="row">
                             <div className="col-12">
                                 <div className="titleTurn">
-                                    <h2 className="display-4" id="title_turn_id">Sacar turno Online</h2>
+                                    <h2 className="display-4" id="title_turn_id">Sacar turno desde Administracion</h2>
                                     <h6 className="display-4" id="aboveTitle_turn_id">Facil, rapido y en el momento</h6>
                                 </div>
                             </div>
@@ -276,7 +274,7 @@ export default function Turno() {
                                     <h3 className="display-6" id="Esp_Tur_Crea">Elige la especialidad que buscas:</h3>
                                     <select id='Sel_Tur_Crea_Esp' class="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
                                         <option value="" disabled selected>Especialidades</option>
-                                        {especialidades.map((e) => (
+                                        {especialidades.especialidads && especialidades.especialidads.map((e) => (
                                             <option value={e.id}> {e.nombre} </option>
                                         ))}
                                     </select>
@@ -285,21 +283,21 @@ export default function Turno() {
 
                         </div>
                         {
-                            hasClinic.clinic === true ?
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="cont_tur_BG">
-                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
-                                                <option value="" disabled selected>Clinicas</option>
-                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                :
+                            // hasClinic.clinic === true ?
+                                // <div className="row">
+                                //     <div className="col-12">
+                                //         <div className="cont_tur_BG">
+                                //             <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
+                                //             <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                //                 <option value="" disabled selected>Clinicas</option>
+                                //                 {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                //                     <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                                //                 ))}
+                                //             </select>
+                                //         </div>
+                                //     </div>
+                                // </div>
+                                // :
 
                                 //arreglar render
 
@@ -313,19 +311,19 @@ export default function Turno() {
                                 //         </div>
                                 //     </div>
                                 // </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="cont_tur_BG">
-                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
-                                                <option value="" disabled selected>Clinicas</option>
-                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                // <div className="row">
+                                //     <div className="col-12">
+                                //         <div className="cont_tur_BG">
+                                //             <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
+                                //             <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                //                 <option value="" disabled selected>Clinicas</option>
+                                //                 {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                //                     <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                                //                 ))}
+                                //             </select>
+                                //         </div>
+                                //     </div>
+                                // </div>
                         }
 
                         {hasDoctor.doctor === true ?
@@ -413,7 +411,7 @@ export default function Turno() {
                             </div>
 
                             {
-                                errors.clinica || errors.doc ?
+                                errors.doc ?
                                     <div className="row">
                                         <div className="col-12">
                                             <div>
@@ -431,7 +429,7 @@ export default function Turno() {
                                         <div className="col-12">
                                             <div>
                                                 <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
-                                                <Link to={'/'}>
+                                                <Link to={'/adminClinica'}>
                                                     <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
                                                 </Link>
                                             </div>
@@ -444,7 +442,6 @@ export default function Turno() {
                 </div>
                 <div className="entre_nav_turno"></div>
                 <div className="out_footer">
-                    <Footer />
                 </div>
             </form>
         </div>

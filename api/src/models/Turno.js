@@ -22,9 +22,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        idCliente: {
+        dniCliente: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         idDoctor: {
             type: DataTypes.STRING,
