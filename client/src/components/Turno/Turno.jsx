@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie'
 import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno, getDisponibilidad } from '../../actions'
@@ -21,7 +21,7 @@ export default function Turno() {
     const cookies = new Cookies()
     const [loggeado, setLoggeado] = useState();
     var userLog = cookies.get('email');
-    const idUser = cookies.get('id')
+    const idUser = cookies.get('dni')
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
         idClinica: "",
@@ -29,7 +29,7 @@ export default function Turno() {
         idDoctor: "",
         fecha: "",
         hora: "",
-        idCliente: idUser
+        dniCliente: idUser
     })
     const [date, setDate] = useState(new Date());
     const onChange = date => {
@@ -45,6 +45,7 @@ export default function Turno() {
     // const [hasHorario, setHasHorario] = useState({ horario: true }) // implementar en caso de dia sin turnos
     const [errors, setErrors] = useState({})
     var [progressTur, setProgressTur] = useState({ "width": "0%" })
+    const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
     function validateDate(value) {
         const data = value.toString('').split(' ');
@@ -91,6 +92,10 @@ export default function Turno() {
         diaTurno = data[2];
         yearTurno = data[3];
         finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
+        if (finalDate < jsFinalDate){
+            swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+            return
+        }
         setidValue({ ...idValue, fecha: finalDate })
         setProgressTur({
             ...setProgressTur,
@@ -98,7 +103,7 @@ export default function Turno() {
         })
 
     }
-
+   
     useEffect(() => {
         if (!userLog) {
             setLoggeado(false)

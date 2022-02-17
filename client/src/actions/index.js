@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { createSearchParams, renderMatches } from 'react-router-dom';
-import swal from 'sweetalert';
+
 
 export function getClients() {
     return async function(dispatch) {
@@ -16,7 +15,32 @@ export function getClients() {
         }
     }
 }
-
+export function getClienteByDni(documento){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/cliente/dni/${documento}`);
+            return dispatch({
+                type: "GET_CLIENTE_BY_DNI",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+export function getTurnosByDni(documento){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/turno/documento/${documento}`);
+            return dispatch({
+                type:"GET_TURNOS_DNI",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
 export function getTurnos() {
     return async function(dispatch) {
         try {
@@ -28,6 +52,21 @@ export function getTurnos() {
         } catch (e) {
             console.log(e)
 
+        }
+    }
+}
+
+export function getTurnoId(id){
+    return async function(dispatch) {
+        try {
+            const turnoId = await axios.get(`/turno/${id}`);
+            return dispatch ({
+                type: "GET_TURNOS_ID",
+                payload : turnoId.data
+            })
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 }
@@ -181,7 +220,7 @@ export function crearTurno(input) {
                     idClinica: input.idClinica,
                     idDoctor: input.idDoctor,
                     hora: input.hora,
-                    idCliente: input.idCliente
+                    dniCliente: input.dniCliente
                 },
             });
             return dispatch({
@@ -259,6 +298,7 @@ export function get_clinica(payload) {
         try {
             const json = await axios.get('/clinica');
             const datos = json.data.filter((e) => (e.id === payload))
+            console.log(datos);
             const esp = datos[0].especialidads.map((e) => {
                 return {
                     id: e.id,
@@ -272,6 +312,7 @@ export function get_clinica(payload) {
                 direccion: datos[0].direccion,
                 telefono: datos[0].telefono,
                 mail: datos[0].mail,
+                codigo: datos[0].codigo,
                 nombreEn: datos[0].nombreEn,
                 apellidoEn: datos[0].apellidoEn,
                 DNIEn: datos[0].DNIEn,
@@ -323,7 +364,7 @@ export function validate_doctor(payload) {
         try {
             const json = await axios.get('/doctor/clinica');
             for (let i = 0; i < json.data.length; i++) {
-                if (json.data[i].codigo === parseInt(payload.password, 10) && json.data[i].clinicas[0].id === payload.idClinica) {
+                if (json.data[i].codigo === payload.password && json.data[i].clinicas[0].id === payload.idClinica) {
                     const datosDoc = [{
                         id: json.data[i].id,
                         codigo: json.data[i].codigo,
@@ -346,14 +387,26 @@ export function validate_doctor(payload) {
         }
     }
 }
-
+export function getDoctorById(id){
+    return async function(dispatch){
+        try{
+            const json = await axios.get(`/doctor/${id}`);
+            return dispatch({
+                type:"GET_DOCTOR_ID",
+                payload: json.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
 export function get_doctor_id(payload) {
     return async function(dispatch) {
         try {
             const json = await axios.get('/doctor');
             for (let i = 0; i < json.data.length; i++) {
                 console.log(payload)
-                if (json.data[i].codigo === parseInt(payload, 10)) {
+                if (json.data[i].codigo === payload) {
                     const datosDoc = [{
                         id: json.data[i].id,
                         codigo: json.data[i].codigo,
@@ -411,7 +464,7 @@ export function get_All_Doctor(payload) {
                 return {
                     id: doc.id,
                     nombre: doc.nombre,
-                    codigo: doc.codigo,
+                    email: doc.email,
                     especialidad: doc.especialidads,
                 }
             })
@@ -440,6 +493,7 @@ export function get_Doctores_Esp(payload) {
         }
     }
 }
+
 export function turno_clinica(payload) {
     return async function(dispatch) {
         try {
@@ -507,6 +561,44 @@ export function darBajaEmail(payload){
             return dispatch({type: 'RESET_PASSWORD', payload: json.data})
         }
         catch (err){
+            console.log(err)
+        }
+    }
+}
+// Diagnostico
+export function getDiagnosticoByTurno(payload){
+    return async function (dispatch){
+        try {
+            console.log(payload)
+            const diagByTurno = await axios.get(`/diagnostico/turno/${payload}`)
+            console.log(diagByTurno.data)
+            return dispatch ({type: 'DIAG_BY_TURNO', payload: diagByTurno.data})
+        }
+    catch (err){
+        console.log(err)
+    }
+}
+}
+
+export function getDiagnostico(payload){
+    return async function (dispatch){
+        try{
+            const diag = await axios.get('diagnostico')
+            return dispatch ({type: 'GET_DIAG', payload: diag.data})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function addDiagnostico(payload){
+    return async function (dispatch){
+        try{
+            const addDiag = await axios.post('/diagnostico', payload)
+            return dispatch ({type: 'ADD_DIAG', payload: addDiag.data})
+        }
+        catch(err){
             console.log(err)
         }
     }

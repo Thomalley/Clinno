@@ -8,12 +8,26 @@ const {
 router.post('/', async (req,res) => {
     try{
         const {nombre, direccion, telefono, password, mail, nombreEn, apellidoEn, DNIEn, especialidad} = req.body;
+        
+        let codigo = Math.floor(Math.random() * 1000000);
+        //check unique
+        let check = true;
+        const docDb = await Clinica.findAll({});
+        while (check) {
+            let arr = docDb.filter(e => { return e.codigo === codigo });
+            if (arr.length > 0) {
+                codigo = Math.floor(Math.random() * 10000);
+            } else {
+                check = false;
+            }
+        }
         const cli = await Clinica.create({
           nombre,
           direccion,
           telefono,
           mail,
           password,
+          codigo,
           nombreEn,
           apellidoEn,
           DNIEn,
@@ -61,6 +75,7 @@ router.post('/order-mail', (req,res)=> {
   
        const sgMail = require('@sendgrid/mail')
   
+
         sgMail.setApiKey(API_KEY)
   
         const message = {

@@ -22,9 +22,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        idCliente: {
+        dniCliente: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         idDoctor: {
             type: DataTypes.STRING,
@@ -59,7 +58,12 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: false,
             defaultValue: 0
-        }
+        },
+        status: {
+            type: DataTypes.ENUM('pendiente', 'concretado', 'cancelado'),
+            allowNull: false,
+            defaultValue: 'pendiente'
+        },
     });
 
 };

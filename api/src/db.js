@@ -67,6 +67,9 @@ Turno.hasOne(Order_detail)
 Order_detail.belongsTo(Turno)
 
 
+Turno.hasOne(Reseña)
+Reseña.belongsTo(Turno)
+
 Doctor.belongsToMany(Especialidad, {
     through: "Doctor_Esp",
 });

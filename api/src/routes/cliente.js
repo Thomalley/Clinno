@@ -57,11 +57,16 @@ router.post("/", async (req,res) => {
        const sgMail = require('@sendgrid/mail')
 
 
+
   sgMail.setApiKey(API_KEY)
   
   const message = {
     to: req.body.email,
+<<<<<<< HEAD
     from : "clinnoturnos@gmail.com",
+=======
+    from : "clinnoturnno@gmail.com",
+>>>>>>> Develop
 
     subject: `Usuario registrado con exito!`,
     html: `
@@ -234,13 +239,18 @@ router.post('/order-mail', (req, res) => {
 
 
 
+
         sgMail.setApiKey(API_KEY)
 
 
       const message = {
         to: email,
 
+<<<<<<< HEAD
         from : "clinnoturnos@gmail.com",
+=======
+        from : "clinnoturnno@gmail.com",
+>>>>>>> Develop
 
         subject: `contraseña!`,
         html: `
@@ -303,5 +313,14 @@ router.get('/:id', async (req, res) => {
       console.log(err)
   }
 })
-
+router.get('/dni/:documento', async (req, res) => {
+    try{
+        const {documento} = req.params
+        const clienDb = await Cliente.findAll({where: {dni: documento}})
+        res.send(clienDb)
+    }
+    catch(err){
+        console.log(err)
+    }
+  })
 module.exports = router;
