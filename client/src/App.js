@@ -30,7 +30,7 @@ import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
 import Bot from './components/Bot/Bot'
-
+import ReagendarTurno from './components/ClientCard/ReagendarTurno';
 
 
 function App() {
@@ -40,10 +40,11 @@ function App() {
         <Bot/>  
         <Routes>
         <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
+          <Route path='/test' elemnt={<ReagendarTurno/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
           <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
           <Route path='/TurnoMe' element={<TurnoMe/>}/>
-          <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
+          <Route path='/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
@@ -54,7 +55,7 @@ function App() {
           <Route exact path='/register' element={<Register/>}/>
           <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
-          <Route path='/Home' element={<HomeClients/>}/>
+          {/* <Route path='/Home' element={<HomeClients/>}/> */}
           <Route path='/clinica/:id' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>

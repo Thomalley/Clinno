@@ -14,8 +14,8 @@ const {
 //     native: false,
 // });
 let sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize({
+    process.env.NODE_ENV === "production" ?
+    new Sequelize({
         database: DB_NAME,
         dialect: "postgres",
         host: DB_HOST,
@@ -23,24 +23,23 @@ let sequelize =
         username: DB_USER,
         password: DB_PASSWORD,
         pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
+            max: 3,
+            min: 1,
+            idle: 10000,
         },
         dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          keepAlive: true,
+            ssl: {
+                require: true,
+                // Ref.: https://github.com/brianc/node-postgres/issues/2009
+                rejectUnauthorized: false,
+            },
+            keepAlive: true,
         },
         ssl: true,
-      })
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clinno`,
-        { logging: false, native: false }
-      );
+    }) :
+    new Sequelize(
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clinno`, { logging: false, native: false }
+    );
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -57,7 +56,7 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-const { Calendario, Cliente, Diagnostico, Doctor, Especialidad, Reseña, Turno, Clinica, Order, Order_detail } = sequelize.models;
+const { Calendario, Cliente, Diagnostico, Doctor, Especialidad, Resenia, Turno, Clinica, Order, Order_detail } = sequelize.models;
 
 // Mercado Pago👇
 Cliente.hasMany(Order)
@@ -67,8 +66,8 @@ Turno.hasOne(Order_detail)
 Order_detail.belongsTo(Turno)
 
 
-Turno.hasOne(Reseña)
-Reseña.belongsTo(Turno)
+// Turno.hasOne(Resenia)
+// Resenia.belongsTo(Turno)
 
 Doctor.belongsToMany(Especialidad, {
     through: "Doctor_Esp",
