@@ -1,16 +1,33 @@
 const { Router } = require("express");
 const {Clinica, Especialidad, Doctor} = require("../db")
 router = Router()
+const {
+  API_KEY
+} = process.env;
 
 router.post('/', async (req,res) => {
     try{
         const {nombre, direccion, telefono, password, mail, nombreEn, apellidoEn, DNIEn, especialidad} = req.body;
+        
+        let codigo = Math.floor(Math.random() * 1000000);
+        //check unique
+        let check = true;
+        const docDb = await Clinica.findAll({});
+        while (check) {
+            let arr = docDb.filter(e => { return e.codigo === codigo });
+            if (arr.length > 0) {
+                codigo = Math.floor(Math.random() * 10000);
+            } else {
+                check = false;
+            }
+        }
         const cli = await Clinica.create({
           nombre,
           direccion,
           telefono,
           mail,
           password,
+          codigo,
           nombreEn,
           apellidoEn,
           DNIEn,
@@ -59,16 +76,13 @@ router.post('/order-mail', (req,res)=> {
        const sgMail = require('@sendgrid/mail')
   
 
-        const API_KEY = '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';
-
-  
         sgMail.setApiKey(API_KEY)
   
         const message = {
 
           to: email,
 
-          from : "brunosentinelli@gmail.com",
+          from : "clinnoturnno@gmail.com",
 
           subject: `El proceso de baja ha comenzado`,
           html: `

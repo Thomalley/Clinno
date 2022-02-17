@@ -47,6 +47,7 @@ export default function TurnosClinica({idClinica}){
     const doctor = useSelector((state)=> state.doctor);
 
    
+    //esto va a cambiar a ver si funciona
 
     let dataDoctor = {
         "idEspecialidad": "",
@@ -56,7 +57,6 @@ export default function TurnosClinica({idClinica}){
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return (
         <>
-        <h3>Proximos Turnos</h3>
 
         <div className="grid_turno_table">
         <span>

@@ -12,11 +12,13 @@ const initialState = {
     turnos: [],
     doctores: [],
     horarioDisponibleParaTurno: [],
-    turnosClinica: [],
-    turnosDoctor: [],
     turnosDni: [],
-    doctorId: []
-
+    doctorId: [],
+    turnosClinica:[],
+    turnosDoctor:[],
+    diagDoctor: [],
+    diagnosticos: [],
+    turnoById: []
 };
 
 
@@ -29,15 +31,23 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
+
         case "GET_DOCTOR_ID":
             return{
                 ...state,
                 doctorId: action.payload
             }
+        
         case "GET_TURNOS_DNI":
             return{
                 ...state,
                 turnosDni: action.payload
+            }
+
+        case "GET_TURNOS_ID":
+            return {
+                ...state,
+                turnoById: action.payload
             }
 
         case "GET_CLIENTES":
@@ -45,17 +55,30 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 clientes: action.payload
             }
+
         case "GET_CLIENTE_BY_DNI":
             return {
                 ...state,
                 clienteByDni: action.payload
             }
+
+        case "GET_DIAG":
+            return{
+                ...state,
+                diagnosticos: action.payload
+            }
+        
         case "GET_TURNOS":
             return {
                 ...state,
                 turnos: action.payload
             }
 
+        case "DIAG_BY_TURNO":
+            return{
+                    ...state,
+                    diagDoctor: action.payload
+                }
         case "GET_CLINICAS":
             return {
                 ...state,
@@ -72,6 +95,10 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case 'ADD_DIAG':
+            return {
+                ...state
+            }
         case "VALIDATE_USER":
             return {
                 ...state,

@@ -1,22 +1,36 @@
 .contenedor_adminClinica{
     height: 100vh;
-    padding-top: 40px;
+    padding: 60px;
     margin-left: 280px;
     overflow-y: auto;
     overflow-x: auto;
     box-sizing: border-box;
+    background:
+    linear-gradient(
+        rgba(30, 55, 77, 0.85),
+        rgba(26, 55, 77, 0.88),
+        rgba(26, 55, 77, 0.95));
+        color: #f1f1f1;
 }
 
 .contenedor_adminClinica::-webkit-scrollbar {
     display: none;
 }
 .adminClinica_presentacion{
-    background: #c1e9fc97;
-    margin: 0px 60px;
-    padding: 20px;
+    margin: 0px 80px;
+    padding: 10px;
+    border-radius: 25px;
+    /* box-shadow: 0px 10px 304px -60px #9c9c9a; */
+    background: #B1D0E0;
+    background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v333-ning-50-medical_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=70696d7bbbab9e0563c1968e23c09165");
+    /* background-image: url(https://img.freepik.com/foto-gratis/doctor-trabajando-hospital-servicio-sanitario-medico_31965-1049.jpg?w=1380); */
+    color: #000;
+    background-attachment: fixed;
+    /* background-repeat: no-repeat; */
+    background-size: contain;
 }
 .logo_hospi_clinic{
-    width: 100px;
+    width: 80px;
     background: #f1f1f1;
     border-radius: 5px;
 }
@@ -28,20 +42,30 @@
 .btn_clinic{
     margin-top: 5px;
     width: 244px;
-    background: #FF5959;
+    /* background: #FF5959;*/
+    background:  #12ace4 ;
     padding: 10px;
     border: none;
     border-radius: 10px;
     color: #f1f1f1;
     font-weight: 700;
+    transition: background .3s;
+    border: 1px solid transparent;
+}
+.btn_clinic:hover{
+    background: #1A374D;
+    border: 1px solid #f1f1f1;
 }
 .grid_turno_table{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     border-top: 1px solid black;
+    color: #000;
 
 }
 .grid_turno_tables > span{
     padding: 8px 4px;
     border: 1px solid black;
+    color: #000;
+
 }

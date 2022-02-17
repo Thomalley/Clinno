@@ -58,7 +58,12 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: false,
             defaultValue: 0
-        }
+        },
+        status: {
+            type: DataTypes.ENUM('pendiente', 'concretado', 'cancelado'),
+            allowNull: false,
+            defaultValue: 'pendiente'
+        },
     });
 
 };
