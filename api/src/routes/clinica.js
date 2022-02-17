@@ -67,7 +67,7 @@ router.post('/order-mail', (req,res)=> {
 
           to: email,
 
-          from : "brunosentinelli@gmail.com",
+          from : "clinnoturnos@gmail.com",
 
           subject: `El proceso de baja ha comenzado`,
           html: `

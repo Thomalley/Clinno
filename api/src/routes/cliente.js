@@ -61,7 +61,7 @@ router.post("/", async (req,res) => {
   
   const message = {
     to: req.body.email,
-    from : "brunosentinelli@gmail.com",
+    from : "clinnoturnos@gmail.com",
 
     subject: `Usuario registrado con exito!`,
     html: `
@@ -240,15 +240,15 @@ router.post('/order-mail', (req, res) => {
       const message = {
         to: email,
 
-        from : "brunosentinelli@gmail.com",
+        from : "clinnoturnos@gmail.com",
 
-        subject: `contrase;a!`,
+        subject: `contraseña!`,
         html: `
 
         <html>
       <head>
           <body>
-          <h2> Hola ${nombre} tu contrase;a es ${password} </h2>
+          <h2> Hola ${nombre} tu contraseña es ${password} </h2>
           </body>
       </head>
       </html>`
