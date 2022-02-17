@@ -14,13 +14,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    indicaciones:{
+      type: DataTypes.STRING,
+    },
+    estudio:{
+      type: DataTypes.STRING,
+    },
     diagnostico: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-    medicamentos: {
-    type: DataTypes.STRING,
-
-    },
+    idTurno: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   });
 };

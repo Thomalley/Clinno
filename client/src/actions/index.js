@@ -32,6 +32,21 @@ export function getTurnos() {
     }
 }
 
+export function getTurnoId(id){
+    return async function(dispatch) {
+        try {
+            const turnoId = await axios.get(`/turno/${id}`);
+            return dispatch ({
+                type: "GET_TURNOS_ID",
+                payload : turnoId.data
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}
+
 export function getClinicaId(id) {
     return async function(dispatch) {
         try {
@@ -510,6 +525,44 @@ export function darBajaEmail(payload){
             return dispatch({type: 'RESET_PASSWORD', payload: json.data})
         }
         catch (err){
+            console.log(err)
+        }
+    }
+}
+// Diagnostico
+export function getDiagnosticoByTurno(payload){
+    return async function (dispatch){
+        try {
+            console.log(payload)
+            const diagByTurno = await axios.get(`/diagnostico/turno/${payload}`)
+            console.log(diagByTurno.data)
+            return dispatch ({type: 'DIAG_BY_TURNO', payload: diagByTurno.data})
+        }
+    catch (err){
+        console.log(err)
+    }
+}
+}
+
+export function getDiagnostico(payload){
+    return async function (dispatch){
+        try{
+            const diag = await axios.get('diagnostico')
+            return dispatch ({type: 'GET_DIAG', payload: diag.data})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function addDiagnostico(payload){
+    return async function (dispatch){
+        try{
+            const addDiag = await axios.post('/diagnostico', payload)
+            return dispatch ({type: 'ADD_DIAG', payload: addDiag.data})
+        }
+        catch(err){
             console.log(err)
         }
     }

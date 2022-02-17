@@ -23,7 +23,11 @@ import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
 import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
+import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
+import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
+import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
 import Bot from './components/Bot/Bot'
+
 
 
 function App() {
@@ -56,6 +60,9 @@ function App() {
           <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
           <Route path='/adminClinica/VerDoctores' element={<VerDoctores/>}/>
           <Route path='/SoyDoctor/forgotpassword' element={<CodigoDoctor/>}/>
+          <Route path='/SoyDoctor/turnosDelDia' element={<TurnosDelDia/>}/>
+          <Route path='/SoyDoctor/agregarDiagnostico/:idTurno' element={<AgregarDiagnostico/>}/>
+          <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
         </Routes>
       </div>
     </BrowserRouter>
