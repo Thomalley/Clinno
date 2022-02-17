@@ -1,6 +1,7 @@
 const initialState = {
     clientes: [],
     cliente: [],
+    clienteByDni: [],
     especialidades: [],
     clinicasByEspec: [],
     clinicas: [],
@@ -11,10 +12,13 @@ const initialState = {
     turnos: [],
     doctores: [],
     horarioDisponibleParaTurno: [],
+    turnosDni: [],
+    doctorId: [],
     turnosClinica:[],
-    turnosDoctor:[]
-
-
+    turnosDoctor:[],
+    diagDoctor: [],
+    diagnosticos: [],
+    turnoById: []
 };
 
 
@@ -28,19 +32,54 @@ const rootReducer = (state = initialState, action) => {
                 turnosClinica: action.payload
             }
 
+        case "GET_DOCTOR_ID":
+            return{
+                ...state,
+                doctorId: action.payload
+            }
+        
+        case "GET_TURNOS_DNI":
+            return{
+                ...state,
+                turnosDni: action.payload
+            }
+
+        case "GET_TURNOS_ID":
+            return {
+                ...state,
+                turnoById: action.payload
+            }
+
         case "GET_CLIENTES":
             return {
                 ...state,
                 clientes: action.payload
             }
 
-            case "GET_TURNOS":
+        case "GET_CLIENTE_BY_DNI":
+            return {
+                ...state,
+                clienteByDni: action.payload
+            }
+
+        case "GET_DIAG":
+            return{
+                ...state,
+                diagnosticos: action.payload
+            }
+        
+        case "GET_TURNOS":
             return {
                 ...state,
                 turnos: action.payload
             }
 
-            case "GET_CLINICAS":
+        case "DIAG_BY_TURNO":
+            return{
+                    ...state,
+                    diagDoctor: action.payload
+                }
+        case "GET_CLINICAS":
             return {
                 ...state,
                 clinicas: action.payload
@@ -56,6 +95,10 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
             }
 
+        case 'ADD_DIAG':
+            return {
+                ...state
+            }
         case "VALIDATE_USER":
             return {
                 ...state,
@@ -74,14 +117,8 @@ const rootReducer = (state = initialState, action) => {
                 especialidades: action.payload
             }
 
-        case "GET_CLINICAS":
-            return {
-                ...state,
-                clinicas: action.payload
-            }
-
         case "GET_CLINICA_ID":
-            return{
+            return {
                 ...state,
                 clinicaById: action.payload
             }
@@ -148,7 +185,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
-            
+
         default:
             return state;
     }

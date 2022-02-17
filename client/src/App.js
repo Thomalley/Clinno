@@ -22,8 +22,14 @@ import VerDoctores from './components/VerDoctores/VerDoctores';
 import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
-
-
+import ValidarUsuario from './components/AdminClinica/CreaTurnos/ValidarUsuario';
+import RegistrarUsuario from './components/AdminClinica/CreaTurnos/RegistrarUsuario';
+import TurnoDesdeAdm from './components/AdminClinica/CreaTurnos/Turno/TurnoDesdeAdm'
+import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
+import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
+import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
+import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
+import Bot from './components/Bot/Bot'
 
 
 
@@ -31,8 +37,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Bot/>  
         <Routes>
-        <Route path='/TurnoMe' element={<TurnoMe/>}/>
+        <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
+          <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
+          <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
+          <Route path='/TurnoMe' element={<TurnoMe/>}/>
           <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
@@ -50,11 +60,15 @@ function App() {
           <Route path='/loginClinica' element={<LoginClinica/>}/>
           <Route path='/adminClinica' element={<AdminClinica/>}/>
           <Route path='/soyDoctor' element={<AdminDoctor/>}/>
-          <Route path='/AddDoctor' element={<AddDoctor/>}/>
-          <Route path='/addEspecialidad' element={<AddEspecialidad/>}/>
+          <Route path='/adminClinica/AddDoctor' element={<AddDoctor/>}/>
+          <Route path='/adminClinica/addEspecialidad' element={<AddEspecialidad/>}/>
           <Route path='/turno' element={<Turno/>}/>
           <Route path='/adminClinica/me' element={<ClinicaCard/>}/>
-          <Route path='/VerDoctores' element={<VerDoctores/>}/>
+          <Route path='/adminClinica/VerDoctores' element={<VerDoctores/>}/>
+          <Route path='/SoyDoctor/forgotpassword' element={<CodigoDoctor/>}/>
+          <Route path='/SoyDoctor/turnosDelDia' element={<TurnosDelDia/>}/>
+          <Route path='/SoyDoctor/agregarDiagnostico/:idTurno' element={<AgregarDiagnostico/>}/>
+          <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
         </Routes>
       </div>
     </BrowserRouter>

@@ -3,19 +3,21 @@
     justify-content: center;   
     flex-direction: column;
     align-items: center;
-    height: 80%;
+    height: 90%;
     padding: 20px;
+    color:#333;
 }
 .formu_addDoctor{
     margin-top: 20px;
-    min-height: 605px;
+    min-height: 705px;
     background: #d8eefe;
+    color:#333;
     padding: 30px 60px;
     border-radius: 10px;
     box-shadow: 0px 10px 204px -60px #9c9c9a;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 .show_especialidades{
     display: flex;
@@ -57,6 +59,14 @@
     margin: 0px 2px;
     cursor: default;
 }
+.errors_add{
+    margin: 0px;
+    margin-bottom: 2px;
+    min-height: 15px;
+    font-size: 15px;
+    color: #ef4565;
+
+}
 
 /* Add Especialidad */
 
@@ -67,13 +77,14 @@
     margin-top: 20px;
     min-height: 245px;
     background:#d8eefe;
+    color:#333;
     padding: 30px 80px;
     border-radius: 10px;
     box-shadow: 0px 10px 204px -60px #9c9c9a;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 .add_especialidad{
     width: auto;

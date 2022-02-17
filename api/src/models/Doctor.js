@@ -14,10 +14,16 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     codigo:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    }
+    },
+    dni:{
+      type: DataTypes.STRING
+    },
+    email:{
+      type: DataTypes.STRING
+    },
   });
 };
 

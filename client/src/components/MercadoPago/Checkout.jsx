@@ -20,16 +20,15 @@ export default function Comprar({ productos, data }) {
     script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
     script.setAttributeNode(attr_data_preference)
 
-    document.getElementById('generico').appendChild(script)
-    document.getElementById('generico').appendChild(backHome)
+    document.getElementById('form1').appendChild(script)
+    // document.getElementById('form1').appendChild(backHome)
     return () => {
-      document.getElementById('generico').removeChild(script);
+      document.getElementById('form1').removeChild(script);
     }
   }, [data])
   return (
     <div className='container'>
       <form id='form1'>
-
         <NavBar loggin={true} />
         <div className="entre_nav_turno_res"></div>
         <div className='contenedor_resumen'>

@@ -8,6 +8,7 @@ import NavClinica from './NavClinica.jsx'
 import {get_clinica,turno_clinica} from '../../actions';
 import Turnos from './Turnos'
 import icono from '../../components/utils/icono-clinica.png'
+import ValidateClinica from './ValidateClinica';
 
 
 import Cookies from 'universal-cookie';
@@ -20,24 +21,30 @@ export default function AdminClinica(){
     const dispatch = useDispatch();
 
     const clinica = useSelector((state)=> state.clinica);
+    //control codigo
+    let sessionCod=false;
+    if(cookies.get('clinica_codigo')) sessionCod = true;    
+    const [validate,setValidate] = useState(sessionCod);;
+
     //control se dession
     let session=false;
     if(cookies.get('clinica_id')) session = true;
     const [loggeado,setLoggeado] = useState(session);
 
-    
+    const validar = ()=>{
+        cookies.set('clinica_codigo', clinica[0].codigo, {path: '/'});
 
-    async function dispa (){
-        if(loggeado){
-            dispatch(get_clinica(cookies.get('clinica_id')))            
-        }
-    }
+        setValidate(true)}
 
     useEffect(() => {dispatch(get_clinica(cookies.get('clinica_id')))},[])
 
     if(loggeado){
         return(
             <div >
+            { !validate ?
+                <ValidateClinica setCheck={validar}/>
+            :
+            <>
                 <div className="contenedor_adminClinica">
                     <NavClinica/>
                     <div className="adminClinica_presentacion">
@@ -61,7 +68,8 @@ export default function AdminClinica(){
                 </div>
 
                 <Footer />
-    
+                </>
+            }
             </div>
         )
     }else{

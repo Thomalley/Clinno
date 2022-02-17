@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { Turno, Cliente, Clinica, Especialidad, Doctor } = require("../db")
 router = Router()
 
-router.post("/", async(req, res) => {
+router.post("/", async (req, res) => {
     try {
         const {
             fecha,
@@ -10,23 +10,24 @@ router.post("/", async(req, res) => {
             idClinica,
             idEspecialidad,
             idDoctor,
-            idCliente
+            dniCliente
         } = req.body
         const turnoDb = await Turno.create({
             fecha,
             hora,
             idClinica,
-            idCliente,
+            dniCliente,
             idEspecialidad,
             idDoctor
         })
+
         res.json(turnoDb)
     } catch (err) {
         console.log(err)
     }
 })
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
     try {
         const turnos = await Turno.findAll()
         res.send(turnos)
@@ -35,7 +36,7 @@ router.get('/', async(req, res) => {
     }
 })
 
-router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
+router.get('/disponibilidad/:fecha/:idDoctor', async (req, res) => {
     const { fecha, idDoctor } = req.params
     try {
         const turnos = await Turno.findAll({
@@ -62,13 +63,14 @@ router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
     }
 })
 
-router.get('/doctor/:idDoctor', async(req, res) => {
+router.get('/doctor/:idDoctor', async (req, res) => {
     try {
-        const {idDoctor} = req.params
+        const { idDoctor } = req.params
 
         const turnos = await Turno.findAll({
-            where:{
-            idDoctor:idDoctor}
+            where: {
+                idDoctor: idDoctor
+            }
         })
         res.send(turnos)
     } catch (e) {
@@ -76,18 +78,47 @@ router.get('/doctor/:idDoctor', async(req, res) => {
     }
 })
 
-router.get('/clinica/:idClinica', async(req, res) => {
+router.get('/clinica/:idClinica', async (req, res) => {
     try {
-        const {idClinica} = req.params
+        const { idClinica } = req.params
 
         const turnos = await Turno.findAll({
-            where:{
-            idClinica:idClinica}
+            where: {
+                idClinica: idClinica
+            }
         })
         res.send(turnos)
     } catch (e) {
         console.log(e)
     }
 })
+
+router.get('/documento/:documento', async (req, res) => {
+    try {
+        const { documento } = req.params
+        console.log(documento)
+        const turnos = await Turno.findAll({
+            where: {
+                dniCliente: documento.toString()
+            }
+        })
+        res.send(turnos)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+//si rompe es por que se pisa con get(/)
+router.get('/:id', async(req, res) => {
+    try{
+        const {id} = req.params
+        const turnoDbID = await Turno.findByPk(id)
+        res.send(turnoDbID)
+    }
+    catch (err){
+        console.log(err)
+    }
+})
+
 
 module.exports = router

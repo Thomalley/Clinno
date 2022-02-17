@@ -23,7 +23,7 @@ export default function ClinicaCard (){
     console.log(clinica);
     //control se de sesion
     let session=false;
-    if(cookies.get('clinica_id')) session = true;
+    if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
     const [loggeado,setLoggeado] = useState(session);
 
     const cerrarSesion=()=>{
@@ -36,10 +36,15 @@ export default function ClinicaCard (){
         cookies.remove('clinica_nombreEn', );
         cookies.remove('clinica_apellidoEn');
         cookies.remove('clinica_DNIEn');
+        cookies.remove('clinica_codigo');
         cookies.remove('clinica_createdAt');
+        cookies.remove('doctor_nombre');
+        cookies.remove('doctor_id');
+        cookies.remove('doctor_codigo');
+        cookies.remove('doctor_especialidades');
 
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-        setTimeout(()=> window.location.href='/', 4000) ;
+        setTimeout(()=> window.location.href='/', 700) ;
     }
     function meVoy(){
         console.log(clinica);
@@ -65,9 +70,10 @@ export default function ClinicaCard (){
                                 <h4>Nombre Titular:{clinica?.nombreEn}</h4>
                                 <h4>Apellido Titular: {clinica?.apellidoEn}</h4>
                                 <h4>Dni Titular: {clinica?.DNIEn}</h4>
+                                <h4>Codigo de Ingreso: {clinica?.codigo}</h4>
                             </div>
                         </div>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-danger mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Dar de Baja
                         </button>
                 </div>
@@ -103,6 +109,6 @@ export default function ClinicaCard (){
 
         )
     }else{
-        window.location.href='/loginClinica';
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
     }
 }

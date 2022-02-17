@@ -13,7 +13,7 @@ export default function EstamosTrabajando() {
                 <div className=".no-gutters">
                     <div className="col-12">
                         <h1 id="work" className="display-5">Estamos trabajando <strong>para usted!</strong></h1>
-                        <img  className=" col-10 .col-sm-8" id="workingImage" src={photo} alt="estamos trabando" />
+                        <img  className=" col-8 .col-sm-8" id="workingImage" src={photo} alt="estamos trabando" />
                         <h2 id="build" className="display-6">Componente en <strong>construcción</strong></h2>
                         <Link to='/'>
                             <button className="btn btn-warning">
