@@ -21,7 +21,6 @@ export default function Register(){
     const clientes = useSelector((state)=> state.clientes);
     const regExName = /^[A-Za-z][a-zA-Z ]{2,40}$/;
     const  regExEmail= /^\S+@\S+$/i;
-    const regExNumber = /^[0-9]*$/gm;
     
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
@@ -37,7 +36,11 @@ export default function Register(){
   function handleSubmit(e){
     e.preventDefault()
     let registrado = false;
-    
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }));
+
       for(let i=0; i<clientes.length; i++){
         if (clientes[i].email === input.email || clientes[i].dni === input.dni){
           swal('El mail ya corresponde a un usuario registrado')
@@ -45,12 +48,13 @@ export default function Register(){
           break;
         }
       }
+      console.log(Object.values(validate(input)))
       if (!registrado){
       if(Object.values(validate(input)).length === 0){
       dispatch(registrarCliente(input))
       swal('Usuario Creado!')
       navigate('/login')
-  }else {swal('Corrija los errores antes de registrarse')}}}
+    }else {swal('Corrija los errores antes de registrarse')}}}
 
 
     
@@ -78,7 +82,7 @@ if (!input.apellido || input.apellido === "" ||  !regExName.test(input.apellido)
   errors.apellido = 'Campo Requerido: apellido solo letras y espacios. Entre 3 y 40 caracteres';
 }
 
-if (!input.dni || input.dni === "" || !regExNumber.test(input.dni) ||  input.dni.length < 7 ||  input.dni.length > 9){
+if (!input.dni || input.dni === "" || typeof(input.dni) === "number" ||  input.dni.length < 7 ||  input.dni.length > 9){
   errors.dni = 'Campo Requerido: DNI mayor a 7 digito, menor a 8 digitos';
 }
 
