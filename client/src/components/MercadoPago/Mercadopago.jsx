@@ -8,7 +8,7 @@ function MercadoPago() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/mercadopago")
+      .get("/mercadopago")
       .then((data) => {
         setDatos(data.data)
         console.info('Contenido de data:', data)

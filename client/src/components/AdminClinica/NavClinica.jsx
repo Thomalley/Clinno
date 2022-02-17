@@ -40,6 +40,7 @@ export default function LoginClinica(){
         cookies.remove('doctor_especialidades');
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
         window.location.href='/adminClinica';
+        setTimeout(()=> window.location.href='/', 3000) ;
     }
 return (
     <main>        
@@ -80,7 +81,9 @@ return (
                         <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica" aria-current="page">Administración de Clinica </Link>
                     </li>
                     <li>
+
                         <Link to={`/estamosTrabajando`} className="nav-link text-white boton_nav_clinica">Editar mi clinica en Clinno</Link>
+
                     </li>
                     {/* <li>
                         <Link to='/adminClinica' className="nav-link text-white boton_nav_clinica">Ver proximos turnos</Link>

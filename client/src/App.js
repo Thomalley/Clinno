@@ -26,12 +26,15 @@ import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
+import Bot from './components/Bot/Bot'
+
 
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Bot/>  
         <Routes>
         <Route path='/TurnoMe' element={<TurnoMe/>}/>
           <Route path = '/turno/abonar' element ={<MercadoPago/>}/>

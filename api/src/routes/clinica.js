@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const {Clinica, Especialidad, Doctor} = require("../db")
 router = Router()
+const {
+  API_KEY
+} = process.env;
 
 router.post('/', async (req,res) => {
     try{
@@ -73,16 +76,13 @@ router.post('/order-mail', (req,res)=> {
        const sgMail = require('@sendgrid/mail')
   
 
-        const API_KEY = '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';
-
-  
         sgMail.setApiKey(API_KEY)
   
         const message = {
 
           to: email,
 
-          from : "brunosentinelli@gmail.com",
+          from : "clinnoturnno@gmail.com",
 
           subject: `El proceso de baja ha comenzado`,
           html: `
