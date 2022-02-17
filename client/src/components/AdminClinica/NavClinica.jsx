@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 
 import './NavClinicaStyle.css';
 
-
 export default function LoginClinica(){
     const cookies = new Cookies();
     const dispatch = useDispatch();
@@ -42,6 +41,39 @@ export default function LoginClinica(){
         window.location.href='/adminClinica';
         setTimeout(()=> window.location.href='/', 3000) ;
     }
+    
+    // function new_turno() {
+    //     swal({
+    //         title: "Crear turno para cliente",
+    //         text: `Eliga una opcion : `,
+    //         icon: "warning",
+    //         buttons: {
+    //             cancel: "Cliente no registrado",
+    //             catch: "Cliente registrado",
+    //         }
+    //     })
+    //         .then((value) => {
+    //             switch (value) {
+    //                 case "catch":
+    //                     swal({
+    //                         title: "Aguarde un instante",
+    //                         text: "Sera redirigido para crear el turno",
+    //                         icon: "https://samehnashaat.com/assets/images/loader.svg",
+    //                     })
+    //                     setTimeout(() => window.location.href = '/adminClinica/cliente', 2000)
+    //                     break
+    //                 default:
+    //                     swal({
+    //                         title: "Aguarde un instante",
+    //                         text: "Sera redirigido a la pagina de registro",
+    //                         icon: "https://samehnashaat.com/assets/images/loader.svg",
+    //                     })
+    //                     setTimeout(() => window.location.href = '/adminClinica/cliente/registrar', 2000)
+    //                     break
+    //             }
+    //         });
+    // }
+    
 return (
     <main>        
         <div className="d-flex flex-column align-items-center flex-shrink-0 p-3 text-white bg-dark nav_clinica" >

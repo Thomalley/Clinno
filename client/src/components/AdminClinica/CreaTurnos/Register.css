@@ -4,7 +4,7 @@
     border-radius: 15px;
     margin: 100px auto;
     padding: 0px 20px;
-    width: 500px;
+    width: 420px;
     height: 600px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
@@ -25,11 +25,6 @@
     padding: 0px;
   }
 
-  .imglogoR{
-    height: 70px;
-    margin: 0px;
-    padding-left: 3pc;
-  }
 
   .imglogoform{
     width: 146px;
@@ -39,4 +34,13 @@
 
   .reCap{
     display: inline-block;
+  }
+
+  #valida_register_dni{
+    margin-bottom: 7px;
+    display: block;
+  }
+
+  #detalle_btn_reg{
+    margin-bottom: 3px;
   }

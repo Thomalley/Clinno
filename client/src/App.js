@@ -22,6 +22,9 @@ import VerDoctores from './components/VerDoctores/VerDoctores';
 import MercadoPago from './components/MercadoPago/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
+import ValidarUsuario from './components/AdminClinica/CreaTurnos/ValidarUsuario';
+import RegistrarUsuario from './components/AdminClinica/CreaTurnos/RegistrarUsuario';
+import TurnoDesdeAdm from './components/AdminClinica/CreaTurnos/Turno/TurnoDesdeAdm'
 import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
@@ -36,7 +39,10 @@ function App() {
       <div className="App">
         <Bot/>  
         <Routes>
-        <Route path='/TurnoMe' element={<TurnoMe/>}/>
+        <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
+          <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
+          <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
+          <Route path='/TurnoMe' element={<TurnoMe/>}/>
           <Route path = '/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>

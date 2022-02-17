@@ -1,0 +1,64 @@
+.general_dni_cont{
+    height: 31pc;
+    margin-top: 5pc;
+    margin-bottom: 5pc;
+    border-radius: 1.5pc;
+    /* background-color: #c0c0c08a; */
+    padding: 55px;
+}
+
+.title_dni{
+    margin-top: 4pc;
+}
+
+.input_btn_dni{
+    margin-top: 3pc;
+}
+
+.vuelve_inicio_adm_dni{
+    margin-top: 2pc;
+}
+
+#nav_de_adm_dni{
+    box-shadow: -20px -20px 100px 0px;
+}
+
+#btn_adm_cli_tur{
+    width: 135px;
+    margin-bottom: 3px;
+}
+
+#back_dni_again{
+    width: 136px;
+    margin-bottom: 3px;
+    color: white;
+}
+
+.title_dni_cli{
+    margin-bottom: 3pc;
+    background-color: darkturquoise;
+    border-radius: 21px;
+}
+
+.listado_info_dni{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.userProf_dni{
+    width: 20px;
+}
+
+.invi_foot_dni{
+    height: 200px;
+}
+
+#primary_dni_s{
+    height: 30px;
+    font-size: 12px;
+}
+
+#message_adm_dni{
+    margin-top: 6.2pc;
+}
