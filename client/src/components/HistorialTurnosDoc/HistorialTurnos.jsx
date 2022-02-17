@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,filter_fechas} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-import Turno from './TurnoConDiagnostico';
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -16,14 +15,15 @@ import "../AdminClinica/AdminClinicaStyle.css";
 
 
 
-export default function TurnosDelDia(){
+export default function HistorialTurnosDoc(){
     
     const cookies = new Cookies();
     const dispatch = useDispatch();
 
     const [turn,setTurn] = useState([]);
 
-    const turnos = useSelector((state)=> state.turnosDoctor);
+    // const turnosFilter = useSelector((state)=> state.turnos);
+    const turnos = useSelector((state)=> state.turnos);
     const especialidades = useSelector((state)=> state.especialidades);
     const diagDoc = useSelector((state)=> state.diagnosticos);
     const cliente = useSelector((state)=> state.clientes);
@@ -58,14 +58,37 @@ export default function TurnosDelDia(){
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     const horaAhora = date.getHours() ;
 
+    const [input,setInput] = useState({fecha:''});
+
+    function handleChange(e){
+        const {name,value} = e.target;
+        const {errors,...sinErrors} = input;
+        setInput({
+            ...input,
+            [name] : value,
+        });
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        dispatch(input)        
+    }
+
     if(loggeado){
 
     return (
         <>
             <div className="contenedor_adminClinica">
                 <NavClinica/>
-                <h3 className="">Turnos de {cookies.get('doctor_nombre')} del dia {finalDate}</h3>
-
+                <h3 className="">Historial de turnos de {cookies.get('doctor_nombre')} </h3>
+                <form onSubmit={(e)=> handleSubmit(e)}> 
+                    <input type='text' 
+                    placeholder="Fecha Turno dd-mm-aaaa"
+                    value={input.fecha}
+                    name='fecha'
+                    onChange={(e)=>handleChange(e)}/>
+                    <button className="btn btn-warning">Enviar Fecha</button>
+                </form>
                 <div className="grid_turno_table text-white" >
                     <span>
                         <strong>Cliente</strong>
@@ -85,15 +108,15 @@ export default function TurnosDelDia(){
                 </div>
                 {turn &&turn?.sort(function(a, b) {
                         if (a.fecha < b.fecha) {
-                            return -1;
+                            return 1;
                         }
                         if (a.fecha > b.fecha) {
-                            return 1;
+                            return -1;
                         }
                         return (a.hora < b.hora)?  -1:1;
 
                     }).map(t=>{
-                        if(finalDate===t.fecha){
+                        if(finalDate>t.fecha){
                             return ( 
                             // <Turno 
                             //     Cliente={(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}
@@ -103,11 +126,9 @@ export default function TurnosDelDia(){
                                 <span>{t.fecha }</span>   
                                 <span>{t.hora }</span>
                                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{t.hora < horaAhora?
-                                    (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
+                                <span>{(diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
                                   <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`}>Ver</Link>:
-                                  <Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`}>Agregar</Link>:
-                                  "No existe"  }</span>
+                                  <Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`}>Agregar</Link>}</span>
                             </div>
                         )
                     }

@@ -22,16 +22,17 @@ export default function VerDiagnosticoDoctor(){
     let { idTurno } = useParams();
 
     const turno = useSelector((state)=> state.turnoById);
-    const diagDoc = useSelector((state)=> state.diagnosticos);
+    // const diagDoc = useSelector((state)=> state.diagnosticos);
+    const diagDoctor = useSelector((state)=> state.diagDoctor);
 
     useEffect(() => {
         dispatch(getTurnoId(idTurno));
-        dispatch(getDiagnostico());
+        // dispatch(getDiagnostico());
+        dispatch( getDiagnosticoByTurno(idTurno))
     }, []);
 
     
 
-    console.log(diagDoc);
     const [diagnostico,setDiag] = useState([]);
     
     const cookies = new Cookies();
@@ -44,7 +45,7 @@ export default function VerDiagnosticoDoctor(){
 
 
     
-    console.log(turno);
+    // console.log(diagDoctor);
     if(loggeado){
 
     return (
@@ -57,8 +58,14 @@ export default function VerDiagnosticoDoctor(){
                     <p>Fecha: {turno?.fecha}</p>
                     <p>Hora: {turno?.hora}</p>
                 </div>
-
-
+                <h3>Diagnostico</h3>
+                <div>
+                    <p>{diagDoctor[0]?.sintomas}</p>
+                    <p>{diagDoctor[0]?.diagnostico}</p>
+                    <p>{diagDoctor[0]?.indicaciones}</p>
+                    <p>{diagDoctor[0]?.estudio}</p>
+                    <button className="btn btn-warning text-white">Editar</button>
+                </div>
             </div>
             <Footer />
         </>

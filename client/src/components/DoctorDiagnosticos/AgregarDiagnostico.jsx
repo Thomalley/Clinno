@@ -83,7 +83,7 @@ export default function TurnosDelDia(){
         errors:{},
         sintomas: "",
         diagnostico: "",
-        receta: "",
+        estudio: "",
         indicaciones:"",
         idTurno: idTurno,
     });
@@ -132,19 +132,19 @@ return(
             {/* {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>} */}
             <input 
                 type='text'
-                placeholder="Receta"
-                value={input.receta}
-                name='receta'
-                onChange={(e)=>handleChange(e)}
-            />
-            <input 
-                type='text'
-                placeholder="indicaciones"
+                placeholder="Indicaciones"
                 value={input.indicaciones}
                 name='indicaciones'
                 onChange={(e)=>handleChange(e)}
             />
-            {/* {input.errors.email? <p className='errors_add'>{input.errors.email}</p>:<p className='errors_add'> </p>} */}
+            <input 
+                type='text'
+                placeholder="Estudio"
+                value={input.estudio}
+                name='estudio'
+                onChange={(e)=>handleChange(e)}
+            />
+            {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
             <div className="row">
                 <div className="col-12 ">
                     <button type="submit" className="btn btn-primary " >Agregar Diagnostico</button>

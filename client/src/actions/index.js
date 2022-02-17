@@ -557,7 +557,6 @@ export function darBajaEmail(payload){
     return async function (dispatch){
         try{
             const json = await axios.post(`/clinica/order-mail`,payload);
-            console.log(json.data)
             return dispatch({type: 'RESET_PASSWORD', payload: json.data})
         }
         catch (err){
@@ -601,5 +600,13 @@ export function addDiagnostico(payload){
         catch(err){
             console.log(err)
         }
+    }
+}
+
+// turnos por fecha
+
+export function filter_fechas(payload){
+    return async function (dispatch){
+        return dispatch ({type: 'FILTER_FECHAS', payload:payload.fecha})
     }
 }

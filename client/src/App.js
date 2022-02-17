@@ -30,6 +30,7 @@ import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
 import Bot from './components/Bot/Bot'
+import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 
 
 
@@ -69,6 +70,7 @@ function App() {
           <Route path='/SoyDoctor/turnosDelDia' element={<TurnosDelDia/>}/>
           <Route path='/SoyDoctor/agregarDiagnostico/:idTurno' element={<AgregarDiagnostico/>}/>
           <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
+          <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
         </Routes>
       </div>
     </BrowserRouter>
