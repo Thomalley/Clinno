@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import {get_clinica,turno_clinica} from '../../actions';
+import {get_clinica,turno_clinica,codigoClinicaEmail} from '../../actions';
 import icono from '../../components/utils/icono-clinica.png'
 import { cerrarSesion } from "./CerrarSesion";
 
@@ -42,6 +42,11 @@ export default function AdminClinica({setCheck}){
         const {value} = target;
         setInput({...input,codigo:value})
     }
+    function mandarMail(){
+        dispatch( codigoClinicaEmail(clinica[0]));
+        swal("Correo enviado correctamente!", "Revise En su correo", "success");
+        setTimeout(()=> cerrarSesion(),2000)
+    }
 
     return(
         <div className="background_doc">
@@ -59,10 +64,7 @@ export default function AdminClinica({setCheck}){
                                 </div>
                             </form>
                             <div>
-                                <button >No Te Acordas tu Codigo?</button>
-                                <div>
-                                    <o>Falta codigo aqui, enviar mail</o>
-                                </div>
+                                <button onClick={mandarMail} className="btn btn-danger">No Te Acordas tu Codigo?</button>
                             </div>
                                 <div className="d-flex gap-2">
                                     <Link  to={'/SoyDoctor'}>
