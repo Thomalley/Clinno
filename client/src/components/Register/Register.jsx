@@ -48,9 +48,9 @@ export default function Register(){
       if (!registrado){
       if(Object.values(validate(input)).length === 0){
       dispatch(registrarCliente(input))
-      swal('Usuario Creado!')
-      navigate('/login')
-  }else {swal('Corrija los errores antes de registrarse')}}}
+      swal('Usuario Creado con exito', "En instantes seras redirigido para iniciar sesion")
+      setTimeout(()=> window.location.href='/login', 2000) 
+  }else {swal('Error', "Corrija los errores antes de registrarse", "warning")}}}
 
 
     

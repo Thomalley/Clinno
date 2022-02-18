@@ -264,7 +264,7 @@ export default function Turno() {
                             <div className="col-12">
                                 <div className="titleTurn">
                                     <h2 className="display-4" id="title_turn_id">Sacar turno Online</h2>
-                                    <h6 className="display-4" id="aboveTitle_turn_id">Facil, rapido y en el momento</h6>
+                                    <small className="display-4" id="aboveTitle_turn_id">Facil, rapido y en el momento</small>
                                 </div>
                             </div>
                         </div>

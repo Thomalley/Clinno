@@ -22,10 +22,7 @@
 }
 
 #Sel_Tur_Crea_Esp {
-    width: 461px;
-    margin: 20px;
-    position: relative;
-    left: 29px;
+    width: 300px;
     background-color: #f7f7f7;
     color: #838383;
 }
@@ -125,7 +122,7 @@
 
 .cont_tur_BG {
     background-color: #88a9bf5e;
-    height: 130px;
+    height: 160px;
     margin: 9px;
     padding: 7px;
     border-bottom-left-radius: 45px;
