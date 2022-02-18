@@ -121,6 +121,44 @@ router.post('/addEspecialidad', async (req, res) => {
     }
 })
 
+router.post('/mail-codigo', (req,res)=> {
+    try{
+      const {mail, password,codigo, nombre} = req.body;
+  
+      console.log(mail)
+  
+       const sgMail = require('@sendgrid/mail')
+  
+
+        sgMail.setApiKey(API_KEY)
+  
+        const message = {
+
+          to: email,
+
+          from : "clinnoturnos@gmail.com",
+
+          subject: `Recuperacion de Codigo Clinica ${nombre}`,
+          html: `
+          <html>
+        <head>
+            <body>
+            <h2> Hola Clinica ${nombre } queremos informarte que tu codigo de inicio de sesion es ${codigo}  </h2>
+             </body>
+        </head>
+        </html>`
+        }
+  
+        sgMail
+        .send(message)
+        .then((response) => console.log ('Email sent...'))
+        .catch((error) => console.log (error.message))
+        }
+        catch(error){
+        console.log(error)
+        }
+        });
+
 
 
 module.exports = router
