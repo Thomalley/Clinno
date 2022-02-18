@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,filter_fechas} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,filter_fechas,canTurno} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 
@@ -59,6 +59,8 @@ export default function HistorialTurnosDoc(){
     const horaAhora = date.getHours() ;
 
     const [input,setInput] = useState({fecha:''});
+    
+
 
     function handleChange(e){
         const {name,value} = e.target;
@@ -71,7 +73,18 @@ export default function HistorialTurnosDoc(){
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(input)        
+        dispatch(filter_fechas(input))
+    }
+    const [cancel,setCancel] = useState({
+        status: "cancelado",
+        idTurno:""
+    })
+    function cancelarTurno(id){
+        dispatch(canTurno({status:"cancelado",idTurno:id}))
+        dispatch(getTurnosDoctor(cookies.get('doctor_id')));
+        setTurn(turnos);
+        swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
+        setTimeout(()=> window.location.href='/soyDoctor/turnosDelDia', 2000);
     }
 
     if(loggeado){
@@ -91,7 +104,7 @@ export default function HistorialTurnosDoc(){
                 </form>
                 <div className="grid_turno_table text-white" >
                     <span>
-                        <strong>Cliente</strong>
+                        <strong>Paciente</strong>
                     </span>
                     <span>
                         <strong>Fecha</strong>
@@ -103,7 +116,7 @@ export default function HistorialTurnosDoc(){
                         <strong>Especialidad</strong>
                     </span>
                     <span>
-                        <strong>Diagnostico</strong>
+                        <strong>Diagnostico/Status</strong>
                     </span>
                 </div>
                 {turn &&turn?.sort(function(a, b) {
@@ -126,9 +139,12 @@ export default function HistorialTurnosDoc(){
                                 <span>{t.fecha }</span>   
                                 <span>{t.hora }</span>
                                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{(diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
-                                  <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`}>Ver</Link>:
-                                  <Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`}>Agregar</Link>}</span>
+                                <span>{t.status !== 'cancelado'?
+                                    (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
+                                  <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
+                                  <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info">Agregar</Link> 
+                                  <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
+                                  <p className="btn btn-outline-danger">CANCELADO</p>}</span>
                             </div>
                         )
                     }

@@ -7,7 +7,6 @@ import swal from 'sweetalert';
 import { getDiagnosticoByTurno,getDiagnostico,getTurnoId} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-import Turno from './TurnoConDiagnostico';
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -64,7 +63,6 @@ export default function VerDiagnosticoDoctor(){
                     <p>{diagDoctor[0]?.diagnostico}</p>
                     <p>{diagDoctor[0]?.indicaciones}</p>
                     <p>{diagDoctor[0]?.estudio}</p>
-                    <button className="btn btn-warning text-white">Editar</button>
                 </div>
             </div>
             <Footer />

@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,canTurno} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-import Turno from './TurnoConDiagnostico';
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -54,6 +53,14 @@ export default function TurnosDelDia(){
         }
     },[turnos])
     
+    function cancelarTurno(id){
+        dispatch(canTurno({status:"cancelado",idTurno:id}))
+        dispatch(getTurnosDoctor(cookies.get('doctor_id')));
+        setTurn(turnos);
+        swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
+        setTimeout(()=> window.location.href='/soyDoctor/turnosDelDia', 2000);
+    }
+    
     const date = new Date();
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     const horaAhora = date.getHours() ;
@@ -68,7 +75,7 @@ export default function TurnosDelDia(){
 
                 <div className="grid_turno_table text-white" >
                     <span>
-                        <strong>Cliente</strong>
+                        <strong>Paciente</strong>
                     </span>
                     <span>
                         <strong>Fecha</strong>
@@ -80,7 +87,7 @@ export default function TurnosDelDia(){
                         <strong>Especialidad</strong>
                     </span>
                     <span>
-                        <strong>Diagnostico</strong>
+                        <strong>Diagnostico/Status</strong>
                     </span>
                 </div>
                 {turn &&turn?.sort(function(a, b) {
@@ -103,16 +110,18 @@ export default function TurnosDelDia(){
                                 <span>{t.fecha }</span>   
                                 <span>{t.hora }</span>
                                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{t.hora < horaAhora?
+                                <span>{t.status !== 'cancelado'?
+                                    t.hora < horaAhora?
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
-                                  <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`}>Ver</Link>:
-                                  <Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`}>Agregar</Link>:
-                                  "No existe"  }</span>
+                                    <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
+                                  <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info" >Agregar</Link> |
+                                   <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
+                                  <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button>:
+                                  <p className="btn btn-outline-danger">CANCELADO</p> }</span>
                             </div>
                         )
                     }
-                })} 
-
+                })}
             </div>
             <Footer />
         </>

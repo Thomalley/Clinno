@@ -52,7 +52,8 @@ const rootReducer = (state = initialState, action) => {
         
         case "FILTER_FECHAS":
             console.log(action.payload);
-            const turnosTotal = state.turnosDoctor.fecha
+            const turnosTotal = state.turnosDoctor;
+            console.log(turnosTotal);
             const filtrado = action.payload === "todos" ? state.turnosDoctor : turnosTotal.filter(i => i.fecha === action.payload)
             return {
                     ...state,

@@ -4,43 +4,14 @@ import swal from 'sweetalert';
 import { useDispatch,  } from 'react-redux';
 import logo from '../../components/utils/images-landing/logo.png'
 import Cookies from 'universal-cookie';
+import { cerrarSesion } from "./CerrarSesion";
 
 import './NavClinicaStyle.css';
 
 export default function LoginClinica(){
     const cookies = new Cookies();
     const dispatch = useDispatch();
-
-    const cerrarSesion=()=>{
-
-        cookies.remove('clinica_mail');
-        cookies.remove('clinica_nombre');
-        cookies.remove('clinica_telefono');
-        cookies.remove('clinica_direccion');
-        cookies.remove('clinica_id');
-        cookies.remove('clinica_nombreEn', );
-        cookies.remove('clinica_apellidoEn');
-        cookies.remove('clinica_DNIEn');
-        cookies.remove('clinica_codigo');
-        cookies.remove('clinica_createdAt');
-        cookies.remove('doctor_nombre');
-        cookies.remove('doctor_id');
-        cookies.remove('doctor_codigo');
-        cookies.remove('doctor_especialidades');
-
-        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-        setTimeout(()=> window.location.href='/', 700) ;
-    }
-
-    const cerrarSD=()=>{
-        cookies.remove('doctor_nombre');
-        cookies.remove('doctor_id');
-        cookies.remove('doctor_codigo');
-        cookies.remove('doctor_especialidades');
-        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-        window.location.href='/adminClinica';
-        setTimeout(()=> window.location.href='/', 3000) ;
-    }
+       
     
     // function new_turno() {
     //     swal({
@@ -102,10 +73,7 @@ return (
                     </li>
                     {/* <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
-                    </li> */}
-                    <li className="nav-item">
-                        <button className="nav-link text-white boton_nav_clinica" aria-current="page" onClick={cerrarSD}>Cerrar sesion como Doctor</button>
-                    </li>
+                    </li> */}                    
                 </ul>
             :
                 <ul className="nav nav-pills flex-column mb-auto ">

@@ -21,5 +21,5 @@ export const cerrarSesion=()=>{
     cookies.remove('doctor_especialidades');
 
     swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
-    setTimeout(()=> window.location.href='/', 700) ;
+    setTimeout(()=> window.location.href='/', 2000) ;
 }
