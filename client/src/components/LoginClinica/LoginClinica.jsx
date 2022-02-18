@@ -117,7 +117,7 @@ export default function LoginClinica(){
 
     return(
         <div className="container container_loggin_clinica ">
-            <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}>
+            <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}  autocomplete="off">
                 <div className="row">
                     <div className="col-12">
                         <Link to='/'>

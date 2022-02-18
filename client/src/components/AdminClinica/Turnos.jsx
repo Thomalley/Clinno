@@ -69,7 +69,7 @@ export default function TurnosClinica({idClinica}){
             <strong>Hora</strong>
         </span>
         <span>
-            <strong>doctor</strong>
+            <strong>Doctor</strong>
         </span>
         <span>
             <strong>Especialidad</strong>
@@ -88,7 +88,7 @@ export default function TurnosClinica({idClinica}){
                 if(finalDate<t.fecha){
 
                 return <div className="grid_turno_table">
-                    <span>{(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}</span>
+                    <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
                     <span>{t.fecha }</span>   
                     <span>{t.hora }</span>
                     <span>{(doctores?.find(el => el.id === t.idDoctor,10))?.nombre}</span>

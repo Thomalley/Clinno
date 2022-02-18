@@ -30,11 +30,12 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req,res) =>{
     try{
-         const{ sintomas, diagnostico, receta, idTurno} = req.body
+         const{ sintomas, diagnostico, indicaciones, estudio, idTurno} = req.body
           const diag = await Diagnostico.create({
               sintomas,
               diagnostico,
-              receta,
+              indicaciones,
+              estudio,
               idTurno
           })  
         //    diag.addTurno(idTurno)

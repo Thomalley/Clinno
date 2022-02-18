@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Cookies from 'universal-cookie'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
 import logo from "../utils/images-landing/logo.png"
+import { cerrarSesion } from "../AdminClinica/CerrarSesion";
 
 import './NavBarStyle.css';
 
@@ -23,7 +24,7 @@ export default function NavBar({loggin}){
         
     const [loggeado,setLoggeado] = useState(loggin);
     
-    const cerrarSesion=()=>{
+    const cerrarSesions=()=>{
         if(isAuthenticated){
             logout();
         }else{
@@ -69,18 +70,17 @@ export default function NavBar({loggin}){
                              :<>
                             </>}
                             
-                            {   loggin?
+                            {   
+                                !cookies.get('clinica_id')?
+                                loggin?
                                 <> 
                                     <li className="nav-item item_season">                    
                                         <button 
                                             className="nav-link active item_navBar btn btn-outline border-start font_sesion" 
                                             type="button" 
-                                            onClick={cerrarSesion}
+                                            onClick={cerrarSesions}
                                         >Cerrar sesion</button>
                                     </li>
-                                    {/* <li className="nav-item"> 
-                                        <Link className="nav-link active item_navBar " to='/me'>Mi Perfil</Link>
-                                    </li> */}
                                     <li className="nav-item">
                                         <Link to='/me' 
                                             className="nav-link active  item_navBar" 
@@ -95,7 +95,10 @@ export default function NavBar({loggin}){
                                     </li>
                                     
                                 </>
-                                : <>
+                                : <>                                    
+                                    <li className="nav-item item_navBar">
+                                        <Link className="nav-link active item_navBar" to='/adminClinica'>Soy Clinica</Link>
+                                    </li>
                                     <li className="nav-item item_navBar">
                                         <Link className="nav-link active item_navBar" to='/register'>Regístrate</Link>
                                     </li>
@@ -103,8 +106,23 @@ export default function NavBar({loggin}){
                                         <Link className="nav-link active item_navBar" to='/login'>Iniciar sesión</Link>
                                     </li>
                                 </>
+                            :
+                               <>
+                                    <li className="nav-item item_navBar">
+                                        <Link className="nav-link active item_navBar" to='/adminClinica'>Ir a Clinica</Link>
+                                    </li>
+                                    <li className="nav-item item_navBar">
+                                        <Link className="nav-link active item_navBar" to='/soyDoctor'>Ir a Soy Doctor</Link>
+                                    </li>
+                                    <li className="nav-item item_season">                    
+                                        <button 
+                                            className="nav-link active item_navBar btn btn-outline border-start font_sesion" 
+                                            type="button" 
+                                            onClick={cerrarSesion}
+                                        >Cerrar sesion</button>
+                                    </li>
+                               </>     
                             }
-                            
                         </ul>
                     </div>
                 </div>

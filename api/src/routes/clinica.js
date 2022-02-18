@@ -69,9 +69,10 @@ router.get('/', async (req, res) => {
 })
 router.post('/order-mail', (req,res)=> {
     try{
-      const {mail, password, nombre} = req.body;
+      const {mail, nombre} = req.body;
   
       console.log(mail)
+      console.log(API_KEY)
   
        const sgMail = require('@sendgrid/mail')
   
@@ -80,9 +81,9 @@ router.post('/order-mail', (req,res)=> {
   
         const message = {
 
-          to: email,
+          to: mail,
 
-          from : "clinnoturnno@gmail.com",
+          from : "clinnoturnos@gmail.com",
 
           subject: `El proceso de baja ha comenzado`,
           html: `

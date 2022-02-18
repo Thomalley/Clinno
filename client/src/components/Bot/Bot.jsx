@@ -2,9 +2,9 @@ import React from 'react'
 import Chatbot from "react-chatbot-kit";
 import 'react-chatbot-kit/build/main.css'
 import { useState } from 'react';
-import config from "../../chatbot/config";
-import ActionProvider from "../../chatbot/ActionProvider";
-import MessageParser from "../../chatbot/MessageParser";
+import config from "./chatbot/config";
+import ActionProvider from "./chatbot/ActionProvider";
+import MessageParser from "./chatbot/MessageParser";
 function Bot() {
     const [showBot, toggleBot] = useState(false);
 
