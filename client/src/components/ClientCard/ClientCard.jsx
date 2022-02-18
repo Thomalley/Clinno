@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ResetPassword } from '../../actions/index';
 import "../ClientCard/ClientCardModule.css"
 import Footer from "../Home/Footer"
 import NavBar from '../NavLanding/NavLanding'
@@ -9,7 +8,6 @@ import Cookies from 'universal-cookie'
 import { getClients } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
 import PasswordReset from "./PasswordReset"
-import TurnoMe from './TurnoMe'
 
 
 export default function ClientCard(){
@@ -43,7 +41,7 @@ export default function ClientCard(){
       return (
         <div>
         <NavBar/>
-        <Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link>
+
         <ul class="nav justify-content-center">
 
         
@@ -51,12 +49,14 @@ export default function ClientCard(){
             Modificar contraseña
           </li>
         
-          <li><Link className="nav-link" to='/TurnoMe'>Mis Turnos</Link></li>
+          <li><Link className="nav-link" to='/TurnoMe'>Turnos y Diagnosticos</Link></li>
             
           <li><Link className="nav-link" to='/EstamosTrabajando'>Pagos</Link></li>
           
-          <li><Link className="nav-link" to='/EstamosTrabajando'>Reseñas</Link></li>
+          <li><Link className="nav-link" to='/reviewMe'>Reseñas</Link></li>
 
+          <li><Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link></li>
+          
           </ul>
 
         <div class="collapse multi-collapse" id="multiCollapseExample1">
