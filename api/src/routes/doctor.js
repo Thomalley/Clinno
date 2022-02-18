@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { Doctor, Especialidad, Clinica } = require("../db")
 router = Router()
 
-router.get("/:idEspecialidad/:idClinica", async (req, res, next) => {
+router.get("/:idEspecialidad/:idClinica", async(req, res, next) => {
     try {
         console.log(req.params)
         const { idEspecialidad, idClinica } = req.params
@@ -26,7 +26,7 @@ router.get("/:idEspecialidad/:idClinica", async (req, res, next) => {
 })
 
 
-router.post("/", async (req, res, next) => {
+router.post("/", async(req, res, next) => {
     try {
         // let newArray = [
         //     "Miguel Becerra",
@@ -70,7 +70,10 @@ router.post("/", async (req, res, next) => {
             }
         }
         const newDoctor = await Doctor.create({
-            nombre, codigo, email, dni
+            nombre,
+            codigo,
+            email,
+            dni
         })
         await newDoctor.addEspecialidad(especialidad)
         await newDoctor.addClinica(clinica)
@@ -80,10 +83,10 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.get("/", async (req, res, next) => {
+router.get("/", async(req, res, next) => {
     try {
         const docDb = await Doctor.findAll({
-            include: Especialidad,
+            include: [{ model: Especialidad, }, { model: Clinica, }]
         })
         res.send(docDb)
     } catch (err) {
@@ -91,10 +94,10 @@ router.get("/", async (req, res, next) => {
     }
 })
 
-router.get("/clinica", async (req, res, next) => {
+router.get("/clinica", async(req, res, next) => {
     try {
         const docDb = await Doctor.findAll({
-            include: [{ model: Especialidad,}, {model: Clinica,}]
+            include: [{ model: Especialidad, }, { model: Clinica, }]
         })
         res.send(docDb)
     } catch (err) {
@@ -102,16 +105,15 @@ router.get("/clinica", async (req, res, next) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
-    try{
-        const {id} = req.params
+router.get('/:id', async(req, res) => {
+    try {
+        const { id } = req.params
         const docDb = await Doctor.findByPk(id)
         res.send(docDb)
-    }
-    catch(err){
+    } catch (err) {
         console.log(err)
     }
-  })
+})
 
 
 

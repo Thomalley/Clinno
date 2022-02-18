@@ -15,11 +15,13 @@ const initialState = {
     horarioDisponibleParaTurno: [],
     turnosDni: [],
     doctorId: [],
-    turnosClinica:[],
-    turnosDoctor:[],
+    turnosClinica: [],
+    turnosDoctor: [],
     diagDoctor: [],
     diagnosticos: [],
-    turnoById: []
+    turnoById: [],
+    allDoctoresInDB: [],
+    resenia: []
 };
 
 
@@ -33,13 +35,13 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "GET_DOCTOR_ID":
-            return{
+            return {
                 ...state,
                 doctorId: action.payload
             }
-        
+
         case "GET_TURNOS_DNI":
-            return{
+            return {
                 ...state,
                 turnosDni: action.payload
             }
@@ -73,11 +75,11 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "GET_DIAG":
-            return{
+            return {
                 ...state,
                 diagnosticos: action.payload
             }
-        
+
         case "GET_TURNOS":
             return {
                 ...state,
@@ -85,10 +87,10 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "DIAG_BY_TURNO":
-            return{
-                    ...state,
-                    diagDoctor: action.payload
-                }
+            return {
+                ...state,
+                diagDoctor: action.payload
+            }
         case "GET_CLINICAS":
             return {
                 ...state,
@@ -172,7 +174,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 doctor: action.payload,
             }
-
+        case 'GET_RESENIA':
+            return {
+                ...state,
+                resenia: action.payload
+            }
         case 'GET_ALL_DOCTOR_CLINICA':
             return {
                 ...state,
@@ -196,7 +202,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
-
+        case "ALL_DOCTORES_IN_DB":
+            return {
+                ...state,
+                allDoctoresInDB: action.payload
+            }
         default:
             return state;
     }

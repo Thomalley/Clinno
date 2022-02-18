@@ -33,6 +33,11 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        status: {
+            type: DataTypes.ENUM('pendiente', 'concretado', 'cancelado'),
+            allowNull: false,
+            defaultValue: "pendiente"
+        },
         // MP 👇
         name: {
             type: DataTypes.STRING,
@@ -59,11 +64,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: 0
         },
-        status: {
-            type: DataTypes.ENUM('pendiente', 'concretado', 'cancelado'),
-            allowNull: false,
-            defaultValue: 'pendiente'
-        },
+
     });
 
 };

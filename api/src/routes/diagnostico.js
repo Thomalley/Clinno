@@ -2,28 +2,26 @@ const { Router } = require("express");
 router = Router()
 const { Diagnostico, Turno } = require("../db")
 
-router.get('/turno/:idTurno', async(req,res) =>{
-    const {idTurno} = req.params
-    try{
+router.get('/turno/:idTurno', async(req, res) => {
+    const { idTurno } = req.params
+    try {
         const diagnDb = await Diagnostico.findAll({
             where: {
-                idTurno : idTurno
+                idTurno: idTurno
             }
         })
         res.send(diagnDb)
-    }
-    catch(err){
+    } catch (err) {
         console.log(err)
     }
-}
-)
-router.get('/', async (req, res) => {
-    const {id} = req.params
-    try{
+})
+
+router.get('/', async(req, res) => {
+    const { id } = req.params
+    try {
         const diagDetail = await Diagnostico.findAll({})
         res.send(diagDetail)
-    }
-    catch (err){
+    } catch (err) {
         console.log(err)
     }
 })
