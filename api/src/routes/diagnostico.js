@@ -26,19 +26,20 @@ router.get('/', async(req, res) => {
     }
 })
 
-router.post('/', async(req, res) => {
-    try {
-        const { sintomas, diagnostico, estudio, indicaciones, idTurno } = req.body
-        const diag = await Diagnostico.create({
-                sintomas,
-                diagnostico,
-                estudio,
-                indicaciones,
-                idTurno
-            })
-            //    diag.addTurno(idTurno)
-        res.send(diag)
-    } catch (err) {
+router.post('/', async (req,res) =>{
+    try{
+         const{ sintomas, diagnostico, indicaciones, estudio, idTurno} = req.body
+          const diag = await Diagnostico.create({
+              sintomas,
+              diagnostico,
+              indicaciones,
+              estudio,
+              idTurno
+          })  
+        //    diag.addTurno(idTurno)
+          res.send(diag)
+        }
+    catch(err){
         console.log(err)
     }
 })

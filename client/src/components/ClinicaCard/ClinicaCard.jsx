@@ -20,7 +20,7 @@ export default function ClinicaCard (){
 
     useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id'))); },[])
     const clinica = useSelector((state)=> state.clinica[0]);
-    console.log(clinica);
+
     //control se de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
@@ -47,8 +47,7 @@ export default function ClinicaCard (){
         setTimeout(()=> window.location.href='/', 700) ;
     }
     function meVoy(){
-        console.log(clinica);
-            dispatch(darBajaEmail(clinica));
+        dispatch(darBajaEmail(clinica));
         cerrarSesion();
     }
 

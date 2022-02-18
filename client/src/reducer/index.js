@@ -1,3 +1,4 @@
+// import {bydate} from '../helpers/helpers'
 const initialState = {
     clientes: [],
     cliente: [],
@@ -22,7 +23,6 @@ const initialState = {
     allDoctoresInDB: [],
     resenia: []
 };
-
 
 
 
@@ -51,6 +51,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnoById: action.payload
             }
+        
+        case "FILTER_FECHAS":
+            console.log(action.payload);
+            const turnosTotal = state.turnosDoctor;
+            console.log(turnosTotal);
+            const filtrado = action.payload === "todos" ? state.turnosDoctor : turnosTotal.filter(i => i.fecha === action.payload)
+            return {
+                    ...state,
+                    turnos: filtrado
+                }  
 
         case "GET_CLIENTES":
             return {
@@ -183,7 +193,8 @@ const rootReducer = (state = initialState, action) => {
         case "GET_TURNO_DOCTOR":
             return {
                 ...state,
-                turnosDoctor: action.payload
+                turnosDoctor: action.payload,
+                turnos: action.payload,
             }
 
         case "GET_TURNO_CLINICA":

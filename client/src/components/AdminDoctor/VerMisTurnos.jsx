@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,filter_fechas} from '../../actions'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -27,7 +27,6 @@ export default function VerMisTurnos(){
         dispatch(getClinicas())
         dispatch(getClients())
         dispatch(getEspecialidad())
-        console.log('funca');
         setTurn(turnos);
     },[])
     useEffect(()=>{
@@ -38,7 +37,6 @@ export default function VerMisTurnos(){
             dispatch(getClinicas())
             dispatch(getClients())
             dispatch(getEspecialidad())
-            console.log('funca');
             setTurn(turnos);
         }
     },[turnos])
@@ -80,7 +78,7 @@ export default function VerMisTurnos(){
                 if(finalDate<t.fecha){
 
                     return <div className="grid_turno_table">
-                <span>{(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}</span>
+                <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.nombre}</span>
                 <span>{t.fecha }</span>   
                 <span>{t.hora }</span>
                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
