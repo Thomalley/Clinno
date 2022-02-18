@@ -120,5 +120,18 @@ router.get('/:id', async(req, res) => {
     }
 })
 
-
+router.put('/update/:id', async (req, res) => {
+    try{
+        const { id } = req.params
+        const {status} =req.body
+        console.log(status)
+        const turno = await Turno.findByPk(id)
+        await turno.update({status: status })
+        await turno.save()
+        res.send(turno)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 module.exports = router
