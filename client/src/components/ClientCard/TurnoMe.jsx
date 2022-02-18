@@ -52,29 +52,20 @@ useEffect(() => {
     }
   }
 
+
+  console.log("turnos " + turnos)
+
+  console.log("doctores" + doctores)
+
+  console.log("resenia" + resenia)
+
+  console.log("diagnostico" + diagnostico)
   return (
     <div>
       <NavLanding />
       <Link class="btn btn-primary" to="/me">
         Volver a mi perfil
       </Link>
-
-//       <div className="titulosTurno">
-//         <h2>Mis Turnos</h2>
-//       </div>
-
-//       <div class="row containerTurno">
-//         <div class="col">
-//           {turnosPasados.length !== 0 ? (
-//             turnosPasados?.map((turno) => (
-//               <div class="col">
-//                 <div className="detailCard container6">
-//                   <div class="card">
-//                     <label>Fecha</label>
-//                     <label>{turno.fecha}</label>
-//                   </div>
-
-
       <h2 class="h2-turnos col-10 m-auto">Mis Turnos</h2>
       <div className="titulosTurno">
         <h3>Historial de Turnos</h3>
@@ -110,204 +101,33 @@ useEffect(() => {
                     <label>Fecha</label>
                     <label>{turno.fecha}</label>
                   </div>
-
                   <div class="card">
                     <label>Hora</label>
                     <label>{turno.hora}</label>
                   </div>
-
-//                   <div class="card">
-//                     <label>Clinica</label>
-//                     <label>
-//                       {doctores && doctores[0]?.clinicas[0]?.nombre}
-//                     </label>
-//                   </div>
-
-//                   <div class="card">
-//                     <label>Doctor</label>
-//                     <label>
-//                       {doctores &&
-//                         doctores.find((d) => d.id === turno.idDoctor)?.nombre}
-//                     </label>
-//                   </div>
-
-//                   <div class="card">
-//                     <label>Especialidad</label>
-//                     <label>
-//                       {doctores && doctores[0]?.especialidads[0]?.nombre}
-//                     </label>
-//                   </div>
-
-//                   {
-//                     turno.status === "concretado" &&
-//                     resenia?.find((r) => r.idTurno === turno.id)?.reviewed ===
-//                       false ? (
-//                       <div>
-//                         <div className="botonRes">
-//                           <button
-//                             id="botonesTurno"
-//                             class="btn btn-primary"
-//                             data-bs-toggle="modal"
-//                             data-bs-target={"#exampleModal1" + turno.id}
-//                             value={turno.id}
-//                             onClick={handleSelect}
-//                           >
-//                             Ver Diagnostico
-//                           </button>
-//                           <button
-//                             id="botonesTurno"
-//                             class="btn btn-primary"
-//                             data-bs-toggle="modal"
-//                             data-bs-target={"#exampleModal2" + turno.id}
-//                           >
-//                             Agregar Reseña
-//                           </button>
-//                         </div>
-
-//                         <div
-//                           class="modal fade"
-//                           id={"exampleModal2" + turno.id}
-//                           tabindex="-1"
-//                           aria-labelledby="exampleModalLabel"
-//                           aria-hidden="true"
-//                         >
-//                           <div class="modal-dialog">
-//                             <div class="modal-content">
-//                               <div class="modal-header">
-//                                 <h5 class="modal-title" id="exampleModalLabel">
-//                                   Reseña del turno {turno.id}
-//                                 </h5>
-//                                 <button
-//                                   type="button"
-//                                   class="btn-close"
-//                                   data-bs-dismiss="modal"
-//                                   aria-label="Close"
-//                                 ></button>
-//                               </div>
-
-//                               <div class="modal-body">
-//                                 <form>
-//                                   <div class="mb-3">
-//                                     <label
-//                                       for="message-text"
-//                                       class="col-form-label"
-//                                     >
-//                                       Su Reseña:
-//                                     </label>
-//                                     <textarea
-//                                       class="form-control"
-//                                       id="message-text"
-//                                     ></textarea>
-//                                   </div>
-//                                 </form>
-//                               </div>
-
-//                               <div class="modal-footer">
-//                                 <button type="button" class="btn btn-primary">
-//                                   Guardar Reseña
-//                                 </button>
-//                               </div>
-//                             </div>
-//                           </div>
-//                         </div>
-
-//                         <div
-//                           class="modal fade"
-//                           id={"exampleModal1" + turno.id}
-//                           tabindex="-1"
-//                           aria-labelledby="exampleModalLabel"
-//                           aria-hidden="true"
-//                         >
-//                           <div class="modal-dialog">
-//                             <div class="modal-content">
-//                               <div class="modal-header">
-//                                 <h5 class="modal-title" id="exampleModalLabel">
-//                                   Diagnostico del turno {turno.id}
-//                                 </h5>
-//                                 <button
-//                                   type="button"
-//                                   class="btn-close"
-//                                   data-bs-dismiss="modal"
-//                                   aria-label="Close"
-//                                 ></button>
-//                               </div>
-
-//                               <div class="modal-body">
-//                                 <form>
-//                                   <div class="mb-3">
-//                                     <label
-//                                       for="message-text"
-//                                       class="col-form-label"
-//                                     >
-//                                       Sintomas:
-//                                     </label>
-//                                     <label
-//                                     class="form-control"
-//                                     id="message-text">
-//                                     {diagnostico[0]?.sintomas}
-//                                   </label>
-//                                   </div>
-
-//                                   <div class="mb-3">
-//                                     <label
-//                                       for="message-text"
-//                                       class="col-form-label"
-//                                     >
-//                                       Indicaciones:
-//                                     </label>
-//                                     <label
-//                                     class="form-control"
-//                                     id="message-text">
-//                                     {diagnostico[0]?.indicaciones}
-//                                   </label>
-//                                   </div>
-
-//                                   <div class="mb-3">
-//                                     <label
-//                                       for="message-text"
-//                                       class="col-form-label"
-//                                     >
-//                                       Estudios:
-//                                     </label>
-//                                     <label
-//                                     class="form-control"
-//                                     id="message-text">
-//                                     {diagnostico[0]?.estudio}
-//                                   </label>
-//                                   </div>
-//                                 </form>
-//                               </div>
-
                   <div class="card">
                     <label>Clinica</label>
                     <label>
-                      {
-                        clinicas?.find((el) => el.id === turno.idClinica)
-                          ?.nombre
-                      }
+                    {doctores && doctores[0]?.clinicas[0]?.nombre}
                     </label>
                   </div>
                   <div class="card">
                     <label>Doctor</label>
                     <label>
-                      {doctores?.find((el) => el.id === turno.idDoctor)?.nombre}
+                    {doctores && doctores.find((d) => d.id === turno.idDoctor)?.nombre}
                     </label>
                   </div>
                   <div class="card">
                     <label>Especialidad</label>
                     <label>
-                      {
-                        especialidades?.find(
-                          (el) => el.id === turno.idEspecialidad
-                        )?.nombre
-                      }
+                    {doctores && doctores[0]?.especialidads[0]?.nombre}
                     </label>
                   </div>
                       </div>
                     </div>
                   </div>
                   {turno.status === "concretado" &&
-                  turno.reseña.reviewed === false ? (
+                     resenia?.find((r) => r.idTurno === turno.id)?.reviewed === false ? (
                     <div class="botonRes">
                       <div className="botonRes">
                         <button
@@ -315,6 +135,8 @@ useEffect(() => {
                           class="btn btn-primary"
                           data-bs-toggle="modal"
                           data-bs-target={"#exampleModal1" + turno.id}
+                          value={turno.id}
+                          onClick={handleSelect}
                         >
                           Ver Diagnostico
                         </button>
@@ -404,7 +226,7 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.sintomas}
+                                     {diagnostico[0]?.sintomas}
                                   </textarea>
                                 </div>
                                 <div class="mb-3">
@@ -418,7 +240,7 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.indicaciones}
+                                    {diagnostico[0]?.indicaciones}
                                   </textarea>
                                 </div>
                                 <div class="mb-3">
@@ -432,323 +254,14 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.estudios}
+                                    {diagnostico[0]?.estudio}
                                   </textarea>
                                 </div>
                               </form>
-
                             </div>
                           </div>
                         </div>
                       </div>
-
-//                     ) : (
-//                       <div>
-//                         {turno.status === "concretado" &&
-//                         resenia?.find((r) => r.idTurno === turno.id)
-//                           ?.reviewed === true ? (
-//                           <div>
-//                             <div className="botonRes">
-//                               <button
-//                                 id="botonesTurno"
-//                                 class="btn btn-primary"
-//                                 data-bs-toggle="modal"
-//                                 data-bs-target={"#exampleModal1" + turno.id}
-//                                 value={turno.id}
-//                                 onClick={handleSelect}
-//                               >
-//                                 Ver Diagnostico
-//                               </button>
-//                               <button
-//                                 id="botonesTurno"
-//                                 class="btn btn-primary"
-//                                 data-bs-toggle="modal"
-//                                 data-bs-target={"#exampleModal2" + turno.id}
-//                               >
-//                                 Ver Reseña
-//                               </button>
-//                             </div>
-
-//                             <div
-//                               class="modal fade"
-//                               id={"exampleModal2" + turno.id}
-//                               tabindex="-1"
-//                               aria-labelledby="exampleModalLabel"
-//                               aria-hidden="true"
-//                             >
-//                               <div class="modal-dialog">
-//                                 <div class="modal-content">
-//                                   <div class="modal-header">
-//                                     <h5
-//                                       class="modal-title"
-//                                       id="exampleModalLabel"
-//                                     >
-//                                       Reseña del turno {turno.id}
-//                                     </h5>
-//                                     <button
-//                                       type="button"
-//                                       class="btn-close"
-//                                       data-bs-dismiss="modal"
-//                                       aria-label="Close"
-//                                     ></button>
-//                                   </div>
-
-//                                   <div class="modal-body">
-//                                     <form>
-//                                       <div class="mb-3">
-//                                         <label
-//                                           for="message-text"
-//                                           class="col-form-label"
-//                                         >
-//                                           Su Reseña:
-//                                         </label>
-//                                         <textarea
-//                                           class="form-control"
-//                                           id="message-text"
-//                                         ></textarea>
-//                                       </div>
-//                                     </form>
-//                                   </div>
-
-//                                   <div class="modal-footer">
-//                                     <button
-//                                       type="button"
-//                                       class="btn btn-primary"
-//                                     >
-//                                       Guardar Reseña
-//                                     </button>
-//                                   </div>
-//                                 </div>
-//                               </div>
-//                             </div>
-
-//                             <div
-//                               class="modal fade"
-//                               id={"exampleModal1" + turno.id}
-//                               tabindex="-1"
-//                               aria-labelledby="exampleModalLabel"
-//                               aria-hidden="true"
-//                             >
-//                               <div class="modal-dialog">
-//                                 <div class="modal-content">
-//                                   <div class="modal-header">
-//                                     <h5
-//                                       class="modal-title"
-//                                       id="exampleModalLabel"
-//                                     >
-//                                       Diagnostico del turno {turno.id}
-//                                     </h5>
-//                                     <button
-//                                       type="button"
-//                                       class="btn-close"
-//                                       data-bs-dismiss="modal"
-//                                       aria-label="Close"
-//                                     ></button>
-//                                   </div>
-
-//                                   <div class="modal-body">
-//                                     <form>
-//                                       <div class="mb-3">
-//                                         <label
-//                                           for="message-text"
-//                                           class="col-form-label"
-//                                         >
-//                                           Sintomas:
-//                                         </label>
-//                                         {/* <textarea
-//                                    class="form-control"
-//                                    id="message-text">
-//                                    {turno.diagnostico.sintomas}
-//                                  </textarea> */}
-//                                       </div>
-
-//                                       <div class="mb-3">
-//                                         <label
-//                                           for="message-text"
-//                                           class="col-form-label"
-//                                         >
-//                                           Indicaciones:
-//                                         </label>
-//                                         {/* <textarea
-//                                    class="form-control"
-//                                    id="message-text">
-//                                    {turno.diagnostico.indicaciones}
-//                                  </textarea> */}
-//                                       </div>
-
-//                                       <div class="mb-3">
-//                                         <label
-//                                           for="message-text"
-//                                           class="col-form-label"
-//                                         >
-//                                           Estudios:
-//                                         </label>
-//                                         {/* <textarea
-//                                    class="form-control"
-//                                    id="message-text">
-//                                    {turno.diagnostico.estudios}
-//                                  </textarea> */}
-//                                       </div>
-//                                     </form>
-//                                   </div>
-//                                 </div>
-//                               </div>
-//                             </div>
-//                           </div>
-//                         ) : (
-//                           <div></div>
-//                         )}
-//                       </div>
-//                     )
-
-                    //SI EL TURNO ESTA EN PENDIENTE // FALTA CON TURNO CANCELADO VER QUE HACER
-                    // <div>
-
-                    //   <div className="botonRes">
-                    //     <button
-                    //       id="botonesTurno"
-                    //       class="btn btn-primary"
-                    //       data-bs-toggle="modal"
-                    //       data-bs-target={"#exampleModal2" + turno.id}>
-                    //       Ver Diagnostico
-                    //     </button>
-                    //     <button
-                    //       id="botonesTurno"
-                    //       class="btn btn-primary"
-                    //       data-bs-toggle="modal"
-                    //       data-bs-target={"#exampleModal1" + turno.id}>
-                    //       Ver Reseña
-                    //     </button>
-                    //     <button
-                    //       id="botonesTurno"
-                    //       class="btn btn-primary"
-                    //       data-bs-toggle="modal"
-                    //       data-bs-target={"#exampleModal2" + turno.id}>
-                    //       {" "}
-                    //       Reagendar Turno
-                    //     </button>
-                    //   </div>
-
-                    //   <div
-                    //     class="modal fade"
-                    //     id={"exampleModal1" + turno.id}
-                    //     tabindex="-1"
-                    //     aria-labelledby="exampleModalLabel"
-                    //     aria-hidden="true">
-                    //     <div class="modal-dialog">
-                    //       <div class="modal-content">
-
-                    //         <div class="modal-header">
-                    //           <h5 class="modal-title" id="exampleModalLabel">
-                    //             Reseña del turno {turno.id}
-                    //           </h5>
-                    //           <button
-                    //             type="button"
-                    //             class="btn-close"
-                    //             data-bs-dismiss="modal"
-                    //             aria-label="Close">
-                    //           </button>
-                    //         </div>
-
-                    //         <div class="modal-body">
-                    //           <div class="mb-3">
-                    //             <label
-                    //               for="message-text"
-                    //               class="col-form-label">
-                    //               Su Reseña:
-                    //             </label>
-                    //             <label class="form-control" id="message-text">
-                    //               {turno.reseña.comentario}
-                    //             </label>
-                    //             <label
-                    //               for="message-text"
-                    //               class="col-form-label">
-                    //               Su Calificacion
-                    //             </label>
-                    //             <label class="form-control" id="message-text">
-                    //               {turno.reseña.calificacion}
-                    //             </label>
-                    //           </div>
-
-                    //         </div>
-                    //       </div>
-                    //     </div>
-                    //   </div>
-
-                    //   <div
-                    //     class="modal fade"
-                    //     id={"exampleModal2" + turno.id}
-                    //     tabindex="-1"
-                    //     aria-labelledby="exampleModalLabel"
-                    //     aria-hidden="true">
-                    //     <div class="modal-dialog">
-                    //       <div class="modal-content">
-
-                    //         <div class="modal-header">
-                    //           <h5 class="modal-title" id="exampleModalLabel">
-                    //             Diagnostico del turno {turno.id}
-                    //           </h5>
-                    //           <button
-                    //             type="button"
-                    //             class="btn-close"
-                    //             data-bs-dismiss="modal"
-                    //             aria-label="Close">
-                    //           </button>
-                    //         </div>
-
-                    //         <div class="modal-body">
-                    //           <form>
-
-                    //             <div class="mb-3">
-                    //               <label
-                    //                 for="message-text"
-                    //                 class="col-form-label">
-                    //                 Sintomas:
-                    //               </label>
-                    //               <textarea
-                    //                 class="form-control"
-                    //                 id="message-text">
-                    //                 {turno.diagnostico.sintomas}
-                    //               </textarea>
-                    //             </div>
-
-                    //             <div class="mb-3">
-                    //               <label
-                    //                 for="message-text"
-                    //                 class="col-form-label">
-                    //                 Indicaciones:
-                    //               </label>
-                    //               <textarea
-                    //                 class="form-control"
-                    //                 id="message-text">
-                    //                 {turno.diagnostico.indicaciones}
-                    //               </textarea>
-                    //             </div>
-
-                    //             <div class="mb-3">
-                    //               <label
-                    //                 for="message-text"
-                    //                 class="col-form-label">
-                    //                 Estudios:
-                    //               </label>
-                    //               <textarea
-                    //                 class="form-control"
-                    //                 id="message-text">
-                    //                 {turno.diagnostico.estudios}
-                    //               </textarea>
-                    //             </div>
-
-                    //           </form>
-                    //         </div>
-
-                    //       </div>
-                    //     </div>
-                    //   </div>
-                    // </div>
-                  }
-                </div>
-              </div>
-
                     </div>
                   ) : (
                     //SI EL TURNO ESTA EN PENDIENTE // FALTA CON TURNO CANCELADO VER QUE HACER
@@ -849,7 +362,7 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.sintomas}
+                                    {diagnostico[0]?.sintomas}
                                   </textarea>
                                 </div>
                                 <div class="mb-3">
@@ -863,7 +376,7 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.indicaciones}
+                                    {diagnostico[0]?.indicaciones}
                                   </textarea>
                                 </div>
                                 <div class="mb-3">
@@ -877,7 +390,7 @@ useEffect(() => {
                                     class="form-control"
                                     id="message-text"
                                   >
-                                    {turno.diagnostico.estudios}
+                                    {diagnostico[0]?.estudio}
                                   </textarea>
                                 </div>
                               </form>
@@ -895,7 +408,7 @@ useEffect(() => {
             <p className="turnoP">No hay turnos pasados</p>
           )}
         </div>
-
+        
         {turnosPendientes?.map((turno) => (
           <div class="col">
             <div id="turnopendiente" className="detailCard container6">
@@ -903,51 +416,26 @@ useEffect(() => {
                 <label>Fecha</label>
                 <label>{turno.fecha}</label>
               </div>
-
               <div class="card">
                 <label>Hora</label>
                 <label>{turno.hora}</label>
               </div>
-
-
-//               <div class="card">
-//                 <label>Clinica</label>
-//                 <label>{doctores && doctores[0]?.clinicas[0]?.nombre}</label>
-//               </div>
-
-//               <div class="card">
-//                 <label>Doctor</label>
-//                 <label>
-//                   {doctores &&
-//                     doctores.find((d) => d.id === turno.idDoctor)?.nombre}
-//                 </label>
-//               </div>
-
-//               <div class="card">
-//                 <label>Especialidad</label>
-//                 <label>
-//                   {doctores && doctores[0]?.especialidads[0]?.nombre}
-
               <div class="card">
                 <label>Clinica</label>
                 <label>
-                  {clinicas?.find((el) => el.id === turno.idClinica)?.nombre}
+                {doctores && doctores[0]?.clinicas[0]?.nombre}
                 </label>
               </div>
               <div class="card">
                 <label>Doctor</label>
                 <label>
-                  {doctores?.find((el) => el.id === turno.idDoctor)?.nombre}
+                {doctores && doctores.find((d) => d.id === turno.idDoctor)?.nombre}
                 </label>
               </div>
               <div class="card">
                 <label>Especialidad</label>
                 <label>
-                  {
-                    especialidades?.find((el) => el.id === turno.idEspecialidad)
-                      ?.nombre
-                  }
-
+                {doctores && doctores[0]?.especialidads[0]?.nombre}
                 </label>
               </div>
             </div>
