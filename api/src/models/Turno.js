@@ -38,33 +38,6 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: "pendiente"
         },
-        // MP 👇
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "consulta"
-        },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            defaultValue: 'Descripción vacía'
-        },
-        price: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 2000
-        },
-        stock: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 1
-        },
-        img: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            defaultValue: 0
-        },
-
     });
 
 };

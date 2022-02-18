@@ -4,30 +4,6 @@ const { Especialidad, Clinica } = require('../db')
 
 router.get('/', async (req, res, next) => {
     try {
-        // let newArray = [
-        //     "Fisiatría",
-        //     "Pediatría",
-        //     "Traumatología",
-        //     "Cardiología",
-        //     "Gastroenterología",
-        //     "Neurología",
-        //     "Psiquiatría",
-        //     "Kinesiología",
-        //     "Psicología",
-        //     "Nutrición",
-        //     "Fonoaudiología"
-        // ];
-
-        // newArray.forEach((d, index) => {
-        //     console.log(d)
-        //     Especialidad.findOrCreate({
-        //         where:{
-        //             nombre: d,
-        //             id: index + 1
-        //             // doctor: 
-        //         }
-        //     })
-        // })
         const espe = await Especialidad.findAll({include: Clinica})
         res.send(espe)
     }catch(error){
