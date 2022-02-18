@@ -92,7 +92,7 @@ router.post('/order-mail', (req,res)=> {
             <body>
             <h2> Hola ${nombre } queremos informarte que ya estamos trabajando con la anulacion de suscripción de su clinica.  </h2>
             <h2> Desde Clinno nos entristece mucho esta noticia y nos gustaria saber el porque de la misma. Si no es mucha molestia agrdaeceriamos si pudieran completar esta pequeña encuesta: </h2>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeu_6FNiYnlIQHNOmVh47ZUrBYr9b4EYKmXB0vBIjSmLaZOkA/viewform?embedded=true" width="640" height="1387" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            <h2>https://forms.gle/SAJgf56SPZxDUHEr7</h2>
             </body>
         </head>
         </html>`
@@ -135,7 +135,7 @@ router.post('/mail-codigo', (req,res)=> {
   
         const message = {
 
-          to: email,
+          to: mail,
 
           from : "clinnoturnos@gmail.com",
 

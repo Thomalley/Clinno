@@ -1,0 +1,7 @@
+.bot_chatBox{
+    opacity: .6;
+}
+.bot_chatBox:hover{
+    opacity: 1;
+    background: #0dcaf0;
+}
