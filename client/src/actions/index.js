@@ -649,3 +649,31 @@ export function filter_fechas(payload){
         return dispatch ({type: 'FILTER_FECHAS', payload:payload.fecha})
     }
 }
+
+//recuperar codigo doctor y clinica /order-mail
+
+export function codigoDoctorEmail(payload){
+    return async function (dispatch){
+        try{
+            console.log(payload);
+            const json = await axios.post(`/doctor/order-mail`,payload);
+            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function codigoClinicaEmail(payload){
+    return async function (dispatch){
+        try{
+            console.log(payload);
+            const json = await axios.post(`/clinica/mail-codigo`,payload);
+            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
