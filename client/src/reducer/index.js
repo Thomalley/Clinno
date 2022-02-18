@@ -1,3 +1,4 @@
+// import {bydate} from '../helpers/helpers'
 const initialState = {
     clientes: [],
     cliente: [],
@@ -14,13 +15,14 @@ const initialState = {
     horarioDisponibleParaTurno: [],
     turnosDni: [],
     doctorId: [],
-    turnosClinica:[],
-    turnosDoctor:[],
+    turnosClinica: [],
+    turnosDoctor: [],
     diagDoctor: [],
     diagnosticos: [],
-    turnoById: []
+    turnoById: [],
+    allDoctoresInDB: [],
+    resenia: []
 };
-
 
 
 
@@ -33,13 +35,13 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "GET_DOCTOR_ID":
-            return{
+            return {
                 ...state,
                 doctorId: action.payload
             }
-        
+
         case "GET_TURNOS_DNI":
-            return{
+            return {
                 ...state,
                 turnosDni: action.payload
             }
@@ -49,6 +51,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnoById: action.payload
             }
+        
+        case "FILTER_FECHAS":
+            console.log(action.payload);
+            const turnosTotal = state.turnosDoctor;
+            console.log(turnosTotal);
+            const filtrado = action.payload === "todos" ? state.turnosDoctor : turnosTotal.filter(i => i.fecha === action.payload)
+            return {
+                    ...state,
+                    turnos: filtrado
+                }  
 
         case "GET_CLIENTES":
             return {
@@ -63,11 +75,11 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "GET_DIAG":
-            return{
+            return {
                 ...state,
                 diagnosticos: action.payload
             }
-        
+
         case "GET_TURNOS":
             return {
                 ...state,
@@ -75,10 +87,10 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "DIAG_BY_TURNO":
-            return{
-                    ...state,
-                    diagDoctor: action.payload
-                }
+            return {
+                ...state,
+                diagDoctor: action.payload
+            }
         case "GET_CLINICAS":
             return {
                 ...state,
@@ -162,7 +174,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 doctor: action.payload,
             }
-
+        case 'GET_RESENIA':
+            return {
+                ...state,
+                resenia: action.payload
+            }
         case 'GET_ALL_DOCTOR_CLINICA':
             return {
                 ...state,
@@ -177,7 +193,8 @@ const rootReducer = (state = initialState, action) => {
         case "GET_TURNO_DOCTOR":
             return {
                 ...state,
-                turnosDoctor: action.payload
+                turnosDoctor: action.payload,
+                turnos: action.payload,
             }
 
         case "GET_TURNO_CLINICA":
@@ -185,7 +202,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
-
+        case "ALL_DOCTORES_IN_DB":
+            return {
+                ...state,
+                allDoctoresInDB: action.payload
+            }
         default:
             return state;
     }

@@ -7,7 +7,6 @@ import swal from 'sweetalert';
 import { addDiagnostico,getTurnoId} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-import Turno from './TurnoConDiagnostico';
 import logo from '../../components/utils/images-landing/logo.png'
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
@@ -74,17 +73,17 @@ export default function TurnosDelDia(){
     const cookies = new Cookies();
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(getTurnoId(idTurno));
-    // }, []);
+    useEffect(() => {
+        dispatch(getTurnoId(idTurno));
+    }, []);
 
-    console.log(idTurno);
     const [input,setInput] = useState({
         errors:{},
         sintomas: "",
         diagnostico: "",
-        receta: "",
+        estudio: "",
         indicaciones:"",
+        status: "concretado",
         idTurno: idTurno,
     });
 
@@ -106,51 +105,64 @@ export default function TurnosDelDia(){
         // if(!Object.keys(result).length){
             // dispatch(addDoctor(input));
             // setAdd(true);
-            dispatch(addDiagnostico(input))
+        dispatch(addDiagnostico(input))
         // }
     }
-    
-return(
-    <>
-        <h2>{turnoId?.fecha}</h2>
-        <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
-            <input 
-            type='text'
-            placeholder="Sintomas"
-            value={input.sintomas}
-            name='sintomas'
-            onChange={(e)=>handleChange(e)}
-            />
-            {/* {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>} */}
-            <input 
+    // control de sesion
+    let session=false;
+    if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
+    const [loggeado,setLoggeado] = useState(session);
+
+    if(loggeado){
+    return(
+        <>
+        <div className="contenedor_adminClinica">
+            <NavClinica/>
+            <h2>{turnoId?.fecha}</h2>
+            <h3>Formulario de Diagnostico</h3>
+            <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
+                <input 
                 type='text'
-                placeholder="Diagnostico"
-                value={input.diagnostico}
-                name='diagnostico'
+                placeholder="Sintomas"
+                value={input.sintomas}
+                name='sintomas'
                 onChange={(e)=>handleChange(e)}
-            />
-            {/* {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>} */}
-            <input 
-                type='text'
-                placeholder="Receta"
-                value={input.receta}
-                name='receta'
-                onChange={(e)=>handleChange(e)}
-            />
-            <input 
-                type='text'
-                placeholder="indicaciones"
-                value={input.indicaciones}
-                name='indicaciones'
-                onChange={(e)=>handleChange(e)}
-            />
-            {/* {input.errors.email? <p className='errors_add'>{input.errors.email}</p>:<p className='errors_add'> </p>} */}
-            <div className="row">
-                <div className="col-12 ">
-                    <button type="submit" className="btn btn-primary " >Agregar Diagnostico</button>
+                />
+                {/* {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>} */}
+                <input 
+                    type='text'
+                    placeholder="Diagnostico"
+                    value={input.diagnostico}
+                    name='diagnostico'
+                    onChange={(e)=>handleChange(e)}
+                />
+                {/* {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>} */}
+                <input 
+                    type='text'
+                    placeholder="Indicaciones"
+                    value={input.indicaciones}
+                    name='indicaciones'
+                    onChange={(e)=>handleChange(e)}
+                />
+                <input 
+                    type='text'
+                    placeholder="Estudio"
+                    value={input.estudio}
+                    name='estudio'
+                    onChange={(e)=>handleChange(e)}
+                />
+                {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
+                <div className="row">
+                    <div className="col-12 ">
+                        <button type="submit" className="btn btn-primary " >Agregar Diagnostico</button>
+                    </div>
                 </div>
+            </form>
             </div>
-        </form>
-    </>
-)
+            <Footer />
+        </>
+    )
+    }else{
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/soyDoctor';
+    }
 }
