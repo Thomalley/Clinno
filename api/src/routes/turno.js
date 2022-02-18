@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { Turno, Cliente, Clinica, Especialidad, Doctor } = require("../db")
 router = Router()
 
-router.post("/", async (req, res) => {
+router.post("/", async(req, res) => {
     try {
         const {
             fecha,
@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
         const turnos = await Turno.findAll()
         res.send(turnos)
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/disponibilidad/:fecha/:idDoctor', async (req, res) => {
+router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
     const { fecha, idDoctor } = req.params
     try {
         const turnos = await Turno.findAll({
@@ -63,7 +63,7 @@ router.get('/disponibilidad/:fecha/:idDoctor', async (req, res) => {
     }
 })
 
-router.get('/doctor/:idDoctor', async (req, res) => {
+router.get('/doctor/:idDoctor', async(req, res) => {
     try {
         const { idDoctor } = req.params
 
@@ -78,7 +78,7 @@ router.get('/doctor/:idDoctor', async (req, res) => {
     }
 })
 
-router.get('/clinica/:idClinica', async (req, res) => {
+router.get('/clinica/:idClinica', async(req, res) => {
     try {
         const { idClinica } = req.params
 
@@ -93,10 +93,10 @@ router.get('/clinica/:idClinica', async (req, res) => {
     }
 })
 
-router.get('/documento/:documento', async (req, res) => {
+router.get('/documento/:documento', async(req, res) => {
     try {
         const { documento } = req.params
-        console.log(documento)
+
         const turnos = await Turno.findAll({
             where: {
                 dniCliente: documento.toString()
@@ -110,12 +110,11 @@ router.get('/documento/:documento', async (req, res) => {
 
 //si rompe es por que se pisa con get(/)
 router.get('/:id', async(req, res) => {
-    try{
-        const {id} = req.params
+    try {
+        const { id } = req.params
         const turnoDbID = await Turno.findByPk(id)
         res.send(turnoDbID)
-    }
-    catch (err){
+    } catch (err) {
         console.log(err)
     }
 })
