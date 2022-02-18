@@ -27,6 +27,6 @@ router.use("/doctor", doctorRouter);
 router.use("/order", orderRouter);
 router.use("/especialidad", especialidadRouter);
 router.use("/clinica", clinicaRouter);
-router.use('mensualidad', mensualidadRouter);
+router.use('/mensualidad', mensualidadRouter);
 
 module.exports = router;

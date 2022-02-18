@@ -15,6 +15,27 @@ export function getClients() {
         }
     }
 }
+// export function postOrder(payload){
+//     return async function(dispatch){
+//         try{
+//             const newTurno = await axios({
+//                 method: "post",
+//                 url: "/order",
+//                 data: {
+//                     fecha: input.fecha,
+//                     idEspecialidad: input.idEspecialidad,
+//                     idClinica: input.idClinica,
+//                     idDoctor: input.idDoctor,
+//                     hora: input.hora,
+//                     dniCliente: input.dniCliente
+//                 },
+//             });
+
+//         }catch(e){
+//             console.log(e)
+//         }
+//     }
+// }
 export function getClienteByDni(documento) {
     return async function(dispatch) {
         try {
@@ -536,6 +557,8 @@ export function turno_clinica(payload) {
         }
     }
 }
+
+
 
 export function getTurnosClinica(payload) {
     return async function(dispatch) {

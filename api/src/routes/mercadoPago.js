@@ -1,4 +1,4 @@
-const { Order } = require('../db.js');
+const { Order, Mensualidad } = require('../db.js');
 const router = require('express').Router();
 
 // SDK de Mercado Pago
@@ -90,16 +90,11 @@ router.get("/pagos", (req, res) => {
                 })
                 .catch((err) => {
                     console.error('error al salvar', err)
-                    return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
                 })
         })
         .catch(err => {
             console.error('error al buscar', err)
-            return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
         })
-
-    //proceso los datos del pago 
-    //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 })
 
 

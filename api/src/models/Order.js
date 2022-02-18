@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        orderID: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+        // orderID: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // },
         merchant_order_id: {
             type: DataTypes.BIGINT,
             defaultValue: 0,

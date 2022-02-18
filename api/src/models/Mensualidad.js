@@ -13,10 +13,10 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         orderId: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4,
+            // primaryKey: true,
+            // defaultValue: DataTypes.UUIDV4,
         }
     });
 

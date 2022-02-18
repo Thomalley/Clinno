@@ -1,19 +1,19 @@
 const router = require('express').Router();
-const { Order, Order_detail, Mensualidad } = require('../db');
+const { Order, Order_detail } = require('../db');
 
 router.post('/', async (req, res) => {
     try {
-    const { clinicaId, id, cuota, orderId } = req.body
+    const { clinicaId, cuota } = req.body
 
     await Order.create({
         clinicaId: clinicaId,
     })
-        await Order_detail.create({
-            orderId,
-            quantity: 1,
-            price: cuota
-        })
-    res.send("OK")
+    // await Order_detail.create({
+    //         orderId,
+    //         quantity: 1,
+    //         price: cuota
+    //     })
+        res.send("OK")
 
     } catch (e) {
         console.log(e)
