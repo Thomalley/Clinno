@@ -32,6 +32,7 @@ import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico
 import ReagendarTurno from './components/ClientCard/ReagendarTurno';
 import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
+import Root from './components/AdminRoot/RootUser';
 
 
 
@@ -73,6 +74,7 @@ function App() {
           <Route path='/SoyDoctor/agregarDiagnostico/:idTurno' element={<AgregarDiagnostico/>}/>
           <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
+          <Route path='/admin/m9gap4npJJFlorV7uuej2bVfsL7b8N' element={<Root/>}/>
 
         </Routes>
       </div>
