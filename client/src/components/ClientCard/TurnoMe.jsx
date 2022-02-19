@@ -56,9 +56,11 @@ export default function TurnoMe() {
     dispatch(getResenia());
   }, []);
 
+
   useEffect(() => {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
   }, [diag]);
+
 
   useEffect(() => {
     if (idTurno !== "") dispatch(getTurnoId(idTurno));
@@ -144,13 +146,13 @@ export default function TurnoMe() {
     dispatch(filtroTurnoFecha(turnos))
   }
 
-
   const handleSelectHora = (e) => {
     setupdateDate({
       ...updateDate,
       hora: e.target.value
     })
   }
+
 
   const handleSelect = (e) => {
     setDiag(e.target.value);

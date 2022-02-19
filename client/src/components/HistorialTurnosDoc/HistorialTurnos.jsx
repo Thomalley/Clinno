@@ -109,26 +109,38 @@ export default function HistorialTurnosDoc(){
         dispatch(filter_turnos(input))
     },[input])
     if(loggeado){
-
+        
     return (
         <>
             <div className="contenedor_adminClinica">
                 <NavClinica/>
-                <h3 className="">Historial de turnos de {cookies.get('doctor_nombre')} </h3>
-                <form autocomplete='off'>
-                    <input type='text' placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
+                <h2 className="">Historial de turnos de {cookies.get('doctor_nombre')} </h2>
+                <h3>Filtros:</h3>
+                <form autoComplete='off' className="form_history_turns">
+                    <div className="contenedor_inpu">
+                        <h6>Por Fecha:</h6>
+                        <input type='text' className="input_history" placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
+                    </div>
+                    <div className="contenedor_inpu">
+                        <h6>Por DNI:</h6>
+                        <input type='text' className="input_history" placeholder="DNI Paciente" value={input.nombre} name='nombre' onChange={handleAll}/>
+                    </div>
                     
-                    <button className="btn btn-primary" onClick={handleAllturnos}>Todos los Turnos</button>
+                    <div className="contenedor_inpu">
+                        <h6>Borrar Filtros:</h6>
+                        <button className="btn btn-primary" onClick={handleAllturnos}>Todos los Turnos</button>
+                    </div>
+                    
+                    <div className="contenedor_inpu">
+                        <h6>Mostrar Cancelados:</h6>
+                        <input type="radio" className="btn-check" name="options-outlined" id="success-outlined" autoComplete="off" defaultChecked onClick={changeCancel} />
+                        <label className="btn btn-outline-success" htmlFor="success-outlined">Mostrar</label>
 
-                    <input type='text' placeholder="DNI Paciente" value={input.nombre} name='nombre' onChange={handleAll}/>
-
-                    <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked onClick={changeCancel} />
-                    <label class="btn btn-outline-success" for="success-outlined">Mostrar</label>
-
-                    <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off" onClick={changeStatus} />
-                    <label class="btn btn-outline-danger" for="danger-outlined">No Mostrar</label>
+                        <input type="radio" className="btn-check" name="options-outlined" id="danger-outlined" autoComplete="off" onClick={changeStatus} />
+                        <label className="btn btn-outline-danger" htmlFor="danger-outlined">No Mostrar</label>
+                    </div>
                 </form>
-                <div className="grid_turno_table text-white" >
+                <div className="grid_turno_table fijo_table text-white" >
                     <span><strong>Paciente</strong></span>
                     <span><strong>DNI</strong></span>
                     <span><strong>Fecha</strong></span>
@@ -148,15 +160,15 @@ export default function HistorialTurnosDoc(){
                     }).map(t=>{
                         if(finalDate>t.fecha){
                             return (
-                            <div className="grid_turno_table text-white">
-                                <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
-                                <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
-                                <span>{t.fecha }</span>   
-                                <span>{t.hora }</span>
-                                <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{loading?
-                                    <div class="spinner-border text-light" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                            <div className="grid_turno_table diferente text-white">
+                                <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
+                                <span className="spanes" >{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
+                                <span className="spanes" >{t.fecha }</span>   
+                                <span className="spanes" >{t.hora }</span>
+                                <span className="spanes" >{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
+                                <span className="spanes" >{loading?
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :t.status !== 'cancelado'?
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?

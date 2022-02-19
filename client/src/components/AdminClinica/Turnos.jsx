@@ -59,21 +59,12 @@ export default function TurnosClinica({idClinica}){
         <>
 
         <div className="grid_turno_table">
-        <span>
-            <strong>Cliente</strong>
-        </span>
-        <span>
-            <strong>Fecha</strong>
-        </span>
-        <span>
-            <strong>Hora</strong>
-        </span>
-        <span>
-            <strong>Doctor</strong>
-        </span>
-        <span>
-            <strong>Especialidad</strong>
-        </span>
+        <span><strong>Cliente</strong></span>
+        <span><strong>DNI</strong></span>
+        <span><strong>Fecha</strong></span>
+        <span><strong>Hora</strong></span>
+        <span><strong>Doctor</strong></span>
+        <span><strong>Especialidad</strong></span>
     </div>
         {turn &&turn?.sort(function(a, b) { console.log(turn)
                 if (a.fecha < b.fecha) {
@@ -89,6 +80,7 @@ export default function TurnosClinica({idClinica}){
 
                 return <div className="grid_turno_table">
                     <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
+                    <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
                     <span>{t.fecha }</span>   
                     <span>{t.hora }</span>
                     <span>{(doctores?.find(el => el.id === t.idDoctor,10))?.nombre}</span>
