@@ -62,7 +62,7 @@ export default function LoginClinica(){
         cookies.remove('doctor_id');
         cookies.remove('doctor_codigo');
         cookies.remove('doctor_especialidades');
-    
+        console.log(cookies.get('doctor_id'))
         swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
         setTimeout(()=> window.location.href='/', 2000) ;
     }
@@ -126,22 +126,32 @@ return (
             
             <hr/>
                 {!window.location.pathname.toLowerCase().includes('/soydoctor')?
+                <div className="dropdown d-flex  align-items-end justify-conter-end ">
+                    <a href="#" className="d-flex align-items-center justify-conter-center text-white btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>{cookies.get('clinica_nombre')}</strong>
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
+                        <li><hr className="dropdown-divider"/></li>
+
+                        <li><Link to="/adminClinica/me" className="dropdown-item" >Ver Mi Perfil</Link></li>
+
+
+                    </ul>
+                </div>
+            :
             <div className="dropdown d-flex  align-items-end justify-conter-end ">
                 <a href="#" className="d-flex align-items-center justify-conter-center text-white btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <strong>{cookies.get('clinica_nombre')}</strong>
+                    <strong>{cookies.get('doctor_nombre')}</strong>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
 
-                    <li><Link to="/adminClinica/me" className="dropdown-item" href="#">Ver Mi Perfil</Link></li>
+                    <li><Link to="/soyDoctor/me" className="dropdown-item" >Ver Mi Perfil</Link></li>
 
 
                 </ul>
-            </div>
-            :
-            <div className="dropdown d-flex  align-items-end justify-conter-end ">
-                    <button className="btn btn-primary " type="button" onClick={cerrarSesion}>Cerrar sesion</button>
             </div>
 
                 }

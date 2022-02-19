@@ -5,12 +5,14 @@
     overflow-y: auto;
     overflow-x: auto;
     box-sizing: border-box;
-    background:
+    /* background: #212B38; */
+    background: #212B38;
+    /* background:
     linear-gradient(
         rgba(30, 55, 77, 0.85),
         rgba(26, 55, 77, 0.88),
-        rgba(26, 55, 77, 0.95));
-        color: #f1f1f1;
+        rgba(26, 55, 77, 0.95)); */
+    color: #f1f1f1;
 }
 
 .contenedor_adminClinica::-webkit-scrollbar {

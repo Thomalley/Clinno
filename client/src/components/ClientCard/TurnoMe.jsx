@@ -11,7 +11,7 @@ import {
   getAllDoctores,
   getResenia,
   getDiagnosticoByTurno,
-  filtroTurnoFecha
+  filtroTurnoFecha,
   getTurnoId,
   canTurno,
 } from "../../actions/index";
@@ -36,7 +36,6 @@ export default function TurnoMe() {
     dispatch(getResenia());
   },[turnos]);
 
-  const [diag, setDiag] = useState("");
 
   const handleSelect = (e) => {
     setDiag(e.target.value);
@@ -81,6 +80,7 @@ export default function TurnoMe() {
   useEffect(() => {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
   }, [diag]);
+  useEffect(() => {
 
     dispatch(canTurno({status:"cancelado", idTurno:idTurno}))
   }, []);
@@ -88,10 +88,6 @@ export default function TurnoMe() {
   const [diag, setDiag] = useState("");
 
   const [idTurno, setidTurno] = useState("");
-  const handleSelect = (e) => {
-    e.preventDefault();
-    setDiag(e.target.value);
-  };
 
   const handleCancelar = (e) => {
     e.preventDefault()

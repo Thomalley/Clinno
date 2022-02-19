@@ -95,8 +95,11 @@ export default function NavBar({loggin}){
                             
                             {   
                                 !cookies.get('clinica_id')?
-                                loggin?
+                                loggin? 
                                 <> 
+                                    <li className="nav-item item_navBar">
+                                        <Link className="nav-link active item_navBar" to='/turno'>Sacar un Turno</Link>
+                                    </li>
                                     <li className="nav-item item_season">                    
                                         <button 
                                             className="nav-link active item_navBar btn btn-outline border-start font_sesion" 

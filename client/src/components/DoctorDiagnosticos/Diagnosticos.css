@@ -1,0 +1,36 @@
+.contenedor_diag_compl{
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formu_complete_diag{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    background: #d8eefe;
+    border: 2px solid #12ace4;
+    box-shadow: 0px 10px 304px -60px #12ace4;
+    border-radius: 20px;
+    padding: 40px;
+    color: #333;
+}
+
+.botoncito_verD{
+    padding: 10px;
+    background: #12ace4;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    text-decoration: none;
+    outline: none;
+    color: #d8eefe;
+    font-weight: bolder;
+    transition: background .3s, color .3s, border .3s;
+}
+.botoncito_verD:hover{
+    background: transparent;
+    color: #12ace4;
+    border: 2px solid #12ace4;
+}

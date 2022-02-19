@@ -62,6 +62,7 @@ const rootReducer = (state = initialState, action) => {
             let turnosTotalN;
             (state.turnos)? turnosTotalN = state.turnosDoctor : turnosTotalN= state.turnos;
             console.log(turnosTotalN)
+            console.log(action.payload)
             turnosTotalN =action.payload.fecha === "" && action.payload.nombre === "" ? state.turnosDoctor 
             : action.payload.nombre ==="" ? turnosTotalN.filter(i => i.fecha.includes( action.payload.fecha))
             : turnosTotalN.filter(i => i.dniCliente.includes(action.payload.nombre)&& i.fecha.includes( action.payload.fecha));
