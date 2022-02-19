@@ -7,6 +7,8 @@
 .contenedor_turno {
     background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-nunny-246-g.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=d8ee441f91c4ca8ae879bce41e9c1a28);
     background-attachment: fixed;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
 }
 
 .entre_nav_turno {
