@@ -56,16 +56,3 @@
     background: #1A374D;
     border: 1px solid #f1f1f1;
 }
-.grid_turno_table{
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    border-top: 1px solid black;
-    color: #000;
-
-}
-.grid_turno_tables > span{
-    padding: 8px 4px;
-    border: 1px solid black;
-    color: #000;
-
-}

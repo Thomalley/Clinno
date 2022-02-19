@@ -9,7 +9,6 @@ import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialida
 import VerMisTurnos from "./VerMisTurnos";
 import icono from '../../components/utils/icono-clinica.png'
 import CodigoDoctor from './CodigoDoctor'
-import { cerrarSesion } from "../AdminClinica/CerrarSesion";
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -53,6 +52,29 @@ export default function AdminDoctor(){
     //         setTurn(turnos);
     //     }
     // },[turnos])
+
+    const cerrarSesion=()=>{
+        const cookies = new Cookies();
+    
+    
+        cookies.remove('clinica_mail');
+        cookies.remove('clinica_nombre');
+        cookies.remove('clinica_telefono');
+        cookies.remove('clinica_direccion');
+        cookies.remove('clinica_id');
+        cookies.remove('clinica_nombreEn', );
+        cookies.remove('clinica_apellidoEn');
+        cookies.remove('clinica_DNIEn');
+        cookies.remove('clinica_codigo');
+        cookies.remove('clinica_createdAt');
+        cookies.remove('doctor_nombre');
+        cookies.remove('doctor_id');
+        cookies.remove('doctor_codigo');
+        cookies.remove('doctor_especialidades');
+    
+        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
+        setTimeout(()=> window.location.href='/', 2000) ;
+    }
 
     useEffect(()=>{
         if( cookies.get('doctor_id') ){

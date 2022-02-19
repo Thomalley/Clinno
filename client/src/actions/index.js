@@ -642,11 +642,16 @@ export function canTurno(payload){
     }
 }
 
-// turnos por fecha
+// turnos filter
 
-export function filter_fechas(payload){
+// export function filter_fechas(payload){
+//     return async function (dispatch){
+//         return dispatch ({type: 'FILTER_FECHAS', payload:payload.fecha})
+//     }
+// }
+export function filter_turnos(payload){
     return async function (dispatch){
-        return dispatch ({type: 'FILTER_FECHAS', payload:payload.fecha})
+        return dispatch ({type: 'FILTER_TURNOS', payload:payload})
     }
 }
 
