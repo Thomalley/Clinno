@@ -18,7 +18,7 @@ function MercadoPago() {
 
 
   const productos = [
-    { title: "Consulta", quantity: 1, price: 2000 },
+    { title: "Servicio", quantity: 1, price: 2000 },
 
   ]
   return (

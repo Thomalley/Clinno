@@ -53,8 +53,6 @@ export default function ClientCard(){
             
           <li><Link className="nav-link" to='/EstamosTrabajando'>Pagos</Link></li>
           
-          <li><Link className="nav-link" to='/reviewMe'>Reseñas</Link></li>
-
           <li><Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link></li>
           
           </ul>

@@ -21,7 +21,8 @@ const initialState = {
     diagnosticos: [],
     turnoById: [],
     allDoctoresInDB: [],
-    resenia: []
+    resenia: [],
+    order: []
 };
 
 
@@ -39,8 +40,19 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 doctorId: action.payload
             }
+        case "CREATE_ORDER":
+            return {
+                ...state,
+                order: action.payload
+            }
 
         case "GET_TURNOS_DNI":
+            return {
+                ...state,
+                turnosDni: action.payload
+            }
+
+        case "FILTRO_FECHA_TURNOS_ME":
             return {
                 ...state,
                 turnosDni: action.payload
@@ -51,15 +63,20 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnoById: action.payload
             }
-        
-        case "FILTER_FECHAS":
-            console.log(action.payload);
-            const turnosTotal = state.turnosDoctor;
-            console.log(turnosTotal);
-            const filtrado = action.payload === "todos" ? state.turnosDoctor : turnosTotal.filter(i => i.fecha === action.payload)
+
+        case "FILTER_TURNOS":
+            let turnosTotalN;
+            (state.turnos)? turnosTotalN = state.turnosDoctor : turnosTotalN= state.turnos;
+            console.log(turnosTotalN)
+            console.log(action.payload)
+            turnosTotalN =action.payload.fecha === "" && action.payload.nombre === "" ? state.turnosDoctor 
+            : action.payload.nombre ==="" ? turnosTotalN.filter(i => i.fecha.includes( action.payload.fecha))
+            : turnosTotalN.filter(i => i.dniCliente.includes(action.payload.nombre)&& i.fecha.includes( action.payload.fecha));
+            turnosTotalN = action.payload.status !== 'cancelado' ?  turnosTotalN.filter(i => i.status !== 'cancelado'): turnosTotalN;
+
             return {
                     ...state,
-                    turnos: filtrado
+                    turnos: turnosTotalN
                 }  
 
         case "GET_CLIENTES":

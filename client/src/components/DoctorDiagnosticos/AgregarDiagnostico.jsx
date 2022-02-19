@@ -9,8 +9,9 @@ import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 import logo from '../../components/utils/images-landing/logo.png'
 import Cookies from 'universal-cookie';
-import "../AdminClinica/AdminClinicaStyle.css";
 
+import "../AdminClinica/AdminClinicaStyle.css";
+import './Diagnosticos.css';
 
 const validate = values =>{
     const errors ={}
@@ -18,47 +19,21 @@ const validate = values =>{
     // const vald = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/;
     // const valdEmail= /^\S+@\S+$/i;
     // const valdDNI = /^[0-9]+$/;
-
-    // if(!values.nombre){
-    //     errors.nombre = 'Agrege un nombre';
-    // }else{
-    //     if(values.nombre.length<5 || values.nombre.length>24){
-    //         errors.nombre = 'El nombre no es valido';
-    //     }
-    // }
-    // if(!(RegExp(vald).test(values.nombre))){
-    //     errors.nombre = 'El nombre no es valido';
-    // }
     
-    // if(!values.email){
-    //     errors.email = 'Agrege un email';
-    // }else{
-    //     if(values.nombre.length<5 || values.nombre.length>24){
-    //         errors.email = 'El email no es valido';
-    //     }
-    // }
-    // if(!(RegExp(valdEmail).test(values.email))){
-    //     errors.email = 'El email no es valido';
-    // }
-
-    // if(!values.dni){
-    //     errors.dni = 'Agrege un dni';
-    // }else{
-    //     if(values.dni.length<7 || values.dni.length>8){
-    //         errors.dni = 'El dni no es valido';
-    //     }
-    // }
-    // if(!(RegExp(valdDNI).test(values.dni))){
-    //     errors.dni = 'El dni no es valido';
-    // }
-    
-    // if(values.especialidad.length<1){
-    //     errors.especialidad = 'Ingresa una Especialidad';
-    // }else{
-    //     if(values.especialidad.length>1){
-    //         errors.especialidad = 'Solo 1 especialidad';
-    //     }
-    // }
+    if(!values.sintomas){
+        errors.sintomas = 'Agrege los Sintomas';
+    }else{
+        if(values.sintomas.length<5 || values.sintomas.length>128){
+            errors.sintomas = 'Los sintomas no son valido';
+        }
+    }
+    if(!values.diagnostico){
+        errors.diagnostico = 'Agrege el diagnostico';
+    }else{
+        if(values.diagnostico.length<5 || values.diagnostico.length>128){
+            errors.diagnostico = 'El diagnostico no es valido';
+        }
+    }
     
     return errors;
 }
@@ -73,9 +48,9 @@ export default function TurnosDelDia(){
     const cookies = new Cookies();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getTurnoId(idTurno));
-    }, []);
+    useEffect(() => { dispatch(getTurnoId(idTurno)); }, []);
+    
+    const [complete,setComplete] = useState(false)
 
     const [input,setInput] = useState({
         errors:{},
@@ -86,6 +61,8 @@ export default function TurnosDelDia(){
         status: "concretado",
         idTurno: idTurno,
     });
+
+    
 
     function handleChange(e){
         const {name,value} = e.target;
@@ -102,11 +79,11 @@ export default function TurnosDelDia(){
         e.preventDefault();
         const {errors,...sinErrors} = input;
         const result = validate(sinErrors);
-        // if(!Object.keys(result).length){
+        if(!Object.keys(result).length){
             // dispatch(addDoctor(input));
-            // setAdd(true);
-        dispatch(addDiagnostico(input))
-        // }
+            setComplete(true);
+            dispatch(addDiagnostico(input))
+        }
     }
     // control de sesion
     let session=false;
@@ -118,46 +95,53 @@ export default function TurnosDelDia(){
         <>
         <div className="contenedor_adminClinica">
             <NavClinica/>
-            <h2>{turnoId?.fecha}</h2>
-            <h3>Formulario de Diagnostico</h3>
-            <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
-                <input 
-                type='text'
-                placeholder="Sintomas"
-                value={input.sintomas}
-                name='sintomas'
-                onChange={(e)=>handleChange(e)}
-                />
-                {/* {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>} */}
-                <input 
-                    type='text'
-                    placeholder="Diagnostico"
-                    value={input.diagnostico}
-                    name='diagnostico'
-                    onChange={(e)=>handleChange(e)}
-                />
-                {/* {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>} */}
-                <input 
-                    type='text'
-                    placeholder="Indicaciones"
-                    value={input.indicaciones}
-                    name='indicaciones'
-                    onChange={(e)=>handleChange(e)}
-                />
-                <input 
-                    type='text'
-                    placeholder="Estudio"
-                    value={input.estudio}
-                    name='estudio'
-                    onChange={(e)=>handleChange(e)}
-                />
-                {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
-                <div className="row">
-                    <div className="col-12 ">
-                        <button type="submit" className="btn btn-primary " >Agregar Diagnostico</button>
-                    </div>
+            {!complete?
+                <div>
+                    <h2>{turnoId?.fecha}</h2>
+                    <h3>Formulario de Diagnostico</h3>
+                    <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)} autoComplete='off'>
+                        <div>
+                            <h3>Ingrese los datos del paciente: </h3>
+                        </div>
+                        <div>
+                            <h6>Sintomas*:</h6>
+                            <input  type='text' placeholder="Sintomas" value={input.sintomas} name='sintomas' onChange={(e)=>handleChange(e)} />
+                            {input.errors.sintomas? <p className='errors_add'>{input.errors.sintomas}</p>:<p className='errors_add'> </p>}
+                        </div>
+                        <div>
+                            <h6>Diagnostico*:</h6>
+                            <input type='text' placeholder="Diagnostico" value={input.diagnostico} name='diagnostico' onChange={(e)=>handleChange(e)} />
+                            {input.errors.diagnostico? <p className='errors_add'>{input.errors.diagnostico}</p>:<p className='errors_add'> </p>}
+                        </div>
+                        <div>
+                            <h6>Indicaciones:</h6>
+                            <input type='text' placeholder="Indicaciones" value={input.indicaciones} name='indicaciones' onChange={(e)=>handleChange(e)} />
+                            {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
+                        </div>
+                        <div>
+                            <h6>Estudios:</h6>
+                            <input  type='text' placeholder="Estudio" value={input.estudio} name='estudio' onChange={(e)=>handleChange(e)} />
+                            {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
+                        </div>
+                        <p>*Campos Obligatorios</p>
+                        <div className="row">
+                            <div className="col-12 ">
+                                <button type="submit" className="btn btn-primary " >Agregar Diagnostico</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+                :
+                <div className="contenedor_diag_compl" >
+                    <div className="formu_complete_diag">
+                        <img src={logo} className='logo_clinno_navC' />
+                        <h4>Formulario Completado!</h4>
+                        <h6>El Diagnostico ya fue enviado</h6>
+                        <p>Podras ver el diagnostico </p>
+                        <Link className="botoncito_verD" to={`/SoyDoctor/verDiagnostico/${idTurno}`}>VER DIAGNOSTICO</Link>
+                    </div>                    
+                </div>
+            }
             </div>
             <Footer />
         </>

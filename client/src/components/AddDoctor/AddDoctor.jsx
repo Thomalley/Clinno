@@ -82,7 +82,7 @@ export default function AddDoctor(){
     useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id')));
     dispatch(getEspecialidad()); },[])
     
-    //control se dession
+    //control se de session
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
     const [loggeado,setLoggeado] = useState(session);

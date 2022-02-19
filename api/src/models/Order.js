@@ -10,11 +10,14 @@ module.exports = (sequelize) => {
             defaultValue: 0,
             allowNull: false
         },
-        payment_status: {
+        clinicaId:{
             type: DataTypes.STRING,
-            defaultValue: "",
             allowNull: false
         },
+        // orderID: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // },
         merchant_order_id: {
             type: DataTypes.BIGINT,
             defaultValue: 0,
@@ -22,7 +25,8 @@ module.exports = (sequelize) => {
         },
         status: {
             type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed'),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'created'
         },
     });
 

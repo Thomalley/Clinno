@@ -1,4 +1,4 @@
-const { Order } = require('../db.js');
+const { Order, Mensualidad } = require('../db.js');
 const router = require('express').Router();
 
 // SDK de Mercado Pago
@@ -19,11 +19,12 @@ mercadopago.configure({
 //Ruta que genera la URL de MercadoPago
 router.get("/", (req, res, next) => {
 
-    const id_orden = 1
+    // const id_orden = 1
+    const {orderId, couta} = req.body
 
     //Cargamos el carrido de la bd
     const carrito = [
-        { title: "Turno", quantity: 1, price: 2000 }
+        { title: "Servicio", quantity: 1, price: couta }
     ]
 
     const items_ml = carrito.map(i => ({
@@ -35,7 +36,7 @@ router.get("/", (req, res, next) => {
     // Crea un objeto de preferencia
     let preference = {
         items: items_ml,
-        external_reference: `${id_orden}`,
+        external_reference: `${orderId}`,
         payment_methods: {
             excluded_payment_types: [{
                 id: "atm"
@@ -43,9 +44,9 @@ router.get("/", (req, res, next) => {
             installments: 3 //Cantidad máximo de cuotas
         },
         back_urls: {
-            success: 'http://localhost:3001/mercadopago/pagos',
-            failure: 'http://localhost:3001/mercadopago/pagos',
-            pending: 'http://localhost:3001/mercadopago/pagos',
+            success: '/mercadopago/pagos',
+            failure: '/mercadopago/pagos',
+            pending: '/mercadopago/pagos',
         },
     };
 
@@ -90,16 +91,11 @@ router.get("/pagos", (req, res) => {
                 })
                 .catch((err) => {
                     console.error('error al salvar', err)
-                    return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
                 })
         })
         .catch(err => {
             console.error('error al buscar', err)
-            return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
         })
-
-    //proceso los datos del pago 
-    //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 })
 
 
