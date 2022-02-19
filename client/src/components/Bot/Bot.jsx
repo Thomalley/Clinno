@@ -5,6 +5,7 @@ import { useState } from 'react';
 import config from "./chatbot/config";
 import ActionProvider from "./chatbot/ActionProvider";
 import MessageParser from "./chatbot/MessageParser";
+import './Bot.css'
 function Bot() {
     const [showBot, toggleBot] = useState(false);
 
@@ -20,7 +21,7 @@ function Bot() {
         actionProvider={ActionProvider}
         // saveMessages={saveMessages}
     />
-    } <button className="btn btn-info" 
+    } <button className="btn btn-info bot_chatBox" 
     onClick={() => toggleBot((prev) => !prev)}>
         <i className="fas fa-robot"></i> 
         <small> <strong>Soy Bot</strong>  

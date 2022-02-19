@@ -12,6 +12,8 @@ import {
   getResenia,
   getDiagnosticoByTurno,
   filtroTurnoFecha
+  getTurnoId,
+  canTurno,
 } from "../../actions/index";
 
 export default function TurnoMe() {
@@ -21,6 +23,7 @@ export default function TurnoMe() {
   const doctores = useSelector((state) => state.allDoctoresInDB);
   const resenia = useSelector((state) => state.resenia);
   const diagnostico = useSelector((state) => state.diagDoctor);
+  const turnoId = useSelector((state) => state.turnoById);
   const dni_user = cookies.get("dni");
   const turnosPendientes = [];
   const turnosPasados = [];
@@ -79,6 +82,31 @@ export default function TurnoMe() {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
   }, [diag]);
 
+    dispatch(canTurno({status:"cancelado", idTurno:idTurno}))
+  }, []);
+
+  const [diag, setDiag] = useState("");
+
+  const [idTurno, setidTurno] = useState("");
+  const handleSelect = (e) => {
+    e.preventDefault();
+    setDiag(e.target.value);
+  };
+
+  const handleCancelar = (e) => {
+    e.preventDefault()
+    setidTurno(e.target.value);
+  };
+
+  useEffect(() => {
+    if (idTurno !== "") dispatch(getTurnoId(idTurno));
+  }, [idTurno]);
+  
+  useEffect(() => {
+    if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
+  }, [diag]);
+
+  console.log("soy turnoId", turnoId);
 
   for (let i = 0; i < turnos.length; i++) {
     if (turnos[i].status === "concretado") {
@@ -87,6 +115,7 @@ export default function TurnoMe() {
       turnosPendientes.push(turnos[i]);
     }
   }
+
 
   const turnoConcretado = {
     id: "95734532-29a5-4aae-995d-5ec180de1318",
@@ -169,10 +198,6 @@ export default function TurnoMe() {
   turnosPasados.push(turnoConcretado, turnoConcretado2);
   diagnostico.push(diagnosticoConcretado, diagnosticoConcretado2);
   resenia.push(reseniaConcretada2, reseniaConcretada);
-
-
-
-
 
 
   return (
@@ -371,11 +396,13 @@ export default function TurnoMe() {
                                   Sintomas:
                                 </label>
                                 <label class="form-control" id="message-text">
+
                                   {
                                     diagnostico?.find(
                                       (diag) => diag.idTurno === turno.id
                                     )?.sintomas
                                   }
+
                                 </label>
                               </div>
                               <div class="mb-3">
@@ -386,6 +413,7 @@ export default function TurnoMe() {
                                   Indicaciones:
                                 </label>
                                 <label class="form-control" id="message-text">
+
                                   {
                                     diagnostico?.find(
                                       (diag) => diag.idTurno === turno.id
@@ -401,11 +429,23 @@ export default function TurnoMe() {
                                   Estudios:
                                 </label>
                                 <label class="form-control" id="message-text">
+
                                   {
                                     diagnostico?.find(
                                       (diag) => diag.idTurno === turno.id
                                     )?.estudio
                                   }
+                                </label>
+                              </div>
+                              <div class="mb-3">
+                                <label
+                                  for="message-text"
+                                  class="col-form-label"
+                                >
+                                  Diagnostico:
+                                </label>
+                                <label class="form-control" id="message-text">
+                                  {diagnostico[0]?.diagnostico}
                                 </label>
                               </div>
                             </form>
@@ -415,6 +455,7 @@ export default function TurnoMe() {
                     </div>
                   </div>
                 ) : (
+
                   // TURNO CONCRETADO CON RESENIA TRUE
                   <div class="botonRes">
                     <div class="botonRes">
@@ -511,6 +552,7 @@ export default function TurnoMe() {
                                 >
                                   Sintomas:
                                 </label>
+
                                 <label class="form-control" id="message-text">
                                   {
                                     diagnostico?.find(
@@ -518,6 +560,7 @@ export default function TurnoMe() {
                                     )?.sintomas
                                   }
                                 </label>
+
                               </div>
                               <div class="mb-3">
                                 <label
@@ -526,6 +569,7 @@ export default function TurnoMe() {
                                 >
                                   Indicaciones:
                                 </label>
+
                                 <label class="form-control" id="message-text">
                                   {
                                     diagnostico?.find(
@@ -533,6 +577,7 @@ export default function TurnoMe() {
                                     )?.indicaciones
                                   }
                                 </label>
+
                               </div>
                               <div class="mb-3">
                                 <label
@@ -541,6 +586,7 @@ export default function TurnoMe() {
                                 >
                                   Estudios:
                                 </label>
+
                                 <label class="form-control" id="message-text">
                                   {
                                     diagnostico?.find(
@@ -548,6 +594,7 @@ export default function TurnoMe() {
                                     )?.estudio
                                   }
                                 </label>
+
                               </div>
                             </form>
                           </div>
@@ -562,6 +609,7 @@ export default function TurnoMe() {
             <p className="turnoP">No hay turnos pasados</p>
           )}
         </div>
+
         <div class="col-6 mt-3">
           {turnosPendientes?.map((turno) => (
             <div class="bigContainer">
@@ -634,7 +682,17 @@ export default function TurnoMe() {
                     Reagendar turno
                   </button>
                 </div>
+
               </div>
+              {/* <button class="btn btn-primary" onClick={handleSelect} value={turno.id}> Modificar turno</button> */}
+              <button
+                class="btn btn-danger"
+                onClick={handleCancelar}
+                value={turno.id}
+              >
+                {" "}
+                Cancelar turno
+              </button>
             </div>
           ))}
         </div>
@@ -645,4 +703,3 @@ export default function TurnoMe() {
     </div>
   );
 }
-

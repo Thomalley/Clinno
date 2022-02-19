@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import {get_All_Doctor,getClinicaId} from '../../actions'
+import {getAllDoctores,getClinicaId,codigoDoctorEmail} from '../../actions'
 
 import Cookies from 'universal-cookie';
 
@@ -11,23 +11,25 @@ export default function CodigoDoctor(){
     
     const cookies = new Cookies();
     const dispatch = useDispatch();
-    const doctores = useSelector((state)=> state.doctores);
+    const doctores = useSelector((state)=> state.allDoctoresInDB);
 
     useEffect(()=>{
         dispatch(getClinicaId(cookies.get('clinica_id')));
+        dispatch(getAllDoctores());
     },[])
     const [input, setInput] = useState({
-        nombre : '',
         email: ''
     });
     const [validate, setValidate] =useState(false);
     function handleSubmit(e){
         e.preventDefault();
         const arr = doctores.filter( doc =>{
-            return (input.nombre === doctores.nombre && input.email === doctores.email)
+            return ( input.email == doc.email)
         })
         if(arr){
             swal("Correo enviado correctamente!", "Revise En su correo", "success")
+            console.log(arr);
+            dispatch(codigoDoctorEmail(arr[0]))
             setTimeout(()=> setValidate(true),2400);
         }
     }
@@ -64,7 +66,7 @@ export default function CodigoDoctor(){
                     <div className="d-flex flex-column gap-3">
                         <p>Para obtener Su codigo, por favor ingrese su nombre,</p>
                         <p>y su email, alli podra resivir su nuevo codigo.</p>
-                        <input type='text' name='nombre' value={input.nombre }placeholder="Ingrese su Nombre." onChange={(e)=>handleChange(e)} />
+                        {/* <input type='text' name='nombre' value={input.nombre }placeholder="Ingrese su Nombre." onChange={(e)=>handleChange(e)} /> */}
                         <input type='text' name='email' value={input.email }placeholder="Ingrese su Email." onChange={(e)=>handleChange(e)} />
                         <button type="submit"className="btn btn-primary">Continuar</button>
                     </div>
