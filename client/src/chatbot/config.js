@@ -7,7 +7,7 @@ import Quiz from "../components/Quiz/Quiz";
 const config = {
   botName: "Clinno bot",
   initialMessages: [
-    createChatBotMessage(`Hola, gracias por usar Clinno, si usted tiene alguna inquietud, porfavor escriba alguna de estas palabras: Especialidad, Turno, Registrarme, Clinicas, SoyClinica`, {
+    createChatBotMessage(`Hola, gracias por usar Clinno Bot, si usted tiene alguna inquietud, porfavor escriba alguna de estas palabras clave: "Especialidad", "Turno", "Registrarme", "Clinicas", "SoyClinica". `, {
     }),
   ],
   // widgets: [

@@ -20,6 +20,12 @@ class MessageParser {
       if (lowercase.includes("turno") || lowercase.includes("tur")) {
         this.actionProvider.handleTurno();
       }
+      if (lowercase.includes("clinicas") || lowercase.includes("clinicas")) {
+        this.actionProvider.handleClinicas();
+      }
+      if (lowercase.includes("soyclinica") || lowercase.includes("soyclinica")) {
+        this.actionProvider.handleSoyClinica();
+      }
     }
   }
   
