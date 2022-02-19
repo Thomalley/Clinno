@@ -4,9 +4,8 @@ const { Mensualidad } = require('../db');
 
 router.post('/', async (req, res) => {
     try {
-        const {cuota, clinicaId, orderId} = req.body
+        const {clinicaId, orderId} = req.body
         const newMensu = await Mensualidad.create({
-            cuota,
             clinicaId,
             orderId
         })

@@ -17,11 +17,11 @@ mercadopago.configure({
 
 
 //Ruta que genera la URL de MercadoPago
-router.get("/", (req, res, next) => {
-
+router.get("/:orderId", (req, res, next) => {
+    const cuota = 2000
     // const id_orden = 1
-    const {orderId, cuota} = req.body
-    console.log(orderId, cuota)
+    const {orderId} = req.params
+    console.log(orderId)
     //Cargamos el carrido de la bd
     const carrito = [
         { title: "Servicio mensual", quantity: 1, price: cuota }
@@ -51,7 +51,6 @@ router.get("/", (req, res, next) => {
     };
 
     mercadopago.preferences.create(preference)
-
     .then(function(response) {
             console.info('respondio')
                 //Este valor reemplazará el string"<%= global.id %>" en tu HTML

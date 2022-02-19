@@ -19,7 +19,7 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Turno from './components/Turno/Turno';
 import ClinicaCard from './components/ClinicaCard/ClinicaCard';
 import VerDoctores from './components/VerDoctores/VerDoctores';
-import MercadoPago from './components/MercadoPago/Mercadopago'
+import MercadoPago from './components/AdminClinica/Cobro/Mercadopago'
 import TurnoMe from './components/ClientCard/TurnoMe';
 import EstamosTabajando from './components/EstamosTrabajando/EstamosTrabajando'
 import ValidarUsuario from './components/AdminClinica/CreaTurnos/ValidarUsuario';
@@ -42,6 +42,7 @@ function App() {
         <Bot/>  
         <Routes>
           {/* <Route path='/test' elemnt={<ReagendarTurno/>}/> */}
+          <Route path='/adminClinica/Cobro' element={<MercadoPago/>}/>
           <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
           <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
