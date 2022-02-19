@@ -19,8 +19,13 @@ export default function TurnosDelDia(){
     
     const cookies = new Cookies();
     const dispatch = useDispatch();
-
+    
+    const [loading,setLoading] = useState(true);
     const [turn,setTurn] = useState([]);
+    const [cancel,setCancel] = useState({
+        status:"cancelado",
+        idTurno:""
+    })
 
     const turnos = useSelector((state)=> state.turnosDoctor);
     const especialidades = useSelector((state)=> state.especialidades);
@@ -39,6 +44,7 @@ export default function TurnosDelDia(){
         dispatch(getEspecialidad())
         dispatch(getDiagnostico())
         setTurn(turnos);
+        setTimeout(()=> setLoading(false),600)
     },[])
     useEffect(()=>{
         if(turnos){
@@ -48,13 +54,18 @@ export default function TurnosDelDia(){
             dispatch(getClinicas())
             dispatch(getClients())
             dispatch(getEspecialidad())
-            console.log('funca');
             setTurn(turnos);
+            setTimeout(()=> setLoading(false),600)
         }
     },[turnos])
     
-    function cancelarTurno(id){
-        dispatch(canTurno({status:"cancelado",idTurno:id}))
+    function selectID(id){
+        setCancel({...cancel, idTurno:id});
+    }
+
+
+    function cancelarTurno(){
+        dispatch(canTurno(cancel))
         dispatch(getTurnosDoctor(cookies.get('doctor_id')));
         setTurn(turnos);
         swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
@@ -110,18 +121,40 @@ export default function TurnosDelDia(){
                                 <span>{t.fecha }</span>   
                                 <span>{t.hora }</span>
                                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{t.status !== 'cancelado'?
+                                <span>{loading?
+                                    <div class="spinner-border text-light" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    :t.status !== 'cancelado'?
                                     t.hora < horaAhora?
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
                                     <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
-                                  <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info" >Agregar</Link> |
-                                   <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
-                                  <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button>:
-                                  <p className="btn btn-outline-danger">CANCELADO</p> }</span>
+                                    <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info" >Agregar</Link> |
+                                    <button className="btn btn-danger" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button> </>:
+                                    <button className="btn btn-danger" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button>:
+                                    <span className="btn btn-outline-danger">CANCELADO</span> }</span>
                             </div>
                         )
                     }
                 })}
+            </div>
+            {/* <!-- Modal --> */}
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cancelar el Turno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Si das en aceptar, el turno cerra cancelado</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cerrar</button>
+                    <button type="button" class="btn btn-danger" onClick={cancelarTurno} >Si, Cancelar el Turno</button>
+                </div>
+                </div>
+            </div>
             </div>
             <Footer />
         </>
@@ -130,3 +163,4 @@ export default function TurnosDelDia(){
         cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/soyDoctor';
     }
 }
+

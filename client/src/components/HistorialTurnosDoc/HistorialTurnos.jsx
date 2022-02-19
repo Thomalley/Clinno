@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,filter_fechas,canTurno} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,canTurno, filter_turnos} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 
@@ -11,7 +11,7 @@ import logo from '../../components/utils/images-landing/logo.png'
 
 
 import Cookies from 'universal-cookie';
-import "../AdminClinica/AdminClinicaStyle.css";
+import "./HistorialTurnosStyle.css";
 
 
 
@@ -21,7 +21,7 @@ export default function HistorialTurnosDoc(){
     const dispatch = useDispatch();
 
     const [turn,setTurn] = useState([]);
-
+    const [loading,setLoading] = useState(true);
     // const turnosFilter = useSelector((state)=> state.turnos);
     const turnos = useSelector((state)=> state.turnos);
     const especialidades = useSelector((state)=> state.especialidades);
@@ -40,6 +40,7 @@ export default function HistorialTurnosDoc(){
         dispatch(getEspecialidad())
         dispatch(getDiagnostico())
         setTurn(turnos);
+        setTimeout(()=> setLoading(false),600)
     },[])
     useEffect(()=>{
         if(turnos){
@@ -49,36 +50,24 @@ export default function HistorialTurnosDoc(){
             dispatch(getClinicas())
             dispatch(getClients())
             dispatch(getEspecialidad())
-            console.log('funca');
             setTurn(turnos);
+            setTimeout(()=> setLoading(false),600)
         }
     },[turnos])
+    
     
     const date = new Date();
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     const horaAhora = date.getHours() ;
 
-    const [input,setInput] = useState({fecha:''});
-    
-
-
-    function handleChange(e){
-        const {name,value} = e.target;
-        const {errors,...sinErrors} = input;
-        setInput({
-            ...input,
-            [name] : value,
-        });
-    }
-
-    function handleSubmit(e){
-        e.preventDefault();
-        dispatch(filter_fechas(input))
-    }
-    const [cancel,setCancel] = useState({
+        const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
+        const [input,setInput] = useState(initialInputState);
+        const [cancel,setCancel] = useState({
         status: "cancelado",
         idTurno:""
-    })
+    })    
+    
+    
     function cancelarTurno(id){
         dispatch(canTurno({status:"cancelado",idTurno:id}))
         dispatch(getTurnosDoctor(cookies.get('doctor_id')));
@@ -87,6 +76,38 @@ export default function HistorialTurnosDoc(){
         setTimeout(()=> window.location.href='/soyDoctor/turnosDelDia', 2000);
     }
 
+    function handleAllturnos(e){
+        e.preventDefault();
+        const {name,value} = e.target;
+        setInput(initialInputState)
+    }
+
+    function handleAll(e){
+        e.preventDefault();
+        const {name,value} = e.target;
+        setInput({
+            ...input,
+            [name] : value,
+        });
+    }
+
+    function changeStatus (e){
+        e.preventDefault();
+        setInput({
+            ...input,
+            status: '',
+        });
+    }
+    function changeCancel (e){
+        e.preventDefault();
+        setInput({
+            ...input,
+            status: 'cancelado',
+        });
+    }
+    useEffect(()=>{
+        dispatch(filter_turnos(input))
+    },[input])
     if(loggeado){
 
     return (
@@ -94,30 +115,26 @@ export default function HistorialTurnosDoc(){
             <div className="contenedor_adminClinica">
                 <NavClinica/>
                 <h3 className="">Historial de turnos de {cookies.get('doctor_nombre')} </h3>
-                <form onSubmit={(e)=> handleSubmit(e)}> 
-                    <input type='text' 
-                    placeholder="Fecha Turno dd-mm-aaaa"
-                    value={input.fecha}
-                    name='fecha'
-                    onChange={(e)=>handleChange(e)}/>
-                    <button className="btn btn-warning">Enviar Fecha</button>
+                <form autocomplete='off'>
+                    <input type='text' placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
+                    
+                    <button className="btn btn-primary" onClick={handleAllturnos}>Todos los Turnos</button>
+
+                    <input type='text' placeholder="DNI Paciente" value={input.nombre} name='nombre' onChange={handleAll}/>
+
+                    <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked onClick={changeCancel} />
+                    <label class="btn btn-outline-success" for="success-outlined">Mostrar</label>
+
+                    <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off" onClick={changeStatus} />
+                    <label class="btn btn-outline-danger" for="danger-outlined">No Mostrar</label>
                 </form>
                 <div className="grid_turno_table text-white" >
-                    <span>
-                        <strong>Paciente</strong>
-                    </span>
-                    <span>
-                        <strong>Fecha</strong>
-                    </span>
-                    <span>
-                        <strong>Hora</strong>
-                    </span>
-                    <span>
-                        <strong>Especialidad</strong>
-                    </span>
-                    <span>
-                        <strong>Diagnostico/Status</strong>
-                    </span>
+                    <span><strong>Paciente</strong></span>
+                    <span><strong>DNI</strong></span>
+                    <span><strong>Fecha</strong></span>
+                    <span><strong>Hora</strong></span>
+                    <span><strong>Especialidad</strong></span>
+                    <span><strong>Diagnostico/Status</strong></span>
                 </div>
                 {turn &&turn?.sort(function(a, b) {
                         if (a.fecha < b.fecha) {
@@ -130,21 +147,25 @@ export default function HistorialTurnosDoc(){
 
                     }).map(t=>{
                         if(finalDate>t.fecha){
-                            return ( 
-                            // <Turno 
-                            //     Cliente={(cliente?.find(el => el.id === parseInt(t.idCliente,10)))?.nombre}
-                            // />
+                            return (
                             <div className="grid_turno_table text-white">
                                 <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
+                                <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
                                 <span>{t.fecha }</span>   
                                 <span>{t.hora }</span>
                                 <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span>{t.status !== 'cancelado'?
+                                <span>{loading?
+                                    <div class="spinner-border text-light" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    :t.status !== 'cancelado'?
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
-                                  <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
-                                  <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info">Agregar</Link> 
-                                  <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
-                                  <p className="btn btn-outline-danger">CANCELADO</p>}</span>
+                                    <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
+                                    <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info">Agregar</Link> 
+                                    <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
+                                    <span className="btn btn-outline-danger">CANCELADO</span>
+                                  
+                                  }</span>
                             </div>
                         )
                     }
