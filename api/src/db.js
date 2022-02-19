@@ -59,8 +59,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Calendario, Cliente, Diagnostico, Doctor, Especialidad, Resenia, Turno, Clinica, Order, Order_detail } = sequelize.models;
 
 // Mercado Pago👇
-Clinica.hasOne(Order)
-Order.belongsTo(Clinica)
+// Clinica.hasOne(Order)
+// Order.belongsTo(Clinica)
 // Order.hasOne(Order_detail)
 // Turno.hasOne(Order_detail)
 // Order_detail.belongsTo(Turno)

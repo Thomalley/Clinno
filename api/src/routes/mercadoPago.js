@@ -20,11 +20,11 @@ mercadopago.configure({
 router.get("/", (req, res, next) => {
 
     // const id_orden = 1
-    const {orderId, couta} = req.body
-
+    const {orderId, cuota} = req.body
+    console.log(orderId, cuota)
     //Cargamos el carrido de la bd
     const carrito = [
-        { title: "Servicio", quantity: 1, price: couta }
+        { title: "Servicio mensual", quantity: 1, price: cuota }
     ]
 
     const items_ml = carrito.map(i => ({
