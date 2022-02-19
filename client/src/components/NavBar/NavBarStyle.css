@@ -1,8 +1,13 @@
 .contenedor_navBar{
     padding-right: 110px;
     padding-left: 80px;
-    background:red;
     font-weight: 600;
+    background: #F4F4F596;
+    backdrop-filter: saturate(180%) blur(10px);
+    transition: background .3s;
+}
+.contenedor_navBar:hover{
+    background:#F4F4F5;
 }
 .item_season{
     margin: auto;

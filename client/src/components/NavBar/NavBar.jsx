@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Cookies from 'universal-cookie'
 import usuario from '../../components/utils/images-landing/usuario-sin-foto.png'
 import logo from "../utils/images-landing/logo.png"
-import { cerrarSesion } from "../AdminClinica/CerrarSesion";
+import swal from 'sweetalert';
 
 import './NavBarStyle.css';
 
@@ -24,6 +24,29 @@ export default function NavBar({loggin}){
         
     const [loggeado,setLoggeado] = useState(loggin);
     
+    const cerrarSesion=()=>{
+        const cookies = new Cookies();
+    
+    
+        cookies.remove('clinica_mail');
+        cookies.remove('clinica_nombre');
+        cookies.remove('clinica_telefono');
+        cookies.remove('clinica_direccion');
+        cookies.remove('clinica_id');
+        cookies.remove('clinica_nombreEn', );
+        cookies.remove('clinica_apellidoEn');
+        cookies.remove('clinica_DNIEn');
+        cookies.remove('clinica_codigo');
+        cookies.remove('clinica_createdAt');
+        cookies.remove('doctor_nombre');
+        cookies.remove('doctor_id');
+        cookies.remove('doctor_codigo');
+        cookies.remove('doctor_especialidades');
+    
+        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
+        setTimeout(()=> window.location.href='/', 2000) ;
+    }
+
     const cerrarSesions=()=>{
         if(isAuthenticated){
             logout();
@@ -43,7 +66,7 @@ export default function NavBar({loggin}){
 
     return(
         <div className="">            
-            <nav className=" navbar fixed-top  navbar-expand-lg navbar-light bg-light contenedor_navBar ">
+            <nav className=" navbar fixed-top  navbar-expand-lg navbar-light  contenedor_navBar ">
                 <div className="container-fluid">
                     <div>
                         <Link className="navbar-brand logo-container_home" to='/'>
@@ -72,8 +95,11 @@ export default function NavBar({loggin}){
                             
                             {   
                                 !cookies.get('clinica_id')?
-                                loggin?
+                                loggin? 
                                 <> 
+                                    <li className="nav-item item_navBar">
+                                        <Link className="nav-link active item_navBar" to='/turno'>Sacar un Turno</Link>
+                                    </li>
                                     <li className="nav-item item_season">                    
                                         <button 
                                             className="nav-link active item_navBar btn btn-outline border-start font_sesion" 

@@ -31,7 +31,6 @@ import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnosti
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
 import ReagendarTurno from './components/ClientCard/ReagendarTurno';
 import Bot from './components/Bot/Bot';
-import Reseñas from './components/ClientCard/Reseñas';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 
 
@@ -74,7 +73,6 @@ function App() {
           <Route path='/SoyDoctor/turnosDelDia' element={<TurnosDelDia/>}/>
           <Route path='/SoyDoctor/agregarDiagnostico/:idTurno' element={<AgregarDiagnostico/>}/>
           <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
-          <Route path='/reviewMe' element={<Reseñas/>}/>
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
 
         </Routes>

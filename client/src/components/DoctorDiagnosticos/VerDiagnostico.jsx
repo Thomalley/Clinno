@@ -51,18 +51,36 @@ export default function VerDiagnosticoDoctor(){
         <>
             <div className="contenedor_adminClinica">
                 <NavClinica/>
-                <h2>Funciono</h2>
-                <div>
-                    <h3>Datos del Turno:</h3>
-                    <p>Fecha: {turno?.fecha}</p>
-                    <p>Hora: {turno?.hora}</p>
-                </div>
-                <h3>Diagnostico</h3>
-                <div>
-                    <p>{diagDoctor[0]?.sintomas}</p>
-                    <p>{diagDoctor[0]?.diagnostico}</p>
-                    <p>{diagDoctor[0]?.indicaciones}</p>
-                    <p>{diagDoctor[0]?.estudio}</p>
+                <div className="contenedor_diag_compl" >
+                    <div className="formu_complete_diag">
+                        <img src={logo} className='logo_clinno_navC' />
+                        <div>
+                            <h3>Datos del Turno:</h3>
+                            <p>Fecha: {turno?.fecha}</p>
+                            <p>Hora: {turno?.hora}</p>
+                        </div>
+                        <h3>Diagnostico</h3>
+                        <div>
+                            <div>
+                                <p><strong>Sintomas: </strong></p>
+                                <p>{diagDoctor[0]?.sintomas}</p>
+                            </div>
+                            <div> 
+                                <p><strong>Diagnóstico: </strong></p>
+                                <p>{diagDoctor[0]?.diagnostico}</p>
+                            </div>
+
+                            <div> 
+                                <p><strong>Indicaciones Medicas: </strong></p>
+                                <p>{diagDoctor[0]?.indicaciones? diagDoctor[0].indicaciones : " -" }</p>
+                            </div>
+                            <div> 
+                                <p><strong>Estudios: </strong></p>
+                                <p>{diagDoctor[0]?.estudio? diagDoctor[0].estudio : " -" }</p>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />

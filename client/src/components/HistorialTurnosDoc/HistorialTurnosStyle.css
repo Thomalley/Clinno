@@ -1,0 +1,64 @@
+.grid_turno_table{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    border-top: 1px solid black;
+    color: #000;
+    transition: background .3s;    
+}
+
+.fijo_table{
+    height: 3.2rem;
+}
+.fijo_table > span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.diferente{
+    transition: background .6s, height .6s, font-weight .3s;
+}
+.diferente:hover{
+    background: #273748;
+    height: 3.2rem;
+    font-weight: 700;
+    border-bottom: 2px solid #d1d1d1;
+}
+.spanes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .3s;
+}
+.spanes:hover{
+    color: #12ace4;
+
+}
+.grid_turno_tables > .spanes{
+    padding: 8px 4px;
+    border: 1px solid black;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form_history_turns{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border:2px solid #B9d4DB;
+    background: #273748;
+    padding: 20px;
+    border-radius: 20px;
+}
+.input_history{
+    background: #B9d4DB;
+    border-radius: 5px;
+    height: 2.5rem;
+    font-weight: bolder;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
