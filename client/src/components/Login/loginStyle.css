@@ -1,5 +1,4 @@
-.cont{
-    border: 1px solid black;
+.cont {
     background-color: white;
     border-radius: 15px;
     margin-top: 135px;
@@ -11,20 +10,20 @@
     box-shadow: 0px 0px 200px -80px;
 }
 
-.imglogin{
+.imglogin {
     width: 146px;
     height: auto;
     margin: 21px;
 }
 
-.btnlogin{
+.btnlogin {
     height: 40px;
     width: 189px;
     border: groove;
     font-size: 12px;
 }
 
-.btnlogincontinue{
+.btnlogincontinue {
     height: 40px;
     width: 189px;
     border: groove;
@@ -32,7 +31,7 @@
     background-color: #6ec272;
 }
 
-.btnlogincontinueBlocked{
+.btnlogincontinueBlocked {
     height: 40px;
     width: 189px;
     border: groove;
@@ -41,7 +40,7 @@
     cursor: not-allowed;
 }
 
-.btnloginback{
+.btnloginback {
     background-color: #62cbe4;
     height: 40px;
     width: 189px;
@@ -50,7 +49,7 @@
     color: white;
 }
 
-.btnloginWithAuth0{
+.btnloginWithAuth0 {
     height: 40px;
     width: 189px;
     border: groove;
@@ -60,18 +59,17 @@
     font-weight: bold;
 }
 
-.btnloginWithAuth0 :hover{
+.btnloginWithAuth0 :hover {
     background-color: black;
-
 }
 
-.inpt{
+.inpt {
     height: 40px;
     width: 189px;
     margin: 0px;
 }
 
-.inptValue{
+.inptValue {
     height: 40px;
     width: 189px;
     margin: 0px;
@@ -79,21 +77,21 @@
     background-color: whitesmoke;
 }
 
-.inptwr{
+.inptwr {
     height: 40px;
     width: 189px;
     border-color: red;
 }
 
-.desclogin{
+.desclogin {
     font-size: 12px;
 }
 
-.noaccreg{
+.noaccreg {
     font-size: 13px;
 }
 
-.errorNotWrtd{
+.errorNotWrtd {
     font-size: 12px;
     color: red;
     position: relative;
@@ -102,20 +100,20 @@
     display: flex;
 }
 
-.googlelog{
+.googlelog {
     float: left;
     width: 20px;
     border: 0px;
 }
 
-.checkbocshowpass{
+.checkbocshowpass {
     float: left;
     position: relative;
     left: 102.5px;
     top: 5px;
 }
 
-.showpass{
+.showpass {
     font-size: 13px;
     display: initial;
     position: relative;

@@ -92,7 +92,7 @@ export default function Turno() {
         diaTurno = data[2];
         yearTurno = data[3];
         finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
-        if (finalDate < jsFinalDate){
+        if (finalDate < jsFinalDate) {
             swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
             return
         }
@@ -103,7 +103,7 @@ export default function Turno() {
         })
 
     }
-   
+
     useEffect(() => {
         if (!userLog) {
             setLoggeado(false)
@@ -216,7 +216,7 @@ export default function Turno() {
                 buttons: {
                     text: "Volver a inicio"
                 }
-            }) 
+            })
                 .then((value) => {
                     switch (value) {
                         case "text":
@@ -392,49 +392,49 @@ export default function Turno() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="cont_tur_BG">
-                                        <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
-                                        <select id="Sel_Tur_Crea_Hora" class="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
-                                            <option value="" disabled selected>{`Horarios disponibles el ${idValue.fecha.replace('-', '/')}`}</option>
-                                            {horariosDispoDoc && horariosDispoDoc.map((e) => (
-                                                <option value={e}>{e}</option>
-                                            ))}
-                                        </select>
-                                    </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="cont_tur_BG">
+                                    <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
+                                    <select id="Sel_Tur_Crea_Hora" class="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
+                                        <option value="" disabled selected>{`Horarios disponibles el ${idValue.fecha.replace('-', '/')}`}</option>
+                                        {horariosDispoDoc && horariosDispoDoc.map((e) => (
+                                            <option value={e}>{e}</option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
-
-                            {
-                                errors.clinica || errors.doc ?
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div>
-                                                <div class="alert alert-danger" role="alert">
-                                                    Revisa los errores antes de continuar
-                                                </div>
-                                                <Link to={'/home'}>
-                                                    <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    :
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div>
-                                                <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
-                                                <Link to={'/'}>
-                                                    <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                            }
-
                         </div>
+
+                        {
+                            errors.clinica || errors.doc ?
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div>
+                                            <div class="alert alert-danger" role="alert">
+                                                Revisa los errores antes de continuar
+                                            </div>
+                                            <Link to={'/home'}>
+                                                <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="row">
+                                    <div className="col-12">
+                                        <div>
+                                            <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
+                                            <Link to={'/'}>
+                                                <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+
                     </div>
                 </div>
                 <div className="entre_nav_turno"></div>

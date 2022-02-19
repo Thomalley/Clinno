@@ -42,7 +42,8 @@ router.get('/disponibilidad/:fecha/:idDoctor', async(req, res) => {
         const turnos = await Turno.findAll({
             where: {
                 fecha: fecha,
-                idDoctor: idDoctor
+                idDoctor: idDoctor,
+                status: "pendiente"
             }
         })
         let horariosOcupados = []
@@ -119,18 +120,35 @@ router.get('/:id', async(req, res) => {
     }
 })
 
-router.put('/update/:id', async (req, res) => {
-    try{
+router.put('/update/:id', async(req, res) => {
+    try {
         const { id } = req.params
-        const {status} =req.body
+        const { status } = req.body
         console.log(status)
         const turno = await Turno.findByPk(id)
-        await turno.update({status: status })
+        await turno.update({ status: status })
         await turno.save()
         res.send(turno)
-    }
-    catch(err){
+    } catch (err) {
         console.log(err)
     }
 })
+
+router.put('/update/date/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        const {
+            nuevaFecha,
+            nuevaHora
+        } = req.body
+        const turno = await Turno.findByPk(id)
+        await turno.update({ fecha: nuevaFecha })
+        await turno.update({ hora: nuevaHora })
+        await turno.save()
+        res.send(turno)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 module.exports = router
