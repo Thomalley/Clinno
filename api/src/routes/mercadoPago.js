@@ -17,13 +17,14 @@ mercadopago.configure({
 
 
 //Ruta que genera la URL de MercadoPago
-router.get("/", (req, res, next) => {
-
-    const id_orden = 1
-
+router.get("/:orderId", (req, res, next) => {
+    const cuota = 2000
+    // const id_orden = 1
+    const {orderId} = req.params
+    console.log(orderId)
     //Cargamos el carrido de la bd
     const carrito = [
-        { title: "Turno", quantity: 1, price: 2000 }
+        { title: "Servicio mensual", quantity: 1, price: cuota }
     ]
 
     const items_ml = carrito.map(i => ({
@@ -35,7 +36,7 @@ router.get("/", (req, res, next) => {
     // Crea un objeto de preferencia
     let preference = {
         items: items_ml,
-        external_reference: `${id_orden}`,
+        external_reference: `${orderId}`,
         payment_methods: {
             excluded_payment_types: [{
                 id: "atm"
@@ -50,7 +51,6 @@ router.get("/", (req, res, next) => {
     };
 
     mercadopago.preferences.create(preference)
-
     .then(function(response) {
             console.info('respondio')
                 //Este valor reemplazará el string"<%= global.id %>" en tu HTML
