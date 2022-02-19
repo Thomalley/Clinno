@@ -214,16 +214,11 @@ export default function Turno() {
                 text: `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
                 icon: "success",
                 buttons: {
-                    catch: "Abonar turno",
                     text: "Volver a inicio"
                 }
             }) 
                 .then((value) => {
                     switch (value) {
-                        case "catch":
-                            swal("En instantes seras redirigido..", {});
-                            setTimeout(() => window.location.href = '/turno/abonar', 2000)
-                            break
                         case "text":
                             swal("En instantes seras redirigido a inicio..", {});
                             setTimeout(() => window.location.href = '/', 2000)

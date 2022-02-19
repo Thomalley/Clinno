@@ -1,4 +1,4 @@
-const { Order } = require('../db.js');
+const { Order, Mensualidad } = require('../db.js');
 const router = require('express').Router();
 
 // SDK de Mercado Pago
@@ -43,9 +43,9 @@ router.get("/", (req, res, next) => {
             installments: 3 //Cantidad máximo de cuotas
         },
         back_urls: {
-            success: 'http://localhost:3001/mercadopago/pagos',
-            failure: 'http://localhost:3001/mercadopago/pagos',
-            pending: 'http://localhost:3001/mercadopago/pagos',
+            success: '/mercadopago/pagos',
+            failure: '/mercadopago/pagos',
+            pending: '/mercadopago/pagos',
         },
     };
 
@@ -90,16 +90,11 @@ router.get("/pagos", (req, res) => {
                 })
                 .catch((err) => {
                     console.error('error al salvar', err)
-                    return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
                 })
         })
         .catch(err => {
             console.error('error al buscar', err)
-            return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
         })
-
-    //proceso los datos del pago 
-    //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 })
 
 

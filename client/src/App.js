@@ -42,7 +42,7 @@ function App() {
       <div className="App">
         <Bot/>  
         <Routes>
-          <Route path='/test' elemnt={<ReagendarTurno/>}/>
+          {/* <Route path='/test' elemnt={<ReagendarTurno/>}/> */}
           <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
           <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>

@@ -12,7 +12,7 @@ function Bot() {
   return (
     <div style={{position: "fixed", zIndex: 99, left: 20, bottom:20}}>
     {showBot &&
-    <Chatbot
+    <Chatbot 
         config={config}
         messageParser={MessageParser}
         headerText='Muchas gracias por usar Clinno'
