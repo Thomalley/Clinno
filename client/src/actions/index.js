@@ -41,6 +41,17 @@ export function getTurnosByDni(documento) {
         }
     }
 }
+
+export function filtroTurnoFecha(turnosFiltrados){
+    return async function(dispatch) {
+        try{return dispatch({
+            type: "FILTRO_FECHA_TURNOS_ME",
+            payload: turnosFiltrados
+        })}
+    catch(err){
+        console.log(err)
+    }
+}}
 export function getTurnos() {
     return async function(dispatch) {
         try {

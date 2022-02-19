@@ -19,8 +19,10 @@
 
   .titulosTurno{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     border-bottom: 2px solid black;
+    flex-direction: row;
+    padding: 20px 0px;
   }
 
   .turnoP{
@@ -49,4 +51,17 @@
 
 .h2-turnos{
   border-bottom: 2px solid black;
+}
+
+.filtros{
+  margin: 0px 20px;
+}
+
+.footerTurno{
+  bottom: 0;
+  margin-top: 165px;
+}
+
+.elContenedor{
+  min-height: 100vh;
 }
