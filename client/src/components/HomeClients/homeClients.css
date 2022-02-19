@@ -1,259 +1,239 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
 .home-hospitals {
-  font-family: "Poppins", sans-serif;
-  margin-top: 64px;
+    font-family: "Poppins", sans-serif;
+    margin-top: 64px;
 }
+
 .steps-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .steps-box h5 {
-  font-size: 15px;
-  font-weight: bold;
+    font-size: 15px;
+    font-weight: bold;
 }
-.steps-box p {
-  margin-left: 10%;
-  margin-right: 10%;
 
-  font-size: 15px;
-  text-align: center;
+.steps-box p {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 15px;
+    text-align: center;
 }
 
 .steps-box div {
-  margin: 2%;
+    margin: 2%;
 }
 
 .big-box {
-  background-color: #a5dbd2;
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 0px 36px 24px rgba(0, 0, 0, 0.1),
-    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background-color: #a5dbd2;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 0px 36px 24px rgba(0, 0, 0, 0.1), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .left-box img {
-  height: 500px;
+    height: 500px;
 }
 
 .right-box {
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.right-box h5 {
-  font-family: "Viga", sans-serif;
-  color: #333333;
-}
-
-.title {
-  font-size: 30px;
-}
-
-.button-allclinics-box button {
-  background-image: linear-gradient(
-    to right,
-    #02aab0 0%,
-    #00cdac 51%,
-    #02aab0 100%
-  );
-}
-.button-allclinics-box button {
-  margin: auto;
-  padding: 10px;
-
-  transition: 0.5s;
-  background-size: 100% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-}
-
-.button-allclinics-box:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-
-.button-allclinics-box a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 5px;
-}
-
-.esp-box {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 30px;
-  justify-content: center;
-}
-
-.booking-date {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 30px;
-}
-
-.selet-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-.select {
-  width: 300px;
-  background-color: rgb(240, 240, 240);
-  border-color: rgb(212, 212, 212);
-  border-radius: 4px;
-  text-align: center;
-}
-
-.clinics {
-  display: flex;
-  flex-direction: row;
-  margin: 100px;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.card-clinic {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 20%;
-  height: 350px;
-  justify-content: center;
-  box-shadow: 0px 0px 26px 14px rgba(0, 0, 0, 0.1),
-    0px 5px 10px -3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
-  margin-left: 30px;
-  margin-right: 30px;
-  border-radius: 5px;
-}
-
-.card-clinic h5 {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.img-logo-clinics {
-  display: flex;
-  overflow: hidden;
-  height: 200px;
-  align-items: center;
-}
-.img-logo-clinics img {
-  width: 125px;
-  margin: auto;
-}
-
-.esp-box button {
-  border-radius: 3px;
-  border-style: none;
-  background-color: rgb(247, 247, 247);
-  margin: 5px;
-
-  box-shadow: 8px 5px 5px 0.5px rgba(71, 71, 71, 0.315);
-}
-
-.datos-box button {
-  background-image: linear-gradient(
-    to right,
-    #02aab0 0%,
-    #00cdac 51%,
-    #02aab0 100%
-  );
-}
-.datos-box button {
-  text-decoration: none;
-  margin: auto;
-  padding: 10px;
-
-  transition: 0.5s;
-  background-size: 100% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-}
-
-.datos-box button:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-                            
-}
-
-.datos-box button a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 5px;
-}
-
-.datos-box {
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 950px) {
-  .steps-box {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .steps-box div {
-    margin: 5px;
-  }
-
-  .big-box {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .selets {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .clinics {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-  }
-
-  .booking-date {
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin: 50px;
-  }
+}
 
-  .booking-date div {
-    margin: 20px;
-  }
+.right-box h5 {
+    font-family: "Viga", sans-serif;
+    color: #333333;
+}
 
-  .left-box img {
-    height: 300px;
-  }
+.title {
+    font-size: 30px;
+}
 
-  .card-clinic {
-    width: 70%;
-  }
-  .selet-container div {
-    margin: 15px;
-  }
-  .selet-container {
-    flex-direction: column;
+.button-allclinics-box button {
+    background-image: linear-gradient( to right, #02aab0 0%, #00cdac 51%, #02aab0 100%);
+}
 
+.button-allclinics-box button {
+    margin: auto;
+    padding: 10px;
+    transition: 0.5s;
+    background-size: 100% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-allclinics-box:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.button-allclinics-box a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 5px;
+}
+
+.esp-box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    justify-content: center;
+}
+
+.booking-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     margin: 30px;
-  }
+}
+
+.selet-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.select {
+    width: 300px;
+    background-color: rgb(240, 240, 240);
+    border-color: rgb(212, 212, 212);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.clinics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card-clinic {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 20%;
+    height: 350px;
+    justify-content: center;
+    box-shadow: 0px 0px 26px 14px rgba(0, 0, 0, 0.1), 0px 5px 10px -3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+.card-clinic h5 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.img-logo-clinics {
+    display: flex;
+    overflow: hidden;
+    height: 200px;
+    align-items: center;
+}
+
+.img-logo-clinics img {
+    width: 125px;
+    margin: auto;
+}
+
+.esp-box button {
+    border-radius: 3px;
+    border-style: none;
+    background-color: rgb(247, 247, 247);
+    margin: 5px;
+    box-shadow: 8px 5px 5px 0.5px rgba(71, 71, 71, 0.315);
+}
+
+.datos-box button {
+    background-image: linear-gradient( to right, #02aab0 0%, #00cdac 51%, #02aab0 100%);
+}
+
+.datos-box button {
+    text-decoration: none;
+    margin: auto;
+    padding: 10px;
+    transition: 0.5s;
+    background-size: 100% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.datos-box button:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+}
+
+.datos-box button a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 5px;
+}
+
+.datos-box {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 950px) {
+    .steps-box {
+        display: flex;
+        flex-direction: column;
+    }
+    .steps-box div {
+        margin: 5px;
+    }
+    .big-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .selets {
+        display: flex;
+        flex-direction: column;
+    }
+    .clinics {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
+    .booking-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin: 50px;
+    }
+    .booking-date div {
+        margin: 20px;
+    }
+    .left-box img {
+        height: 300px;
+    }
+    .card-clinic {
+        width: 70%;
+    }
+    .selet-container div {
+        margin: 15px;
+    }
+    .selet-container {
+        flex-direction: column;
+        margin: 30px;
+    }
 }

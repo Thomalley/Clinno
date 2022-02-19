@@ -98,6 +98,7 @@ export function getDisponibilidad(fecha, idDoctor) {
         }
     }
 }
+
 export function getEspecialidad() {
     return async function(dispatch) {
         try {
@@ -226,27 +227,6 @@ export function crearTurno(input) {
                 type: "CREAR_TURNO",
                 payload: newTurno
             })
-        } catch (e) {
-            console.log(e)
-        }
-    }
-}
-
-export function nuevoHorarioDoc(input) {
-    return async function(dispatch) {
-        try {
-            const horario = await axios({
-                method: "put",
-                url: "/especialidad",
-                data: {
-                    nombre: input.nombre,
-                    horario: input.horario
-                },
-            });
-            // return dispatch({
-            //     type: "NUEVO_HORARIO_DOC",
-            //     payload: horario
-            // })
         } catch (e) {
             console.log(e)
         }
@@ -563,13 +543,12 @@ export function getTurnosDoctor(payload) {
 }
 
 
-export function darBajaEmail(payload){
-    return async function (dispatch){
-        try{
-            const json = await axios.post(`/clinica/order-mail`,payload);
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch (err){
+export function darBajaEmail(payload) {
+    return async function(dispatch) {
+        try {
+            const json = await axios.post(`/clinica/order-mail`, payload);
+            return dispatch({ type: 'RESET_PASSWORD', payload: json.data })
+        } catch (err) {
             console.log(err)
         }
     }
@@ -601,14 +580,13 @@ export function getDiagnostico(payload) {
 }
 
 
-export function addDiagnostico(payload,){
-    return async function (dispatch){
-        try{
+export function addDiagnostico(payload, ) {
+    return async function(dispatch) {
+        try {
             const addDiag = await axios.post('/diagnostico', payload)
             const updateTurno = await axios.put(`/turno/update/${payload.idTurno}`, payload)
-            return dispatch ({type: 'ADD_DIAG', payload: addDiag.data })
-        }
-        catch(err){
+            return dispatch({ type: 'ADD_DIAG', payload: addDiag.data })
+        } catch (err) {
             console.log(err)
         }
     }
@@ -628,15 +606,14 @@ export function getAllDoctores() {
         }
     }
 }
-  
-  
-export function canTurno(payload){
-    return async function (dispatch){
-        try{
+
+
+export function canTurno(payload) {
+    return async function(dispatch) {
+        try {
             const json = await axios.put(`/turno/update/${payload.idTurno}`, payload)
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch(err){
+            return dispatch({ type: 'RESET_PASSWORD', payload: json.data })
+        } catch (err) {
             console.log(err)
         }
     }
@@ -644,8 +621,22 @@ export function canTurno(payload){
 
 // turnos por fecha
 
-export function filter_fechas(payload){
-    return async function (dispatch){
-        return dispatch ({type: 'FILTER_FECHAS', payload:payload.fecha})
+export function filter_fechas(payload) {
+    return async function(dispatch) {
+        return dispatch({ type: 'FILTER_FECHAS', payload: payload.fecha })
+    }
+}
+
+export function modifTurno(payload) {
+    return async function(dispatch) {
+        try {
+            const json = axios.put(`/turno/update/date/${payload.idTurno}`, payload)
+            return dispatch({
+                type: "RESET_PASSWORD",
+                payload: json.data
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 }

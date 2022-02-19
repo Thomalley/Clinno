@@ -71,7 +71,7 @@ export default function ValidarUsuario() {
 
     function onRedirectTurno(){
         cookies.set("dni_new_client", cliente[0].dni, {path:'/'})
-        setTimeout(()=> window.location.href="/test", 2000)
+        setTimeout(()=> window.location.href="/adminClinica/cliente/turno", 2000)
 
     }
 
