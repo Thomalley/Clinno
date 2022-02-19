@@ -46,7 +46,7 @@ export default function TurnoMe() {
     e.preventDefault()
     setidTurno(e.target.value);
   };
-
+console.log(turnosPendientes)
   useEffect(() => {
     if (idTurno !== "") dispatch(getTurnoId(idTurno));
   }, [idTurno]);
@@ -55,7 +55,7 @@ export default function TurnoMe() {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
   }, [diag]);
 
-  console.log("soy turnoId", turnoId);
+
   for (let i = 0; i < turnos.length; i++) {
     if (turnos[i].status === "concretado") {
       turnosPasados.push(turnos[i]);
