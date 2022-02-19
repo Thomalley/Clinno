@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const { Doctor, Especialidad, Clinica } = require("../db")
 router = Router()
-
+const {
+    API_KEY
+  } = process.env;
 router.get("/:idEspecialidad/:idClinica", async(req, res, next) => {
     try {
         console.log(req.params)
@@ -114,6 +116,44 @@ router.get('/:id', async(req, res) => {
         console.log(err)
     }
 })
+
+router.post('/order-mail', (req,res)=> {
+    try{
+      const {email, password,codigo, nombre} = req.body;
+
+      console.log(email)
+
+       const sgMail = require('@sendgrid/mail')
+
+
+        sgMail.setApiKey(API_KEY)
+
+        const message = {
+
+          to: email,
+
+          from : "clinnoturnos@gmail.com",
+
+          subject: `Recuperacion de Codigo Doctor ${nombre}`,
+          html: `
+          <html>
+        <head>
+            <body>
+            <h2> Hola ${nombre } queremos informarte que tu codigo de inicio de sesion es ${codigo}  </h2>
+             </body>
+        </head>
+        </html>`
+        }
+
+        sgMail
+        .send(message)
+        .then((response) => console.log ('Email sent...'))
+        .catch((error) => console.log (error.message))
+        }
+        catch(error){
+        console.log(error)
+        }
+    });
 
 
 
