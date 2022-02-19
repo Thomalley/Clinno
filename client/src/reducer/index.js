@@ -46,6 +46,12 @@ const rootReducer = (state = initialState, action) => {
                 turnosDni: action.payload
             }
 
+        case "FILTRO_FECHA_TURNOS_ME":
+            return {
+                ...state,
+                turnosDni: action.payload
+            }
+
         case "GET_TURNOS_ID":
             return {
                 ...state,
