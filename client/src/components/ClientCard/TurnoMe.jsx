@@ -5,55 +5,140 @@ import { useDispatch } from "react-redux";
 import Cookies from "universal-cookie";
 import NavLanding from "../../components/NavLanding/NavLanding";
 import Footer from "../Home/Footer";
+import swal from 'sweetalert'
 import { Link, useParams } from "react-router-dom";
+import Calendar from 'react-calendar'
 import {
   getTurnosByDni,
   getAllDoctores,
   getResenia,
   getDiagnosticoByTurno,
-  filtroTurnoFecha,
   getTurnoId,
   canTurno,
+  filtroTurnoFecha,
+  getDisponibilidad,
+  modifTurno
 } from "../../actions/index";
 
+
 export default function TurnoMe() {
+
   const cookies = new Cookies();
   const dispatch = useDispatch();
   let turnos = useSelector((state) => state.turnosDni);
   const doctores = useSelector((state) => state.allDoctoresInDB);
   const resenia = useSelector((state) => state.resenia);
   const diagnostico = useSelector((state) => state.diagDoctor);
-  const turnoId = useSelector((state) => state.turnoById);
+  // const turnoId = useSelector((state) => state.turnoById);
+  const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
   const dni_user = cookies.get("dni");
   const turnosPendientes = [];
   const turnosPasados = [];
   const turnosOriginales = turnos
   let turnosFiltrados = turnosOriginales;
+  const [diag, setDiag] = useState("");
+  const [idTurno, setidTurno] = useState("");
+  const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
+  const [date, setDate] = useState(new Date());
+  const onChange = date => {
+    setDate(date)
+  }
+  const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  let diaTurno = undefined;
+  let mesTurno = undefined;
+  let yearTurno = undefined;
+  var finalDate = undefined;
+
 
   useEffect(() => {
     dispatch(getTurnosByDni(dni_user));
     dispatch(getAllDoctores());
     dispatch(getResenia());
-  },[turnos]);
+  }, []);
 
 
-  const handleSelect = (e) => {
-    setDiag(e.target.value);
-    e.preventDefault();
-  };
+  useEffect(() => {
+    if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
+  }, [diag]);
 
-  function handleFilterSelect(e){
+
+  useEffect(() => {
+    if (idTurno !== "") dispatch(getTurnoId(idTurno));
+  }, [idTurno]);
+
+  useEffect(() => {
+    dispatch(getDisponibilidad(updateDate.fecha, updateDate.idDoctor))
+  }, [updateDate.fecha])
+
+
+  function validateDate(value) {
+    const data = value.toString('').split(' ');
+    switch (data[1]) {
+      case "Jan":
+        mesTurno = 1
+        break
+      case "Feb":
+        mesTurno = 2
+        break
+      case "Mar":
+        mesTurno = 3
+        break
+      case "Apr":
+        mesTurno = 4
+        break
+      case "May":
+        mesTurno = 5
+        break
+      case "Jun":
+        mesTurno = 6
+        break
+      case "Jul":
+        mesTurno = 7
+        break
+      case "Aug":
+        mesTurno = 8
+        break
+      case "Sep":
+        mesTurno = 9
+        break
+      case "Oct":
+        mesTurno = 10
+        break
+      case "Nov":
+        mesTurno = 11
+        break
+      case "Dec":
+        mesTurno = 12
+        break
+      default:
+        break;
+    }
+    diaTurno = data[2];
+    yearTurno = data[3];
+    finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
+    if (finalDate < jsFinalDate) {
+      swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+      return
+    }
+    setupdateDate({
+      ...updateDate,
+      fecha: finalDate
+    })
+
+  }
+
+  function handleFilterSelect(e) {
     e.preventDefault();
     console.log(turnos)
-    if(e.target.value === "desc" && turnosFiltrados[0].id === turnosOriginales[0].id){
+    if (e.target.value === "desc" && turnosFiltrados[0].id === turnosOriginales[0].id) {
       turnosFiltrados = turnos.reverse()
-    } else if(e.target.value === "desc" && turnosFiltrados[0].id !== turnosOriginales[0].id){
+    } else if (e.target.value === "desc" && turnosFiltrados[0].id !== turnosOriginales[0].id) {
       turnosFiltrados = turnosOriginales
     }
 
-    if(e.target.value === "asc" && turnosFiltrados[0].id === turnosOriginales[0].id){
+    if (e.target.value === "asc" && turnosFiltrados[0].id === turnosOriginales[0].id) {
       turnosFiltrados = turnos.reverse()
-    } else if(e.target.value === "asc" && turnosFiltrados[0].id !== turnosOriginales[0].id){
+    } else if (e.target.value === "asc" && turnosFiltrados[0].id !== turnosOriginales[0].id) {
       turnosFiltrados = turnosOriginales
     }
 
@@ -61,48 +146,47 @@ export default function TurnoMe() {
     dispatch(filtroTurnoFecha(turnos))
   }
 
-
-  function handleCancel(e){
-    e.preventDefault()
-    console.log(e.target.value)
-    //swal para cancelar el turno
-    //avisa que confirme la cancelacion y se cambia el estado de turno de pendiente a cancelado
+  const handleSelectHora = (e) => {
+    setupdateDate({
+      ...updateDate,
+      hora: e.target.value
+    })
   }
 
-  function handleReprogram(e){
-    e.preventDefault()
-    console.log(e.target.value)
-    //swal para reprogramar
-    //avisa que confirme la cancelacion del turno
-    //redirige a sacar turno y fin
-  }
 
-  useEffect(() => {
-    if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
-  }, [diag]);
-  useEffect(() => {
-
-    dispatch(canTurno({status:"cancelado", idTurno:idTurno}))
-  }, []);
-
-  const [diag, setDiag] = useState("");
-
-  const [idTurno, setidTurno] = useState("");
+  const handleSelect = (e) => {
+    setDiag(e.target.value);
+    e.preventDefault();
+  };
 
   const handleCancelar = (e) => {
     e.preventDefault()
-    setidTurno(e.target.value);
-  };
+    setidTurno(e.target.value)
+  }
 
-  useEffect(() => {
-    if (idTurno !== "") dispatch(getTurnoId(idTurno));
-  }, [idTurno]);
-  
-  useEffect(() => {
-    if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
-  }, [diag]);
+  const handleModificar = (e) => {
+    e.preventDefault()
+    setupdateDate({
+      ...updateDate,
+      idDoctor: e.target.value
+    })
 
-  console.log("soy turnoId", turnoId);
+  }
+
+  const handleSubmitModificar = (e) => {
+    e.preventDefault()
+    dispatch(modifTurno({ nuevaFecha: updateDate.fecha, nuevaHora: updateDate.hora, idTurno: e.target.value }))
+    swal("Listo", `Su turno ha sido modificado con exito para el dia ${updateDate.fecha} a las ${updateDate.hora}`, "success")
+    setTimeout(() => window.location.href = '/TurnoMe', 2000)
+  }
+
+  const handleCancelModal = () => {
+    console.log(idTurno)
+    dispatch(canTurno({ status: "cancelado", idTurno: idTurno }))
+    swal("Listo", "Su turno ha sido cancelado con exito", "success")
+    setTimeout(() => window.location.href = '/TurnoMe', 2000)
+  }
+
 
   for (let i = 0; i < turnos.length; i++) {
     if (turnos[i].status === "concretado") {
@@ -113,89 +197,6 @@ export default function TurnoMe() {
   }
 
 
-  const turnoConcretado = {
-    id: "95734532-29a5-4aae-995d-5ec180de1318",
-    fecha: "18-2-2022",
-    hora: 16,
-    idClinica: "4ca34fa9-0436-420b-832a-2bc372eb8909",
-    dniCliente: "35678987",
-    idDoctor: "0d96509e-0d6b-4e7c-b768-df7d8f1d6da8",
-    idEspecialidad: 1,
-    status: "concretado",
-    name: "consulta",
-    description: "Descripción vacía",
-    price: 2000,
-    stock: 1,
-    img: "0",
-    createdAt: "2022-02-17T04:18:10.137Z",
-    updatedAt: "2022-02-17T04:18:10.137Z",
-  };
-
-  const turnoConcretado2 = {
-    id: "95734532-29a5-4aae-995d-5ec180de1319",
-    fecha: "18-2-2022",
-    hora: 20,
-    idClinica: "4ca34fa9-0436-420b-832a-2bc372eb8909",
-    dniCliente: "35678987",
-    idDoctor: "0d96509e-0d6b-4e7c-b768-df7d8f1d6da8",
-    idEspecialidad: 1,
-    status: "concretado",
-    name: "consulta",
-    description: "Descripción vacía",
-    price: 2000,
-    stock: 1,
-    img: "0",
-    createdAt: "2022-02-17T04:18:10.137Z",
-    updatedAt: "2022-02-17T04:18:10.137Z",
-  };
-
-  const diagnosticoConcretado = {
-    id: 1,
-    sintomas: "TIENE COVICHO",
-    diagnostico: "LA PORONGA LE MIDE UN METRO",
-    indicaciones: "usar un metro industrial",
-    estudio: "tu vieja",
-    idTurno: "95734532-29a5-4aae-995d-5ec180de1318",
-    updatedAt: "2022-02-18T05:04:56.376Z",
-    createdAt: "2022-02-18T05:04:56.376Z",
-  };
-
-  const diagnosticoConcretado2 = {
-    id: 2,
-    sintomas: "TIENE COVIIIIIIIIIIIIICHO",
-    diagnostico: "LA PORONGA LE MIDE UN METROOOOOOOOOOOOO",
-    indicaciones: "usar un metro industrialllllllllllllll",
-    estudio: "tu viejaaaaaaaaaaa",
-    idTurno: "95734532-29a5-4aae-995d-5ec180de1319",
-    updatedAt: "2022-02-18T05:04:56.376Z",
-    createdAt: "2022-02-18T05:04:56.376Z",
-  };
-
-  const reseniaConcretada2 = {
-    reviewed: true,
-    id: 2,
-    calificacion: 4,
-    comentario: "servicio pesimo",
-    idTurno: "95734532-29a5-4aae-995d-5ec180de1319",
-    updatedAt: "2022-02-18T04:52:04.936Z",
-    createdAt: "2022-02-18T04:52:04.936Z",
-  };
-
-  const reseniaConcretada = {
-    reviewed: true,
-    id: 2,
-    calificacion: 4,
-    comentario: "servicio pesimo",
-    idTurno: "95734532-29a5-4aae-995d-5ec180de1318",
-    updatedAt: "2022-02-18T04:52:04.936Z",
-    createdAt: "2022-02-18T04:52:04.936Z",
-  };
-
-  turnosPasados.push(turnoConcretado, turnoConcretado2);
-  diagnostico.push(diagnosticoConcretado, diagnosticoConcretado2);
-  resenia.push(reseniaConcretada2, reseniaConcretada);
-
-
   return (
     <div className="elContenedor">
       <NavLanding />
@@ -203,14 +204,14 @@ export default function TurnoMe() {
         Volver a mi perfil
       </Link>
       <div class="bigContainer justify-content-center">
-          <div class="filtros">
+        <div class="filtros">
           <h4>Filtrar por fecha</h4>
           <select onChange={(e) => handleFilterSelect(e)}>
             <option value="asc" >Fecha Ascendente</option>
             <option value="desc">Fecha Descendente</option>
           </select>
-          </div >
-          <div class="filtros">
+        </div >
+        <div class="filtros">
           <h4>Filtrar por Especialidad</h4>
           <select onChange={(e) => handleFilterSelect(e)}>
             {/* MAP DE ESPECIALIDADES
@@ -228,8 +229,8 @@ export default function TurnoMe() {
             
             */}
           </select>
-          </div>
-          </div>
+        </div>
+      </div>
       <h2 class="h2-turnos col-10 m-auto">Mis Turnos</h2>
       <div className="titulosTurno">
         <h3>Historial de Turnos</h3>
@@ -295,7 +296,7 @@ export default function TurnoMe() {
                 {/* TURNO CONCRETADO CON RESENIA FALSE */}
 
                 {turno.status === "concretado" &&
-                resenia?.find((r) => r.idTurno === turno.id)?.reviewed ===
+                  resenia?.find((r) => r.idTurno === turno.id)?.reviewed ===
                   false ? (
                   <div class="botonRes">
                     <div className="botonRes">
@@ -609,86 +610,131 @@ export default function TurnoMe() {
         <div class="col-6 mt-3">
           {turnosPendientes?.map((turno) => (
             <div class="bigContainer">
-            <div class="accordion-item col-6 ">
-              <h2 class="accordion-header" id="headingOne">
-                <button
-                  class="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={"#collapseOne" + turno.id}
-                  aria-expanded="false"
-                  aria-controls="collapseOne"
+              <div class="accordion-item col-6 ">
+                <h2 class="accordion-header" id="headingOne">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={"#collapseOne" + turno.id}
+                    aria-expanded="false"
+                    aria-controls="collapseOne"
+                  >
+                    {"Turno de la Fecha " + turno.fecha}
+                  </button>
+                </h2>
+                <div
+                  id={"collapseOne" + turno.id}
+                  class="accordion-collapse collapse card"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
                 >
-                  {"Turno de la Fecha " + turno.fecha}
-                </button>
-              </h2>
-              <div
-                id={"collapseOne" + turno.id}
-                class="accordion-collapse collapse card"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample"
-              >
-                <div class="accordion-body">
-                  <div class="card">
-                    <label>Fecha</label>
-                    <label>{turno.fecha}</label>
-                  </div>
-                  <div class="card">
-                    <label>Hora</label>
-                    <label>{turno.hora}</label>
-                  </div>
-                  <div class="card">
-                    <label>Clinica</label>
-                    <label>
-                      {doctores && doctores[0]?.clinicas[0]?.nombre}
-                    </label>
-                  </div>
-                  <div class="card">
-                    <label>Doctor</label>
-                    <label>
-                      {doctores &&
-                        doctores.find((d) => d.id === turno.idDoctor)?.nombre}
-                    </label>
-                  </div>
-                  <div class="card">
-                    <label>Especialidad</label>
-                    <label>
-                      {doctores && doctores[0]?.especialidads[0]?.nombre}
-                    </label>
+                  <div class="accordion-body">
+                    <div class="card">
+                      <label>Fecha</label>
+                      <label>{turno.fecha}</label>
+                    </div>
+                    <div class="card">
+                      <label>Hora</label>
+                      <label>{turno.hora}</label>
+                    </div>
+                    <div class="card">
+                      <label>Clinica</label>
+                      <label>
+                        {doctores && doctores[0]?.clinicas[0]?.nombre}
+                      </label>
+                    </div>
+                    <div class="card">
+                      <label>Doctor</label>
+                      <label>
+                        {doctores &&
+                          doctores.find((d) => d.id === turno.idDoctor)?.nombre}
+                      </label>
+                    </div>
+                    <div class="card">
+                      <label>Especialidad</label>
+                      <label>
+                        {doctores && doctores[0]?.especialidads[0]?.nombre}
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>              
-            </div>
-            <div class="botonRes">
-                <div className="botonRes">
-                  <button
-                    id="botonesTurno"
-                    class="btn btn-primary"
-                    value={turno.id}
-                    onClick={(e) => handleCancel(e)}
-                  >
-                    Cancelar Turno
-                  </button>
-                  <button
-                    id="botonesTurno"
-                    class="btn btn-primary"
-                    value={turno.id}
-                    onClick={(e) => handleReprogram(e)}
-                  >
-                    Reagendar turno
-                  </button>
-                </div>
-
               </div>
-              {/* <button class="btn btn-primary" onClick={handleSelect} value={turno.id}> Modificar turno</button> */}
-              <button
-                class="btn btn-danger"
-                onClick={handleCancelar}
-                value={turno.id}
-              >
-                {" "}
-                Cancelar turno
+
+
+
+
+              {/* <div class="botonRes">
+                <div className="botonRes"> */}
+
+
+
+
+              <button type="button" id="botonesTurno" value={turno.idDoctor} onClick={handleModificar} class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Modificar
               </button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Estas a punto de reagendar el turno</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h3>Elige la fecha </h3>
+                      <Calendar
+                        onChange={onChange}
+                        value={date}
+                        onClickDay={(value) => validateDate(value)}
+                      />
+                    </div>
+                    <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
+                    <select id="Sel_Tur_Crea_Hora" class="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
+                      <option value="" disabled selected>{`Horarios disponibles ${updateDate.fecha.replace('-', '/')}`}</option>
+                      {horariosDispoDoc && horariosDispoDoc.map((e) => (
+                        <option value={e}>{e}</option>
+                      ))}
+                    </select>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver atras</button>
+                      <button value={turno.id} onClick={handleSubmitModificar} type="button" class="btn btn-primary">Continuar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <button type="button" id="botonesTurno" value={turno.id} onClick={handleCancelar} class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                cancelar
+              </button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Estas a punto de cancelar el turno</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Si cancelas el turno, no podras volver atras, estas seguro?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button onClick={handleCancelModal} type="button" class="btn btn-primary">Si borrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+              {/* </div>
+              </div> */}
+
+
+
+
             </div>
           ))}
         </div>

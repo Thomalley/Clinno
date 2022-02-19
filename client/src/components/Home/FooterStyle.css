@@ -1,8 +1,8 @@
 .footer_home{
-    /* width: 100vh; */
+    width: 100%;
     height: 300px;
-    background:#181c23;
-    color:#f1f1f1;
+    background: #181c23;
+    color: #f1f1f1;
     display: flex;
     flex-direction: column;
     justify-content: center;
