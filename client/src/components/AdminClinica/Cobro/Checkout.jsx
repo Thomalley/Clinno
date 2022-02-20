@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Cookies from 'universal-cookie';
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../../NavBar/NavBar';
 import './checkout_style.css';
 
 export default function Comprar({ productos, data }) {

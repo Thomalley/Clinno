@@ -3,9 +3,9 @@ const { Order, Order_detail } = require('../db');
 
 router.post('/', async (req, res) => {
     try {
-    const { clinicaId, cuota } = req.body
-
-    await Order.create({
+    const { clinicaId } = req.body
+        console.log(clinicaId)
+    const newOrder = await Order.create({
         clinicaId: clinicaId,
     })
     // await Order_detail.create({
@@ -13,8 +13,7 @@ router.post('/', async (req, res) => {
     //         quantity: 1,
     //         price: cuota
     //     })
-        res.send("OK")
-
+        res.send(newOrder)
     } catch (e) {
         console.log(e)
     }
