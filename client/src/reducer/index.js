@@ -22,7 +22,9 @@ const initialState = {
     turnoById: [],
     allDoctoresInDB: [],
     resenia: [],
+    admin: [],
     order:""
+
 };
 
 
@@ -223,6 +225,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allDoctoresInDB: action.payload
             }
+        case "VALIDATE_ADMIN":
+            return{
+                ...state,
+                admin: action.payload
+            }
+        case "VALIDATE_ADMIN_WRONG":
+            return{
+                ...state,
+                admin: action.payload
+                }
         default:
             return state;
     }

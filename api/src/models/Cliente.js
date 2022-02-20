@@ -14,14 +14,14 @@ module.exports = (sequelize) => {
      allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
-        validate: {
-          isEmail: {
-            msg: 'No es una dirección de correo electrónico.'
-          }
-        },
-        allowNull: false,
-        unique: true
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          msg: 'No es una dirección de correo electrónico.'
+        }
+      },
+      allowNull: false,
+      unique: true
 
     }, direccion: {
         type: DataTypes.STRING,
@@ -29,10 +29,6 @@ module.exports = (sequelize) => {
     },
     dni: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    admin: {
-      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     password: {

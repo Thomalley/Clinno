@@ -40,8 +40,6 @@ router.post("/", async (req,res) => {
      try{
       const {email, password, nombre, apellido, direccion, dni} = req.body;
 
-      console.log(email, password, nombre, apellido, direccion, dni)
-      const admin=false;
 
        const cliente = await Cliente.create({
          nombre,
@@ -49,7 +47,6 @@ router.post("/", async (req,res) => {
          email,
          direccion,
          dni,
-         admin,
          password,
        }) 
        res.json(cliente)
