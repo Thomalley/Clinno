@@ -29,11 +29,10 @@ import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
-import ReagendarTurno from './components/ClientCard/ReagendarTurno';
+// import ReagendarTurno from './components/ClientCard/ReagendarTurno';
 import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
-
-
+import Checkout from './components/AdminClinica/Cobro/Checkout'
 
 function App() {
   return (
@@ -41,13 +40,13 @@ function App() {
       <div className="App">
         <Bot/>  
         <Routes>
+          <Route path='/test' element={<Checkout/>}/>
           {/* <Route path='/test' elemnt={<ReagendarTurno/>}/> */}
-          <Route path='/adminClinica/Cobro' element={<MercadoPago/>}/>
+          <Route path='/adminClinica/cobro' element={<MercadoPago/>}/>
           <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
           <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
           <Route path='/TurnoMe' element={<TurnoMe/>}/>
-          <Route path='/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
