@@ -162,7 +162,7 @@ function handleDelete(el){
     </div>
     <form onSubmit={(e) => handleSubmit(e)}>
 
-      <input onChange={(e) => handleChange(e)} className="form-control" type="text" placeholder="Nombre" value={input.nombre} name='nombre'/>
+      <input onChange={(e) => handleChange(e)} className="form-control" type="text" placeholder="Nombre de la clinica" value={input.nombre} name='nombre'/>
       <div>{errors.nombre && (<p className='errorMsg'>{errors.nombre}</p>)}</div>
 
 

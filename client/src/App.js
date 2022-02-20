@@ -29,9 +29,9 @@ import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
-import ReagendarTurno from './components/ClientCard/ReagendarTurno';
 import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
+import Checkout from './components/AdminClinica/Cobro/Checkout'
 import Root from './components/AdminRoot/RootUser';
 
 
@@ -42,13 +42,12 @@ function App() {
       <div className="App">
         <Bot/>  
         <Routes>
-          {/* <Route path='/test' elemnt={<ReagendarTurno/>}/> */}
-          <Route path='/adminClinica/Cobro' element={<MercadoPago/>}/>
+          <Route path='/test' element={<Checkout/>}/>
+          <Route path='/adminClinica/cobro' element={<MercadoPago/>}/>
           <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>
           <Route path='/adminClinica/cliente/registrar' element={<RegistrarUsuario/>}/>
           <Route path='/TurnoMe' element={<TurnoMe/>}/>
-          <Route path='/turno/abonar' element ={<MercadoPago/>}/>
           <Route path='/EstamosTrabajando' element={<EstamosTabajando/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
           <Route path='/passwordreset' element={<PasswordReset/>}/>
@@ -59,7 +58,6 @@ function App() {
           <Route exact path='/register' element={<Register/>}/>
           <Route exact path='/registerClinic' element={<RegisterClinic/>}/>
           <Route exact path='/login' element={<Login />}/>
-          {/* <Route path='/Home' element={<HomeClients/>}/> */}
           <Route path='/clinica/:id' element={<DetailClinica/>}/>
           <Route path='/AboutUs' element={<AboutUs/>}/>
           <Route path='/loginClinica' element={<LoginClinica/>}/>
@@ -76,7 +74,6 @@ function App() {
           <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
           <Route path='/admin/m9gap4npJJFlorV7uuej2bVfsL7b8N' element={<Root/>}/>
-
         </Routes>
       </div>
     </BrowserRouter>

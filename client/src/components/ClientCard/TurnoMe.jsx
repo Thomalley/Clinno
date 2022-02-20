@@ -214,6 +214,20 @@ export default function TurnoMe() {
         <div class="filtros">
           <h4>Filtrar por Especialidad</h4>
           <select onChange={(e) => handleFilterSelect(e)}>
+            {/* MAP DE ESPECIALIDADES
+            
+            //busco todos los turno del paciente
+            //de cada da turno del paciente saco el id de las clinicas a las que saco turno
+            //meto los id de las clinicas en un array
+            //busco con el id de clinica y me traigo todas las clinicas en las que saco turno
+            //por cada turno del paciente busco la clinica y filtro las especialidades de esa clinica
+            //para quedarme unicamente con las especialidades a las que saco turno ese paceinte
+            //guardo las especialidades filtradas de la clinica (me quedo con las especialidades que saco turno el paciente)
+            //dentro de un array por cada clinica
+            //concateno las los array que tienen las especialidades de cada clinica a la q saco turno el paciente y las muestro
+            
+            
+            */}
           </select>
         </div>
       </div>
@@ -655,7 +669,7 @@ export default function TurnoMe() {
 
 
 
-                
+
               <button type="button" id="botonesTurno" value={turno.idDoctor} onClick={handleModificar} class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Modificar
               </button>
