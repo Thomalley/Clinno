@@ -21,7 +21,7 @@ router.use("/calendario", calendarioRouter);
 router.use("/cliente", clienteRouter);
 router.use("/diagnostico", diagnosticoRouter);
 router.use("/calendario", calendarioRouter);
-router.use("/mercadoPago", mercadoPagoRouter);
+router.use("/mercadopago", mercadoPagoRouter);
 router.use("/resenia", reseniaRouter);
 router.use("/turno", turnoRouter);
 router.use("/doctor", doctorRouter);

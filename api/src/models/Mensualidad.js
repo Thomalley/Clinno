@@ -6,7 +6,8 @@ module.exports = (sequelize) => {
     sequelize.define('mensualidad', {
         cuota: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 2000
         },
         clinicaId:{
             type: DataTypes.STRING,

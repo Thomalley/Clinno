@@ -22,7 +22,9 @@ const initialState = {
     turnoById: [],
     allDoctoresInDB: [],
     resenia: [],
-    admin: []
+    admin: [],
+    order:""
+
 };
 
 
@@ -34,7 +36,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 turnosClinica: action.payload
             }
-
+        case "NEW_ORDER":
+            return {
+                ...state,
+                order: action.payload
+            }
         case "GET_DOCTOR_ID":
             return {
                 ...state,
