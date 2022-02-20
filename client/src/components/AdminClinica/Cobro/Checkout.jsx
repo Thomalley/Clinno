@@ -4,9 +4,8 @@ import NavBar from "../../NavBar/NavBar";
 import "./checkout_style.css";
 
 export default function Comprar({ productos, data }) {
-  console.log("soy productos", productos);
   const cookies = new Cookies();
-  const nombre = cookies.get("nombre");
+  const nombre = cookies.get("clinica_nombre");
   useEffect(() => {
     if (data.id !== "") {
       console.log('aver')
@@ -31,7 +30,7 @@ export default function Comprar({ productos, data }) {
         document.getElementById("form1").removeChild(script);
       };
     }
-  }, [data]);
+  }, [productos]);
   return (
     <div className="container">
       <form id="form1">
