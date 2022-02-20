@@ -23,7 +23,8 @@ const initialState = {
     allDoctoresInDB: [],
     resenia: [],
     order:"",
-    mpData: []
+    mpData: [],
+    admin: [],
 };
 
 
@@ -234,6 +235,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allDoctoresInDB: action.payload
             }
+        case "VALIDATE_ADMIN":
+            return{
+                ...state,
+                admin: action.payload
+            }
+        case "VALIDATE_ADMIN_WRONG":
+            return{
+                ...state,
+                admin: action.payload
+                }
         default:
             return state;
     }

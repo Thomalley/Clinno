@@ -17,10 +17,12 @@ router.get("/:idEspecialidad/:idClinica", async(req, res, next) => {
             }, {
                 model: Clinica,
                 where: {
-                    id: idClinica
+                    id: idClinica,
+                    hablitada: true
                 }
             }]
         })
+        console.log(docDb);
         res.send(docDb)
     } catch (err) {
         next(err)
