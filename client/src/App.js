@@ -33,6 +33,7 @@ import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 import Checkout from './components/AdminClinica/Cobro/Checkout'
 import Root from './components/AdminRoot/RootUser';
+import Estadistica from './components/Estadisticas/Estadisticas'
 
 
 
@@ -74,6 +75,7 @@ function App() {
           <Route path='/SoyDoctor/verDiagnostico/:idTurno' element={<VerDiagnosticoDoctor/>}/>
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
           <Route path='/admin/m9gap4npJJFlorV7uuej2bVfsL7b8N' element={<Root/>}/>
+          <Route path='/adminClinica/estadisticas' element={<Estadistica/>}/>
         </Routes>
       </div>
     </BrowserRouter>

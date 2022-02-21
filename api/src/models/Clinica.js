@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
     },
     baja: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: true,
     },
   });
 };

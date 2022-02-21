@@ -115,12 +115,12 @@ return (
                     <li>
                         <Link to='/adminClinica/verDoctores' className="nav-link text-white boton_nav_clinica">Ver Doctores</Link>
                     </li>
-                    {/* <li>
-                        <Link to='/estadisticas' className="nav-link text-white boton_nav_clinica">Ver Estadisticas</Link>
+                    <li>
+                        <Link to='/adminClinica/estadisticas' className="nav-link text-white boton_nav_clinica">Ver Estadisticas</Link>
                     </li>
                     <li>
-                        <Link  to='/' className="nav-link text-white boton_nav_clinica">Ver Email pacientes</Link>
-                    </li> */}
+                        <Link  to='/adminClinica/cliente' className="nav-link text-white boton_nav_clinica">Buscar paciente por DNI</Link>
+                    </li> 
                 </ul>
             }
             
