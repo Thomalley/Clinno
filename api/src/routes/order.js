@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     const newOrder = await Order.create({
         clinicaId: clinicaId,
     })
+    
     // await Order_detail.create({
     //         orderId,
     //         quantity: 1,

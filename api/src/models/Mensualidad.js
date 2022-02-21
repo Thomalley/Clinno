@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('mensualidad', {
-        cuota: {
+        unit_price: {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 2000
@@ -13,11 +13,9 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        orderId: {
-            type: DataTypes.INTEGER,
+        title: {
+            type: DataTypes.STRING,
             allowNull: false,
-            // primaryKey: true,
-            // defaultValue: DataTypes.UUIDV4,
         }
     });
 

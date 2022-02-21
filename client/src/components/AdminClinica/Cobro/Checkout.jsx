@@ -7,7 +7,7 @@ export default function Comprar({ productos, data }) {
   const cookies = new Cookies();
   const nombre = cookies.get("clinica_nombre");
   useEffect(() => {
-    if (data.id !== "") {
+    if (productos?.length > 0) {
       console.log('aver')
       const script = document.createElement("script");
       const attr_data_preference =
