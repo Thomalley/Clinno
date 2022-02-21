@@ -386,40 +386,40 @@ export function login_clinica(payload) {
 }
 
 export function get_clinica(payload) {
-    return async function (dispatch) {
-        try {
-            const json = await axios.get("/clinica");
-            const datos = json.data.filter((e) => e.id === payload);
-            console.log(datos);
-            const esp = datos[0].especialidads.map((e) => {
-                return {
-                    id: e.id,
-                    nombre: e.nombre,
-                    horario: e.horario,
-                };
-            });
-            const datosFiltrados = [
-                {
-                    id: datos[0].id,
-                    nombre: datos[0].nombre,
-                    direccion: datos[0].direccion,
-                    telefono: datos[0].telefono,
-                    mail: datos[0].mail,
-                    codigo: datos[0].codigo,
-                    nombreEn: datos[0].nombreEn,
-                    apellidoEn: datos[0].apellidoEn,
-                    DNIEn: datos[0].DNIEn,
-                    especialidad: esp,
-                },
-            ];
-            return dispatch({
-                type: "CLINICA_USER",
-                payload: datosFiltrados,
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const json = await axios.get("/clinica");
+      const datos = json.data.filter((e) => e.id === payload);
+      const esp = datos[0].especialidads.map((e) => {
+        return {
+          id: e.id,
+          nombre: e.nombre,
+          horario: e.horario,
+        };
+      });
+      const datosFiltrados = [
+        {
+          id: datos[0].id,
+          nombre: datos[0].nombre,
+          direccion: datos[0].direccion,
+          telefono: datos[0].telefono,
+          mail: datos[0].mail,
+          codigo: datos[0].codigo,
+          nombreEn: datos[0].nombreEn,
+          apellidoEn: datos[0].apellidoEn,
+          habilitada: datos[0].hablitada,
+          DNIEn: datos[0].DNIEn,
+          especialidad: esp,
+        },
+      ];
+      return dispatch({
+        type: "CLINICA_USER",
+        payload: datosFiltrados,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 export function registrarClinica(payload) {

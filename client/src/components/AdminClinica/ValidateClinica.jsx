@@ -44,7 +44,7 @@ export default function AdminClinica({setCheck}){
     function mandarMail(){
         dispatch( codigoClinicaEmail(clinica[0]));
         swal("Correo enviado correctamente!", "Revise En su correo", "success");
-        setTimeout(()=> cerrarSesion(),2000)
+        setTimeout(()=> cerrarSesion(),1000)
     }
     const cerrarSesion=()=>{
         const cookies = new Cookies();
@@ -84,7 +84,7 @@ export default function AdminClinica({setCheck}){
                                 </div>
                             </form>
                             <div>
-                                <button onClick={mandarMail} className="btn btn-danger">No Te Acordas tu Codigo?</button>
+                                <button  className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">No Te Acordas tu Codigo?</button>
                             </div>
                                 <div className="d-flex gap-2">
                                     <Link  to={'/SoyDoctor'}>
@@ -98,6 +98,24 @@ export default function AdminClinica({setCheck}){
                                 <button className="btnLoggin_Cerrar" onClick={cerrarSesion}>Cerrar Sesion</button>
                             </div>
                         </div>
+                    </div>
+                    {/* <!-- Modal --> */}
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Te olvidaste tu codigo?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Se enviara el codigo de administrador al Correo electronico de {cookies.get('clinica_mail')}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btnLoggin_Cerrar" onClick={mandarMail}>Enviar Correo</button>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
     )

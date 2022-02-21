@@ -21,6 +21,9 @@ export default function RootUser() {
     username: "",
     password: "",
   });
+  const [cobro, setCobro] = useState({
+    cobro: "",
+  });
 
   useEffect(() => {
     if (!loggeado) {
@@ -57,7 +60,7 @@ export default function RootUser() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(admin_user_validate(input));
-    setTimeout(logreq(), 1000);
+    setTimeout(()=>logreq(), 1000);
   }
 
   function handleHabilitar(e){
@@ -67,20 +70,20 @@ export default function RootUser() {
         swal("Success", "Clinic was successfully habilited", "success")
         setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
     }
-    function handleSubida (e){
-        dispatch(darSubida_clinica(e));
-        setLoggeado(true);
-        dispatch(getClinicas());
-        swal("Success", "Clinic was successfully habilited", "success")
-        setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
-    }
-    function handleBaja (e){
-        dispatch(darBaja_clinica(e));
-        setLoggeado(true);
-        dispatch(getClinicas());
-        swal("Success", "Clinic was successfully habilited", "success")
-        setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
-    }
+  function handleSubida (e){
+      dispatch(darSubida_clinica(e));
+      setLoggeado(true);
+      dispatch(getClinicas());
+      swal("Success", "Clinic was successfully habilited", "success")
+      setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
+  }
+  function handleBaja (e){
+      dispatch(darBaja_clinica(e));
+      setLoggeado(true);
+      dispatch(getClinicas());
+      swal("Success", "Clinic was successfully habilited", "success")
+      setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
+  }
 
   function handleDeshabilitar(e){
       dispatch(deshabilitar_clinica(e));
@@ -88,6 +91,17 @@ export default function RootUser() {
       dispatch(getClinicas());
       swal("Success", "Clinic was successfully unhabilited", "success")
       setTimeout(()=> window.location.href='./m9gap4npJJFlorV7uuej2bVfsL7b8N', 2000)
+  }
+  function handleChango(e){
+    setCobro({
+      ...cobro,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function cobrar (id){
+    //cobrar
+    console.log(id);
+    console.log(cobro.cobro);
   }
 
 
@@ -131,30 +145,36 @@ export default function RootUser() {
           <h2>Administración de Clinicas de Clinno.</h2>
           <h4>Bienvenido Software Engineer</h4>
           {clinicas?.map((c) => (
-          <div class="card">
-            <div class="card-header">
+          <div className="card" key={c.id}>
+            <div className="card-header">
                 Informacion de la Clinica:
             </div>
-                <div class="card-body">
-                    <h5 class="card-title">{c.nombre}</h5>
-                    <p class="card-text">Mail: {c?.mail}  </p>
+                <div className="card-body">
+                    <h5 className="card-title">{c.nombre}</h5>
+                    <p className="card-text">Mail: {c?.mail}  </p>
                     <br />
-                    <p class="card-text">Password: {c?.password} </p>
+                    <p className="card-text">Password: {c?.password} </p>
                     <br />
-                    <p class="card-text">Codigo: {c?.codigo} </p>
-                    <br />                    
+                    <p className="card-text">Codigo: {c?.codigo} </p>
+                    <br />
                     {
                       
                       !c.hablitada?
-                      <button onClick={()=>{handleHabilitar(c.id)}} class="btn btn-primary" >Habilitiar</button>
+                      <button onClick={()=>{handleHabilitar(c.id)}} className="btn btn-primary" >Habilitiar</button>
                       :
-                      <button onClick={()=>{handleDeshabilitar(c.id)}} class="btn btn-warning" >Deshabilitar</button>
+                      <button onClick={()=>{handleDeshabilitar(c.id)}} className="btn btn-warning" >Deshabilitar</button>
 
                     }{
                       !c.baja?
-                        <button onClick={()=>{handleBaja(c.id)}} class="btn btn-danger" >Dar la Baja</button>
+                      <>
+                        <button onClick={()=>{handleBaja(c.id)}} className="btn btn-danger" >Dar la Baja</button>
+                        <input type="number" placeholder="cobro" name="cobro" value={cobro.cobro} onChange={(e) => handleChango(e)}/>
+                        {/* <label>Monto: {cobro?.cobro}</label> */}
+                        <button onClick={()=>{cobrar(c.id)}} className="btn btn-danger" >Cobrar</button>
+                      </>
+                        
                         :
-                        <button onClick={()=>{handleSubida(c.id)}} class="btn btn-warning" >Reactivar la Baja</button>
+                        <button onClick={()=>{handleSubida(c.id)}} className="btn btn-warning" >Reactivar la Baja</button>
                       }
                     
                 </div>

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getClienteByDni, getTurnosByDni, getDoctorById } from "../../../actions";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
+import NavClinica from '../NavClinica.jsx';
+import Footer from "../../Home/Footer";
 // import swal from "sweetalert";
 import './Validate.css'
 import logo from '../../../components/utils/images-landing/logo.png'
@@ -20,6 +22,11 @@ export default function ValidarUsuario() {
     const cookies = new Cookies();
     let dni_user = cookies.get('dni_new_client')
     const [turn, setTurn] = useState([]);
+
+     //control se de session
+     let session=false;
+     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
+     const [loggeado,setLoggeado] = useState(session);
 
     useEffect(() => {
         if (cliente)
@@ -74,18 +81,21 @@ export default function ValidarUsuario() {
         setTimeout(()=> window.location.href="/adminClinica/cliente/turno", 2000)
 
     }
-
-    return (
-        <div className="definir">
+    if(loggeado){
+        return(
+            
+        <div >
+            <div className="contenedor_adminClinica">
+                <NavClinica/>
             {
                 (cliente.length >= 1 && cliente[0].id) ?
                     <div>
 
-                        <nav id="nav_de_adm_dni" class="navbar sticky-top navbar-light bg-light">
+                        {/* <nav id="nav_de_adm_dni" class="navbar sticky-top navbar-light bg-light">
                             <Link className="navbar-brand" to='/adminClinica'>
                                 <img className="imglogoR" src={logo} alt="nf" />
                             </Link>
-                        </nav>
+                        </nav> */}
 
                         <div className="container">
                             <div className="general_dni_cont">
@@ -129,11 +139,11 @@ export default function ValidarUsuario() {
                     </div>
                     :
                     <div>
-                        <nav id="nav_de_adm_dni" class="navbar sticky-top navbar-light bg-light">
+                        {/* <nav id="nav_de_adm_dni" class="navbar sticky-top navbar-light bg-light">
                             <Link className="navbar-brand" to='/adminClinica'>
                                 <img className="imglogoR" src={logo} alt="nf" />
                             </Link>
-                        </nav>
+                        </nav> */}
                         <div className="container">
                             <div className="general_dni_cont">
 
@@ -186,6 +196,11 @@ export default function ValidarUsuario() {
                         </div>
                     </div>
             }
-        </div >
-    )
+            </div >
+            <Footer />
+    
+    </div>
+    )}else{
+        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
+    }
 }
