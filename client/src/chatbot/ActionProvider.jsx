@@ -1,10 +1,20 @@
-import React from "react";
-import { getClinicas } from "../actions/index"
+import axios from 'axios';
+
+
+
+
+
+
+
+   
+
+
+
 class ActionProvider {
-    constructor(createChatBotMessage, setStateFunc) {
-      this.createChatBotMessage = createChatBotMessage;
-      this.setState = setStateFunc;
-    }
+  constructor(createChatBotMessage, setStateFunc) {
+    this.createChatBotMessage = createChatBotMessage;
+    this.setState = setStateFunc;
+  }
   
     greet = () => {
       const message = this.createChatBotMessage("Hola Como estas?");
@@ -32,9 +42,11 @@ class ActionProvider {
   
       this.addMessageToState(message);
     };
-    handleClinicas = () => {
+    handleClinicas = async() => {
+      let clinicas = await axios.get('/clinica');
+      let nombres  = clinicas.data.map(c=>{ return c.nombre})
       const message = this.createChatBotMessage(
-        'Muchas gracias por usar Clinno Bot!, estas son algunas de las clinicas con las que contamos:  .',     
+        `Muchas gracias por usar Clinno Bot!, estas son algunas de las clinicas con las que contamos: ${nombres.join()}  .`,     
       );
   
       this.addMessageToState(message);
