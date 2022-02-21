@@ -29,6 +29,7 @@ export default function Register(){
       email:'',
       password:'',
       direccion:'',
+      datosCompletados: true
   })
     
     
@@ -132,9 +133,6 @@ return errors;
       <input onChange={(e) => handleChange(e)} className="form-control" type="text" placeholder="Direccion" value={input.direccion} name='direccion' />
       <div>{errors.direccion && (<p className='errorMsg'>{errors.direccion}</p>)}</div>
 
-      <div className='reCap'>
-      <div class="g-recaptcha" data-sitekey="6Lf_tG4eAAAAANiXKNaplUlHjzZi8STHvQLzDO_f"></div>
-      </div>
       <button value="Submit" className="col-12 btn btn-primary" type="submit">Registrar</button>
 
     </form>

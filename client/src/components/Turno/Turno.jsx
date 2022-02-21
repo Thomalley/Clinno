@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie'
-import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno, getDisponibilidad } from '../../actions'
+import { getEspecialidad, getClinicasByEspec, getDoctoresByEspec, crearTurno, getDisponibilidad, getClienteByEmail } from '../../actions'
 import swal from 'sweetalert';
 import NavBar from '../NavBar/NavBar'
 import Footer from '../Home/Footer'
@@ -11,6 +11,7 @@ import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
 import './turno.css'
 import Bot from "../Bot/Bot";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function Turno() {
@@ -19,10 +20,12 @@ export default function Turno() {
     const doctoresDeEspe = useSelector((state) => state.doctoresByEspec)
     const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
     const dispatch = useDispatch();
+    const { user, isAuthenticated, isLoading } = useAuth0()
+    const [dniGoogle, setdniGoogle] = useState()
     const cookies = new Cookies()
     const [loggeado, setLoggeado] = useState();
-    var userLog = cookies.get('email');
-    const idUser = cookies.get('dni')
+    var userLog = cookies.get('email') ? cookies.get('email') : isAuthenticated
+    const idUser = cookies.get('dni') ? cookies.get('dni') : 0
     const [idValue, setidValue] = useState({
         idEspecialidad: "",
         idClinica: "",
@@ -43,7 +46,6 @@ export default function Turno() {
     const [submit, setSubmit] = useState({ canSubmit: undefined })
     const [hasClinic, setHasClinic] = useState({ clinic: true })
     const [hasDoctor, setHasDoctor] = useState({ doctor: true })
-    // const [hasHorario, setHasHorario] = useState({ horario: true }) // implementar en caso de dia sin turnos
     const [errors, setErrors] = useState({})
     var [progressTur, setProgressTur] = useState({ "width": "0%" })
     const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -106,10 +108,18 @@ export default function Turno() {
     }
 
     useEffect(() => {
+        if(userLog.length > 1 || isAuthenticated) {
+            setLoggeado(true)
+        }
         if (!userLog) {
             setLoggeado(false)
         }
-        else setLoggeado(true)
+    }, [])
+
+    useEffect(() => {
+        if (isAuthenticated || isLoading || user)
+            dispatch(getClienteByEmail(user?.email)).then((data) => data?.payload?.dni)
+                .then((data) => setdniGoogle(data))
     }, [])
 
     useEffect(() => {
@@ -243,7 +253,12 @@ export default function Turno() {
             setSubmit({ canSubmit: false })
         else
             setSubmit({ canSubmit: true })
+        if (isAuthenticated || isLoading || user) setidValue({ ...idValue, dniCliente: dniGoogle })
     }
+
+    console.log(idValue)
+    console.log(dniGoogle)
+    console.log(loggeado)
 
     return (
         <div className=".container">
@@ -290,9 +305,9 @@ export default function Turno() {
                                             <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
                                                 <option value="" disabled selected>Clinicas</option>
                                                 {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                                                    e.hablitada?
-                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>:
-                                                    <></>
+                                                    e.hablitada ?
+                                                        <option id="clinica_selected" value={e.id}> {e.nombre} </option> :
+                                                        <></>
                                                 ))}
                                             </select>
                                         </div>
@@ -336,9 +351,9 @@ export default function Turno() {
                                         <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
                                             <option value="" disabled selected>Doctores</option>
                                             {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                                                e.clinicas[0].hablitada?
-                                                <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
-                                                :<></>
+                                                e.clinicas[0].hablitada ?
+                                                    <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                                                    : <></>
                                             ))}
                                         </select>
                                     </div>
