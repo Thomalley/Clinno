@@ -161,5 +161,52 @@ router.post('/mail-codigo', (req,res)=> {
         });
 
 
+    router.put('/validacion/:id', async(req, res) => {
+        try {
+            const { id } = req.params
+            const clinica = await Clinica.findByPk(id)
+            await clinica.update({ hablitada: true })
+            await clinica.save()
+            res.send(clinica)
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    router.put('/desavalidacion/:id', async(req, res) => {
+        try {
+            const { id } = req.params
+            const clinica = await Clinica.findByPk(id)
+            await clinica.update({ hablitada: false })
+            await clinica.save()
+            res.send(clinica)
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    router.put('/darbaja/:id', async(req, res) => {
+        try {
+            const { id } = req.params
+            const clinica = await Clinica.findByPk(id)
+            await clinica.update({ hablitada: false })
+            await clinica.update({ baja:true })
+            await clinica.save()
+            res.send(clinica)
+        } catch (e) {
+            console.log(e)
+        }
+    })
+
+    router.put('/darsubida/:id', async(req, res) => {
+        try {
+            const { id } = req.params
+            const clinica = await Clinica.findByPk(id)
+            await clinica.update({ hablitada: false})
+            await clinica.update({ baja:false })
+            await clinica.save()
+            res.send(clinica)
+        } catch (e) {
+            console.log(e)
+        }
+    })
 
 module.exports = router

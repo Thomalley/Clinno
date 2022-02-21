@@ -23,7 +23,8 @@ const initialState = {
     allDoctoresInDB: [],
     resenia: [],
     order:"",
-    mpData: []
+    mpData: [],
+    admin: [],
 };
 
 
@@ -77,8 +78,6 @@ const rootReducer = (state = initialState, action) => {
         case "FILTER_TURNOS":
             let turnosTotalN;
             (state.turnos)? turnosTotalN = state.turnosDoctor : turnosTotalN= state.turnos;
-            console.log(turnosTotalN)
-            console.log(action.payload)
             turnosTotalN =action.payload.fecha === "" && action.payload.nombre === "" ? state.turnosDoctor 
             : action.payload.nombre ==="" ? turnosTotalN.filter(i => i.fecha.includes( action.payload.fecha))
             : turnosTotalN.filter(i => i.dniCliente.includes(action.payload.nombre)&& i.fecha.includes( action.payload.fecha));
@@ -234,6 +233,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allDoctoresInDB: action.payload
             }
+        case "VALIDATE_ADMIN":
+            return{
+                ...state,
+                admin: action.payload
+            }
+        case "VALIDATE_ADMIN_WRONG":
+            return{
+                ...state,
+                admin: action.payload
+                }
         default:
             return state;
     }

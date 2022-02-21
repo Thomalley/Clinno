@@ -12,6 +12,7 @@ const especialidadRouter = require('./especialidad.js');
 const clinicaRouter = require('./clinica.js')
 const orderRouter = require('./order.js')
 const mensualidadRouter = require('./mensualidad')
+const adminRouter = require('./admin')
 const router = Router();
 
 // Configurar los routers
@@ -28,5 +29,6 @@ router.use("/order", orderRouter);
 router.use("/especialidad", especialidadRouter);
 router.use("/clinica", clinicaRouter);
 router.use('/mensualidad', mensualidadRouter);
+router.use('/2UpZaxFqVvbrwet6M1kXaSunGenIRsPE', adminRouter);
 
 module.exports = router;

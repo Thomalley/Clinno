@@ -38,6 +38,14 @@ module.exports = (sequelize) => {
     },
     DNIEn: {
       type: DataTypes.STRING
-    }
+    },
+    hablitada: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    baja: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   });
 };

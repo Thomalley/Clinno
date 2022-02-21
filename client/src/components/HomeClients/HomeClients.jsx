@@ -173,6 +173,7 @@ export default function HomeHospitals() {
           <div className="clinics">
         
             {clinicas?.clinicas?.map((c) => (
+              c.hablitada?
                 <div className="card-clinic">
                   <h5>{c.nombre} </h5>
                   <div className="img-logo-clinics">
@@ -194,7 +195,9 @@ export default function HomeHospitals() {
                     </div>
                   </div>
                 </div>
-              )
+                :
+                <></>
+            )
             )}
 
             {/* {idValue.idEspecialidad?.map((clinica) =>
