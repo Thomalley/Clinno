@@ -16,7 +16,7 @@ export default function RootUser() {
   const clinicas = useSelector((state) => state.clinicas);
   const [clinic, setClinic] = useState([]);
   const [loggeado, setLoggeado] = useState(false);
-  const [hablitar, setHablitar] = useState(false);
+  // const [hablitar, setHablitar] = useState(false);
   const [input, setInput] = useState({
     username: "",
     password: "",

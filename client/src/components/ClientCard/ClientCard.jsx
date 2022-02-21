@@ -8,7 +8,7 @@ import Cookies from 'universal-cookie'
 import { getClients } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
 import PasswordReset from "./PasswordReset"
-
+import Bot from '../Bot/Bot'
 
 export default function ClientCard(){
     const dispatch = useDispatch();
@@ -40,8 +40,8 @@ export default function ClientCard(){
 
       return (
         <div>
+        <Bot></Bot>
         <NavBar/>
-
         <ul class="nav justify-content-center">
 
         

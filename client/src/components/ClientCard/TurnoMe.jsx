@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 import NavLanding from "../../components/NavLanding/NavLanding";
 import Footer from "../Home/Footer";
 import swal from 'sweetalert'
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Calendar from 'react-calendar'
 import {
   getTurnosByDni,

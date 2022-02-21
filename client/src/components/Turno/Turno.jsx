@@ -10,6 +10,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
 import './turno.css'
+import Bot from "../Bot/Bot";
 
 
 export default function Turno() {
@@ -246,7 +247,8 @@ export default function Turno() {
 
     return (
         <div className=".container">
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
+                    <Bot/>
                 <NavBar loggin={loggeado ? true : false} />
                 <div class="progress" id='progressTurn' style={progressTur}>
                     <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>

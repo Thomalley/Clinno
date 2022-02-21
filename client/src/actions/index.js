@@ -320,7 +320,7 @@ export function crearTurno(input) {
 export function nuevoHorarioDoc(input) {
   return async function (dispatch) {
     try {
-      const horario = await axios({
+      await axios({
         method: "put",
         url: "/especialidad",
         data: {
@@ -563,6 +563,7 @@ export function get_All_Doctor(payload) {
         if (arrId.includes(payload)) {
           return doc;
         }
+        return ("funciono")
       });
       const filterDoc = datoDoc.map((doc) => {
         return {
@@ -695,7 +696,7 @@ export function addDiagnostico(payload) {
   return async function (dispatch) {
     try {
       const addDiag = await axios.post("/diagnostico", payload);
-      const updateTurno = await axios.put(
+      await axios.put(
         `/turno/update/${payload.idTurno}`,
         payload
       );

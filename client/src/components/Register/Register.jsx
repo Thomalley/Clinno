@@ -1,7 +1,7 @@
 import './Register.css'
 import { useSelector } from 'react-redux';
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {registrarCliente, getClients} from '../../actions/index';
 import swal from 'sweetalert';
@@ -17,7 +17,6 @@ export default function Register(){
 },[])
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const clientes = useSelector((state)=> state.clientes);
     const regExName = /^[A-Za-z][a-zA-Z ]{2,40}$/;
     const  regExEmail= /^\S+@\S+$/i;

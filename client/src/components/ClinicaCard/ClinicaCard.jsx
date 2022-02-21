@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
@@ -69,7 +69,7 @@ export default function ClinicaCard (){
                 <div className="contenedor_adminClinica">
                     <NavClinica/>
                         
-                        <img src={logo} className='logo_clinno_adminC' />
+                        <img src={logo} alt="imagen" className='logo_clinno_adminC' />
                         <div className="d-flex justify-content-center align-items-center">
                             <div className="contenedor_me_clinic">
                                 <h1>Perfil de {clinica?.nombre}</h1>

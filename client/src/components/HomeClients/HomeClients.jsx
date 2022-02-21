@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import "./homeClients.css";
 import { useState, useEffect } from "react";
 import doc from "../utils/hipertencion.gif";
@@ -10,13 +9,14 @@ import Cookies from "universal-cookie";
 import {
   getEspecialidad,
   getClinicasByEspec,
-  getClinicas,
 } from "../../actions";
 import { useAuth0 } from "@auth0/auth0-react";
 import pp from "../utils/images-landing/pp.png";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import logo from "../utils/favicon.png";
+import Bot from '../Bot/Bot'
+
 export default function HomeHospitals() {
   const dispatch = useDispatch();
   // const clinicas = useSelector((state) => state.clinicas)
@@ -83,6 +83,7 @@ export default function HomeHospitals() {
 
   return (
     <>
+      <Bot></Bot>
       <NavBar loggin={loggeado} />+
       <div className="home-hospitals">
         <div className="big-box">
