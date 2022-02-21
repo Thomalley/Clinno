@@ -17,7 +17,7 @@ export default function Login() {
     const dispatch = useDispatch();
     const cliente = useSelector((state) => state.cliente);
     const [errors, setErrors] = useState({});
-    const { loginWithRedirect } = useAuth0();
+    const { loginWithRedirect, user } = useAuth0();
     const [loggeado, setLoggeado] = useState({ "logged": false });
     const [input, setInput] = useState({
         email: '',
