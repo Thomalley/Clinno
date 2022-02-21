@@ -382,7 +382,6 @@ export function get_clinica(payload) {
     try {
       const json = await axios.get("/clinica");
       const datos = json.data.filter((e) => e.id === payload);
-      console.log(datos);
       const esp = datos[0].especialidads.map((e) => {
         return {
           id: e.id,
@@ -400,6 +399,7 @@ export function get_clinica(payload) {
           codigo: datos[0].codigo,
           nombreEn: datos[0].nombreEn,
           apellidoEn: datos[0].apellidoEn,
+          habilitada: datos[0].hablitada,
           DNIEn: datos[0].DNIEn,
           especialidad: esp,
         },
