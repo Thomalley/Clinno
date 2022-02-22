@@ -159,12 +159,12 @@ export function getClinicaId(id) {
 }
 
 export function getDisponibilidad(fecha, idDoctor) {
+
     return async function (dispatch) {
         try {
             const json = await axios.get(
                 `/turno/disponibilidad/${fecha}/${idDoctor}`
             );
-
             return dispatch({
                 type: "GET_DISPONIBILIDAD",
                 payload: json.data,
@@ -511,31 +511,45 @@ export function getDoctorById(id) {
     };
 }
 export function get_doctor_id(payload) {
-    return async function (dispatch) {
-        try {
-            const json = await axios.get("/doctor");
-            for (let i = 0; i < json.data.length; i++) {
-                console.log(payload);
-                if (json.data[i].codigo === payload) {
-                    const datosDoc = [
-                        {
-                            id: json.data[i].id,
-                            codigo: json.data[i].codigo,
-                            nombre: json.data[i].nombre,
-                            especialidades: json.data[i].especialidads,
-                        },
-                    ];
-                    return dispatch({
-                        type: "VALIDATE_DOCTOR",
-                        payload: datosDoc,
-                    });
-                }
-            }
-        } catch (e) {
-            console.log(e);
+  return async function (dispatch) {
+    try {
+      const json = await axios.get("/doctor");
+      for (let i = 0; i < json.data.length; i++) {
+        if (json.data[i].codigo === payload) {
+          const datosDoc = [
+            {
+              id: json.data[i].id,
+              codigo: json.data[i].codigo,
+              nombre: json.data[i].nombre,
+              especialidades: json.data[i].especialidads,
+            },
+          ];
+          return dispatch({
+            type: "VALIDATE_DOCTOR",
+            payload: datosDoc,
+          });
         }
-    };
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
+export function doctorResetCodigo(id, codigo) {
+  return async function (dispatch) {
+    try {
+      console.log(codigo);
+      const response = await axios.put(
+        `/doctor/${id}/codigoReset`,
+        codigo
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
 // Admin Clinica
 export function addEspecialidad(payload) {
     return async function (dispatch) {
@@ -549,15 +563,16 @@ export function addEspecialidad(payload) {
 }
 
 export function addDoctor(payload) {
-    return async function (dispatch) {
-        try {
-            const addDoc = await axios.post("/doctor", payload);
-            await axios.post(`/clinica/addEspecialidad`, payload);
-            return dispatch({ type: "ADD_DOCTOR", payload: addDoc.data });
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const addDoc = await axios.post("/doctor", payload);
+      await axios.post(`/clinica/addEspecialidad`, payload);
+      const addEmail = await axios.post("/doctor/creation-mail", addDoc.data);
+      return dispatch({ type: "ADD_DOCTOR", payload: addDoc.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 export function get_All_Doctor(payload) {
@@ -652,15 +667,14 @@ export function getTurnosClinica(payload) {
 }
 
 export function getTurnosDoctor(payload) {
-    return async function (dispatch) {
-        try {
-            const json = await axios.get(`/turno/doctor/${payload}`);
-            console.log(json.data);
-            return dispatch({ type: "GET_TURNO_DOCTOR", payload: json.data });
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`/turno/doctor/${payload}`);
+      return dispatch({ type: "GET_TURNO_DOCTOR", payload: json.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 export function darBajaEmail(payload) {

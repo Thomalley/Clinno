@@ -32,28 +32,6 @@ router.get("/:idEspecialidad/:idClinica", async(req, res, next) => {
 
 router.post("/", async(req, res, next) => {
     try {
-        // let newArray = [
-        //     "Miguel Becerra",
-        //     "Sonia Rodrigues",
-        //     "Victorina Perdomo",
-        //     "Otilia Alarcon",
-        //     "Maria-Consuelo Sole",
-        //     "César Vazquez",
-        //     "Socorro Muñiz",
-        //     "Andreu Vilar",
-        //     "Vanesa Castilla",
-        //     "Yassine Duque",
-        //     "Izaro Sales",
-        //     "Jose-Manuel Farre",
-        //     "Roser Canto",
-        //     "Iris Olmedo",
-        //     "Mariona Domenech",
-        //     "Flor Morales",
-        //     "Emílio Robledo",
-        //     "Ines Veiga",
-        //     "Simon Urbano",
-        //     "Judit Buendia",
-        // ]
         const {
             nombre,
             clinica,
@@ -156,6 +134,56 @@ router.post('/order-mail', (req,res)=> {
         console.log(error)
         }
     });
+    
+    router.put('/:id/codigoReset', async(req, res) => {
+        try {
+            console.log(req.body)
+            let doctor = await Doctor.findByPk(req.params.id);
+            await doctor.update({ codigo: req.body.codigo })
+            await doctor.save()
+            res.json(doctor)
+        } catch (err) {
+            console.log(err)
+        }
+    })
+
+    router.post('/creation-mail', (req,res)=> {
+        try{
+          const {email,codigo, nombre} = req.body;
+    
+          console.log(email)
+    
+           const sgMail = require('@sendgrid/mail')
+    
+    
+            sgMail.setApiKey(API_KEY)
+    
+            const message = {
+    
+              to: email,
+    
+              from : "clinnoturnos@gmail.com",
+    
+              subject: `Bienvenidoa a Clinno Doctor ${nombre}`,
+              html: `
+              <html>
+            <head>
+                <body>
+                <h2> Hola ${nombre } queremos informarte que tu codigo de inicio de sesion es ${codigo}  </h2>
+                 </body>
+            </head>
+            </html>`
+            }
+    
+            sgMail
+            .send(message)
+            .then((response) => console.log ('Email sent...'))
+            .catch((error) => console.log (error.message))
+            }
+            catch(error){
+            console.log(error)
+            }
+        });
 
 
 
