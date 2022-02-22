@@ -7,7 +7,6 @@ module.exports = (sequelize) => {
         unit_price: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 2000
         },
         clinicaId:{
             type: DataTypes.STRING,
@@ -16,6 +15,20 @@ module.exports = (sequelize) => {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        quantity: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 1
+        },
+        abonado: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        orderId: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     });
 

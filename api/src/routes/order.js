@@ -4,7 +4,6 @@ const { Order, Order_detail } = require('../db');
 router.post('/', async (req, res) => {
     try {
     const { clinicaId } = req.body
-        console.log(clinicaId)
     const newOrder = await Order.create({
         clinicaId: clinicaId,
     })
@@ -21,23 +20,23 @@ router.post('/', async (req, res) => {
 });
 
 
-// router.get('/detalle/:id', (req, res, next) => {
-//     const id = req.params.id
+router.get('/detalle/:i', (req, res, next) => {
+    const id = req.params.id
 
-//     Order.findOne({
-//         where: {
-//             id: id,
-//         },
-//         include: {
-//             model: Order_detail,
-//             where: { orderId: id }
-//         }
-//     })
-//         .then(obj => {
-//             res.send(obj)
-//         })
-//         .catch(next)
-// });
+    Order.findOne({
+        where: {
+            id: id,
+        },
+        include: {
+            model: Order_detail,
+            where: { orderId: id }
+        }
+    })
+        .then(obj => {
+            res.send(obj)
+        })
+        .catch(next)
+});
 
 
 

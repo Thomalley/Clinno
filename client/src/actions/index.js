@@ -30,24 +30,36 @@ export function postOrder(clinicaId) {
     }
   };
 }
+export function getMensualidades(){
+  return async function (dispatch){
+    const mensus = await axios.get("/mensualidad");
+    return dispatch({ type: "GET_MENSUALIDADES", payload: mensus.data})
+  }
+}
 
 export function getMensualidad(id) {
   return async function (dispatch) {
     try {
-      const mensualidad = await axios.get(`/mensualidad/${id}`);
+      const mensualidad = await axios.get(`/mensualidad/clinica/${id}`);
       return dispatch({ type: "GET_MENSUALIDAD", payload: mensualidad.data });
     } catch (e) {
       console.log(e);
     }
   };
 }
-export function postMensualidad(clinicaId, orderId) {
+export function postMensualidad(input) {
   return async function (dispatch) {
     try {
       await axios({
         method: "post",
         url: "/mensualidad",
-        data: { clinicaId, orderId },
+        data: {
+          title: input.title,
+          unit_price: input.unit_price,
+          quantity: input.quantity,
+          clinicaId: input.clinicaId,
+          orderId: input.orderId
+        },
       });
     } catch (e) {
       console.log(e);
@@ -55,28 +67,24 @@ export function postMensualidad(clinicaId, orderId) {
   };
 }
 
-// export function getMercadoPago(orderId) {
-//   return async function (dispatch) {
-//     try {
-//       await axios.get(`/mercadopago/${orderId}`);
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };
-// }
-export function getMercadoPago(orderId) {
-    return async function (dispatch) {
-      try {
-        const mp = await axios.get(`/mercadopago/${orderId}`);
-        return dispatch({
-          type:"MP_DATA",
-          payload: mp.data
-        })
-      } catch (e) {
-        console.log(e);
-      }
-    };
-  }
+
+export function getMercadoPago(input) {
+  return async function (dispatch) {
+    try {
+      const mp = await axios({
+        method: "get",
+        url: `/mercadopago/${input.orderId}/${input.unit_price}`,
+      });
+      return dispatch({
+        type: "MP_DATA",
+        payload: mp.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function getClienteByDni(documento) {
   return async function (dispatch) {
     try {
@@ -219,21 +227,22 @@ export function getClinicasByEspec(id) {
 }
 
 export function getDoctoresByEspec(data) {
-    return async function (dispatch) {
-        try {
-            console.log(data);
-            const json = await axios.get(`/doctor/${data.idEspecialidad}/${data.idClinica}`);
-            console.log(json.data);
-            return dispatch({
-                type: "GET_DOCTORES_BY_ESPEC_ID",
-                payload: json.data
-            })
-        } catch (e) {
-            console.log(e)
-        }
+  return async function (dispatch) {
+    try {
+      console.log(data);
+      const json = await axios.get(
+        `/doctor/${data.idEspecialidad}/${data.idClinica}`
+      );
+      console.log(json.data);
+      return dispatch({
+        type: "GET_DOCTORES_BY_ESPEC_ID",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
-  }
-
+  };
+}
 
 export function login_validate(payload) {
   return async function (dispatch) {
@@ -341,40 +350,44 @@ export function nuevoHorarioDoc(input) {
 //Clinica
 
 export function login_clinica(payload) {
-    return async function (dispatch) {
-        try {
-            const json = await axios.get('/clinica');
-            for (let i = 0; i < json.data.length; i++) {
-
-                if (json.data[i].mail === payload.mail && json.data[i].password === payload.password && json.data[i].baja === false) {
-                    const datos = [{
-                        id: json.data[i].id,
-                        nombre: json.data[i].nombre,
-                        direccion: json.data[i].direccion,
-                        telefono: json.data[i].telefono,
-                        mail: json.data[i].mail,
-                        password: json.data[i].password,
-                        nombreEn: json.data[i].nombreEn,
-                        apellidoEn: json.data[i].apellidoEn,
-                        DNIEn: json.data[i].DNIEn,
-                        createdAt: json.data[i].createdAt
-                    }]
-                    return dispatch({
-                        type: "CLINICA_USER",
-                        payload: datos
-
-                    });
-                } else {
-                    dispatch({
-                        type: "CLINICA_USER",
-                        payload: []
-                    });
-                }
-            }
-        } catch (e) {
-            console.log(e)
+  return async function (dispatch) {
+    try {
+      const json = await axios.get("/clinica");
+      for (let i = 0; i < json.data.length; i++) {
+        if (
+          json.data[i].mail === payload.mail &&
+          json.data[i].password === payload.password &&
+          json.data[i].baja === false
+        ) {
+          const datos = [
+            {
+              id: json.data[i].id,
+              nombre: json.data[i].nombre,
+              direccion: json.data[i].direccion,
+              telefono: json.data[i].telefono,
+              mail: json.data[i].mail,
+              password: json.data[i].password,
+              nombreEn: json.data[i].nombreEn,
+              apellidoEn: json.data[i].apellidoEn,
+              DNIEn: json.data[i].DNIEn,
+              createdAt: json.data[i].createdAt,
+            },
+          ];
+          return dispatch({
+            type: "CLINICA_USER",
+            payload: datos,
+          });
+        } else {
+          dispatch({
+            type: "CLINICA_USER",
+            payload: [],
+          });
         }
+      }
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
 
 export function get_clinica(payload) {
@@ -760,106 +773,104 @@ export function filter_fechas(payload) {
 }
 
 export function modifTurno(payload) {
-    return async function(dispatch) {
-        try {
-            const json = axios.put(`/turno/update/date/${payload.idTurno}`, payload)
-            return dispatch({
-                type: "RESET_PASSWORD",
-                payload: json.data
-            })
-        } catch (e) {
-            console.log(e)
-       }
+  return async function (dispatch) {
+    try {
+      const json = axios.put(`/turno/update/date/${payload.idTurno}`, payload);
+      return dispatch({
+        type: "RESET_PASSWORD",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
 
-          
-export function codigoClinicaEmail(payload){
-    return async function (dispatch){
-        try{
-            console.log(payload);
-            const json = await axios.post(`/clinica/mail-codigo`, payload);
-            return dispatch({ type: 'RESET_PASSWORD', payload: json.data })
-        }
-        catch (err) {
-            console.log(err)
-        }
+export function codigoClinicaEmail(payload) {
+  return async function (dispatch) {
+    try {
+      console.log(payload);
+      const json = await axios.post(`/clinica/mail-codigo`, payload);
+      return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+    } catch (err) {
+      console.log(err);
     }
+  };
 }
 
 export function admin_user_validate(payload) {
-    return async function(dispatch) {
-        try {
-            const json = await axios.post('/2UpZaxFqVvbrwet6M1kXaSunGenIRsPE');
+  return async function (dispatch) {
+    try {
+      const json = await axios.post("/2UpZaxFqVvbrwet6M1kXaSunGenIRsPE");
 
-                if (json.data[0].username === payload.username && json.data[0].password === payload.password) {
-                    const data = [{
-                        username: json.data[0].email,
-                        password: json.data[0].password,
-                    }]
-                    return dispatch({
-                        type: "VALIDATE_ADMIN",
-                        payload: data
-                    });
-                } else
-                    dispatch({
-                        type: "VALIDATE_ADMIN_WRONG",
-                        payload: []
-                    });
-        } catch (e) {
-            console.log(e)
-        }
+      if (
+        json.data[0].username === payload.username &&
+        json.data[0].password === payload.password
+      ) {
+        const data = [
+          {
+            username: json.data[0].email,
+            password: json.data[0].password,
+          },
+        ];
+        return dispatch({
+          type: "VALIDATE_ADMIN",
+          payload: data,
+        });
+      } else
+        dispatch({
+          type: "VALIDATE_ADMIN_WRONG",
+          payload: [],
+        });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
 
-export function validate_clinica(payload){
-    const id = payload
-    return async function(dispatch){
-        try{
-            const json = await axios.put(`clinica/validacion/${id}`)
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch(e){
-            console.log(e)
-        }
+export function validate_clinica(payload) {
+  const id = payload;
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(`clinica/validacion/${id}`);
+      return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
 
-export function deshabilitar_clinica(payload){
-    const id = payload
-    return async function(dispatch){
-        try{
-            const json = await axios.put(`clinica/desavalidacion/${id}`)
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch(e){
-            console.log(e)
-        }
+export function deshabilitar_clinica(payload) {
+  const id = payload;
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(`clinica/desavalidacion/${id}`);
+      return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
 
-export function darBaja_clinica(payload){
-    const id = payload
-    return async function(dispatch){
-        try{
-            const json = await axios.put(`clinica/darbaja/${id}`)
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch(e){
-            console.log(e)
-        }
+export function darBaja_clinica(payload) {
+  const id = payload;
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(`clinica/darbaja/${id}`);
+      return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
-export function darSubida_clinica(payload){
-    const id = payload
-    return async function(dispatch){
-        try{
-            const json = await axios.put(`clinica/darsubida/${id}`)
-            return dispatch({type: 'RESET_PASSWORD', payload: json.data})
-        }
-        catch(e){
-            console.log(e)
-        }
+export function darSubida_clinica(payload) {
+  const id = payload;
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(`clinica/darsubida/${id}`);
+      return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+    } catch (e) {
+      console.log(e);
     }
+  };
 }
-

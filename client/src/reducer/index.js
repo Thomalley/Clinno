@@ -25,6 +25,8 @@ const initialState = {
     order:"",
     mpData: [],
     admin: [],
+    mensualidad: [],
+    mensualidades: []
 };
 
 
@@ -50,11 +52,6 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 doctorId: action.payload
-            }
-        case "CREATE_ORDER":
-            return {
-                ...state,
-                order: action.payload
             }
 
         case "GET_TURNOS_DNI":
@@ -243,6 +240,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 admin: action.payload
                 }
+        case "GET_MENSUALIDAD":
+            return {
+                ...state,
+                mensualidad: action.payload
+            }
+        case "GET_MENSUALIDADES":
+            return{
+                ...state,
+                mensualidades: action.payload
+            }
         default:
             return state;
     }
