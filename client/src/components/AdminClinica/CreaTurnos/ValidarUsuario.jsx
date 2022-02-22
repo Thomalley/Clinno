@@ -8,7 +8,7 @@ import NavClinica from '../NavClinica.jsx';
 import Footer from "../../Home/Footer";
 // import swal from "sweetalert";
 import './Validate.css'
-import logo from '../../../components/utils/images-landing/logo.png'
+
 // import UserProfile from '../../../components/utils/images-landing/usuario-sin-foto.png'
 
 
@@ -26,7 +26,7 @@ export default function ValidarUsuario() {
      //control se de session
      let session=false;
      if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
-     const [loggeado,setLoggeado] = useState(session);
+     const [loggeado] = useState(session);
 
     useEffect(() => {
         if (cliente)

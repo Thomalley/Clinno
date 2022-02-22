@@ -25,12 +25,11 @@ export default function DetailClinica() {
     dispatch(getClinicaId(id));
   }, []);
 
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
   const { isAuthenticated, isLoading } = useAuth0();
-  console.log("soy clinic", clinic);
   let session;
   // console.log("sesion iniciada por " + cookies.get('email'))
   if (cookies.get("email")) {
@@ -53,9 +52,9 @@ export default function DetailClinica() {
     }
   }, [isLoading, cookies.get("email")]);
 
-  const goToLogin = () => {
-    navigate("/login");
-  };
+  // const goToLogin = () => {
+  //   navigate("/login");
+  // };
 
   return (
     <>
@@ -195,7 +194,7 @@ export default function DetailClinica() {
                   Accede a un turno medico con Clinno!
                 </h4>
                 <div className="animation_carrousel">
-                  {loggeado ? (
+                  {loggeado || cookies.get("clinica_id") ? (
                     <></>
                   ) : (
                     <>
@@ -225,14 +224,13 @@ export default function DetailClinica() {
                   <div className="nombre_hospital">
                   </div>
                     <Link to="/turno">
-                  <button
-                    type="button"
-                    className="btn btn-primary animation_carrousel"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    Agendá tu cita medica!{" "}
-                  </button>
+                      {!cookies.get("clinica_id") ?
+                      <button type="button" className="btn btn-primary animation_carrousel" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Agendá tu cita medica!{" "}
+                      </button>
+                      : <Link   className="btn btn-primary animation_carrousel" to="/adminClinica"> Volver a administración</Link>
+
+                      }
                   </Link>
                 </div>
               </div>
@@ -325,34 +323,7 @@ export default function DetailClinica() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* <div className="container_carta_doctor">
-                    <div className=" carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2020/05/26/19/48/stethoscope-5224534_960_720.jpg" className="card-img" alt="..."/>
-                        <div className="card-img-overlay carta_texto_doctor">
-                            <h5 className="card-title">La mejor atención</h5>
-                            <p className="card-text">Contamos con un staff de primer nivel, promoviendo un ambiente de confort y atención personalizada para los pacientes.</p>
-                            <p className="card-text">Para su mejor confort</p>
-                        </div>
-                    </div>
-                    <div className=" carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2017/10/03/20/01/mri-2813899_960_720.jpg" className="card-img" alt="..."/>
-                        <div className="card-img-overlay carta_texto_doctor">
-                            <h5 className="card-title">Nuestras instalaciones</h5>
-                            <p className="card-text">Las instalaciones mas modernas, con la de tecnología de vanguardia y recursos humanos altamente capacitados</p>
-                            <p className="card-text">Tecnología de avanzada</p>
-                        </div>
-                    </div>
-                    <div className="carta_doctor">
-                        <img src="https://cdn.pixabay.com/photo/2017/06/18/19/35/x-ray-of-the-jaw-2416945_960_720.jpg" className="card-img" alt="..."/>
-                        <div className="card-img-overlay carta_texto_doctor">
-                            <h5 className="card-title"> Acceso a toda su información</h5>
-                            <p className="card-text">Usted podrá acceder de manera online a sus exámenes actuales y previos, incluso desde su celular. </p>
-                            <p className="card-text"></p>
-                        </div>
-                    </div>
-                </div> */}
+          </div>          
 
           <div className="d-flex justify-content-center align-items-start ">
             <div>
@@ -375,6 +346,7 @@ export default function DetailClinica() {
                       <div className="doctor">
                         <h4>{e.nombre}</h4>
                         <img
+                        alt="imagen"
                           className="imagen_medico"
                           src="https://via.placeholder.com/100x100"
                         />

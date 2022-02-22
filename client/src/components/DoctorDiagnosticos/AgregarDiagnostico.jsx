@@ -3,8 +3,8 @@ import { Link,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router";
 import { useState, useEffect } from 'react';
-import swal from 'sweetalert';
-import { addDiagnostico,getTurnoId} from '../../actions'
+import { addDiagnostico,getTurnoId,getClienteByDni} from '../../actions'
+
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 import logo from '../../components/utils/images-landing/logo.png'
@@ -40,15 +40,23 @@ const validate = values =>{
 
 export default function TurnosDelDia(){
     
-      const turnoId = useSelector((state) => state.turnoById);
+    
+    const turnoId = useSelector((state) => state.turnoById);
+    const cliente = useSelector((state) => state.clienteByDni);
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
     let { idTurno } = useParams();
     
     const cookies = new Cookies();
     const dispatch = useDispatch();
 
-    useEffect(() => { dispatch(getTurnoId(idTurno)); }, []);
+    useEffect(() => { 
+        dispatch(getTurnoId(idTurno));
+    }, []);
+
+    useEffect(() => { 
+        if(turnoId.length !==0) dispatch(getClienteByDni(turnoId.dniCliente))
+    }, [turnoId]);
     
     const [complete,setComplete] = useState(false)
 
@@ -88,7 +96,7 @@ export default function TurnosDelDia(){
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     if(loggeado){
     return(
@@ -98,10 +106,22 @@ export default function TurnosDelDia(){
             {!complete?
                 <div>
                     <h2>{turnoId?.fecha}</h2>
-                    <h3>Formulario de Diagnostico</h3>
+                    <h3>Formulario de Diagnóstico</h3>
                     <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)} autoComplete='off'>
+                        <h4>Datos del Paciente:</h4>
+                        <div className="d-flex  justify-content-center gap-3">
+                            <div>
+                                <p><strong>Nombre: </strong></p>
+                                <p>{cliente[0]?.nombre } {cliente[0]?.apellido}</p>
+                            </div>
+                            <div>
+                                <p><strong>Dni: </strong></p>
+                                <p>{cliente[0]?.dni }</p>
+                            </div>
+                                                       
+                        </div>
                         <div>
-                            <h3>Ingrese los datos del paciente: </h3>
+                            <h3>Ingrese los datos del diagnóstico: </h3>
                         </div>
                         <div>
                             <h6>Sintomas*:</h6>
@@ -116,12 +136,10 @@ export default function TurnosDelDia(){
                         <div>
                             <h6>Indicaciones:</h6>
                             <input type='text' placeholder="Indicaciones" value={input.indicaciones} name='indicaciones' onChange={(e)=>handleChange(e)} />
-                            {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
                         </div>
                         <div>
                             <h6>Estudios:</h6>
                             <input  type='text' placeholder="Estudio" value={input.estudio} name='estudio' onChange={(e)=>handleChange(e)} />
-                            {/* {input.errors.estudio? <p className='errors_add'>{input.errors.estudio}</p>:<p className='errors_add'> </p>} */}
                         </div>
                         <p>*Campos Obligatorios</p>
                         <div className="row">
@@ -134,7 +152,7 @@ export default function TurnosDelDia(){
                 :
                 <div className="contenedor_diag_compl" >
                     <div className="formu_complete_diag">
-                        <img src={logo} className='logo_clinno_navC' />
+                        <img src={logo} alt="imagen" className='logo_clinno_navC' />
                         <h4>Formulario Completado!</h4>
                         <h6>El Diagnostico ya fue enviado</h6>
                         <p>Podras ver el diagnostico </p>

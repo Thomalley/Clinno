@@ -1,10 +1,8 @@
 
 import React,{ useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router";
-import swal from 'sweetalert';
-import { getDiagnosticoByTurno,getDiagnostico,getTurnoId} from '../../actions'
+import { getDiagnosticoByTurno,getTurnoId} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 
@@ -30,17 +28,13 @@ export default function VerDiagnosticoDoctor(){
         dispatch( getDiagnosticoByTurno(idTurno))
     }, []);
 
-    
-
-    const [diagnostico,setDiag] = useState([]);
-    
     const cookies = new Cookies();
     const dispatch = useDispatch();
     
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
 
     
@@ -53,7 +47,7 @@ export default function VerDiagnosticoDoctor(){
                 <NavClinica/>
                 <div className="contenedor_diag_compl" >
                     <div className="formu_complete_diag">
-                        <img src={logo} className='logo_clinno_navC' />
+                        <img src={logo} alt="imagen" className='logo_clinno_navC' />
                         <div>
                             <h3>Datos del Turno:</h3>
                             <p>Fecha: {turno?.fecha}</p>

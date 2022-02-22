@@ -33,7 +33,11 @@ module.exports = (sequelize) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    datosCompletados: {
+      type: DataTypes.BOOLEAN,
+      dafaultValue: false
     }
 });
 };

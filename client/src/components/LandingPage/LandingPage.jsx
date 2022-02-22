@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./landing.css";
 import img_doc from "../utils/images-landing/doctora.png";
 import logo from "../utils/images-landing/logo.png";
@@ -8,10 +7,9 @@ import pp from "../utils/images-landing/pp.png";
 import slide1 from "../utils/images-landing/slide1.png";
 import slide2 from "../utils/images-landing/slide2.png";
 import slide3 from "../utils/images-landing/slide3.png";
-import Demo from "../Demo/Demo";
 import NavLanding from "../NavLanding/NavLanding";
-import footer from "../Home/Footer"
 import Footer from "../Home/Footer";
+
 
 export default function LandingPage() {
   return (

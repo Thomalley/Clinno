@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-import {get_clinica,getEspecialidad,addDoctor} from '../../actions';
+import {get_clinica,getEspecialidad,addDoctor,getAllDoctores} from '../../actions';
 
 
-import logo from '../../components/utils/images-landing/logo.png'
+// import logo from '../../components/utils/images-landing/logo.png'
 
 
 import Cookies from 'universal-cookie';
@@ -74,18 +74,22 @@ export default function AddDoctor(){
     const [showEsp,setShowEsp] = useState({ especialidad:[]});
     const [add,setAdd] = useState(false);
     const doctor = useSelector((state)=> state.doctor);
+    const doctoresDb = useSelector((state)=> state.allDoctoresInDB);
 
 
-    const clinica = useSelector((state)=> state.clinica[0]);
+    // const clinica = useSelector((state)=> state.clinica[0]);
     const especialidades = useSelector((state)=> state.especialidades);
     
-    useEffect(() => { dispatch(get_clinica(cookies.get('clinica_id')));
-    dispatch(getEspecialidad()); },[])
+    useEffect(() => { 
+        dispatch(get_clinica(cookies.get('clinica_id')));
+        dispatch(getEspecialidad());
+        dispatch(getAllDoctores());
+    },[])
     
     //control se de session
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     const [input,setInput] = useState({
         errors:{},
@@ -94,7 +98,7 @@ export default function AddDoctor(){
         especialidad: [],
         clinica: [],
     });
-
+    
     function handleChange(e){
         const {name,value} = e.target;
         const {errors,...sinErrors} = input;
@@ -112,8 +116,13 @@ export default function AddDoctor(){
         const {errors,...sinErrors} = input;
         const result = validate(sinErrors);
         if(!Object.keys(result).length){
-            dispatch(addDoctor(input));
-            setAdd(true);
+            const arr = doctoresDb.filter( d => d.email===input.email)
+            if(arr.length!==0){
+                swal("Email Incorrecto!", "Este Email no es valido.", "warning");
+            }else{
+                dispatch(addDoctor(input));
+                setAdd(true);
+            }
         }
     }
 
@@ -157,7 +166,7 @@ export default function AddDoctor(){
                     <div >
                         <h2>Doctor agregado Con exito!</h2>
                         <h4>Fue agregado {doctor?.nombre} con exito en {cookies.get('clinica_nombre')}</h4>
-                        <h2>Su codigo de doctor es: {doctor?.codigo}</h2> 
+                        <h2>Su codigo sera enviado al Email Ingresado </h2> 
                         
                     </div>
                     :

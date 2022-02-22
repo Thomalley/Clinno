@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 import NavLanding from "../../components/NavLanding/NavLanding";
 import Footer from "../Home/Footer";
 import swal from 'sweetalert'
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Calendar from 'react-calendar'
 import {
   getTurnosByDni,
@@ -17,21 +17,24 @@ import {
   canTurno,
   filtroTurnoFecha,
   getDisponibilidad,
-  modifTurno
+  modifTurno,
+  getClienteByEmail
 } from "../../actions/index";
+import { useAuth0 } from '@auth0/auth0-react'
 
 
 export default function TurnoMe() {
 
   const cookies = new Cookies();
   const dispatch = useDispatch();
+  const { isAuthenticated, isLoading, user } = useAuth0();
   let turnos = useSelector((state) => state.turnosDni);
   const doctores = useSelector((state) => state.allDoctoresInDB);
   const resenia = useSelector((state) => state.resenia);
   const diagnostico = useSelector((state) => state.diagDoctor);
-  // const turnoId = useSelector((state) => state.turnoById);
   const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
-  const dni_user = cookies.get("dni");
+  const [dni_user, setdni_user] = useState()
+  const dbUserDni = cookies.get("dni")
   const turnosPendientes = [];
   const turnosPasados = [];
   const turnosOriginales = turnos
@@ -51,10 +54,24 @@ export default function TurnoMe() {
 
 
   useEffect(() => {
-    dispatch(getTurnosByDni(dni_user));
-    dispatch(getAllDoctores());
-    dispatch(getResenia());
+    if (dbUserDni) {
+      dispatch(getTurnosByDni(dbUserDni));
+      dispatch(getAllDoctores());
+      dispatch(getResenia());
+    }
+    if (isAuthenticated || isLoading || user) {
+      dispatch(getClienteByEmail(user?.email)).then((data) => data?.payload?.dni)
+        .then((data) => setdni_user(data))
+      dispatch(getAllDoctores());
+      dispatch(getResenia());
+    }
+    // dispatch(getTurnosByDni(dni_user))
   }, []);
+
+  useEffect(()=>{
+    dispatch(getTurnosByDni(dni_user))
+    console.log(dni_user)
+  },[dni_user])
 
 
   useEffect(() => {
@@ -177,14 +194,14 @@ export default function TurnoMe() {
     e.preventDefault()
     dispatch(modifTurno({ nuevaFecha: updateDate.fecha, nuevaHora: updateDate.hora, idTurno: e.target.value }))
     swal("Listo", `Su turno ha sido modificado con exito para el dia ${updateDate.fecha} a las ${updateDate.hora}`, "success")
-    setTimeout(() => window.location.href = '/TurnoMe', 2000)
+    setTimeout(() => window.location.href = '/me', 2000)
   }
 
   const handleCancelModal = () => {
     console.log(idTurno)
     dispatch(canTurno({ status: "cancelado", idTurno: idTurno }))
     swal("Listo", "Su turno ha sido cancelado con exito", "success")
-    setTimeout(() => window.location.href = '/TurnoMe', 2000)
+    setTimeout(() => window.location.href = '/me', 2000)
   }
 
 

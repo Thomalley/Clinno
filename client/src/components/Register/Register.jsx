@@ -1,7 +1,7 @@
 import './Register.css'
 import { useSelector } from 'react-redux';
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {registrarCliente, getClients} from '../../actions/index';
 import swal from 'sweetalert';
@@ -17,7 +17,6 @@ export default function Register(){
 },[])
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const clientes = useSelector((state)=> state.clientes);
     const regExName = /^[A-Za-z][a-zA-Z ]{2,40}$/;
     const  regExEmail= /^\S+@\S+$/i;
@@ -30,6 +29,7 @@ export default function Register(){
       email:'',
       password:'',
       direccion:'',
+      datosCompletados: true
   })
     
     
@@ -133,9 +133,6 @@ return errors;
       <input onChange={(e) => handleChange(e)} className="form-control" type="text" placeholder="Direccion" value={input.direccion} name='direccion' />
       <div>{errors.direccion && (<p className='errorMsg'>{errors.direccion}</p>)}</div>
 
-      <div className='reCap'>
-      <div class="g-recaptcha" data-sitekey="6Lf_tG4eAAAAANiXKNaplUlHjzZi8STHvQLzDO_f"></div>
-      </div>
       <button value="Submit" className="col-12 btn btn-primary" type="submit">Registrar</button>
 
     </form>

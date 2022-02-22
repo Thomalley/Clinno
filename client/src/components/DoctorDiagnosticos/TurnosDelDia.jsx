@@ -6,10 +6,6 @@ import swal from 'sweetalert';
 import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,canTurno,filter_turnos} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-
-import logo from '../../components/utils/images-landing/logo.png'
-
-
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import "../HistorialTurnosDoc/HistorialTurnosStyle.css";
@@ -36,7 +32,7 @@ export default function TurnosDelDia(){
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
     
     const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
     const [input,setInput] = useState(initialInputState);
@@ -48,6 +44,7 @@ export default function TurnosDelDia(){
         dispatch(getDiagnostico())
         setTurn(turnos);
         setTimeout(()=> setLoading(false),600)
+        return () => { setTurn([])};
     },[])
     useEffect(()=>{
         if(turnos){
@@ -81,7 +78,7 @@ export default function TurnosDelDia(){
 
     function handleAllturnos(e){
         e.preventDefault();
-        const {name,value} = e.target;
+        const {} = e.target;
         setInput(initialInputState)
     }
 
@@ -158,15 +155,15 @@ export default function TurnosDelDia(){
                     }).map(t=>{
                         if(finalDate===t.fecha){
                             return (
-                            <div className="grid_turno_table diferente text-white">
+                            <div className="grid_turno_table diferente text-white" key={t.id}>
                                 <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
                                 <span className="spanes" >{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
                                 <span className="spanes">{t.fecha }</span>   
                                 <span className="spanes">{t.hora }</span>
                                 <span className="spanes">{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
                                 <span className="spanes">{loading?
-                                    <div class="spinner-border text-light" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :t.status !== 'cancelado'?
                                     t.hora < horaAhora?
@@ -182,19 +179,19 @@ export default function TurnosDelDia(){
                 })}
             </div>
             {/* <!-- Modal --> */}
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cancelar el Turno</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Cancelar el Turno</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                     <p>Si das en aceptar, el turno cerra cancelado</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cerrar</button>
-                    <button type="button" class="btn btn-danger" onClick={cancelarTurno} >Si, Cancelar el Turno</button>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No, Cerrar</button>
+                    <button type="button" className="btn btn-danger" onClick={cancelarTurno} >Si, Cancelar el Turno</button>
                 </div>
                 </div>
             </div>

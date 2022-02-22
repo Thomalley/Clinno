@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import "./demo.css";
 import mockup from "../utils/images-landing/clinno-app.png";

@@ -1,4 +1,6 @@
 
+
+
 import React,{ useEffect, useState } from 'react'
 import Checkout from './Checkout.jsx'
 import { useDispatch, useSelector } from "react-redux";
@@ -8,8 +10,10 @@ import axios from 'axios';
 function MercadoPago() {
   const dispatch = useDispatch();
   const cookies = new Cookies();
+
   const nombre = cookies.get("nombre");
   const id = cookies.get("clinica_id")
+
   const mpData = useSelector((state) => state.mpData);
   const mensualidad = useSelector((state) => state.mensualidad)
 

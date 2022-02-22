@@ -36,34 +36,35 @@ router.get('/', (req, res, next) => {
 //    });
 
 
-router.post("/", async (req,res) => {  
-     try{
-      const {email, password, nombre, apellido, direccion, dni} = req.body;
+router.post("/", async (req, res) => {
+    try {
+        const { email, password, nombre, apellido, direccion, dni, datosCompletados } = req.body;
 
 
-       const cliente = await Cliente.create({
-         nombre,
-         apellido,
-         email,
-         direccion,
-         dni,
-         password,
-       }) 
-       res.json(cliente)
+        const cliente = await Cliente.create({
+            nombre,
+            apellido,
+            email,
+            direccion,
+            dni,
+            password,
+            datosCompletados
+        })
+        res.json(cliente)
 
-       const sgMail = require('@sendgrid/mail')
+        const sgMail = require('@sendgrid/mail')
 
 
 
-  sgMail.setApiKey(API_KEY)
-  
-  const message = {
-    to: req.body.email,
+        sgMail.setApiKey(API_KEY)
 
-    from : "clinnoturnos@gmail.com",
-    
-    subject: `Usuario registrado con exito!`,
-    html: `
+        const message = {
+            to: req.body.email,
+
+            from: "clinnoturnos@gmail.com",
+
+            subject: `Usuario registrado con exito!`,
+            html: `
 
      <html>
  <head>
@@ -113,12 +114,12 @@ router.delete('/:id', (req, res) => {
 //ruta login google?//
 router.post('/google',
     passport.authenticate('local', { failureMessage: "An error appeared" }),
-    async function(req, res) {
+    async function (req, res) {
         try {
             const cliente = req.cliente
             if (cliente) {
                 res.status(200).json({ cliente })
-                    // res.redirect('/beers')
+                // res.redirect('/beers')
             } else {
                 console.log('usuario no encontrado');
             }
@@ -151,8 +152,8 @@ function isAdmin(req, res, next) {
 // atributo admin al usuario //
 router.put('/promote/:idcliente', (req, res) => {
     ClientendOne({
-            where: { id: req.params.Cliente }
-        })
+        where: { id: req.params.Cliente }
+    })
         .then(cliente => {
             cliente.update({
                 admin: !cliente.admin
@@ -164,12 +165,12 @@ router.put('/promote/:idcliente', (req, res) => {
 //ruta para ver cliente 'me'=== /GET /CLIENTE/ME"
 router.get('/me',
     isAuthenticated,
-    function(req, res) {
+    function (req, res) {
         return res.json(req.cliente);
     });
 
 //reset password//
-router.put('/:id/passwordReset', async(req, res) => {
+router.put('/:id/passwordReset', async (req, res) => {
     try {
         console.log(req.body)
         let cliente = await Cliente.findByPk(req.params.id);
@@ -187,7 +188,7 @@ router.put('/:id/passwordReset', async(req, res) => {
 router.post('/login', (req, res) => {
     var nombre = req.body.nombre,
         password = req.body.password;
-    Cliente.findOne({ where: { nombre: nombre } }).then(function(cliente) {
+    Cliente.findOne({ where: { nombre: nombre } }).then(function (cliente) {
         if (!cliente) { res.redirect('/login'); } else if (!cliente.validPassword(password)) { res.redirect('/login'); } else {
             req.session.cliente = user.dataValues;
             res.redirect('/me');
@@ -237,13 +238,13 @@ router.post('/order-mail', (req, res) => {
         sgMail.setApiKey(API_KEY)
 
 
-      const message = {
-        to: email,
+        const message = {
+            to: email,
 
-        from : "clinnoturnos@gmail.com",
+            from: "clinnoturnos@gmail.com",
 
-        subject: `contraseña!`,
-        html: `
+            subject: `contraseña!`,
+            html: `
 
         <html>
       <head>
@@ -294,23 +295,55 @@ router.post('/order-mail', (req, res) => {
 //   }
 // })
 router.get('/:id', async (req, res) => {
-  try{
-      const {id} = req.params
-      const clienDb = await Cliente.findByPk(id)
-      res.send(clienDb)
-  }
-  catch(err){
-      console.log(err)
-  }
-})
-router.get('/dni/:documento', async (req, res) => {
-    try{
-        const {documento} = req.params
-        const clienDb = await Cliente.findAll({where: {dni: documento}})
+    try {
+        const { id } = req.params
+        const clienDb = await Cliente.findByPk(id)
         res.send(clienDb)
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
-  })
+})
+
+router.get('/dni/:documento', async (req, res) => {
+    try {
+        const { documento } = req.params
+        const clienDb = await Cliente.findAll({ where: { dni: documento } })
+        res.send(clienDb)
+    }
+    catch (err) {
+        console.log(err)
+    }
+})
+
+router.get('/email/:email', async (req, res) => {
+    try {
+        const { email } = req.params
+        const client = await Cliente.findOne({ where: { email: email } })
+        res.send(client)
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
+router.put('/actualizar/:email', async (req, res) => {
+    try {
+        const {email} = req.params;
+        const {direccion, dni, datosCompletados} = req.body;
+        console.log(direccion)
+        console.log(dni)
+        const cliente = await Cliente.findOne({ where: { email: email } })
+        await cliente.update({ direccion: direccion })
+        await cliente.update({ dni: dni })
+        await cliente.update({ datosCompletados: datosCompletados })
+        await cliente.save()
+        res.send(cliente)
+    }
+    catch (e) {
+        console.log(e)
+    }
+});
+
+
 module.exports = router;
