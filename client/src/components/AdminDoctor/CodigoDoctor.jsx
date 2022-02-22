@@ -24,7 +24,7 @@ export default function CodigoDoctor(){
     function handleSubmit(e){
         e.preventDefault();
         const arr = doctores.filter( doc =>{
-            return ( input.email == doc.email)
+            return ( input.email === doc.email)
         })
         if(arr){
             swal("Correo enviado correctamente!", "Revise En su correo", "success")

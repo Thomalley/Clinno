@@ -1,12 +1,7 @@
 import './Reviews.css'
-import { useSelector } from 'react-redux';
-import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import logo from '../../components/utils/images-landing/logo.png'
+import React from 'react';
 import profilePhoto from '../../components/utils/images-landing/usuario-sin-foto.png'
 import Footer from '../Home/Footer';
-import NavLanding from '../NavLanding/NavLanding'
 import NavBar from '../NavBar/NavBar';
 
 

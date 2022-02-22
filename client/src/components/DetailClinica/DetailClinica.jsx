@@ -25,7 +25,7 @@ export default function DetailClinica() {
     dispatch(getClinicaId(id));
   }, []);
 
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -53,9 +53,9 @@ export default function DetailClinica() {
     }
   }, [isLoading, cookies.get("email")]);
 
-  const goToLogin = () => {
-    navigate("/login");
-  };
+  // const goToLogin = () => {
+  //   navigate("/login");
+  // };
 
   return (
     <>
@@ -375,6 +375,7 @@ export default function DetailClinica() {
                       <div className="doctor">
                         <h4>{e.nombre}</h4>
                         <img
+                        alt="imagen"
                           className="imagen_medico"
                           src="https://via.placeholder.com/100x100"
                         />

@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,filter_fechas,canTurno} from '../../actions'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,canTurno} from '../../actions'
 
-import logo from '../../components/utils/images-landing/logo.png'
+// import logo from '../../components/utils/images-landing/logo.png'
 
 
 import Cookies from 'universal-cookie';

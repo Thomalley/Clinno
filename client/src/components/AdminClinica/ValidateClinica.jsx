@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
-import {get_clinica,turno_clinica,codigoClinicaEmail} from '../../actions';
-import icono from '../../components/utils/icono-clinica.png'
+import {get_clinica,codigoClinicaEmail} from '../../actions';
+// import icono from '../../components/utils/icono-clinica.png'
 
 import logo from '../../components/utils/images-landing/logo.png'
 

@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { getTurnosClinica,getClients,getEspecialidad,getDoctoresByEspec} from '../../actions'
 
-import logo from '../../components/utils/images-landing/logo.png'
-
 
 import "../AdminClinica/AdminClinicaStyle.css";
 
@@ -44,7 +42,7 @@ export default function TurnosClinica({idClinica}){
     const especialidades = useSelector((state)=> state.especialidades);
     const cliente = useSelector((state)=> state.clientes);
     const doctores = useSelector((state)=> state.doctoresByEspec);
-    const doctor = useSelector((state)=> state.doctor);
+    // const doctor = useSelector((state)=> state.doctor);
 
    
     //esto va a cambiar a ver si funciona

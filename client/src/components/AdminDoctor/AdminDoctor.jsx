@@ -8,7 +8,7 @@ import NavClinica from '../AdminClinica/NavClinica.jsx'
 import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
 import VerMisTurnos from "./VerMisTurnos";
 import icono from '../../components/utils/icono-clinica.png'
-import CodigoDoctor from './CodigoDoctor'
+// import CodigoDoctor from './CodigoDoctor'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -36,7 +36,7 @@ export default function AdminDoctor(){
     const doctor = useSelector((state)=> state.doctor);
     const turnos = useSelector((state)=> state.turnos);
     const especialidades = useSelector((state)=> state.especialidades);
-    const cliente = useSelector((state)=> state.clientes);
+    // const cliente = useSelector((state)=> state.clientes);
     
     const [turn,setTurn] = useState([]);
     

@@ -3,7 +3,7 @@ import { Link,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router";
 import { useState, useEffect } from 'react';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import { addDiagnostico,getTurnoId} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
@@ -42,7 +42,7 @@ export default function TurnosDelDia(){
     
       const turnoId = useSelector((state) => state.turnoById);
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
     let { idTurno } = useParams();
     
     const cookies = new Cookies();
@@ -88,7 +88,7 @@ export default function TurnosDelDia(){
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     if(loggeado){
     return(
@@ -134,7 +134,7 @@ export default function TurnosDelDia(){
                 :
                 <div className="contenedor_diag_compl" >
                     <div className="formu_complete_diag">
-                        <img src={logo} className='logo_clinno_navC' />
+                        <img src={logo} alt="imagen" className='logo_clinno_navC' />
                         <h4>Formulario Completado!</h4>
                         <h6>El Diagnostico ya fue enviado</h6>
                         <p>Podras ver el diagnostico </p>
