@@ -15,7 +15,7 @@ function Bot() {
     <Chatbot 
         config={config}
         messageParser={MessageParser}
-        headerText='Muchas gracias por usar Clinno'
+        headerText='Muchas gracias por usar Clinno Bot'
         placeholderText='Haga su consulta...'
         // messageHistory={loadMessages()}
         actionProvider={ActionProvider}
@@ -24,7 +24,7 @@ function Bot() {
     } <button className="btn btn-info bot_chatBox" 
     onClick={() => toggleBot((prev) => !prev)}>
         <i className="fas fa-robot"></i> 
-        <small> <strong>Soy Bot</strong>  
+        <small> <strong>Soy Clinno Bot</strong>  
         <br/>¿Te puedo ayudar?
         </small> 
     </button>
