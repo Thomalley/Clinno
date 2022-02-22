@@ -173,7 +173,7 @@ export default function RootUser() {
 
   return (
     <>
-      {loggeado ? (
+      {!loggeado ? (
         <div>
           <h2>Soy el admin</h2>
           <form onSubmit={(e) => handleSubmit(e)}>
