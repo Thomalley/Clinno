@@ -1,58 +1,52 @@
-import "./MercadoPago.css";
-import React, { useEffect } from "react";
-import Cookies from "universal-cookie";
-import { postOrder, postMensualidad, getMercadoPago } from "../../../actions";
-import { useDispatch, useSelector } from "react-redux";
-// import NavBar from "../../NavBar/NavBar";
-import Checkout from "./Checkout"
 
+
+
+import React,{ useEffect, useState } from 'react'
+import Checkout from './Checkout.jsx'
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+import { getMensualidad, getMercadoPago } from "../../../actions";
+import axios from 'axios';
 function MercadoPago() {
   const dispatch = useDispatch();
   const cookies = new Cookies();
-  const idClinica = cookies.get("clinica_id");
-  // const nombre = cookies.get("nombre");
-  const orderId = useSelector((state) => state.order);
+
+  const nombre = cookies.get("nombre");
+  const id = cookies.get("clinica_id")
+
   const mpData = useSelector((state) => state.mpData);
-
-
-
-  useEffect(() => {
-    if (idClinica) {
-      dispatch(postOrder(idClinica));
-    }
-  }, []);
-  console.log(mpData)
- 
+  const mensualidad = useSelector((state) => state.mensualidad)
 
   useEffect(() => {
-    if (orderId.id > 0) {
-      dispatch(postMensualidad(idClinica, orderId.id));
-      dispatch(getMercadoPago(orderId.id))
-    }
-  }, [orderId]);
+    dispatch(getMensualidad(id))
+  }, [])
+console.log(mensualidad)
+  const [datos, setDatos] = useState("")
+  useEffect(()=>{
+    if(mensualidad.orderId !== undefined){
+      console.log(mensualidad)
+    axios
+    .get(`/mercadopago/${mensualidad?.orderId}/${mensualidad?.unit_price}`)
+    .then((data)=>{
+      setDatos(data.data)
+    })
+    .catch(err => console.error(err)) 
+  }
+  },[mensualidad])
 
-  const productos = mpData?.items?.map(e => e)
 
+
+const productos = [
+  {title: mensualidad.title, price: mensualidad.unit_price},
+]
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <div className="mercadopago">
-            {!mpData ? (
-              <div>
-                <img
-                  src="https://booking.smu.edu.sg/images/loader.gif"
-                  alt="Loading"
-                />
-                <p>Aguarde un momento....</p>
-              </div>
-            ) : <Checkout productos={productos} data={mpData} />
-          }
-        </div>
-      </div>
+    <div className="App">
+      { !datos
+        ? <p>Aguarde un momento....</p> 
+        : <Checkout productos={productos} data={datos}/>
+      }
     </div>
-  </div>
-);
+  );
 }
 
 export default MercadoPago;

@@ -30,6 +30,12 @@ export function postOrder(clinicaId) {
         }
     };
 }
+export function getMensualidades(){
+  return async function (dispatch){
+    const mensus = await axios.get("/mensualidad");
+    return dispatch({ type: "GET_MENSUALIDADES", payload: mensus.data})
+  }
+}
 
 export function getMensualidad(id) {
     return async function (dispatch) {
@@ -77,6 +83,7 @@ export function getMercadoPago(orderId) {
         }
     };
 }
+
 export function getClienteByDni(documento) {
     return async function (dispatch) {
         try {
@@ -90,6 +97,7 @@ export function getClienteByDni(documento) {
         }
     };
 }
+
 export function getTurnosByDni(documento) {
     return async function (dispatch) {
         try {
@@ -219,6 +227,7 @@ export function getClinicasByEspec(id) {
 }
 
 export function getDoctoresByEspec(data) {
+
     return async function (dispatch) {
         try {
             const json = await axios.get(
@@ -232,6 +241,7 @@ export function getDoctoresByEspec(data) {
             console.log(e);
         }
     };
+
 }
 
 export function login_validate(payload) {
@@ -345,6 +355,7 @@ export function nuevoHorarioDoc(input) {
 //Clinica
 
 export function login_clinica(payload) {
+
     return async function (dispatch) {
         try {
             const json = await axios.get("/clinica");
@@ -383,6 +394,7 @@ export function login_clinica(payload) {
             console.log(e);
         }
     };
+
 }
 
 export function get_clinica(payload) {
@@ -898,7 +910,9 @@ export function getClienteByEmail(payload) {
             console.log(e)
         }
     }
-}
+  };
+
+
 
 export function updateGoogleUser(input) {
     return async function () {
@@ -929,3 +943,4 @@ export function getClientById(id){
         }
     }
 }
+
