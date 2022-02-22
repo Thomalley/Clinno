@@ -5,7 +5,7 @@
     margin-bottom: 135px;
     display: inline-flex;
     width: 420px;
-    height: 550px;
+    height: 615px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
 }
@@ -37,7 +37,7 @@
     border: groove;
     color: white;
     background-color: #ababab;
-    cursor: not-allowed;
+    cursor: not-allowed!important;
 }
 
 .btnloginback {
