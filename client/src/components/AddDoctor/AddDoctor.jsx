@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 import {get_clinica,getEspecialidad,addDoctor,getAllDoctores} from '../../actions';
 
