@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,20 +37,20 @@ export default function Turno() {
         dniCliente: idUser
     })
     const [date, setDate] = useState(new Date());
+    const [jsdate, setjsDate] = useState(new Date());
     const onChange = date => {
         setDate(date)
     }
     let diaTurno = undefined;
     let mesTurno = undefined;
     let yearTurno = undefined;
-    var finalDate = undefined;
+    var [finalDate, setfinalDate] = useState();
     const [submit, setSubmit] = useState({ canSubmit: undefined })
     const [hasClinic, setHasClinic] = useState({ clinic: true })
     const [hasDoctor, setHasDoctor] = useState({ doctor: true })
     const [errors, setErrors] = useState({})
     var [progressTur, setProgressTur] = useState({ "width": "0%" })
-    const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-
+    const jsFinalDate = `${jsdate.getDate()}-${jsdate.getMonth() + 1}-${jsdate.getFullYear()}`;
     function validateDate(value) {
         const data = value.toString('').split(' ');
         switch (data[1]) {
@@ -94,21 +95,44 @@ export default function Turno() {
         }
         diaTurno = data[2];
         yearTurno = data[3];
-        finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
-        if (finalDate < jsFinalDate) {
-            swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
-            return
-        }
-        setidValue({ ...idValue, fecha: finalDate })
-        setProgressTur({
-            ...setProgressTur,
-            "width": "80%"
-        })
-
+        setfinalDate(diaTurno + '-' + mesTurno + '-' + yearTurno)
     }
 
+
     useEffect(() => {
-        if(userLog.length > 1 || isAuthenticated) {
+        if (finalDate !== undefined) {
+            const fdD = finalDate[0] + finalDate[1]
+            const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+            const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+            const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+            const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+            const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+            console.log("dia elegido", fdD, fdM, fdA)
+
+            if (fdA < jsfdA) {
+                return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+            }
+            if (fdM <= jsfdM && fdA < jsfdA) {
+                return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+            }
+            if ((fdD <= jsfdD || fdD >= jsfdD) && fdM < jsfdM && fdA <= jsfdA) {
+                return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Mes acontecido)", "warning")
+            }
+            if (fdD < jsfdD && fdM <= jsfdM && fdA <= jsfdA) {
+                return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+            }
+            else {
+                setidValue({ ...idValue, fecha: finalDate })
+                setProgressTur({
+                    ...setProgressTur,
+                    "width": "80%"
+                })
+            }
+        }
+    }, [finalDate])
+
+    useEffect(() => {
+        if (userLog.length > 1 || isAuthenticated) {
             setLoggeado(true)
         }
         if (!userLog) {
@@ -225,12 +249,17 @@ export default function Turno() {
                 text: `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
                 icon: "success",
                 buttons: {
-                    text: "Volver a inicio"
+                    text: "Ver mis turnos",
+                    value: "Volver a inicio"
                 }
             })
                 .then((value) => {
                     switch (value) {
                         case "text":
+                            swal("En instantes seras redirigido a Mis turnos..", {});
+                            setTimeout(() => window.location.href = '/TurnoMe', 2000)
+                            break
+                        case "value":
                             swal("En instantes seras redirigido a inicio..", {});
                             setTimeout(() => window.location.href = '/', 2000)
                             break
@@ -256,18 +285,37 @@ export default function Turno() {
         if (isAuthenticated || isLoading || user) setidValue({ ...idValue, dniCliente: dniGoogle })
     }
 
-    console.log(idValue)
-    console.log(dniGoogle)
-    console.log(loggeado)
+
+    // const horarioActual = 10
+    // const horarioCompleto = []
+    // horariosDispoDoc?.map((e) => {
+    //     if (horarioActual <= 8) {
+    //         return horariosDispoDoc
+    //     }
+    //     else {
+    //         let j = 8;
+    //         while (j < 21) {
+    //             for (let i = 0; i < horariosDispoDoc.length; i++) {
+    //                 if (e > horarioActual) {
+    //                     horarioCompleto.push(i)
+    //                 }
+    //                 j++
+    //             }
+    //         }
+    //     }
+    // })
 
     return (
         <div className=".container">
                 <form onSubmit={handleSubmit}>
                     <Bot/>
                 <NavBar loggin={loggeado ? true : false} />
+
                 <div class="progress" id='progressTurn' style={progressTur}>
-                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+
+
                 <div className="entre_nav_turno"></div>
                 <div className="container">
                     <div className="contenedor_turno">
@@ -276,67 +324,71 @@ export default function Turno() {
                             <div className="col-12">
                                 <div className="titleTurn">
                                     <h2 className="display-4" id="title_turn_id">Sacar turno Online</h2>
-                                    <small className="display-4" id="aboveTitle_turn_id">Facil, rapido y en el momento</small>
+                                    <div className="row">
+                                        <small className="display-4" id="aboveTitle_turn_id">Es tan solo 5 simples pasos</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-lg-12">
                                 <div className="cont_tur_BG">
+                                    <h3 className="display-6" id="Cli_Tur_Crea" > <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>1</p>Elige la especialidad que buscas:</h3>
 
-                                    <h3 className="display-6" id="Esp_Tur_Crea">Elige la especialidad que buscas:</h3>
-                                    <select id='Sel_Tur_Crea_Esp' class="form-select" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
-                                        <option value="" disabled selected>Especialidades</option>
-                                        {especialidades.map((e) => (
-                                            <option value={e.id}> {e.nombre} </option>
-                                        ))}
-                                    </select>
+                                    <div className="row">
+                                        <select className="col-lg-4 col-sm-1 col-md-1" id="sel_tur_jaja" aria-label="Default select example" onChange={(e) => handleSelect(e)}>
+                                            <option value="" disabled selected>Especialidades</option>
+                                            {especialidades.map((e) => (
+                                                <option value={e.id}> {e.nombre} </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+
                                 </div>
                             </div>
-
                         </div>
+
+
                         {
                             hasClinic.clinic === true ?
                                 <div className="row">
-                                    <div className="col-12">
+                                    <div className="col-lg-12">
                                         <div className="cont_tur_BG">
-                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
-                                                <option value="" disabled selected>Clinicas</option>
-                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                                                    e.hablitada ?
-                                                        <option id="clinica_selected" value={e.id}> {e.nombre} </option> :
-                                                        <></>
-                                                ))}
-                                            </select>
+                                            <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>2</p>A que clinica asistiras?</h3>
+
+                                            <div className="row">
+                                                <select id='sel_tur_jaja' className="col-lg-4 col-sm-1 col-md-1" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                                    <option value="" disabled selected>Clinicas</option>
+                                                    {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                                        e.hablitada ?
+                                                            <option id="clinica_selected" value={e.id}> {e.nombre} </option> :
+                                                            <></>
+                                                    ))}
+                                                </select>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+
                                 :
 
-                                //arreglar render
-
-                                // <div className="row">
-                                //     <div className="col-12">
-                                //         <div className="cont_tur_BG">
-                                //             <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                //             <div class="alert alert-warning" role="alert">
-                                //                 Actualmente no contamos con Clinicas de la especialidad seleccionada
-                                //             </div>
-                                //         </div>
-                                //     </div>
-                                // </div>
                                 <div className="row">
                                     <div className="col-12">
                                         <div className="cont_tur_BG">
-                                            <h3 className="display-6" id="Cli_Tur_Crea">A que clinica asistiras?</h3>
-                                            <select id='Sel_Tur_Crea_Cli' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
-                                                <option value="" disabled selected>Clinicas</option>
-                                                {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
-                                                    <option id="clinica_selected" value={e.id}> {e.nombre} </option>
-                                                ))}
-                                            </select>
+                                            <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>2</p>A que clinica asistiras?</h3>
+
+                                            <div className="row">
+                                                <select id='sel_tur_jaja' className="col-lg-4 col-sm-1 col-md-1" aria-label="Default select example" onChange={(e) => handleSelectClinica(e)}>
+                                                    <option value="" disabled selected>Clinicas</option>
+                                                    {clinicasDeEspe.clinicas && clinicasDeEspe.clinicas.map((e) => (
+                                                        <option id="clinica_selected" value={e.id}> {e.nombre} </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -347,42 +399,39 @@ export default function Turno() {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="cont_tur_BG">
-                                        <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
-                                        <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
-                                            <option value="" disabled selected>Doctores</option>
-                                            {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                                                e.clinicas[0].hablitada ?
-                                                    <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
-                                                    : <></>
-                                            ))}
-                                        </select>
+                                        <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>3</p>Selecciona el Doctor: </h3>
+
+                                        <div className="row">
+                                            <select id='sel_tur_jaja' className="col-lg-4 col-sm-1 col-md-1" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
+                                                <option value="" disabled selected>Doctores</option>
+                                                {doctoresDeEspe && doctoresDeEspe.map((e) => (
+                                                    e.clinicas[0].hablitada ?
+                                                        <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                                                        : <></>
+                                                ))}
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
+
                             :
 
-                            //Arreglar render
-
-                            // <div className="row">
-                            //     <div className="col-12">
-                            //         <div className="cont_tur_BG">
-                            //             <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
-                            //             <div class="alert alert-warning" role="alert">
-                            //                 Actualmente no contamos con Doctores disponibles de la clinica seleccionada
-                            //             </div>
-                            //         </div>
-                            //     </div>
-                            // </div>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="cont_tur_BG">
-                                        <h3 className="display-6" id="Doc_Tur_Crea">Selecciona el Doctor: </h3>
-                                        <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
-                                            <option value="" disabled selected>Doctores</option>
-                                            {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                                                <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
-                                            ))}
-                                        </select>
+                                        <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>3</p>Selecciona el Doctor: </h3>
+
+                                        <div className="row">
+                                            <select id='sel_tur_jaja' className="col-lg-4 col-sm-1 col-md-1" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
+                                                <option value="" disabled selected>Doctores</option>
+                                                {doctoresDeEspe && doctoresDeEspe.map((e) => (
+                                                    <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -391,25 +440,29 @@ export default function Turno() {
                             <div className="col-12">
                                 <div className="cont_tur_BG">
                                     <div>
-                                        <h3 className="display-6" id="Dia_Tur_Crea">Selecciona el dia: </h3>
-                                        <div class="accordion accordion-flush" id="acordeao">
-                                            <div class="accordion-item" id="Sel_Tur_Crea_Dia">
-                                                <h2 class="accordion-header" id="flush-headingOne">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        Abrir calendario
-                                                    </button>
-                                                </h2>
-                                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                                    <div className='calendarioContainer'>
-                                                        <Calendar
-                                                            onChange={onChange}
-                                                            value={date}
-                                                            onClickDay={(value, event) => validateDate(value)}
-                                                        />
+                                        <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>4</p>Selecciona el dia: </h3>
+
+                                        <div className="acordion_macana">
+                                            <div class="accordion accordion-flush" id="acordeao">
+                                                <div class="accordion-item" id="Sel_Tur_Crea_Dia">
+                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                            Abrir calendario
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <div className='calendarioContainer'>
+                                                            <Calendar
+                                                                onChange={onChange}
+                                                                value={date}
+                                                                onClickDay={(value, event) => validateDate(value)}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -418,13 +471,17 @@ export default function Turno() {
                         <div className="row">
                             <div className="col-12">
                                 <div className="cont_tur_BG">
-                                    <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
-                                    <select id="Sel_Tur_Crea_Hora" class="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
-                                        <option value="" disabled selected>{`Horarios disponibles el ${idValue.fecha.replace('-', '/')}`}</option>
-                                        {horariosDispoDoc && horariosDispoDoc.map((e) => (
-                                            <option value={e}>{e}</option>
-                                        ))}
-                                    </select>
+                                    <h3 className="display-6" id="Cli_Tur_Crea"> <p style={{ "margin-right": "5px", "color": "#01aac1", "background-color": "white", "width": "2pc", "border-radius": "2pc", "border-color": "#01aac1", "border-top": "dashed" }}>5</p>Horario: </h3>
+
+                                    <div className="row">
+                                        <select id='sel_tur_jaja' className="col-lg-4 col-sm-1 col-md-1" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
+                                            <option value="" disabled selected>{`Horarios disponibles ${idValue?.fecha}`}</option>
+                                            {horariosDispoDoc && horariosDispoDoc.map((e) => (
+                                                <option value={e}>{e}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -447,9 +504,9 @@ export default function Turno() {
                                 <div className="row">
                                     <div className="col-12">
                                         <div>
-                                            <button onClick={() => validateInfo()} id="But_bottom_Tur" class="btn btn-success" type="submit" >Crear turno</button><br />
+                                            <button onClick={() => validateInfo()} style={{ "margin-top": "1pc" }} id="But_bottom_Tur" class="btn btn-primary" type="submit" >Crear turno</button><br />
                                             <Link to={'/'}>
-                                                <button id="But_bottom_Tur" className="btn btn-secondary">Volver a inicio</button>
+                                                <button id="But_bottom_Tur" style={{ "margin-bottom": "3pc" }} className="btn btn-secondary">Volver a inicio</button>
                                             </Link>
                                         </div>
                                     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../ClientCard/ClientCardModule.css"
 import Footer from "../Home/Footer"
-import NavBar from '../NavLanding/NavLanding'
+import NavBar from '../NavBar/NavBar'
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie'
 import { getClienteByEmail } from "../../actions/index";
@@ -20,6 +20,25 @@ export default function ClientCard() {
   const googleUser = cookies.get("userGoogle_email")
   const userMail = cookies.get("email")
   const [currentUser, setcurrentUser] = useState();
+  let session;
+  const [loggeado, setLoggeado] = useState(session);
+  if (cookies.get("email")) {
+    session = true;
+  } else {
+    session = isLoading;
+  }
+  //control de sesion
+  useEffect(() => {
+    if (cookies.get("email")) {
+      setLoggeado(true);
+    } else {
+      if (isAuthenticated) {
+        setLoggeado(true);
+      } else {
+        setLoggeado(false);
+      }
+    }
+  }, [isLoading, cookies.get("email")]);
 
   useEffect(() => {
     if (user || isAuthenticated || isLoading) {
@@ -35,8 +54,9 @@ export default function ClientCard() {
   console.log(currentUser)
   return (
     <div>
+      <NavBar  loggin={loggeado}/>
+      <div style={{"margin-top" : "5pc"}}></div>
       <Bot></Bot>
-      <NavBar />
 
       <ul class="nav justify-content-center">
 
@@ -72,7 +92,7 @@ export default function ClientCard() {
       </div>
 
       <div className="container3">
-        <img src={user?.picture ? user?.picture : photo} alt="png" className="fotoDetail" />
+        <img src={user?.picture ? user?.picture : photo} alt="png" className={user?.picture ? "fotoDetailGoogle" : "fotoDetail"} />
         <div className="detailCard">
           <div class="card">
             <label>Nombre</label>

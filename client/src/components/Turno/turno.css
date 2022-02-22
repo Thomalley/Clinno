@@ -1,142 +1,178 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
 .container {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .contenedor_turno {
-    background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-nunny-246-g.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=d8ee441f91c4ca8ae879bce41e9c1a28);
-    background-attachment: fixed;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-}
+  /* background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-nunny-246-g.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=d8ee441f91c4ca8ae879bce41e9c1a28); */
+  background: url(https://media.istockphoto.com/vectors/abstract-geometric-medical-cross-shape-medicine-and-science-concept-vector-id1160498007?k=20&m=1160498007&s=612x612&w=0&h=0kDzNOCmk3JUTBHljraehPtUg-5eUb-4KMN3uO_Occo=) !important;
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}    
 
 .entre_nav_turno {
-    display: flex;
-    height: 128px;
+  display: flex;
+  height: 128px;
 }
 
 #Esp_Tur_Crea {
-    color: #6a6a6a;
-    display: flex;
-    font-size: 28px;
-    margin-left: 50px;
+  color: #6a6a6a;
+  display: flex;
+  font-size: 28px;
+  margin-left: 50px;
 }
 
 #Sel_Tur_Crea_Esp {
-    width: 300px;
-    background-color: #f7f7f7;
-    color: #838383;
+  width: 300px;
+  background-color: #f7f7f7;
+  color: #838383;
 }
 
 #Cli_Tur_Crea {
-    color: #6a6a6a;
-    display: flex;
-    font-size: 28px;
-    margin-left: 50px;
+  color: #6a6a6a;
+  display: flex;
+  font-size: 28px;
+  margin-left: 1.2pc !important;
+  margin-bottom: 1.02pc !important;
 }
 
 #Sel_Tur_Crea_Cli {
-    width: 312px;
-    margin: 20px;
-    position: relative;
-    left: 29px;
-    background-color: #f7f7f7;
-    color: #838383;
+  width: 312px;
+  margin: 20px;
+  position: relative;
+  left: 29px;
+  background-color: #f7f7f7;
+  color: #838383;
 }
 
 #Doc_Tur_Crea {
-    color: #6a6a6a;
-    display: flex;
-    font-size: 28px;
-    margin-left: 50px;
+  color: #6a6a6a;
+  display: flex;
+  font-size: 28px;
+  margin-left: 50px;
 }
 
 #Sel_Tur_Crea_Doc {
-    width: 292px;
-    margin: 20px;
-    position: relative;
-    left: 29px;
-    background-color: #f7f7f7;
-    color: #838383;
+  width: 292px;
+  margin: 20px;
+  position: relative;
+  left: 29px;
+  background-color: #f7f7f7;
+  color: #838383;
 }
 
 #Dia_Tur_Crea {
-    color: #6a6a6a;
-    display: flex;
-    font-size: 28px;
-    margin-left: 50px;
+  color: #6a6a6a;
+  display: flex;
+  font-size: 28px;
+  margin-left: 50px;
 }
 
 #Sel_Tur_Crea_Dia {
-    width: 240px;
-    margin: 20px;
-    position: relative;
-    left: 29px;
-    background-color: #f7f7f7;
-    color: #838383;
+  width: 240px;
+  margin: 20px;
+  position: relative;
+  left: 29px;
+  background-color: #f7f7f7;
+  color: #838383;
 }
 
 #Hor_Tur_Crea {
-    color: #6a6a6a;
-    display: flex;
-    font-size: 28px;
-    margin-left: 50px;
+  color: #6a6a6a;
+  display: flex;
+  font-size: 28px;
+  margin-left: 50px;
 }
 
 #Sel_Tur_Crea_Hora {
-    width: 128px;
-    margin: 20px;
-    position: relative;
-    left: 29px;
-    background-color: #f7f7f7;
-    color: #838383;
+  width: 128px;
+  margin: 20px;
+  position: relative;
+  left: 29px;
+  background-color: #f7f7f7;
+  color: #838383;
 }
 
 #progressTurn {
-    background-color: #0fab63;
-    position: fixed;
-    top: 55px;
+  background-color: #0fab63;
+  position: fixed;
+  top: 53px;
+  z-index: 2;
 }
 
 .titleTurn {
-    background-color: #01aac1;
-    border-top-left-radius: 19px;
-    border-top-right-radius: 19px;
+  background-color: #01aac1;
+  border-top-left-radius: 19px;
+  border-top-right-radius: 19px;
 }
 
 #title_turn_id {
-    color: #ffffff;
-    display: -webkit-inline-box;
-    margin: 15px;
+  color: #ffffff;
+  display: -webkit-inline-box;
+  margin: 15px;
 }
 
 #aboveTitle_turn_id {
-    color: #e3e3e3;
-    font-size: 23px;
-    position: relative;
-    bottom: 14px;
+  color: #e3e3e3;
+  font-size: 23px;
+  position: relative;
+  bottom: 14px;
 }
 
 .imgCreTur {
-    filter: brightness(0.5);
+  filter: brightness(0.5);
 }
 
 .cont_tur_BG {
-    background-color: #88a9bf5e;
-    height: 160px;
-    margin: 9px;
-    padding: 7px;
-    border-bottom-left-radius: 45px;
-    border-top-right-radius: 45px;
+  background-color: #88a9bf5e;
+  height: 155px !important;
+  margin: 9px;
+  padding: 7px;
+  border-bottom-left-radius: 45px;
+  border-top-right-radius: 22px !important;
+  border-bottom-right-radius: 22px !important;
+}
+
+.acordion_macana{
+    position: relative;
+    right: 1.7pc;
+}
+
+#sel_tur_jaja {
+  display: block;
+  width: 20pc !important;
+  margin-left: 2pc !important;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem !important;
+  -moz-padding-start: calc(0.75rem - 3px) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #212529 !important;
+  background-color: #fff !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 16px 12px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-color: #f7f7f7!important;
+  color: #838383!important;
 }
 
 #But_bottom_Tur {
-    margin: 5px;
-    width: 350px;
+  margin: 3px;
+  width: 350px;
 }
 
-#acordeao{
-    position: relative;
-    z-index: 1;
+#acordeao {
+  position: relative;
+  z-index: 1;
 }

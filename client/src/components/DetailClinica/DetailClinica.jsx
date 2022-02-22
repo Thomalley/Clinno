@@ -68,12 +68,13 @@ export default function DetailClinica() {
               </div>
             </Link>
             <br />
+            <div style={{"margin-top":"4pc"}}></div>
+            <img src="https://thumbs.gfycat.com/PepperyMediumBrahmancow-size_restricted.gif" alt="loading.."/>
             <h2>
-              Lo siento, esta página no está disponible. Disculpe las molestias.
+              Aguarde un instante....
             </h2>
             <h4>
-              Por favor haz <Link to="/home">click aqui</Link> para regresar a
-              home
+              Por favor haz <Link to="/home">click aqui</Link> para regresar a inicio
             </h4>
           </div>
         </>
@@ -117,13 +118,13 @@ export default function DetailClinica() {
                 <div className="carousel-inner">
                   <div className="carousel-item active" data-bs-interval="5000">
                     <img
-                      src="https://cdn.pixabay.com/photo/2016/06/16/14/49/elderly-1461424_960_720.jpg"
+                      src="https://i.guim.co.uk/img/media/2c106a2e4ce6a0087fda31edeaf6176cd251ad51/0_229_6720_4032/master/6720.jpg?width=1200&quality=85&auto=format&fit=max&s=f43c5f01b3e500b432583d98cfd26013"
                       className="d-block w-100"
                       alt="..."
                     />
                     <div className="carousel-caption d-none d-md-block carrousel_img">
-                      <h5>Clinno es tu app de citas medicas!</h5>
-                      <p>Con Clinno podras acceder a +1000 citas medicas.</p>
+                      <h5 className="blanco_carrousel">Clinno es tu app de citas medicas!</h5>
+                      <p className="blanco_carrousel">Con Clinno podras acceder a +1000 citas medicas.</p>
                     </div>
                   </div>
                   <div className="carousel-item" data-bs-interval="3000">
@@ -185,7 +186,7 @@ export default function DetailClinica() {
               </div>
             </div>
 
-            <div className="col-8 col-md-4 d-flex flex-column justify-content-center align-items-center  carrousel_home">
+            <div className="col-8 col-sm-12 col-md-4 d-flex flex-column justify-content-center align-items-center  carrousel_home">
               <div className="col d-flex flex-column justify-content-end pb-3 mb-3 ">
                 <h2 className="animation_carrousel">
                   Bienvenido a {clinic.nombre}!
@@ -349,6 +350,7 @@ export default function DetailClinica() {
                         alt="imagen"
                           className="imagen_medico"
                           src="https://via.placeholder.com/100x100"
+                          alt="nf"
                         />
                       </div>
                     );
@@ -401,6 +403,7 @@ export default function DetailClinica() {
                 </div> */}
         </div>
       )}
+      <div style={{"margin-top":"5pc"}}></div>
       <Footer />
     </>
   );

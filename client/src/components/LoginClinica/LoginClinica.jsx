@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { login_clinica} from '../../actions'
 import Cookies from 'universal-cookie';
 import swal from 'sweetalert';
-
+import Footer from '../Home/Footer';
 import logo from '../../components/utils/images-landing/logo.png';
 import './LoginClinicaStyle.css';
 
@@ -115,12 +115,13 @@ export default function LoginClinica(){
     }
 
     return(
+        <div>
         <div className="container container_loggin_clinica ">
             <form className="contenedor_loggin" onSubmit={(e)=> handleSubmit(e)}  autocomplete="off">
                 <div className="row">
                     <div className="col-12">
                         <Link to='/'>
-                        <img className="imgloginClinica" src={logo} alt="logo Clinno" />
+                        <img className="imgloginClinica" src={logo} alt="logo Clinno" style={{"width":"50%"}} />
                         </Link>
                     </div>
                 </div>
@@ -183,7 +184,8 @@ export default function LoginClinica(){
                 </Link>
             </form> 
         </div>
-
+        <Footer />
+        </div>
   
 
     )
