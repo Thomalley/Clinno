@@ -1,0 +1,31 @@
+.contenedor_caja{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.body_caja{
+    background: #d8eefe;
+    border: 2px solid #12ace4;
+    box-shadow: 0px 10px 304px -60px #12ace4;
+    border-radius: 20px;
+    flex:none;
+    width: 600px;
+}
+.reseteando_codigo{
+    background: #d8eefe;
+}
+
+.mostrame_check{
+    float: left;
+    position: relative;
+    left: 30px;
+    top: 5px;
+}
+.mostrame_la_pass{
+    font-size: 13px;
+    display: initial;
+    position: relative;
+    right: 158px;
+    font-weight: 600;
+    color: gray;
+}

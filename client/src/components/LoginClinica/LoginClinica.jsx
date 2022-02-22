@@ -111,7 +111,6 @@ export default function LoginClinica(){
 
     }
     function soyDoctor(e) {
-        const pwd = document.getElementById('checkboxSoyDoctor');
         ( e.target.checked)?setDoc(true): setDoc(false);
     }
 

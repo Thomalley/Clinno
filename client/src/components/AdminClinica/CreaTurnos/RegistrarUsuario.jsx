@@ -1,13 +1,13 @@
 import './Register.css'
 import { useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { registrarCliente, getClients } from '../../../actions/index';
 import swal from 'sweetalert';
 import logo from '../../../components/utils/images-landing/logo.png'
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 
 export default function RegistrarUsuario() {
@@ -15,7 +15,7 @@ export default function RegistrarUsuario() {
     useEffect(() => {
         dispatch(getClients())
     }, [])
-    const cookies = new Cookies();
+    // const cookies = new Cookies();
     const dispatch = useDispatch()
     const clientes = useSelector((state) => state.clientes);
     const { register, handleSubmit, formState: { errors } } = useForm();

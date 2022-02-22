@@ -7,8 +7,10 @@ import pp from "../utils/images-landing/pp.png";
 import slide1 from "../utils/images-landing/slide1.png";
 import slide2 from "../utils/images-landing/slide2.png";
 import slide3 from "../utils/images-landing/slide3.png";
+import NavLanding from "../NavLanding/NavLanding";
 import Footer from "../Home/Footer";
 import NavBar from "../NavBar/NavBar";
+
 
 export default function LandingPage() {
   return (

@@ -1,16 +1,16 @@
 import "./MercadoPago.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Cookies from "universal-cookie";
 import { postOrder, postMensualidad, getMercadoPago } from "../../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../../NavBar/NavBar";
+// import NavBar from "../../NavBar/NavBar";
 import Checkout from "./Checkout"
 
 function MercadoPago() {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const idClinica = cookies.get("clinica_id");
-  const nombre = cookies.get("nombre");
+  // const nombre = cookies.get("nombre");
   const orderId = useSelector((state) => state.order);
   const mpData = useSelector((state) => state.mpData);
 

@@ -29,19 +29,18 @@ import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
-import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 import Checkout from './components/AdminClinica/Cobro/Checkout'
 import Root from './components/AdminRoot/RootUser';
 import Estadistica from './components/Estadisticas/Estadisticas'
-
+import DoctorCard from './components/DoctorCard/DoctorCard';
+import ProximosTurnosDoc from './components/AdminDoctor/VerMisTurnos'
 
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Bot/>  
         <Routes>
           <Route path='/test' element={<Checkout/>}/>
           <Route path='/adminClinica/cobro' element={<MercadoPago/>}/>
@@ -76,6 +75,8 @@ function App() {
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
           <Route path='/admin/m9gap4npJJFlorV7uuej2bVfsL7b8N' element={<Root/>}/>
           <Route path='/adminClinica/estadisticas' element={<Estadistica/>}/>
+          <Route path='/SoyDoctor/me' element={<DoctorCard/>}/>
+          <Route path='/SoyDoctor/proximosTurnos' element={<ProximosTurnosDoc/>}/>
         </Routes>
       </div>
     </BrowserRouter>

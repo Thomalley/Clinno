@@ -11,6 +11,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
 import './turno.css'
+import Bot from "../Bot/Bot";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -306,7 +307,8 @@ export default function Turno() {
 
     return (
         <div className=".container">
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
+                    <Bot/>
                 <NavBar loggin={loggeado ? true : false} />
 
                 <div class="progress" id='progressTurn' style={progressTur}>

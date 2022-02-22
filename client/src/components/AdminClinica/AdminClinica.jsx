@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import NavClinica from './NavClinica.jsx'
-import {get_clinica,turno_clinica} from '../../actions';
+import {get_clinica} from '../../actions';
 import Turnos from './Turnos'
 import icono from '../../components/utils/icono-clinica.png'
 import ValidateClinica from './ValidateClinica';
@@ -29,7 +29,7 @@ export default function AdminClinica(){
     //control se dession
     let session=false;
     if(cookies.get('clinica_id')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     const validar = ()=>{
         cookies.set('clinica_codigo', clinica[0].codigo, {path: '/'});

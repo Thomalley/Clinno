@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie'
 import { getClienteByEmail } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
 import PasswordReset from "./PasswordReset"
+import Bot from '../Bot/Bot'
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -55,6 +56,7 @@ export default function ClientCard() {
     <div>
       <NavBar  loggin={loggeado}/>
       <div style={{"margin-top" : "5pc"}}></div>
+      <Bot></Bot>
 
       <ul class="nav justify-content-center">
 

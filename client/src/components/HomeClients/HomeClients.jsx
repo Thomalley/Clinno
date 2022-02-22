@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import logo from "../utils/favicon.png";
 import swal from 'sweetalert'
-
+import Bot from '../Bot/Bot'
 
 export default function HomeHospitals() {
   const dispatch = useDispatch();
@@ -134,6 +134,7 @@ export default function HomeHospitals() {
 
   return (
     <>
+    <Bot></Bot>
       <NavBar loggin={loggeado} />
       {
         userGoogle === undefined || userGoogle === true ?
