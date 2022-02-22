@@ -41,7 +41,7 @@ export default function RegistrarUsuario() {
         }
         if (!registrado) {
             data.password = getRandomString(6)
-            console.log(data.dni,"soy data dni")
+            data.datosCompletados = true;
             dispatch(registrarCliente(data))
             swal('Cliente registrado correctamente', "A continuacion sera redirigido a la pagina de turnos", "success")
             setTimeout(() => window.location.href = '/adminClinica/cliente', 2000)
