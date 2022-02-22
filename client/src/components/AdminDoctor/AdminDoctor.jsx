@@ -5,10 +5,9 @@ import { useState, useEffect } from 'react';
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx'
-import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas} from '../../actions'
-import VerMisTurnos from "./VerMisTurnos";
+import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialidad,getClinicas,getClinicaId} from '../../actions'
 import icono from '../../components/utils/icono-clinica.png'
-import CodigoDoctor from './CodigoDoctor'
+import ProximoTurno from './ProximoTurno'
 
 import logo from '../../components/utils/images-landing/logo.png'
 
@@ -21,6 +20,22 @@ import "./AdminDoctorStyle.css";
 
 export default function AdminDoctor(){
     
+
+    const cookies = new Cookies();
+    const dispatch = useDispatch();
+    const doctor = useSelector((state)=> state.doctor);
+    const turnos = useSelector((state)=> state.turnos);
+    const clinica = useSelector((state)=> state.clinicaById);
+    const especialidades = useSelector((state)=> state.especialidades);
+    const cliente = useSelector((state)=> state.clientes);
+    const initalState={
+        nombre:'',
+        trabaja:'',
+        especialidad: '',
+        codigo: '',
+    }
+    const [loading,setLoading] = useState(true);
+    const [doc,setDoc] = useState(initalState);
     useEffect(()=>{
         if(cookies.get('doctor_id')){
             dispatch(getTurnosDoctor(cookies.get('doctor_id')))
@@ -30,28 +45,37 @@ export default function AdminDoctor(){
             setTurn(turnos);
         }
     },[])
-
-    const cookies = new Cookies();
-    const dispatch = useDispatch();
-    const doctor = useSelector((state)=> state.doctor);
-    const turnos = useSelector((state)=> state.turnos);
-    const especialidades = useSelector((state)=> state.especialidades);
-    const cliente = useSelector((state)=> state.clientes);
+    useEffect(()=>{ 
+        if(check){
+            if(!clinica && loggeado){
+                dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+                dispatch(getEspecialidad())
+                dispatch(getClinicaId(cookies.get('clinica_id')))
+            }else{
+                    setDoc({...doc,
+                        nombre: cookies.get('doctor_nombre'),
+                        trabaja:clinica?.nombre,
+                        especialidad: cookies.get('doctor_especialidades')[0]?.nombre,
+                        codigo: cookies.get('doctor_codigo')
+                    })
+                }
+            }
+    },[clinica])
+    useEffect(()=>{
+        if(turnos){
+            setTurn(turnos);
+        }else{
+            dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+            dispatch(getClinicas())
+            dispatch(getClients())
+            dispatch(getEspecialidad())
+            setTurn(turnos);
+            setLoading(false)
+            setTimeout(()=> setLoading(false),600)
+        }
+    },[turnos])
     
     const [turn,setTurn] = useState([]);
-    
-    // useEffect(()=>{
-    //     if(turnos){
-    //         setTurn(turnos);
-    //     }else{
-    //         dispatch(getTurnosDoctor(cookies.get('doctor_id')))
-    //         dispatch(getClinicas())
-    //         dispatch(getClients())
-    //         dispatch(getEspecialidad())
-    //         console.log('funca');
-    //         setTurn(turnos);
-    //     }
-    // },[turnos])
 
     const cerrarSesion=()=>{
         const cookies = new Cookies();
@@ -177,19 +201,12 @@ export default function AdminDoctor(){
                         <NavClinica/>
                     <div className="adminClinica_presentacion"> 
                         <img src={icono} alt="hospital" className="logo_hospi_clinic"/>
-                        <h1>Bienvenido {doctor[0]?.nombre}</h1>
-                        <h6>Codigo {doctor[0]?.codigo}</h6>
+                        <h2>Bienvenido {cookies.get('doctor_nombre')}</h2>
                         <h6>Especialista en:  </h6>
-                        <div>{doctor[0]?.especialidades.map(e=>{return<p>{e.nombre}</p>})}</div>
+                        <div>{cookies.get('doctor_especialidades')[0]?.nombre}</div>
                     </div>
                     <hr/>
-                        <button className="btn_clinic" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver Turnos</button>
-                        <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <div class="card card-body render_turno">
-                                <VerMisTurnos/>
-                            </div>
-                        </div>
-                    
+                    <ProximoTurno/>
                     </div>
 
                     <Footer />

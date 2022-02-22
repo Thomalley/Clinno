@@ -92,6 +92,9 @@ return (
                     <li className="nav-item">
                         <Link to='/soyDoctor/historialTurnos' className="nav-link text-white boton_nav_clinica" aria-current="page">Historial de Turnos</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to='/soyDoctor/proximosTurnos' className="nav-link text-white boton_nav_clinica" aria-current="page">Proximos Turnos</Link>
+                    </li>
                     {/* <li className="nav-item">
                         <Link to='/SoyDoctor/me' className="nav-link text-white boton_nav_clinica" aria-current="page">Ver Mis Datos</Link>
                     </li> */}                    
@@ -148,7 +151,7 @@ return (
                     <button className="btn btn-primary dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesion</button>                    
                     <li><hr className="dropdown-divider"/></li>
 
-                    <li><Link to="/soyDoctor/me" className="dropdown-item" >Ver Mi Perfil</Link></li>
+                    <li><Link to="/soyDoctor/me" className="dropdown-item" >Ver Mi Perfil Doctor</Link></li>
 
 
                 </ul>

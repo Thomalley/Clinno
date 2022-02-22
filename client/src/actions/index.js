@@ -161,6 +161,9 @@ export function getClinicaId(id) {
 export function getDisponibilidad(fecha, idDoctor) {
   return async function (dispatch) {
     try {
+      console.log('fecha',fecha)
+      console.log('idDoc',idDoctor)
+
       const json = await axios.get(
         `/turno/disponibilidad/${fecha}/${idDoctor}`
       );
@@ -507,7 +510,6 @@ export function get_doctor_id(payload) {
     try {
       const json = await axios.get("/doctor");
       for (let i = 0; i < json.data.length; i++) {
-        console.log(payload);
         if (json.data[i].codigo === payload) {
           const datosDoc = [
             {
@@ -528,6 +530,20 @@ export function get_doctor_id(payload) {
     }
   };
 }
+export function doctorResetCodigo(id, codigo) {
+  return async function (dispatch) {
+    try {
+      console.log(codigo);
+      const response = await axios.put(
+        `/doctor/${id}/codigoReset`,
+        codigo
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
 // Admin Clinica
 export function addEspecialidad(payload) {
   return async function (dispatch) {
@@ -545,6 +561,7 @@ export function addDoctor(payload) {
     try {
       const addDoc = await axios.post("/doctor", payload);
       await axios.post(`/clinica/addEspecialidad`, payload);
+      const addEmail = await axios.post("/doctor/creation-mail", addDoc.data);
       return dispatch({ type: "ADD_DOCTOR", payload: addDoc.data });
     } catch (err) {
       console.log(err);
@@ -647,7 +664,6 @@ export function getTurnosDoctor(payload) {
   return async function (dispatch) {
     try {
       const json = await axios.get(`/turno/doctor/${payload}`);
-      console.log(json.data);
       return dispatch({ type: "GET_TURNO_DOCTOR", payload: json.data });
     } catch (err) {
       console.log(err);

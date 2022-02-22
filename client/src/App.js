@@ -34,7 +34,8 @@ import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 import Checkout from './components/AdminClinica/Cobro/Checkout'
 import Root from './components/AdminRoot/RootUser';
 import Estadistica from './components/Estadisticas/Estadisticas'
-
+import DoctorCard from './components/DoctorCard/DoctorCard';
+import ProximosTurnosDoc from './components/AdminDoctor/VerMisTurnos'
 
 
 function App() {
@@ -76,6 +77,8 @@ function App() {
           <Route path='/soyDoctor/historialTurnos' element={<HistorialTurnosDoc/>}/>
           <Route path='/admin/m9gap4npJJFlorV7uuej2bVfsL7b8N' element={<Root/>}/>
           <Route path='/adminClinica/estadisticas' element={<Estadistica/>}/>
+          <Route path='/SoyDoctor/me' element={<DoctorCard/>}/>
+          <Route path='/SoyDoctor/proximosTurnos' element={<ProximosTurnosDoc/>}/>
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,34 +1,81 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import Calendar from 'react-calendar'
 import swal from 'sweetalert';
-import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,filter_fechas,canTurno} from '../../actions'
-
-import logo from '../../components/utils/images-landing/logo.png'
+import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,
+    getDiagnosticoByTurno,
+    canTurno,
+    getDisponibilidad,
+    modifTurno,filter_turnos} from '../../actions'
+import Footer from "../Home/Footer";
+import NavClinica from '../AdminClinica/NavClinica.jsx';
+    
 
 
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import "./AdminDoctorStyle.css";
-
+import '../HistorialTurnosDoc/HistorialTurnosStyle.css'
 
 
 export default function VerMisTurnos(){
     
+    const cookies = new Cookies();
+    const dispatch = useDispatch();
     const [turn,setTurn] = useState([]);
     const [loading,setLoading] = useState(true);
-    const turnos = useSelector((state)=> state.turnosDoctor);
+    const turnos = useSelector((state)=> state.turnos);
 
+    let turnosdni = useSelector((state) => state.turnosDni);
+    // const turnoId = useSelector((state) => state.turnoById);
+    const datejs = new Date()
+    const finalDates = `${datejs.getDate()}-${datejs.getMonth() + 1}-${datejs.getFullYear()}`;
 
+    const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
+    const turnosPendientes = [];
+    const turnosPasados = [];
+    const turnosOriginales = turnos
+    let turnosFiltrados = turnosOriginales;
+    const [diag, setDiag] = useState("");
+    const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
+    const [date, setDate] = useState(new Date());
+    const onChange = date => {
+      setDate(date)
+    }
+    const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let diaTurno = undefined;
+    let mesTurno = undefined;
+    let yearTurno = undefined;
+    var finalDate = undefined;
+    const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
+    const [input,setInput] = useState(initialInputState);
+   
+    
+    
+      useEffect(() => {
+        if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
+      }, [diag]);
+    
+    
+      
+    
+      useEffect(() => {
+        if(updateDate.fecha){
+          dispatch(getDisponibilidad(updateDate.fecha, cookies.get('doctor_id')))
+        }
+      }, [updateDate.fecha])
+
+    //verMis
     useEffect(()=>{
-        console.log(turnos)
-        dispatch(getTurnosDoctor(cookies.get('doctor_id')))
-        dispatch(getClinicas())
-        dispatch(getClients())
-        dispatch(getEspecialidad())
-        setTurn(turnos);
-        setTimeout(()=> setLoading(false),600)
+      dispatch(getTurnosDoctor(cookies.get('doctor_id')))
+      dispatch(getClinicas())
+      dispatch(getClients())
+      dispatch(getEspecialidad())
+      setTurn(turnos);
+      setTimeout(()=> setLoading(false),600)
+      return () => { setTurn([])};
+        
     },[])
     useEffect(()=>{
         if(turnos){
@@ -39,15 +86,12 @@ export default function VerMisTurnos(){
             dispatch(getClients())
             dispatch(getEspecialidad())
             setTurn(turnos);
+            setLoading(false)
             setTimeout(()=> setLoading(false),600)
         }
     },[turnos])
-    const cookies = new Cookies();
-    const dispatch = useDispatch();
     const especialidades = useSelector((state)=> state.especialidades);
     const cliente = useSelector((state)=> state.clientes);
-    const date = new Date();
-    const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     function cancelarTurno(id){
         dispatch(canTurno({status:"cancelado",idTurno:id}))
         dispatch(getTurnosDoctor(cookies.get('doctor_id')));
@@ -56,49 +100,240 @@ export default function VerMisTurnos(){
         setTimeout(()=> window.location.href='/soyDoctor', 2000);
     }
 
-    return (
+    // control de sesion
+    let session=false;
+    if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
+    const [loggeado,setLoggeado] = useState(session);
+
+    //turnoMe
+    function validateDate(value) {
+        const data = value.toString('').split(' ');
+        switch (data[1]) {
+          case "Jan":
+            mesTurno = 1
+            break
+          case "Feb":
+            mesTurno = 2
+            break
+          case "Mar":
+            mesTurno = 3
+            break
+          case "Apr":
+            mesTurno = 4
+            break
+          case "May":
+            mesTurno = 5
+            break
+          case "Jun":
+            mesTurno = 6
+            break
+          case "Jul":
+            mesTurno = 7
+            break
+          case "Aug":
+            mesTurno = 8
+            break
+          case "Sep":
+            mesTurno = 9
+            break
+          case "Oct":
+            mesTurno = 10
+            break
+          case "Nov":
+            mesTurno = 11
+            break
+          case "Dec":
+            mesTurno = 12
+            break
+          default:
+            break;
+        }
+        diaTurno = data[2];
+        yearTurno = data[3];
+        finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
+        if (finalDate < jsFinalDate) {
+          swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+          return
+        }
+        setupdateDate({
+          ...updateDate,
+          fecha: finalDate
+        })
+    
+    }
+    const handleSelectHora = (e) => {
+        setupdateDate({
+          ...updateDate,
+          hora: e.target.value
+        })
+    }
+    const handleModificar = (e) => {
+        e.preventDefault()
+        setupdateDate({
+          ...updateDate,
+          idDoctor: cookies.get('doctor_id'),
+          idTurno:e.target.value
+        })
+    
+      }
+    
+      const handleSubmitModificar = (e) => {
+        e.preventDefault()
+        dispatch(modifTurno({ nuevaFecha: updateDate.fecha, nuevaHora: updateDate.hora, idTurno:updateDate.idTurno }))
+        if(updateDate.fecha === '' || updateDate.hora === ''){
+            swal("Error al seleccionar la hora", "La Hora no ah sido seleccionada", "warning")
+          return
+        }else{
+            swal("Listo", `Su turno ha sido modificado con exito para el dia ${updateDate.fecha} a las ${updateDate.hora}`, "success")
+            setTimeout(() => window.location.href = '/soyDoctor', 2000)
+            return
+        }
+      }
+
+      for (let i = 0; i < turnos.length; i++) {
+        if (turnos[i].status === "concretado") {
+          turnosPasados.push(turnos[i]);
+        } else if (turnos[i].status === "pendiente") {
+          turnosPendientes.push(turnos[i]);
+        }
+      }
+      function handleAllturnos(e){
+        e.preventDefault();
+        const {name,value} = e.target;
+        setInput(initialInputState)
+    }
+
+    function handleAll(e){
+        e.preventDefault();
+        const {name,value} = e.target;
+        setInput({
+            ...input,
+            [name] : value,
+        });
+    }
+
+    function changeStatus (e){
+        e.preventDefault();
+        setInput({
+            ...input,
+            status: '',
+        });
+    }
+    function changeCancel (e){
+        e.preventDefault();
+        setInput({
+            ...input,
+            status: 'cancelado',
+        });
+    }
+    useEffect(()=>{ dispatch(filter_turnos(input)) },[input])
+if(loggeado){
+    return(
         <>
-        <h3 className="text-dark">Proximos Turnos de {cookies.get('doctor_nombre')}</h3>
-
-        <div className="grid_turno_table fijo_table">
-            <span><strong>Paciente</strong></span>
-            <span><strong>DNI</strong></span>
-            <span><strong>Fecha</strong></span>
-            <span><strong>Hora</strong></span>
-            <span><strong>Especialidad</strong></span>
-            <span><strong>Cancelar</strong></span>
-        </div>
-        {turn &&turn?.sort(function(a, b) {
-                if (a.fecha < b.fecha) {
-                    return -1;
-                }
-                if (a.fecha > b.fecha) {
-                    return 1;
-                }
-                return (a.hora < b.hora)?  -1:1;
-
-            }).map(t=>{
-                if(finalDate<t.fecha && t.status !== 'cancelado'){
-
-                    return <div className="grid_turno_table">
-                <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.nombre}</span>
-                <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.dni}</span>
-                <span className="spanes">{t.fecha }</span>   
-                <span className="spanes">{t.hora }</span>
-                <span className="spanes">{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                <span className="spanes" >{loading?
-                    <div className="spinner-border text-light" role="status">
-                        <span className="visually-hidden">Loading...</span>
+        <div className="contenedor_adminClinica">
+            <NavClinica/>
+            <h3 className="text-white">Proximos Turnos de {cookies.get('doctor_nombre')}</h3>
+            <h3>Filtros:</h3>
+                <form autoComplete='off' className="form_history_turns">
+                    <div className="contenedor_inpu">
+                        <h6>Por Fecha:</h6>
+                        <input type='text' className="input_history" placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
                     </div>
-                    :t.status !== 'cancelado'?
-                    <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> :
-                    <span className="btn btn-outline-danger">CANCELADO</span>
+                    <div className="contenedor_inpu">
+                        <h6>Por DNI:</h6>
+                        <input type='text' className="input_history" placeholder="DNI Paciente" value={input.nombre} name='nombre' onChange={handleAll}/>
+                    </div>
                     
-                }</span>
-            </div>
-            }
-        })} 
-        </>
-    )
+                    <div className="contenedor_inpu">
+                        <h6>Borrar Filtros:</h6>
+                        <button className="btn btn-primary" onClick={handleAllturnos}>Todos los Turnos</button>
+                    </div>
+                    
+                    <div className="contenedor_inpu">
+                        <h6>Mostrar Cancelados:</h6>
+                        <input type="radio" className="btn-check" name="options-outlined" id="success-outlined" autoComplete="off" defaultChecked onClick={changeCancel} />
+                        <label className="btn btn-outline-success" htmlFor="success-outlined">Mostrar</label>
 
+                        <input type="radio" className="btn-check" name="options-outlined" id="danger-outlined" autoComplete="off" onClick={changeStatus} />
+                        <label className="btn btn-outline-danger" htmlFor="danger-outlined">No Mostrar</label>
+                    </div>
+                </form>
+            <div className="grid_turno_table fijo_table text-white">
+                <span><strong>Paciente</strong></span>
+                <span><strong>DNI</strong></span>
+                <span><strong>Fecha</strong></span>
+                <span><strong>Hora</strong></span>
+                <span><strong>Especialidad</strong></span>
+                <span><strong>Modificar/Cancelar</strong></span>
+            </div>
+            {turn &&turn?.sort(function(a, b) {
+                    if (a.fecha < b.fecha) {
+                        return -1;
+                    }
+                    if (a.fecha > b.fecha) {
+                        return 1;
+                    }
+                    return (a.hora < b.hora)?  -1:1;
+
+                }).map(t=>{
+                    if(finalDates<t.fecha){
+
+                        return <div className="grid_turno_table diferente text-white" key={t.id}>
+                    <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.nombre}</span>
+                    <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.dni}</span>
+                    <span className="spanes">{t.fecha }</span>   
+                    <span className="spanes">{t.hora }</span>
+                    <span className="spanes">{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
+                    <span className="spanes" >{loading?
+                        <div className="spinner-border text-light" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                        :t.status !== 'cancelado'?
+                        <>
+                            <button value={t.id} onClick={handleModificar} className="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalMod" >Modificar</button> 
+                            <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> 
+
+                            <div className="modal fade" id="exampleModalMod" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Estas a punto de reagendar el turno</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div className="modal-body">
+                                        <h3>Elige la fecha </h3>
+                                        <Calendar
+                                            onChange={onChange}
+                                            value={date}
+                                            onClickDay={(value) => validateDate(value)}
+                                        />
+                                        </div>
+                                        <h3 className="display-6" id="Hor_Tur_Crea">Horario: </h3>
+                                        <select id="Sel_Tur_Crea_Hora" className="form-select" aria-label="Default select example" onChange={(e) => handleSelectHora(e)}>
+                                        <option value="" disabled selected>{`Horarios disponibles ${updateDate?.fecha.replace('-', '/')}`}</option>
+                                            {horariosDispoDoc && horariosDispoDoc?.map((e) => (
+                                                <option value={e}>{e}</option>
+                                            ))}
+                                        </select>
+                                        <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Volver atras</button>
+                                        <button value={t.id} onClick={handleSubmitModificar} type="button" className="btn btn-primary">Continuar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                        : <span className="btn btn-outline-danger">CANCELADO</span>
+                        
+                    }</span>
+                    
+                </div>
+                }
+            })} 
+        </div>
+        <Footer />
+    </>
+)}else{
+    cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/soyDoctor';
+}
 }

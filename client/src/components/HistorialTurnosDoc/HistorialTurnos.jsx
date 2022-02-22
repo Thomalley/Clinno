@@ -41,6 +41,8 @@ export default function HistorialTurnosDoc(){
         dispatch(getDiagnostico())
         setTurn(turnos);
         setTimeout(()=> setLoading(false),600)
+        return () => { setTurn([])};
+
     },[])
     useEffect(()=>{
         if(turnos){
@@ -60,20 +62,25 @@ export default function HistorialTurnosDoc(){
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     const horaAhora = date.getHours() ;
 
-        const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
-        const [input,setInput] = useState(initialInputState);
-        const [cancel,setCancel] = useState({
+    const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
+    const [input,setInput] = useState(initialInputState);
+    const [cancel,setCancel] = useState({
         status: "cancelado",
         idTurno:""
     })    
     
     
-    function cancelarTurno(id){
-        dispatch(canTurno({status:"cancelado",idTurno:id}))
+    function selectID(id){
+        setCancel({...cancel, idTurno:id});
+    }
+
+
+    function cancelarTurno(){
+        dispatch(canTurno(cancel))
         dispatch(getTurnosDoctor(cookies.get('doctor_id')));
         setTurn(turnos);
         swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
-        setTimeout(()=> window.location.href='/soyDoctor/turnosDelDia', 2000);
+        setTimeout(()=> window.location.href='/soyDoctor/historialTurnos', 2000);
     }
 
     function handleAllturnos(e){
@@ -160,7 +167,7 @@ export default function HistorialTurnosDoc(){
                     }).map(t=>{
                         if(finalDate>t.fecha){
                             return (
-                            <div className="grid_turno_table diferente text-white">
+                            <div className="grid_turno_table diferente text-white"  key={t.id}>
                                 <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
                                 <span className="spanes" >{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.dni}</span>
                                 <span className="spanes" >{t.fecha }</span>   
@@ -174,7 +181,7 @@ export default function HistorialTurnosDoc(){
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
                                     <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
                                     <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info">Agregar</Link> 
-                                    <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> </>:
+                                    <button className="btn btn-danger" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button> </>:
                                     <span className="btn btn-outline-danger">CANCELADO</span>
                                   
                                   }</span>
@@ -183,6 +190,23 @@ export default function HistorialTurnosDoc(){
                     }
                 })} 
 
+            </div>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Cancelar el Turno</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    <p>Si das en aceptar, el turno cerra cancelado</p>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No, Cerrar</button>
+                    <button type="button" className="btn btn-danger" onClick={cancelarTurno} >Si, Cancelar el Turno</button>
+                </div>
+                </div>
+            </div>
             </div>
             <Footer />
         </>
