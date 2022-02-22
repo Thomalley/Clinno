@@ -20,7 +20,7 @@ export default function RootUser() {
   const admin = useSelector((state) => state.admin);
   const clinicas = useSelector((state) => state.clinicas);
   const mpData = useSelector((state) => state.mpData);
-  const mensualidades = useSelector((state) => state.mensualidades)
+  const mensualidades = useSelector((state) => state.mensualidades);
   const [clinic, setClinic] = useState([]);
   const [loggeado, setLoggeado] = useState(false);
   // const [hablitar, setHablitar] = useState(false);
@@ -41,12 +41,11 @@ export default function RootUser() {
     orderId: "",
   });
 
-    useEffect(() => {
-      dispatch(getMensualidades())
-    }, []);
+  useEffect(() => {
+    dispatch(getMensualidades());
+  }, []);
 
-
-    // console.log(mensualidades)
+  // console.log(mensualidades)
   // useEffect(() => {
   //   console.log(datosMp)
   //   if (datosMp.title !== "" && datosMp.clinicaId !== "") {
@@ -97,17 +96,19 @@ export default function RootUser() {
     dispatch(admin_user_validate(input));
     setTimeout(() => logreq(), 1000);
   }
-  
+
   function handleSubir(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (datosMp.title !== "" && datosMp.clinicaId !== "") {
-      if(mensualidades.length !== 0){
-       console.log(datosMp)
-       mensualidades.find(m => m.clinicaId === datosMp.clinicaId)? console.log("ya existe una orden de cobro para esta clinica") : dispatch(postMensualidad(datosMp)) 
-     }else{
-       console.log("entre a al else", datosMp)
-       dispatch(postMensualidad(datosMp))
-     }
+      if (mensualidades.length !== 0) {
+        console.log(datosMp);
+        mensualidades.find((m) => m.clinicaId === datosMp.clinicaId)
+          ? console.log("ya existe una orden de cobro para esta clinica")
+          : dispatch(postMensualidad(datosMp));
+      } else {
+        console.log("entre a al else", datosMp);
+        dispatch(postMensualidad(datosMp));
+      }
     }
   }
 
@@ -153,22 +154,22 @@ export default function RootUser() {
     );
   }
   useEffect(() => {
-    setDatosMp({...datosMp, orderId: cobro.orderId})
-  }, [cobro.orderId])
+    setDatosMp({ ...datosMp, orderId: cobro.orderId });
+  }, [cobro.orderId]);
 
   function handleChango(e) {
-    e.preventDefault()
+    e.preventDefault();
     setDatosMp({
       ...datosMp,
       unit_price: e.target.value,
     });
   }
-  const cobrar = async(id)=>  {
-    setDatosMp({...datosMp,clinicaId: id});
+  const cobrar = async (id) => {
+    setDatosMp({ ...datosMp, clinicaId: id });
     await dispatch(postOrder(id)).then((data) =>
       setCobro({ ...cobro, orderId: data?.payload?.id })
     );
-  }
+  };
 
   return (
     <>
