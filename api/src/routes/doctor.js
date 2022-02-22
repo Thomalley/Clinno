@@ -32,28 +32,6 @@ router.get("/:idEspecialidad/:idClinica", async(req, res, next) => {
 
 router.post("/", async(req, res, next) => {
     try {
-        // let newArray = [
-        //     "Miguel Becerra",
-        //     "Sonia Rodrigues",
-        //     "Victorina Perdomo",
-        //     "Otilia Alarcon",
-        //     "Maria-Consuelo Sole",
-        //     "César Vazquez",
-        //     "Socorro Muñiz",
-        //     "Andreu Vilar",
-        //     "Vanesa Castilla",
-        //     "Yassine Duque",
-        //     "Izaro Sales",
-        //     "Jose-Manuel Farre",
-        //     "Roser Canto",
-        //     "Iris Olmedo",
-        //     "Mariona Domenech",
-        //     "Flor Morales",
-        //     "Emílio Robledo",
-        //     "Ines Veiga",
-        //     "Simon Urbano",
-        //     "Judit Buendia",
-        // ]
         const {
             nombre,
             clinica,

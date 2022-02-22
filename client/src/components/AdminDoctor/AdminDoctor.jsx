@@ -35,7 +35,6 @@ export default function AdminDoctor(){
     const dispatch = useDispatch();
     const doctor = useSelector((state)=> state.doctor);
     const turnos = useSelector((state)=> state.turnos);
-    const especialidades = useSelector((state)=> state.especialidades);
     // const cliente = useSelector((state)=> state.clientes);
     
     const [turn,setTurn] = useState([]);
@@ -86,7 +85,7 @@ export default function AdminDoctor(){
     //control se dession Clinica
     let session=false;
     if(cookies.get('clinica_id')) session = true; 
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     //control sesion Doctor
     let sessionD=false;

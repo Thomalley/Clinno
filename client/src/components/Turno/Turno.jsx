@@ -351,7 +351,7 @@ export default function Turno() {
                                         <select id='Sel_Tur_Crea_Doc' class="form-select" aria-label="Default select example" onChange={(e) => handleSelectDoc(e)}>
                                             <option value="" disabled selected>Doctores</option>
                                             {doctoresDeEspe && doctoresDeEspe.map((e) => (
-                                                e.clinicas[0].hablitada ?
+                                                e.clinicas[0]?.hablitada ?
                                                     <option id="doctor_selected" value={e.nombre}> {e.nombre} </option>
                                                     : <></>
                                             ))}
