@@ -1,9 +1,9 @@
 import React from 'react'
-import { addEspecialidad,get_clinica} from '../../actions';
+import { addEspecialidad} from '../../actions';
 import Cookies from 'universal-cookie';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { useDispatch} from 'react-redux';
+import { useState } from 'react';
+// import { Link } from "react-router-dom";
 import NavClinica from '../AdminClinica/NavClinica.jsx'
 import Footer from "../Home/Footer";
 import swal from 'sweetalert';
@@ -37,7 +37,7 @@ function AddEspecialidades() {
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     const [input,setInput] = useState({
         errors:{},

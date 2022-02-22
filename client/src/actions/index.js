@@ -322,24 +322,24 @@ export function crearTurno(input) {
 }
 
 export function nuevoHorarioDoc(input) {
-    return async function (dispatch) {
-        try {
-            const horario = await axios({
-                method: "put",
-                url: "/especialidad",
-                data: {
-                    nombre: input.nombre,
-                    horario: input.horario,
-                },
-            });
-            // return dispatch({
-            //     type: "NUEVO_HORARIO_DOC",
-            //     payload: horario
-            // })
-        } catch (e) {
-            console.log(e);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      await axios({
+        method: "put",
+        url: "/especialidad",
+        data: {
+          nombre: input.nombre,
+          horario: input.horario,
+        },
+      });
+      // return dispatch({
+      //     type: "NUEVO_HORARIO_DOC",
+      //     payload: horario
+      // })
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 //Clinica
@@ -714,18 +714,18 @@ export function getDiagnostico(payload) {
 }
 
 export function addDiagnostico(payload) {
-    return async function (dispatch) {
-        try {
-            const addDiag = await axios.post("/diagnostico", payload);
-            const updateTurno = await axios.put(
-                `/turno/update/${payload.idTurno}`,
-                payload
-            );
-            return dispatch({ type: "ADD_DIAG", payload: addDiag.data });
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  return async function (dispatch) {
+    try {
+      const addDiag = await axios.post("/diagnostico", payload);
+      await axios.put(
+        `/turno/update/${payload.idTurno}`,
+        payload
+      );
+      return dispatch({ type: "ADD_DIAG", payload: addDiag.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 export function getAllDoctores() {

@@ -4,10 +4,10 @@ import { useState,useEffect  } from "react";
 import develop from '../utils/develop.json'
 import img from'../utils/images-landing/usuario-sin-foto.png'
 import devs from "../utils/desarrolladores.png"
-import { Link } from 'react-router-dom';
-import logo from '../utils/images-landing/logo.png'
-import Demo from "../Demo/Demo";
-import NavLanding from '../NavLanding/NavLanding';
+// import { Link } from 'react-router-dom';
+// import logo from '../utils/images-landing/logo.png'
+// import Demo from "../Demo/Demo";
+// import NavLanding from '../NavLanding/NavLanding';
 import js from "../utils/js.png"
 import react from "../utils/react.png"
 import github from "../utils/github.png"
@@ -45,7 +45,7 @@ export default function AboutUs(){
             setLoggeado(false);
         }
     }
-      
+    
   },[isLoading,cookies.get('email')])
 
 

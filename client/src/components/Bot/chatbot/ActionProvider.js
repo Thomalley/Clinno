@@ -1,8 +1,20 @@
+import axios from 'axios';
+
+
+
+
+
+
+
+   
+
+
+
 class ActionProvider {
-    constructor(createChatBotMessage, setStateFunc) {
-      this.createChatBotMessage = createChatBotMessage;
-      this.setState = setStateFunc;
-    }
+  constructor(createChatBotMessage, setStateFunc) {
+    this.createChatBotMessage = createChatBotMessage;
+    this.setState = setStateFunc;
+  }
   
     greet = () => {
       const message = this.createChatBotMessage("Hola Como estas?");
@@ -11,26 +23,49 @@ class ActionProvider {
   
     handleEspecialidad = () => {
       const message = this.createChatBotMessage(
-        "Muchas gracias por usar Clinno!, para poder ver nuestras especialidades porfavor dirigase a la pagina principal, en el apartado Seleccione una especialidad",
+        "Muchas gracias por usar Clinno Bot!, para poder ver nuestras especialidades porfavor dirigase a la pagina principal y en el apartado Seleccione la especialidad deseada",
       );
   
       this.addMessageToState(message);
     };
     handleRegistrarse = () => {
       const message = this.createChatBotMessage(
-        "Muchas gracias por usar Clinno!, para poder registrarse busque en la barra de navegacion, el boton registrarse",    
+        "Muchas gracias por usar Clinno Bot!, para poder registrarse busque en la barra de navegacion, el boton registrarse",    
       );
   
       this.addMessageToState(message);
     };
     handleTurno = () => {
       const message = this.createChatBotMessage(
-        "Muchas gracias por usar Clinno!, para poder sacar turno usted tiene que estar logueado anteriormente, una vez hecho esto usted debera seleccionar una especialidad y una clinica donde atenderse.",     
+        "Muchas gracias por usar Clinno Bot!, para poder sacar turno usted tiene que estar logueado anteriormente, una vez hecho esto usted debera seleccionar la especialidad deseada y la clinica disponible donde desea atenderse.",     
       );
   
       this.addMessageToState(message);
     };
+    handleClinicas = async() => {
+      let clinicas = await axios.get('/clinica');
+      let nombres  = clinicas.data.map(c=>{ return c.nombre})
+      const message = this.createChatBotMessage(
+        `Muchas gracias por usar Clinno Bot!, estas son algunas de las clinicas con las que contamos: ${nombres.join()}  .`,     
+      );
   
+      this.addMessageToState(message);
+    };
+    handleSoyClinica = () => {
+      const message = this.createChatBotMessage(
+        'Muchas gracias por usar Clinno Bot!, estas son algunas de las clinicas con las que contamos:  .',     
+      );
+  
+      this.addMessageToState(message);
+    };
+    handleSoyClinica = () => {
+      const message = this.createChatBotMessage(
+        'Muchas gracias por usar Clinno Bot!, para registrar tu clinica en Clinno debes desplazarte hasta la parte superior de la pagina, donde podras encontrar la opcion SoyClinica .',     
+      );
+  
+      this.addMessageToState(message);
+  
+    };
     addMessageToState = (message) => {
       this.setState((prevState) => ({
         ...prevState,

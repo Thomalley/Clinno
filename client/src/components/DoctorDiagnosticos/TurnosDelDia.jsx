@@ -6,10 +6,6 @@ import swal from 'sweetalert';
 import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,canTurno,filter_turnos} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-
-import logo from '../../components/utils/images-landing/logo.png'
-
-
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import "../HistorialTurnosDoc/HistorialTurnosStyle.css";
@@ -36,7 +32,7 @@ export default function TurnosDelDia(){
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
     
     const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
     const [input,setInput] = useState(initialInputState);
@@ -82,7 +78,7 @@ export default function TurnosDelDia(){
 
     function handleAllturnos(e){
         e.preventDefault();
-        const {name,value} = e.target;
+        const {} = e.target;
         setInput(initialInputState)
     }
 

@@ -10,7 +10,7 @@ import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,
     modifTurno,filter_turnos} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-    
+
 
 
 import Cookies from 'universal-cookie';

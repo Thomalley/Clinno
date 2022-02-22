@@ -29,7 +29,6 @@ import CodigoDoctor from './components/AdminDoctor/CodigoDoctor'
 import TurnosDelDia from './components/DoctorDiagnosticos/TurnosDelDia.jsx';
 import AgregarDiagnostico from './components/DoctorDiagnosticos/AgregarDiagnostico';
 import VerDiagnosticoDoctor from './components/DoctorDiagnosticos/VerDiagnostico'
-import Bot from './components/Bot/Bot';
 import HistorialTurnosDoc from './components/HistorialTurnosDoc/HistorialTurnos'
 import Checkout from './components/AdminClinica/Cobro/Checkout'
 import Root from './components/AdminRoot/RootUser';
@@ -42,7 +41,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Bot/>  
         <Routes>
           <Route path='/test' element={<Checkout/>}/>
           <Route path='/adminClinica/cobro' element={<MercadoPago/>}/>

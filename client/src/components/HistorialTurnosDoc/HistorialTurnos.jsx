@@ -6,10 +6,6 @@ import swal from 'sweetalert';
 import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,getDiagnostico,canTurno, filter_turnos} from '../../actions'
 import Footer from "../Home/Footer";
 import NavClinica from '../AdminClinica/NavClinica.jsx';
-
-import logo from '../../components/utils/images-landing/logo.png'
-
-
 import Cookies from 'universal-cookie';
 import "./HistorialTurnosStyle.css";
 
@@ -31,7 +27,7 @@ export default function HistorialTurnosDoc(){
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     useEffect(()=>{
         dispatch(getTurnosDoctor(cookies.get('doctor_id')))
@@ -60,14 +56,14 @@ export default function HistorialTurnosDoc(){
     
     const date = new Date();
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-    const horaAhora = date.getHours() ;
-
+  
     const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
     const [input,setInput] = useState(initialInputState);
     const [cancel,setCancel] = useState({
         status: "cancelado",
         idTurno:""
     })    
+
     
     
     function selectID(id){
@@ -85,7 +81,7 @@ export default function HistorialTurnosDoc(){
 
     function handleAllturnos(e){
         e.preventDefault();
-        const {name,value} = e.target;
+        const {} = e.target;
         setInput(initialInputState)
     }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
-import { useDispatch,  } from 'react-redux';
+// import { useDispatch,  } from 'react-redux';
 import logo from '../../components/utils/images-landing/logo.png'
 import Cookies from 'universal-cookie';
 
@@ -9,7 +9,7 @@ import './NavClinicaStyle.css';
 
 export default function LoginClinica(){
     const cookies = new Cookies();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
        
     
     // function new_turno() {
@@ -72,12 +72,12 @@ return (
             {window.location.pathname.toLowerCase().includes ('/soydoctor')?
                 <Link to="/soyDoctor" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
                     {/* <span className="fs-4">Sidebar</span> */}
-                    <img src={logo} className='logo_clinno_navC' />
+                    <img src={logo} alt="img" className='logo_clinno_navC' />
                 </Link>
             :
                 <Link to="/adminClinica" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
                     {/* <span className="fs-4">Sidebar</span> */}
-                    <img src={logo} className='logo_clinno_navC' />
+                    <img src={logo} alt="img1" className='logo_clinno_navC' />
                 </Link>
             }
             <hr/>

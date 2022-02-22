@@ -9,6 +9,7 @@ import { validate_doctor,get_doctor_id,getTurnosDoctor,getClients,getEspecialida
 import icono from '../../components/utils/icono-clinica.png'
 import ProximoTurno from './ProximoTurno'
 
+
 import logo from '../../components/utils/images-landing/logo.png'
 
 
@@ -45,6 +46,7 @@ export default function AdminDoctor(){
             setTurn(turnos);
         }
     },[])
+
     useEffect(()=>{ 
         if(check){
             if(!clinica && loggeado){
@@ -74,6 +76,7 @@ export default function AdminDoctor(){
             setTimeout(()=> setLoading(false),600)
         }
     },[turnos])
+
     
     const [turn,setTurn] = useState([]);
 
