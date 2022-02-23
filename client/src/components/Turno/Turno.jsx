@@ -555,7 +555,7 @@ export default function Turno() {
                         </option>
                         {doctoresDeEspe &&
                           doctoresDeEspe.map((e) =>
-                            e.clinicas[0].hablitada ? (
+                            e.clinicas[0]?.hablitada ? (
                               <option id="doctor_selected" value={e.nombre}>
                                 {" "}
                                 {e.nombre}{" "}
