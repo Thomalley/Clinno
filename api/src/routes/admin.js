@@ -20,7 +20,7 @@ router.post('/', async (req,res) =>{
 
 router.post("/mail-habilitar", (req, res) => {
   try {
-    const { mail, codigo, nombre } = req.body;
+    const { mail, codigo, nombre } = req.body;  
     console.log(mail, codigo, nombre);
 
     const sgMail = require("@sendgrid/mail");
@@ -48,6 +48,7 @@ router.post("/mail-habilitar", (req, res) => {
       .send(message)
       .then((response) => console.log("Email sent..."))
       .catch((error) => console.log(error.message));
+     res.send("ok") 
   } catch (error) {
     console.log(error);
   }

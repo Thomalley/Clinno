@@ -42,7 +42,7 @@ export default function VerMisTurnos(){
   }, [diag]);
 
   useEffect(()=>{
-      const sumita =turn.filter(t=> jsFinalDate<t.fecha && t.status !== 'cancelado')
+      const sumita =turn.filter(t=> jsFinalDate===t.fecha&& t.hora>datejs.getHours() && t.status !== 'cancelado')
       setNum(sumita);
   },[turn])
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function VerMisTurnos(){
           dispatch(getEspecialidad())
           setTurn(turnos);
           setLoading(false)
-          const sumita =turn?.map(t=>{ if( jsFinalDate<t.fecha && t.status !== 'cancelado'){return t}})
+          const sumita =turn.filter(t=> jsFinalDate===t.fecha&& t.hora>datejs.getHours() && t.status !== 'cancelado')
           setNum(sumita);
           setTimeout(()=> setLoading(false),600)
       }
@@ -191,11 +191,12 @@ export default function VerMisTurnos(){
             setTimeout(() => window.location.href = '/soyDoctor', 2000)
             return
         }
-      }
-
+      }   
+      
     return(
         <>
-        <h3 className="text-white">Proximo Turno de {cookies.get('doctor_nombre')}</h3>
+          <h3 className="text-white">Proximo Turno Del dia de {cookies.get('doctor_nombre')}</h3>
+
             
         <div className="grid_turno_table fijo_table text-white">
             <span><strong>Paciente</strong></span>
@@ -256,7 +257,9 @@ export default function VerMisTurnos(){
           </div>
         </div>
         :
-        <><p>No hay Turnos proximos.</p></>
+        datejs.getHours()>=20?
+        <><p>No hay Turnos proximos.</p></>:
+        <><p>El Dia Concluyo.</p></>
                 
       }
   </>)

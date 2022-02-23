@@ -976,10 +976,18 @@ export function adminUser() {
 
 export function habilitacionCodigoMail(payload) {
     return async function (dispatch) {
-        console.log(payload, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
         try {
-            console.log(payload);
-            const json = await axios.post(`/2UpZaxFqVvbrwet6M1kXaSunGenIRsP/mail-habilitar`, payload);
+        console.log(payload, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+            const json = await axios({
+                method: "post",
+                url: "/2UpZaxFqVvbrwet6M1kXaSunGenIRsPE/mail-habilitar",
+                data: {
+                    mail: payload.mail,
+                    codigo: payload.codigo,
+                    nombre: payload.nombre
+                },
+            });
+            
             return dispatch({ type: "RESET_PASSWORD", payload: json.data });
         } catch (err) {
             console.log(err);
