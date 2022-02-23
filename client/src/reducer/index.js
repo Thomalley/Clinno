@@ -26,6 +26,7 @@ const initialState = {
     order:"",
     mpData: [],
     admin: [],
+    mensualidades: []
 };
 
 
@@ -36,6 +37,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 turnosClinica: action.payload
+            }
+        case "GET_MENSUALIDADES":
+            return{
+                ...state,
+                mensualidades: action.payload
             }
         case "MP_DATA":
             return{

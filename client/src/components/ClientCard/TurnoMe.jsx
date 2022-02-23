@@ -34,10 +34,9 @@ export default function TurnoMe() {
   const doctores = useSelector((state) => state.allDoctoresInDB);
   const resenia = useSelector((state) => state.resenia);
   const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
-  const [dni_user, setdni_user] = useState()
   const dbUserDni = cookies.get("dni")
-  let turnosPendientes = []
-  let turnosPasados = []
+  const [turnoTotal, setTurnoTotal] = useState([]) 
+  // const [turnosPasados, setPasados] = useState([])
   const [diag, setDiag] = useState("");
   const [idTurno, setidTurno] = useState("");
   const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
@@ -64,22 +63,20 @@ const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (dbUserDni) {
-      dispatch(getTurnosByDni(dbUserDni));
-      dispatch(getAllDoctores());
-      dispatch(getResenia());
-    } else if (isAuthenticated || isLoading || user) {
+      dispatch(getTurnosByDni(dbUserDni))
+      .then(data =>setTurnoTotal(data?.payload) )
+      
+    } 
+    else if (isAuthenticated || user || isLoading) {
       dispatch(getClienteByEmail(user?.email)).then((data) => data?.payload?.dni)
-        .then((data) => setdni_user(data))
-      dispatch(getAllDoctores());
-      dispatch(getResenia());
-    }
+          .then((data)=> dispatch(getTurnosByDni(data)))
+      }
+      dispatch(getAllDoctores())
+      dispatch(getResenia())
+      dispatch(getDiagnostico())
+
   }, []);
-
-  useEffect(()=>{
-    dispatch(getTurnosByDni(dni_user))
-    dispatch(getDiagnostico())
-  },[dni_user])
-
+// console.log(turnosPendientes);
 
   useEffect(() => {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
@@ -151,8 +148,6 @@ const [errors, setErrors] = useState({});
         const jsfdD = jsFinalDate[0] + jsFinalDate[1]
         const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
         const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
-        console.log("dia elegido", fdD, fdM, fdA)
-
         if (fdA < jsfdA) {
             return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
         }
@@ -172,8 +167,49 @@ const [errors, setErrors] = useState({});
     }
 }, [finalDate])
 
-  function handleFilterSelect(e) {}   
+const [ascendente,setAscendente] = useState(false)
+  function handleOrderFecha(e) {
+    e.preventDefault();
+    if(e.target.value === "asc"){
+      setAscendente(true)
+    }else{
+      setAscendente(false)
+    }
+    // if(e.target.value === 'desc'){
+    //   // setPasados( turnosPasados.sort((function(a, b) {
+    //   //     if (a.fecha < b.fecha) return 1;
+    //   //     if (a.fecha > b.fecha) return -1;
+    //   //     return (a.hora < b.hora)?  -1:1;
+    //   // })))
+    //   let spendientes =turnosPendientes.sort((function(a, b) {
+    //       if (a.fecha < b.fecha) return 1;
+    //       if (a.fecha > b.fecha) return -1;
+    //       return (a.hora < b.hora)?  -1:1;}))
+    //       console.log('spendientesx: ', spendientes)
+    //   setPendientes(spendientes)
+    // }else{
+    //   // setPasados(turnosPasados.sort((function(a, b) {
+        
+    //   //   if (a.fecha < b.fecha) return 1;
+    //   //   if (a.fecha > b.fecha) return -1;
+    //   //   return (a.hora < b.hora)?  -1:1;
+    //   // })))
+    //   let spendientes =turnosPendientes.sort((function(a, b) {
+    //     if (a.fecha < b.fecha) return 1;
+    //     if (a.fecha > b.fecha) return -1;
+    //     return (a.hora < b.hora)?  -1:1;}))
+    //     setPendientes(spendientes)
+    //     console.log('spendientesx: ', spendientes)
+    // }
+    // console.log('turnos Pasados',turnosPasados);
+    // console.log('turnos Pendientes',turnosPendientes);
 
+  }   //??????
+
+  function handleFilterSelect(e){
+    e.preventDefault()
+
+  }
   const handleSelectHora = (e) => {
     setupdateDate({
       ...updateDate,
@@ -272,17 +308,16 @@ const [errors, setErrors] = useState({});
       ...input,
       [e.target.name]: e.target.value
     }));
-    console.log(input)
     dispatch(addResenia(input))
   }
 
-  for (let i = 0; i < turnos.length; i++) {
-    if (turnos[i].status === "concretado") {
-      turnosPasados.push(turnos[i])
-    } else if (turnos[i].status === "pendiente") {
-      turnosPendientes.push(turnos[i])
-    }
-  }
+  // for (let i = 0; i < turnos.length; i++) {
+  //   if (turnos[i].status === "concretado") {
+  //     turnosPasados.push(turnos[i])
+  //   } else if (turnos[i].status === "pendiente") {
+  //     turnosPendientes.push(turnos[i])
+  //   }
+  // }
 
 
   // turnosPasados.push({
@@ -297,7 +332,6 @@ const [errors, setErrors] = useState({});
   // })  
 
   
-console.log(diagnosticos)
 
   return (
     <div className="elContenedor">
@@ -307,20 +341,13 @@ console.log(diagnosticos)
       </Link>
       <div class="bigContainer justify-content-center">
         <div class="filtros">
-          <h4>Filtrar por fecha</h4>
-          <select onChange={(e) => handleFilterSelect(e)}>
+          <h4>Ordenar por fecha</h4>
+          <select onChange={(e) => handleOrderFecha(e)}>
+            <option disabled selected>Seleccione un Orden</option> 
             <option value="asc" >Fecha Ascendente</option>
             <option value="desc">Fecha Descendente</option>
           </select>
         </div >
-        <div class="filtros">
-          <h4>Filtrar por Clinica</h4>
-          <select onChange={(e) => handleFilterSelect(e)}>
-            {
-
-            }
-          </select>
-        </div>
       </div>
       <h2 class="h2-turnos col-10 m-auto">Mis Turnos</h2>
       <div className="titulosTurno">
@@ -329,18 +356,16 @@ console.log(diagnosticos)
       </div>
       <div class="row containerTurno">
         <div class="col-6 mt-3">
-          {turnosPasados.length !== 0 ? (
-            turnosPasados?.map((turno) => (
-              <div class="col-8" className="bigContainer">
+          {turnoTotal.length !== 0 ? (
+            turnoTotal?.sort((function(a, b) {//pendientes
+              if (a.fecha < b.fecha) return ascendente?  -1 :1;
+              if (a.fecha > b.fecha) return ascendente? 1: -1;
+              return (a.hora < b.hora)? ascendente? 1:-1 : 1;})).map((turno) => {
+              if(turno.status === 'concretado'){
+              return <div class="col-8" className="bigContainer">
                 <div class="accordion-item col-6">
                   <h2 class="accordion-header" id="headingOne">
-                    <button
-                      class="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={"#collapseOne" + turno.id}
-                      aria-expanded="false"
-                      aria-controls="collapseOne"
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#collapseOne" + turno.id} aria-expanded="false"aria-controls="collapseOne"
                     >
                       {"Turno de la Fecha " + turno.fecha}
                     </button>
@@ -790,15 +815,18 @@ console.log(diagnosticos)
                   </div>
                 )}
               </div>
-            ))
+              }})
           ) : (
             <p className="turnoP">No hay turnos pasados</p>
           )}
         </div>
 
         <div class="col-6 mt-3">
-          {turnosPendientes?.map((turno) => (
-            <div class="bigContainer">
+          {turnoTotal?.map((turno) => {
+            if(turno.status !=='concretado'){
+
+            
+            return <div class="bigContainer">
               <div class="accordion-item col-6 ">
                 <h2 class="accordion-header" id="headingOne">
                   <button
@@ -925,7 +953,7 @@ console.log(diagnosticos)
 
 
             </div>
-          ))}
+        }})}
         </div>
       </div>
       <div class="footerTurno">

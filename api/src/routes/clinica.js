@@ -90,7 +90,7 @@ router.post('/order-mail', (req,res)=> {
           <html>
         <head>
             <body>
-            <h2> Hola ${nombre } queremos informarte que ya estamos trabajando con la anulacion de suscripción de su clinica.  </h2>
+            <h2> Hola ${nombre } queremos informarte que la baja de su clinica ya esta en proceso. Su servicio no estara disponible hasta que nuevamente deseen reanudarlo.  </h2>
             <h2> Desde Clinno nos entristece mucho esta noticia y nos gustaria saber el porque de la misma. Si no es mucha molestia agrdaeceriamos si pudieran completar esta pequeña encuesta: </h2>
             <h2>https://forms.gle/SAJgf56SPZxDUHEr7</h2>
             </body>

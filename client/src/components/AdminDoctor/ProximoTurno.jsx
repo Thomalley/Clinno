@@ -8,9 +8,6 @@ import { getTurnosDoctor,getClients,getEspecialidad,getClinicas,
     canTurno,
     getDisponibilidad,
     modifTurno} from '../../actions'
-    
-
-
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import "./AdminDoctorStyle.css";
@@ -25,31 +22,27 @@ export default function VerMisTurnos(){
   const [num,setNum] = useState([]);
   const [loading,setLoading] = useState(true);
   const turnos = useSelector((state)=> state.turnos);
-
   let turnosdni = useSelector((state) => state.turnosDni);
-  // const turnoId = useSelector((state) => state.turnoById);
-  const datejs = new Date()
-  const finalDates = `${datejs.getDate()}-${datejs.getMonth() + 1}-${datejs.getFullYear()}`;
-
-  const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
   const [diag, setDiag] = useState("");
-  const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
   const [date, setDate] = useState(new Date());
+  const [datejs, setdatejs] = useState(new Date())
+  var [finalDate, setfinalDate] = useState();
   const onChange = date => {
     setDate(date)
   }
-  const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
+  const jsFinalDate = `${datejs.getDate()}-${datejs.getMonth() + 1}-${datejs.getFullYear()}`;
+  const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
   let diaTurno = undefined;
   let mesTurno = undefined;
   let yearTurno = undefined;
-  var finalDate = undefined;
 
   useEffect(() => {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
   }, [diag]);
 
   useEffect(()=>{
-      const sumita =turn.filter(t=> finalDates<t.fecha && t.status !== 'cancelado')
+      const sumita =turn.filter(t=> jsFinalDate<t.fecha && t.status !== 'cancelado')
       setNum(sumita);
   },[turn])
   useEffect(() => {
@@ -81,7 +74,7 @@ export default function VerMisTurnos(){
           dispatch(getEspecialidad())
           setTurn(turnos);
           setLoading(false)
-          const sumita =turn?.map(t=>{ if( finalDates<t.fecha && t.status !== 'cancelado'){return t}})
+          const sumita =turn?.map(t=>{ if( jsFinalDate<t.fecha && t.status !== 'cancelado'){return t}})
           setNum(sumita);
           setTimeout(()=> setLoading(false),600)
       }
@@ -141,17 +134,36 @@ export default function VerMisTurnos(){
         }
         diaTurno = data[2];
         yearTurno = data[3];
-        finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
-        if (finalDate < jsFinalDate) {
-          swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
-          return
-        }
-        setupdateDate({
-          ...updateDate,
-          fecha: finalDate
-        })
-    
+        setfinalDate(diaTurno + '-' + mesTurno + '-' + yearTurno)    
     }
+
+    useEffect(() => {
+      if (finalDate !== undefined) {
+          const fdD = finalDate[0] + finalDate[1]
+          const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+          const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+          const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+          const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+          const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+          if (fdA < jsfdA) {
+              return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+          }
+          if (fdM <= jsfdM && fdA < jsfdA) {
+              return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+          }
+          if ((fdD <= jsfdD || fdD >= jsfdD) && fdM < jsfdM && fdA <= jsfdA) {
+              return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Mes acontecido)", "warning")
+          }
+          if (fdD < jsfdD && fdM <= jsfdM && fdA <= jsfdA) {
+              return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+          }
+          else {
+              setupdateDate({...updateDate,fecha: finalDate})
+              
+          }
+      }
+  }, [finalDate])
+
     const handleSelectHora = (e) => {
         setupdateDate({
           ...updateDate,
