@@ -100,9 +100,9 @@ export default function RootUser() {
   function handleSubir(e) {
     e.preventDefault();
     if (datosMp.title !== "" && datosMp.clinicaId !== "") {
-      if (mensualidades.length !== 0) {
+      if (mensualidades?.length !== 0) {
         console.log(datosMp);
-        mensualidades.find((m) => m.clinicaId === datosMp.clinicaId)
+        mensualidades?.find((m) => m?.clinicaId === datosMp?.clinicaId)
           ? console.log("ya existe una orden de cobro para esta clinica")
           : dispatch(postMensualidad(datosMp));
       } else {

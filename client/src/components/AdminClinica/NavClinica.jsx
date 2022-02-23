@@ -19,8 +19,9 @@ export default function LoginClinica() {
   useEffect(() => {
     dispatch(getMensualidad(id)).then((data) => setMensu(data?.payload));
   }, []);
+  console.log(mensu)
   useEffect(() => {
-    if(mensu.title !== "" ){
+    if(Object.keys(mensu).length > 0){
         swal({
             title: "Pago pendiente!",
             text: "Por favor realice a la brevedad el pago de la mensualidad",
@@ -43,7 +44,7 @@ export default function LoginClinica() {
                 }
             })
         }
-  }, [])
+  }, [mensu])
   // const dispatch = useDispatch();
 
   // function new_turno() {

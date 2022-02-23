@@ -10,7 +10,7 @@ mercadopago.configure({
 
 router.get("/:orderId/:unit_price", (req, res) => {
   const { orderId, unit_price } = req.params;
-    console.log(typeof(unit_price))
+   
   let preference = {
     items: [
       {
@@ -51,18 +51,18 @@ router.get("/:orderId/:unit_price", (req, res) => {
 });
 
 
-router.get("/pagos", (req, res) => {
-  console.info("EN LA RUTA PAGOS ", req);
+router.get("/pagos", async (req, res) => {
   const payment_id = req.query.payment_id;
   const payment_status = req.query.status;
   const external_reference = req.query.external_reference;
   const merchant_order_id = req.query.merchant_order_id;
-  console.log("EXTERNAL REFERENCE ", external_reference);
-  const mensuAbonada = Mensualidad.findOne({
+
+  const mensuAbonada = await Mensualidad.findOne({
     where: {
       orderId:external_reference
     }
   })
+  console.log(mensuAbonada)
   //Aquí edito el status de mi orden
   Order.findByPk(external_reference)
     .then((order) => {
@@ -71,8 +71,7 @@ router.get("/pagos", (req, res) => {
       order.merchant_order_id = merchant_order_id;
       order.status = "completed";
       console.info("Salvando order");
-      order
-        .save()
+      order.save()
         .then((_) => {
           console.info("redirect success");
           mensuAbonada.update({abonado: true});
