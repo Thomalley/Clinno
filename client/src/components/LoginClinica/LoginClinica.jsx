@@ -66,7 +66,7 @@ export default function LoginClinica(){
             swal({
                 title: "Usuario o contrasena incorrectos",
                 text: "Ingrese los datos e intente nuevamente",
-                icon: "warning",
+                icon: "error",
                 dangerMode: true,
               })
         }

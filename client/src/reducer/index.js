@@ -22,11 +22,10 @@ const initialState = {
     turnoById: [],
     allDoctoresInDB: [],
     resenia: [],
+    reseniaId: [],
     order:"",
     mpData: [],
     admin: [],
-    mensualidad: [],
-    mensualidades: []
 };
 
 
@@ -52,6 +51,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 doctorId: action.payload
+            }
+        case "CREATE_ORDER":
+            return {
+                ...state,
+                order: action.payload
             }
 
         case "GET_TURNOS_DNI":
@@ -202,6 +206,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 resenia: action.payload
             }
+            case 'GET_RESENIA_ID':
+            return {
+                ...state,
+                reseniaId: action.payload
+            }
         case 'GET_ALL_DOCTOR_CLINICA':
             return {
                 ...state,
@@ -240,16 +249,6 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 admin: action.payload
                 }
-        case "GET_MENSUALIDAD":
-            return {
-                ...state,
-                mensualidad: action.payload
-            }
-        case "GET_MENSUALIDADES":
-            return{
-                ...state,
-                mensualidades: action.payload
-            }
         default:
             return state;
     }

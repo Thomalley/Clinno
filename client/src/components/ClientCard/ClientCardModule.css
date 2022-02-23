@@ -5,7 +5,7 @@
     margin: 50px auto;
     padding: 0px 20px;
     width: 420px;
-    height: 500px;
+    height: 550px;
     border-color: white;
     box-shadow: 0px 0px 200px -80px;
     display: flex;
@@ -44,4 +44,10 @@
     height: auto;
     margin: 0px auto;
     border-radius: 110px;
+    margin-top: 1.5pc;
+  }
+
+  .about_user_me{
+    background-color: gainsboro;
+    font-weight: 500;
   }

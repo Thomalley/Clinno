@@ -93,12 +93,12 @@ export default function HomeHospitals() {
   useEffect(() => {
     if (usuarioGoogle.nombre !== "undefined") {
       dispatch(getClients())
-        .then((data) => data.payload.map((e => e.email !== googleEmail)) ?
+        .then((data) => data?.payload?.map((e => e.email !== googleEmail)) ?
           dispatch(registrarCliente(usuarioGoogle))
-            .then((data) => setuserGoogle(data.payload.datosCompletados))
+            .then((data) => setuserGoogle(data?.payload?.datosCompletados))
           :
           dispatch(getClienteByEmail(googleEmail))
-            .then((data) => setuserGoogle(data.payload.datosCompletados))
+            .then((data) => setuserGoogle(data?.payload?.datosCompletados))
         )
     }
   }, [googleEmail])

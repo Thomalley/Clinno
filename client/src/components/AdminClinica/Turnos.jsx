@@ -16,7 +16,7 @@ export default function TurnosClinica({idClinica}){
 
 
     useEffect(()=>{
-        console.log(turnos)
+        // console.log(turnos)
         dispatch(getTurnosClinica(cookies.get('clinica_id')))
         dispatch(getDoctoresByEspec(dataDoctor))
         dispatch(getClients())
@@ -64,7 +64,7 @@ export default function TurnosClinica({idClinica}){
         <span><strong>Doctor</strong></span>
         <span><strong>Especialidad</strong></span>
     </div>
-        {turn &&turn?.sort(function(a, b) { console.log(turn)
+        {turn &&turn?.sort(function(a, b) { 
                 if (a.fecha < b.fecha) {
                     return -1;
                 }

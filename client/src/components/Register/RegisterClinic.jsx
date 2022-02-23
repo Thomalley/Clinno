@@ -59,7 +59,7 @@ if (!input.apellidoEn || input.apellidoEn === "" ||  !regExName.test(input.apell
 errors.apellidoEn = 'Campo Requerido: Apellido solo letras y espacios. Entre 3 y 40 caracteres';
 }
 
-if (!input.telefono || input.telefono === "" || !regExNumber.test(input.telefono) ||  input.telefono.length < 7 ||  input.telefono.length > 15){
+if (!input.telefono || input.telefono === "" || typeof(input.telefono) === "number" ||  input.telefono.length < 7 ||  input.telefono.length > 15){
 errors.telefono = 'Campo Requerido: Telefono mayor a 7 digito, menor a 15 digitos';
 }
 
@@ -97,21 +97,28 @@ function handleSubmit(e){
     ...input,
     [e.target.name]: e.target.value
   }));
-  let registrado = false;
+
+  let registrado;
+  registrado = false;
   
     for(let i=0; i<clinicas.length; i++){
       if (clinicas[i].mail === input.mail || clinicas[i].DNIEn === input.DNIEn){
-        swal('El mail ya corresponde a un usuario registrado')
         registrado = true;
         break;
       }
     }
 
+    console.log(registrado)
+    console.log(Object.values(validate(input)).length)
+
     if (!registrado && Object.values(validate(input)).length === 0){
     dispatch(registrarClinica(input))
       swal('Estamos verificando tu informacion!')
-      navigate('/home')
-    }else {swal('Corrija los errores antes de registrarse')}}
+      navigate('/')
+    }else {
+      if(registrado){
+        swal('El mail ya corresponde a un usuario registrado')
+      } else swal('Corrija los errores antes de registrarse')}}
 
 
   
@@ -222,7 +229,7 @@ function handleDelete(el){
       }
       </div>
       <div>{errors.especialidad && (<p className='errorMsg'>{errors.especialidad}</p>)}</div>
-      <input className="col-12 btn btn-primary" type="submit" />
+      <button className="col-12 btn btn-primary" type="submit">Registrar</button>
     </form>
     </div>
     <Footer/>
