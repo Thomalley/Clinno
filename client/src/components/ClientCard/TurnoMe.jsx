@@ -42,15 +42,16 @@ export default function TurnoMe() {
   const [idTurno, setidTurno] = useState("");
   const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
   const [date, setDate] = useState(new Date());
+  const [jsdate, setjsDate] = useState(new Date());
   const onChange = date => {
     setDate(date)
   }
-  const jsFinalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  const jsFinalDate = `${jsdate.getDate()}-${jsdate.getMonth() + 1}-${jsdate.getFullYear()}`;
   let diaTurno = undefined;
   let mesTurno = undefined;
   let yearTurno = undefined;
-  var finalDate = undefined;
   const puntaje = [1,2,3,4,5]
+  var [finalDate, setfinalDate] = useState();
   const [input, setInput] = useState({
     comentario:"",
     calificacionDoctor:"",
@@ -71,15 +72,7 @@ export default function TurnoMe() {
       dispatch(getAllDoctores());
       dispatch(getResenia());
     }
-    // dispatch(getTurnosByDni(dni_user))
   }, []);
-
-  // useEffect(()=>{
-  //   if(turnos.length === 0){
-  //     dispatch(getTurnosByDni(dbUserDni));
-  //   }
-  // },[turnos])
-
 
   useEffect(()=>{
     dispatch(getTurnosByDni(dni_user))
@@ -146,19 +139,39 @@ export default function TurnoMe() {
     }
     diaTurno = data[2];
     yearTurno = data[3];
-    finalDate = diaTurno + '-' + mesTurno + '-' + yearTurno;
-    if (finalDate < jsFinalDate) {
-      swal("Error al seleccionar dia", "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
-      return
-    }
-    setupdateDate({
-      ...updateDate,
-      fecha: finalDate
-    })
-
+    setfinalDate(diaTurno + '-' + mesTurno + '-' + yearTurno)
   }
 
-  function handleFilterSelect(e) {}
+  useEffect(() => {
+    if (finalDate !== undefined) {
+        const fdD = finalDate[0] + finalDate[1]
+        const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+        const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+        const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+        const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+        const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+        console.log("dia elegido", fdD, fdM, fdA)
+
+        if (fdA < jsfdA) {
+            return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+        }
+        if (fdM <= jsfdM && fdA < jsfdA) {
+            return swal(`Error al seleccionar dia ${fdD}/${fdM}/${fdA}`, "La fecha seleccionada no esta disponible (año acontecido)", "warning")
+        }
+        if ((fdD <= jsfdD || fdD >= jsfdD) && fdM < jsfdM && fdA <= jsfdA) {
+            return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Mes acontecido)", "warning")
+        }
+        if (fdD < jsfdD && fdM <= jsfdM && fdA <= jsfdA) {
+            return swal(`Error al seleccionar dia ${fdD}/${fdM}`, "La fecha seleccionada no esta disponible (Dia acontecido)", "warning")
+        }
+        else {
+            setupdateDate({...updateDate,fecha: finalDate})
+            
+        }
+    }
+}, [finalDate])
+
+  function handleFilterSelect(e) {}   
 
   const handleSelectHora = (e) => {
     setupdateDate({
@@ -166,7 +179,6 @@ export default function TurnoMe() {
       hora: e.target.value
     })
   }
-
 
   const handleCancelar = (e) => {
     e.preventDefault()
@@ -184,13 +196,17 @@ export default function TurnoMe() {
 
   const handleSubmitModificar = (e) => {
     e.preventDefault()
-    dispatch(modifTurno({ nuevaFecha: updateDate.fecha, nuevaHora: updateDate.hora, idTurno: e.target.value }))
-    swal("Listo", `Su turno ha sido modificado con exito para el dia ${updateDate.fecha} a las ${updateDate.hora}`, "success")
-    setTimeout(() => window.location.href = '/me', 2000)
+    if (updateDate.fecha.length < 1 || updateDate.hora.length < 1){
+      return swal("Error al modificar turno", "Seleccione un dia y horario para modificar su turno correctamente", "error")
+    }
+    else {
+      dispatch(modifTurno({ nuevaFecha: updateDate.fecha, nuevaHora: updateDate.hora, idTurno: e.target.value }))
+      swal("Listo", `Su turno ha sido modificado con exito para el dia ${updateDate.fecha} a las ${updateDate.hora}`, "success")
+      setTimeout(() => window.location.href = '/me', 2000)
+    }
   }
 
   const handleCancelModal = () => {
-    console.log(idTurno)
     dispatch(canTurno({ status: "cancelado", idTurno: idTurno }))
     swal("Listo", "Su turno ha sido cancelado con exito", "success")
     setTimeout(() => window.location.href = '/me', 2000)
@@ -240,18 +256,16 @@ export default function TurnoMe() {
     }
   }
 
-  turnosPasados.push({
-    "id": "4cbc80d5-fd2b-49fb-bdd4-4caf830d058e",
-    "fecha": "15-2-2022",
-    "hora": 10,
-    "idClinica": "deaae5fc-b0fd-4d25-925e-8f9661f9f5f4",
-    "dniCliente": "39482681",
-    "idDoctor": "611d8854-5a63-4e12-8c83-3783c1a38333",
-    "idEspecialidad": 1,
-    "status": "concretado",
-  })
-
-  
+  // turnosPasados.push({
+  //   "id": "4cbc80d5-fd2b-49fb-bdd4-4caf830d058e",
+  //   "fecha": "15-2-2022",
+  //   "hora": 10,
+  //   "idClinica": "deaae5fc-b0fd-4d25-925e-8f9661f9f5f4",
+  //   "dniCliente": "39482681",
+  //   "idDoctor": "611d8854-5a63-4e12-8c83-3783c1a38333",
+  //   "idEspecialidad": 1,
+  //   "status": "concretado",
+  // })  
   
 console.log(diagnosticos)
 

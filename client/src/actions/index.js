@@ -40,26 +40,32 @@ export function getMensualidades(){
 export function getMensualidad(id) {
     return async function (dispatch) {
         try {
-            const mensualidad = await axios.get(`/mensualidad/${id}`);
+            const mensualidad = await axios.get(`/mensualidad/clinica/${id}`);
             return dispatch({ type: "GET_MENSUALIDAD", payload: mensualidad.data });
         } catch (e) {
             console.log(e);
         }
     };
 }
-export function postMensualidad(clinicaId, orderId) {
+export function postMensualidad(input) {
     return async function (dispatch) {
-        try {
-            await axios({
-                method: "post",
-                url: "/mensualidad",
-                data: { clinicaId, orderId },
-            });
-        } catch (e) {
-            console.log(e);
-        }
+      try {
+        await axios({
+          method: "post",
+          url: "/mensualidad",
+          data: {
+            title: input.title,
+            unit_price: input.unit_price,
+            quantity: input.quantity,
+            clinicaId: input.clinicaId,
+            orderId: input.orderId
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
     };
-}
+  }
 
 // export function getMercadoPago(orderId) {
 //   return async function (dispatch) {

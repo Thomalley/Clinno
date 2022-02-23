@@ -106,7 +106,8 @@ function handleSubmit(e){
         break;
       }
     }
-
+    console.log(registrado)
+    console.log(Object.values(validate(input)).length)
     if (!registrado && Object.values(validate(input)).length === 0){
     dispatch(registrarClinica(input))
       swal('Estamos verificando tu informacion!')

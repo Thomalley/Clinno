@@ -25,6 +25,9 @@ router.get("/:orderId/:unit_price", (req, res) => {
         {
           id: "atm",
         },
+        {
+          id:"ticket",
+        }
       ],
       installments: 3, //Cantidad máximo de cuotas
     },
@@ -55,7 +58,11 @@ router.get("/pagos", (req, res) => {
   const external_reference = req.query.external_reference;
   const merchant_order_id = req.query.merchant_order_id;
   console.log("EXTERNAL REFERENCE ", external_reference);
-
+  const mensuAbonada = Mensualidad.findOne({
+    where: {
+      orderId:external_reference
+    }
+  })
   //Aquí edito el status de mi orden
   Order.findByPk(external_reference)
     .then((order) => {
@@ -68,20 +75,21 @@ router.get("/pagos", (req, res) => {
         .save()
         .then((_) => {
           console.info("redirect success");
-
-          return res.redirect("http://localhost:3000");
+          mensuAbonada.update({abonado: true});
+          mensuAbonada.save();
+          return res.redirect("http://localhost:3000/adminclinica");
         })
         .catch((err) => {
           console.error("error al salvar", err);
           return res.redirect(
-            `http://localhost:3000/?error=${err}&where=al+salvar`
+            `http://localhost:3000/adminclinica`
           );
         });
     })
     .catch((err) => {
       console.error("error al buscar", err);
       return res.redirect(
-        `http://localhost:3000/?error=${err}&where=al+buscar`
+        `http://localhost:3000/adminclinica`
       );
     });
 

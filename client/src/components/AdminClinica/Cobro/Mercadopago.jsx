@@ -13,17 +13,19 @@ function MercadoPago() {
 
   const nombre = cookies.get("nombre");
   const id = cookies.get("clinica_id")
+  const [mensualidad, setMensualidad] = useState({})
 
   const mpData = useSelector((state) => state.mpData);
-  const mensualidad = useSelector((state) => state.mensualidad)
+  // const mensualidad = useSelector((state) => state.mensualidad)
 
   useEffect(() => {
-    dispatch(getMensualidad(id))
+    dispatch(getMensualidad(id)).then((data) => setMensualidad(data?.payload))
   }, [])
+
 console.log(mensualidad)
   const [datos, setDatos] = useState("")
   useEffect(()=>{
-    if(mensualidad.orderId !== undefined){
+    if(mensualidad?.orderId !== undefined){
       console.log(mensualidad)
     axios
     .get(`/mercadopago/${mensualidad?.orderId}/${mensualidad?.unit_price}`)
@@ -37,7 +39,7 @@ console.log(mensualidad)
 
 
 const productos = [
-  {title: mensualidad.title, price: mensualidad.unit_price},
+  {title: mensualidad?.title, price: mensualidad?.unit_price},
 ]
   return (
     <div className="App">
