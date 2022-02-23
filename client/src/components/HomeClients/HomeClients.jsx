@@ -19,6 +19,7 @@ import pp from "../utils/images-landing/pp.png";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import logo from "../utils/favicon.png";
+import swal from 'sweetalert'
 import Bot from '../Bot/Bot'
 
 export default function HomeHospitals() {
@@ -92,13 +93,13 @@ export default function HomeHospitals() {
   useEffect(() => {
     if (usuarioGoogle.nombre !== "undefined") {
       dispatch(getClients())
-        .then((data) => data.payload.map(e => e.email !== googleEmail ?
+        .then((data) => data.payload.map((e => e.email !== googleEmail)) ?
           dispatch(registrarCliente(usuarioGoogle))
             .then((data) => setuserGoogle(data.payload.datosCompletados))
           :
           dispatch(getClienteByEmail(googleEmail))
             .then((data) => setuserGoogle(data.payload.datosCompletados))
-        ))
+        )
     }
   }, [googleEmail])
 
@@ -112,15 +113,22 @@ export default function HomeHospitals() {
   const handleChange = (e) => {
     setInput({
       ...input,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      email: cookies.get("userGoogle_email")
     })
   }
 
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(updateGoogleUser(input))
-    console.log(input)
-    // setTimeout(()=> window.location.href="/", 2000)
+    if (!input.dni || !input.direccion) {
+      return swal("Error", "Complete los campos para continuar con el registro", "error")
+    }
+    else {
+      (dispatch(updateGoogleUser(input)))
+      swal("Gracias", "Sus datos han sido correctamente registrados, aguarde un momento...", "success")
+      setTimeout(() => window.location.href = "/", 2000)
+    }
   }
 
 
@@ -133,7 +141,7 @@ export default function HomeHospitals() {
           <div className="home-hospitals">
             <div className="big-box">
               <div className="left-box">
-                <div>
+                <div className="col-12">
                   <img src={doc} alt="img-home" />
                 </div>
               </div>
@@ -208,28 +216,29 @@ export default function HomeHospitals() {
                 </div>
               </div>
 
-              <div className="clinics">
-
+              <div className="row">
                 {clinicas?.clinicas?.map((c) => (
                   c.hablitada ?
-                    <div className="card-clinic">
-                      <h5>{c.nombre} </h5>
-                      <div className="img-logo-clinics">
-                        <img src={logo} alt={c.nombre} />
-                      </div>
-
-                      <div className="datos-box">
-                        <div>
-                          <h6>Dirección:</h6>
-                        </div>
-                        <div>
-                          <p>{c.direccion}</p>
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 ">
+                      <div className="card-clinic">
+                        <h5>{c.nombre} </h5>
+                        <div className="img-logo-clinics">
+                          <img src={logo} alt={c.nombre} />
                         </div>
 
-                        <div>
-                          <Link to={`/clinica/${c.id}`}>
-                            <button className="btn-go">Ir a clinica</button>
-                          </Link>
+                        <div className="datos-box">
+                          <div>
+                            <h6>Dirección:</h6>
+                          </div>
+                          <div>
+                            <p>{c.direccion}</p>
+                          </div>
+
+                          <div>
+                            <Link to={`/clinica/${c.id}`}>
+                              <button className="btn-go">Ir a clinica</button>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -238,51 +247,71 @@ export default function HomeHospitals() {
                 )
                 )}
               </div>
+
+
             </div>
 
             <Footer />
           </div>
           :
-          <div className="cont_first_login">
+          <div>
+
             <div className="container">
-
               <div className="row">
-
-                <h2 className="h2_first_login">Por favor ingrese los siguientes datos<br /> para completar su registro:</h2>
-
-              </div>
-
-              <div className="row">
+                {/* <div className="col-3"></div> */}
                 <div className="col-12">
-                  <form onSubmit={handleSubmit}>
-                  <div className="inf_cont_first_login">
-                    <small className="small_first_login">Ingrese su <strong>Documento</strong> a continuacion: </small>
-                    </div>
-                    <div className="row">
-                      <div className="col-12">
-                        <input type="number" name="dni" value={input.dni} placeholder="Numero de documento (solo numeros)" onChange={handleChange}>
-                        </input>
-                      </div>
-                    </div>
-                    <div className="inf_cont_first_login">
-                        <small className="small_first_login">Ingrese la <strong>Direccion</strong> donde reside actualmente </small>
-                    </div>
-                    <div className="row">
-                      <div className="col-12">
-                        <input type="text" name="direccion" value={input.direccion} placeholder="Escribe tu domicilio actual" onChange={handleChange}>
-                        </input>
-                      </div>
-                    </div>
-                    <div style={{ "margin-top": "2pc" }}>
-                    <button type="submit" className="btn btn-primary btn-sm">
-                      Actualizar informacion
-                    </button>
-                    </div>
-                  </form>
+                  {/* <div className="col-3"></div> */}
+                  <div class="alert alert-warning" id="alert_first_login" role="alert">
+                    Completa el siguiente formulario para continuar
+                  </div>
                 </div>
               </div>
-
             </div>
+
+            <div className="cont_first_login">
+              <div className="container">
+
+                <div className="row">
+
+                  <h2 className="h2_first_login">Por favor ingrese los siguientes datos<br /> para completar su registro:</h2>
+
+                </div>
+
+                <div className="row">
+                  <div className="col-12">
+                    <form autocomplete="off" onSubmit={handleSubmit}>
+                      <div className="inf_cont_first_login">
+                        <small className="small_first_login">Ingrese su <strong>Documento</strong></small>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <input type="number" name="dni" value={input.dni} placeholder="Numero de documento (solo numeros)" onChange={handleChange}>
+                          </input>
+                        </div>
+                      </div>
+                      <div className="inf_cont_first_login">
+                        <small className="small_first_login">Ingrese su <strong>Direccion</strong></small>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <input type="text" name="direccion" value={input.direccion} placeholder="Escribe tu domicilio actual" onChange={handleChange}>
+                          </input>
+                        </div>
+                      </div>
+                      <div style={{ "margin-top": "2pc" }}>
+                        <button type="submit" className="btn btn-primary btn-sm">
+                          Actualizar informacion
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div style={{ "height": "15pc" }}></div>
+
           </div>
       }
 

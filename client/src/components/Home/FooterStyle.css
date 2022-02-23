@@ -1,5 +1,6 @@
 .footer_home{
-    width: 100%;
+    overflow: auto!important;
+    width: 100%!important;
     height: 300px;
     background: #181c23;
     color: #f1f1f1;
@@ -7,6 +8,8 @@
     flex-direction: column;
     justify-content: center;
     position: relative;
+    margin-left: 0px!important;
+    margin-right: 0px!important;
 }
 
 .link{

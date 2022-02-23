@@ -1,6 +1,6 @@
 import React from "react";
 import "./landing.css";
-import img_doc from "../utils/images-landing/doctora.png";
+// import img_doc from "../utils/images-landing/doctora.png";
 import logo from "../utils/images-landing/logo.png";
 import services from "../utils/services.json";
 import pp from "../utils/images-landing/pp.png";
@@ -9,13 +9,14 @@ import slide2 from "../utils/images-landing/slide2.png";
 import slide3 from "../utils/images-landing/slide3.png";
 import NavLanding from "../NavLanding/NavLanding";
 import Footer from "../Home/Footer";
+import NavBar from "../NavBar/NavBar";
 
 
 export default function LandingPage() {
   return (
     <>
-      <div className="container">
-        <NavLanding component="Landing" />
+      <NavBar />
+      <div className="container" style={{ "margin-top": "4pc" }}>
         <div>
           <div
             id="carouselExampleCaptions"
@@ -48,31 +49,19 @@ export default function LandingPage() {
               <div className="carousel-item active">
                 <img src={slide1} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  {/*<Link to="/home">
-                    <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLIENTE
-                    </button>
-  </Link>*/}
+
                 </div>
               </div>
               <div className="carousel-item">
                 <img src={slide2} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  {/*<Link to="/home">
-                    <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLIENTE
-                    </button>
-  </Link>*/}
+
                 </div>
               </div>
               <div className="carousel-item">
                 <img src={slide3} className="d-block w-100" alt="..." />
                 <div className="carousel-caption d-none d-md-block">
-                  {/*<Link to="/home">
-                    <button class="btn btn-primary btn_demo" type="button">
-                      LIVE DEMO COMO CLIENTE
-                    </button>
-  </Link>*/}
+
                 </div>
               </div>
             </div>
@@ -116,27 +105,29 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-        {/*<Demo />*/}
 
-        <div className="top-slice">
-          <div className="text-conteiner1">
-            <p>
-              {" "}
-              Clinno APP es la solución ideal para grupos médicos que desean
-              utilizar un sistema de citas electrónico en linea,
-              administrándolos eficientemente de forma colaborativa, ágil y
-              sencilla.
-            </p>
-            <h3>¡Lleva un mejor control de los clientes de tu clínica!</h3>
-          </div>
-          <div className="image-doc">
-            <img src={img_doc} alt="doc" />
+        <div className="col-12">
+          <div className="top-slice">
+            <div className="text-conteiner1">
+              <p>
+                {" "}
+                Clinno APP es la solución ideal para grupos médicos que desean
+                utilizar un sistema de citas electrónico en linea,
+                administrándolos eficientemente de forma colaborativa, ágil y
+                sencilla.
+              </p>
+              <h3 style={{"margin-bottom":"5pc"}}>¡Lleva un mejor control de los clientes de tu clínica!</h3>
+            </div>
+            {/* <div className="row">
+              <div className="image-doc">
+                <img src={img_doc} alt="doc" />
+              </div>
+            </div> */}
           </div>
         </div>
+
       </div>
-      <div className="que-hace">
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 }

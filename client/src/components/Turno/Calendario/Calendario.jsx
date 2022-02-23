@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import swal from 'sweetalert';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './calendario.css'
 
 export default function Calendario() {
 
-    const doctores = useSelector((state) => state.doctoresByEspec);
     const [date, setDate] = useState(new Date());
     const [fecha, setFecha] = useState({
         fecha: undefined

@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import './loginStyle.css'
 import logo from '../../components/utils/images-landing/logo.png'
 import Footer from '../Home/Footer'
+import Navbar from '../NavBar/NavBar'
 
 
 export default function Login() {
@@ -65,7 +66,7 @@ export default function Login() {
             swal({
                 title: "Usuario o contrasena incorrectos",
                 text: "Ingrese los datos e intente nuevamente",
-                icon: "warning",
+                icon: "error",
                 dangerMode: true,
             })
         }
@@ -112,6 +113,7 @@ export default function Login() {
 
     return (
         <div>
+            <Navbar />
             <div className="cont">
                 <form className="container" onSubmit={(e) => handleSubmit(e)}>
 
