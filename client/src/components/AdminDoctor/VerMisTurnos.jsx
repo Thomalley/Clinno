@@ -233,6 +233,29 @@ export default function VerMisTurnos(){
         });
     }
     useEffect(()=>{ dispatch(filter_turnos(input)) },[input])
+
+    function esFecha(finalDate){
+      if (finalDate !== undefined) {
+          const fdD = finalDate[0] + finalDate[1]
+          const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+          const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+          const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+          const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+          const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+          if (fdA > jsfdA) {//2021 2022
+              return true
+          }
+          if (fdM > jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
+              return true
+          }
+          if ( fdD > jsfdD && fdM === jsfdM && fdA === jsfdA) {//21-01-2022 > 18-02-2022
+              return true
+          }
+          return false
+      }else{
+          return false
+      }
+  }
 if(loggeado){
     return(
         <>
@@ -282,7 +305,7 @@ if(loggeado){
                     return (a.hora < b.hora)?  -1:1;
 
                 }).map(t=>{
-                    if(jsFinalDate<t.fecha){
+                    if(esFecha(t.fecha)){
 
                         return <div className="grid_turno_table diferente text-white" key={t.id}>
                     <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente),10))?.nombre}</span>

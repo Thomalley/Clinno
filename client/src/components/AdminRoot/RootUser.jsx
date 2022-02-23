@@ -136,22 +136,22 @@ export default function RootUser() {
     dispatch(getClinicas());
     console.log(e)
     dispatch(habilitacionCodigoMail(e));
-     swal("Success", "Clinic was successfully habilited", "success");
-     setTimeout(
-       () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
-      2000
-     );
+      swal("Success", "Clinic was successfully habilited", "success");
+      setTimeout(
+        () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
+       2000
+      );
   }
   function handleSubida(e) {
     dispatch(darSubida_clinica(e.id));
     setLoggeado(true);
     dispatch(getClinicas());
     dispatch(AltaClinica(e))
-     swal("Success", "Clinic was successfully habilited", "success");
-     setTimeout(
-       () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
-       2000
-     );
+    swal("Success", "Clinic was successfully habilited", "success");
+    setTimeout(
+      () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
+      2000
+    );
   }
   function handleBaja(e) {
     dispatch(darBaja_clinica(e));
