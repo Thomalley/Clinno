@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../ClientCard/ClientCardModule.css"
 import Footer from "../Home/Footer"
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../NavLanding/NavLanding'
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie'
 import { getClienteByEmail } from "../../actions/index";
 import photo from "../../components/utils/images-landing/usuario-sin-foto.png"
 import PasswordReset from "./PasswordReset"
-import Bot from '../Bot/Bot'
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -20,25 +19,6 @@ export default function ClientCard() {
   const googleUser = cookies.get("userGoogle_email")
   const userMail = cookies.get("email")
   const [currentUser, setcurrentUser] = useState();
-  let session;
-  const [loggeado, setLoggeado] = useState(session);
-  if (cookies.get("email")) {
-    session = true;
-  } else {
-    session = isLoading;
-  }
-  //control de sesion
-  useEffect(() => {
-    if (cookies.get("email")) {
-      setLoggeado(true);
-    } else {
-      if (isAuthenticated) {
-        setLoggeado(true);
-      } else {
-        setLoggeado(false);
-      }
-    }
-  }, [isLoading, cookies.get("email")]);
 
   useEffect(() => {
     if (user || isAuthenticated || isLoading) {
@@ -54,9 +34,7 @@ export default function ClientCard() {
   console.log(currentUser)
   return (
     <div>
-      <NavBar  loggin={loggeado}/>
-      <div style={{"margin-top" : "5pc"}}></div>
-      <Bot></Bot>
+      <NavBar />
 
       <ul class="nav justify-content-center">
 
@@ -66,8 +44,6 @@ export default function ClientCard() {
         </li>
 
         <li><Link className="nav-link" to='/TurnoMe'>Turnos y Diagnosticos</Link></li>
-
-        <li><Link className="nav-link" to='/EstamosTrabajando'>Pagos</Link></li>
 
         <li><Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link></li>
 
@@ -92,7 +68,7 @@ export default function ClientCard() {
       </div>
 
       <div className="container3">
-        <img src={user?.picture ? user?.picture : photo} alt="png" className={user?.picture ? "fotoDetailGoogle" : "fotoDetail"} />
+        <img src={user?.picture ? user?.picture : photo} alt="png" className="fotoDetail" />
         <div className="detailCard">
           <div class="card">
             <label>Nombre</label>

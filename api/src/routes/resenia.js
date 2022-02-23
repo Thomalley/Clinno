@@ -12,16 +12,25 @@ router.get("/", (req, res) => {
         });
 });
 
+router.get("/:id", (req, res) => {
+    const {id} = req.params
+    Resenia.findByPk(id)
+        .then((reseniaId) => {
+            res.json(reseniaId);
+        })
+        .catch((error) => {
+            res.status(400).json({ error });
+        });
+});
+
 router.post("/", async(req, res) => {
     try {
-        const { calificacion, comentario, idTurno } = req.body
+        const {idTurno} = req.body
+        
         const resenia = await Resenia.create({
-            calificacion,
-            comentario,
             idTurno
         })
         res.send(resenia);
-
     } catch (e) {
         console.log(e)
     }
@@ -29,19 +38,27 @@ router.post("/", async(req, res) => {
 
 router.put("/", async(req, res) => {
     try {
-        const { calificacion, comentario, reviewed } = req.body;
+        
+        const { calificacionDoctor, calificacionClinica, calificacionClinno, comentario, reviewed, idTurno } = req.body;
 
-        console.log(calificacion, comentario, reviewed);
-
-        const resenia = await Resenia.update({
-            calificacion,
-            comentario,
-            reviewed,
+        const reseniaEncontrada = await Resenia.findOne({
+            where: {
+                idTurno: idTurno
+            }
+        })
+        
+        await reseniaEncontrada.update({ calificacionDoctor: calificacionDoctor })
+        await reseniaEncontrada.update({ calificacionClinica: calificacionClinica })
+        await reseniaEncontrada.update({ calificacionClinno: calificacionClinno })
+        await reseniaEncontrada.update({ comentario: comentario })
+        await reseniaEncontrada.update({ reviewed: reviewed })
+        await reseniaEncontrada.save()
+        res.send(reseniaEncontrada)
+            } catch (e) {
+                console.log(e)
+            }
         });
-        res.json(resenia);
-    } catch (error) {
-        console.log(error);
-    }
-});
+
+      
 
 module.exports = router;

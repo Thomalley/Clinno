@@ -733,12 +733,24 @@ export function addDiagnostico(payload) {
         `/turno/update/${payload.idTurno}`,
         payload
       );
+      const resenia = await axios.post("/resenia", payload)
       return dispatch({ type: "ADD_DIAG", payload: addDiag.data });
     } catch (err) {
       console.log(err);
     }
   };
 }
+
+export function addResenia(payload) {
+    return async function (dispatch) {
+      try {
+        const resenia = await axios.put("/resenia", payload);
+        return dispatch({ type: "PASSWORD_RESET", payload: resenia });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  }
 
 export function getAllDoctores() {
     return async function (dispatch) {

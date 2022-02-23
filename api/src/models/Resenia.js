@@ -10,7 +10,17 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
 
-        calificacion: {
+        calificacionDoctor: {
+            type: DataTypes.INTEGER, //( "1", "2", "3", "4", "5", ),
+            allowNull: true,
+        },
+
+        calificacionClinica: {
+            type: DataTypes.INTEGER, //( "1", "2", "3", "4", "5", ),
+            allowNull: true,
+        },
+
+        calificacionClinno: {
             type: DataTypes.INTEGER, //( "1", "2", "3", "4", "5", ),
             allowNull: true,
         },
