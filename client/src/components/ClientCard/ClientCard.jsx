@@ -50,7 +50,7 @@ export default function ClientCard() {
       </ul>
 
       <div class="collapse multi-collapse" id="multiCollapseExample1">
-        <div class="card card-body">
+        <div class="card card-body" style={{"background-color": "#ebebeb"}}>
           <PasswordReset />
         </div>
       </div>
@@ -71,23 +71,23 @@ export default function ClientCard() {
         <img src={user?.picture ? user?.picture : photo} alt="png" className="fotoDetail" />
         <div className="detailCard">
           <div class="card">
-            <label>Nombre</label>
+            <label className="about_user_me"> Nombre</label>
             <label>{currentUser?.nombre}</label>
           </div>
           <div class="card">
-            <label>Apellido</label>
+            <label className="about_user_me">Apellido</label>
             <label>{currentUser?.apellido}</label>
           </div>
           <div class="card">
-            <label>DNI</label>
+            <label className="about_user_me">DNI</label>
             <label>{currentUser?.dni}</label>
           </div>
           <div class="card">
-            <label>Mail</label>
+            <label className="about_user_me">Mail</label>
             <label>{currentUser?.email}</label>
           </div>
           <div class="card">
-            <label>Direccion</label>
+            <label className="about_user_me">Direccion</label>
             <label>{currentUser?.direccion}</label>
           </div>
         </div>
