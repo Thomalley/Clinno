@@ -108,7 +108,7 @@ export default function LoginClinica() {
 
     await removedor()
     swal(
-      "Has cerrado la sesion con explito!!",
+      "Has cerrado la sesion con exito!!",
       "En instantes seras redirigido a Inicio",
       "success"
     );

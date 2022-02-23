@@ -1,127 +1,129 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import Footer from "../Home/Footer";
-import swal from 'sweetalert';
-import NavClinica from '../AdminClinica/NavClinica.jsx';
-import {getResenia, getTurnosClinica, get_All_Doctor} from '../../actions';
+import swal from "sweetalert";
+import NavClinica from "../AdminClinica/NavClinica.jsx";
+import { getResenia, getTurnosClinica, get_All_Doctor } from "../../actions";
 
+import logo from "../../components/utils/images-landing/logo.png";
 
-import logo from '../../components/utils/images-landing/logo.png'
-
-
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import "../AdminClinica/AdminClinicaStyle.css";
 
-export default function AddDoctor(){
+export default function AddDoctor() {
+  const dispatch = useDispatch();
+  const resenia = useSelector((state) => state.resenia);
+  const turnosClinica = useSelector((state) => state.turnosClinica);
+  const allDoctores = useSelector((state) => state.doctores);
+  let doctores = allDoctores;
+  const cookies = new Cookies();
+  let [reseniaByID, setReseniaByID] = useState([]);
+  let idTurnos = [];
 
-    const dispatch = useDispatch();
-    const resenia = useSelector((state) => state.resenia);
-    const turnosClinica = useSelector((state) => state.turnosClinica);
-    const allDoctores = useSelector((state)=> state.doctores)
-    let doctores = allDoctores; 
-    const cookies = new Cookies();
-    let reseniasByID =[]
-    let idTurnos = []
-    let promedioDoctor = 0;
-    let calificacionClinica = 0;
-    let promedioClinica = 0;
-    let calificacionClinno = 0;
-     //control se de session
-     let session=false;
-     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
-     const [loggeado,setLoggeado] = useState(session);
+  let [promedioDoctor, setPromedioDoctor] = useState();
 
-    useEffect(()=>{
+  let [promedioClinica, setPromedioClinica] = useState();
+
+  //QUE HACEMOS CON LAS ESTADISTICAS DE CLINNO
+
+  //control se de session
+  let session = false;
+  if (cookies.get("clinica_id") && cookies.get("clinica_codigo"))
+    session = true;
+  const [loggeado, setLoggeado] = useState(session);
+
+  useEffect(() => {
     dispatch(getResenia());
-    dispatch(getTurnosClinica(cookies.get("clinica_id")))
-      },[])
+    dispatch(getTurnosClinica(cookies.get("clinica_id")));
+  }, []);
 
-    useEffect(() => { 
-        dispatch(get_All_Doctor(cookies.get('clinica_id')))
-    },[])
+  useEffect(() => {
+    dispatch(get_All_Doctor(cookies.get("clinica_id")));
+  }, []);
 
-    //console.log(resenia)//2
-    //console.log(turnosClinica)//7
-    //console.log(allDoctores)//3
+  //console.log(resenia)//2
+  //console.log(turnosClinica)//7
+  //console.log(allDoctores)//3
 
-      let turnosTotales = parseInt(turnosClinica.length)
+  var turnosTotales = parseInt(turnosClinica.length);
+  useEffect(() => {
+    let calificacionClinica = 0;
+    let newArray = [];
 
-      for(let j = 0; j<turnosClinica.length; j++){
-        idTurnos.push(turnosClinica[j].id)
-      }//id de todos los turnos de la clinica 
+    for (let j = 0; j < turnosClinica.length; j++) {
+      idTurnos.push(turnosClinica[j].id);
+    } //id de todos los turnos de la clinica
 
-      for(let j=0; j < idTurnos.length; j++){
-        for(let i=0; i < resenia.length; i++){
-            if(resenia[i].idTurno ===  idTurnos[j] && resenia[i].reviewed === true)
-                reseniasByID.push(resenia[i])
-      }}//reseñas de los turnos de la clinica
-
-      console.log(reseniasByID)//1
-
-      let contPromClinica = 0;
-
-      for(let i = 0; i<reseniasByID.length; i++){
-        calificacionClinica = calificacionClinica + reseniasByID[i]?.calificacionClinica
-        console.log(calificacionClinica)
-        contPromClinica++
-      }//suma calificacion de la clinica
-
-     
-
-      promedioClinica = ((calificacionClinica)/(calificacionClinica?.length))
-
-      console.log(promedioClinica)
-
-      //promedio de la clinica
-     
-      for(let i = 0; i < doctores.length ; i++){
-          let cont = 0;
-          let promedioDoctor = 0;
-        for(let j = 0; j < reseniasByID.length ; j++){
-          if(doctores[i].id === reseniasByID[j].id){
-            cont++;
-            promedioDoctor = ((promedioDoctor) + (parseInt(reseniasByID[j]?.calificacionDoctor)) )         
-          }
+    for (let j = 0; j < idTurnos.length; j++) {
+      for (let i = 0; i < resenia.length; i++) {
+        if (
+          resenia[i].idTurno === idTurnos[j] &&
+          resenia[i].reviewed === true
+        ) {
+          newArray.push(resenia[i]);
+          console.log(newArray);
         }
+      }
+    } //reseñas de los turnos de la clinica
 
-        console.log(promedioDoctor)
+    for (let i = 0; i < newArray?.length; i++) {
+      calificacionClinica += newArray[i]?.calificacionClinica;
+      setPromedioClinica(calificacionClinica);
+      //set state para setear la suma total de las votaciones de la clinica
+    } //suma calificacion de la clinica
 
-        promedioDoctor = ((promedioDoctor)/(cont))
-        //console.log(promedioDoctor)
+  }, []);
 
-        console.log(promedioDoctor)
+  //   setPromedioClinica((calificacionClinica)/(reseniaByID?.length)) //set del promedio de la clinica
 
-        doctores[i].promedio = `${promedioDoctor}`
-    }      //por cada doctor creo un contador y un sumador
-          //bosco por cada doctor en la lista de objetos resenias de la clinica las resenias de cada doctor
-          //las que pertenezcan al doctor de la iteracion que estoy haciendo, sumo sus calificaciones y cuento cuantas son
-          //termino de iterar todos las resenias de ese doctor y creo el promedio y lo agrego como atributo del doctor q estoy iterando
-          //finaliza la iteracion
+  // //   console.log(promedioClinica)
+  //   //promedio de la clinica
 
+  //   for(let i = 0; i < doctores.length ; i++){
+  //       let cont = 0;
+  //       let promedio = 0;
+  //     for(let j = 0; j < reseniaByID.length ; j++){
+  //       if(doctores[i].id === reseniaByID[j].id){
+  //         cont++;
+  //         promedio = ((promedio) + (parseInt(reseniaByID[j]?.calificacionDoctor)) )
+  //         setPromedioDoctor(promedio)
+  //         //set promedio doctor con la suma de las resenias del doctgor
+  //       }
+  //     }
 
-    if(loggeado){
-        return(
-            
-            <div >
-                <div className="contenedor_adminClinica">
-                        <NavClinica/>
-                        <h2>Estadisticas de {cookies.get('clinica_nombre')}</h2>
-                        <div>
-                        <div className="container_table_verDoc">
-                        <div className="grid_doctor_table">
-                            <span>
-                                <strong>Doctor</strong>
-                            </span>
-                            <span>
-                                <strong>Especialidad</strong>
-                            </span>
-                            <span>
-                                <strong>Calificacion</strong>
-                            </span>                        
-                        </div>
-                        {doctores && doctores?.map(d=>(
+  //     console.log(promedioDoctor)
+
+  //     setPromedioDoctor((promedioDoctor)/(cont))
+  //     //calcular el promedio del doctor y setearlo
+
+  //     console.log(promedioDoctor)
+
+  //     doctores[i].promedio = `${promedioDoctor}`
+  //     // agregar el valor del promedio al atributo promedio del doctor
+  // }
+
+  if (loggeado) {
+    return (
+      <div>
+        <div className="contenedor_adminClinica">
+          <NavClinica />
+          <h2>Estadisticas de {cookies.get("clinica_nombre")}</h2>
+          <div>
+            <div className="container_table_verDoc">
+              <div className="grid_doctor_table">
+                <span>
+                  <strong>Doctor</strong>
+                </span>
+                <span>
+                  <strong>Especialidad</strong>
+                </span>
+                <span>
+                  <strong>Calificacion</strong>
+                </span>
+              </div>
+              {/* {doctores && doctores?.map(d=>(
                             <div key={d.id} className="grid_doctor_table">
                                 <span className="tesx_nombre">{d.nombre}</span>
                                 <span> {d.especialidad?.map(esp=>{
@@ -129,28 +131,20 @@ export default function AddDoctor(){
                                 })}</span>
                                 <span className="tesx_nombre">{d.promedio}</span>
                             </div>
-                        ))}
-                    </div> 
-                        </div>
-                        <div>
-                            calificacion de la clinica
-                        </div>
-                        <div>
-                          {promedioClinica}
-                        </div>
-                        <div>
-                            Turnos totales
-                        </div>
-                        <div>
-                          {turnosTotales}
-                        </div>
-                </div>
-                <Footer />
-    
+                        ))} */}
             </div>
-        )
-    }else{
-        cookies.get('clinica_codigo')?window.location.href='/loginClinica' :window.location.href='/adminClinica';
-    }
-
+          </div>
+          <div>calificacion de la clinica</div>
+          <div>{promedioClinica}</div>
+          <div>Turnos totales</div>
+          <div>{turnosTotales}</div>
+        </div>
+        <Footer />
+      </div>
+    );
+  } else {
+    cookies.get("clinica_codigo")
+      ? (window.location.href = "/loginClinica")
+      : (window.location.href = "/adminClinica");
+  }
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Cookies from "universal-cookie";
-import NavLanding from "../../components/NavLanding/NavLanding";
+import Navbar from "../../components/NavBar/NavBar";
 import Footer from "../Home/Footer";
 import swal from 'sweetalert'
 import { Link } from "react-router-dom";
@@ -36,7 +36,6 @@ export default function TurnoMe() {
   const horariosDispoDoc = useSelector((state) => state.horarioDisponibleParaTurno)
   const dbUserDni = cookies.get("dni")
   const [turnoTotal, setTurnoTotal] = useState([]) 
-  // const [turnosPasados, setPasados] = useState([])
   const [diag, setDiag] = useState("");
   const [idTurno, setidTurno] = useState("");
   const [updateDate, setupdateDate] = useState({ fecha: "", hora: "", idTurno: "" })
@@ -70,13 +69,13 @@ const [errors, setErrors] = useState({});
     else if (isAuthenticated || user || isLoading) {
       dispatch(getClienteByEmail(user?.email)).then((data) => data?.payload?.dni)
           .then((data)=> dispatch(getTurnosByDni(data)))
+          .then(data =>setTurnoTotal(data?.payload) )
       }
       dispatch(getAllDoctores())
       dispatch(getResenia())
       dispatch(getDiagnostico())
 
   }, []);
-// console.log(turnosPendientes);
 
   useEffect(() => {
     if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
@@ -139,7 +138,7 @@ const [errors, setErrors] = useState({});
     yearTurno = data[3];
     setfinalDate(diaTurno + '-' + mesTurno + '-' + yearTurno)
   }
-
+  console.log(turnoTotal);
   useEffect(() => {
     if (finalDate !== undefined) {
         const fdD = finalDate[0] + finalDate[1]
@@ -175,36 +174,7 @@ const [ascendente,setAscendente] = useState(false)
     }else{
       setAscendente(false)
     }
-    // if(e.target.value === 'desc'){
-    //   // setPasados( turnosPasados.sort((function(a, b) {
-    //   //     if (a.fecha < b.fecha) return 1;
-    //   //     if (a.fecha > b.fecha) return -1;
-    //   //     return (a.hora < b.hora)?  -1:1;
-    //   // })))
-    //   let spendientes =turnosPendientes.sort((function(a, b) {
-    //       if (a.fecha < b.fecha) return 1;
-    //       if (a.fecha > b.fecha) return -1;
-    //       return (a.hora < b.hora)?  -1:1;}))
-    //       console.log('spendientesx: ', spendientes)
-    //   setPendientes(spendientes)
-    // }else{
-    //   // setPasados(turnosPasados.sort((function(a, b) {
-        
-    //   //   if (a.fecha < b.fecha) return 1;
-    //   //   if (a.fecha > b.fecha) return -1;
-    //   //   return (a.hora < b.hora)?  -1:1;
-    //   // })))
-    //   let spendientes =turnosPendientes.sort((function(a, b) {
-    //     if (a.fecha < b.fecha) return 1;
-    //     if (a.fecha > b.fecha) return -1;
-    //     return (a.hora < b.hora)?  -1:1;}))
-    //     setPendientes(spendientes)
-    //     console.log('spendientesx: ', spendientes)
-    // }
-    // console.log('turnos Pasados',turnosPasados);
-    // console.log('turnos Pendientes',turnosPendientes);
-
-  }   //??????
+  }
 
   function handleFilterSelect(e){
     e.preventDefault()
@@ -220,9 +190,9 @@ const [ascendente,setAscendente] = useState(false)
 
   function validate() {
     let errors = {};
-    if (!input.comentario || input.comentario === "" || input.comentario.length < 200) {
-      errors.comentario = 'Comentario requerido, maximo 200 caracteres';
-    }
+    // if (!input.comentario || input.comentario === "" || input.comentario.length < 200) {
+    //   errors.comentario = 'Comentario requerido, maximo 200 caracteres';
+    // }
     if (!input.calificacionDoctor || input.calificacionDoctor === "") {
       errors.calificacionDoctor = 'Calificacion requerida';
     }
@@ -310,32 +280,12 @@ const [ascendente,setAscendente] = useState(false)
     }));
     dispatch(addResenia(input))
   }
-
-  // for (let i = 0; i < turnos.length; i++) {
-  //   if (turnos[i].status === "concretado") {
-  //     turnosPasados.push(turnos[i])
-  //   } else if (turnos[i].status === "pendiente") {
-  //     turnosPendientes.push(turnos[i])
-  //   }
-  // }
-
-
-  // turnosPasados.push({
-  //   "id": "4cbc80d5-fd2b-49fb-bdd4-4caf830d058e",
-  //   "fecha": "15-2-2022",
-  //   "hora": 10,
-  //   "idClinica": "deaae5fc-b0fd-4d25-925e-8f9661f9f5f4",
-  //   "dniCliente": "39482681",
-  //   "idDoctor": "611d8854-5a63-4e12-8c83-3783c1a38333",
-  //   "idEspecialidad": 1,
-  //   "status": "concretado",
-  // })  
-
   
 
   return (
     <div className="elContenedor">
-      <NavLanding />
+      <Navbar loggin={true} />
+      <div style={{"margin-top":"10pc"}}></div>
       <Link class="btn btn-primary" to="/me">
         Volver a mi perfil
       </Link>
@@ -823,7 +773,7 @@ const [ascendente,setAscendente] = useState(false)
 
         <div class="col-6 mt-3">
           {turnoTotal?.map((turno) => {
-            if(turno.status !=='concretado'){
+            if(turno.status){
 
             
             return <div class="bigContainer">

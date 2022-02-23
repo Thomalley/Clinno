@@ -18,6 +18,8 @@ export default function HistorialTurnosDoc(){
 
     const [turn,setTurn] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [datejs, setdatejs] = useState(new Date())
+
     // const turnosFilter = useSelector((state)=> state.turnos);
     const turnos = useSelector((state)=> state.turnos);
     const especialidades = useSelector((state)=> state.especialidades);
@@ -54,8 +56,8 @@ export default function HistorialTurnosDoc(){
     },[turnos])
     
     
-    const date = new Date();
-    const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    // const date = new Date();    
+    const jsFinalDate = `${datejs.getDate()}-${datejs.getMonth() + 1}-${datejs.getFullYear()}`;
   
     const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
     const [input,setInput] = useState(initialInputState);
@@ -63,7 +65,29 @@ export default function HistorialTurnosDoc(){
         status: "cancelado",
         idTurno:""
     })    
-
+    
+    function esFecha(finalDate){
+        if (finalDate !== undefined) {
+            const fdD = finalDate[0] + finalDate[1]
+            const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+            const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+            const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+            const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+            const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+            if (fdA < jsfdA) {//2021 2022
+                return true
+            }
+            if (fdM < jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
+                return true
+            }
+            if ( fdD < jsfdD && fdM === jsfdM && fdA === jsfdA) {//21-01-2022 > 18-02-2022
+                return true
+            }
+            return false
+        }else{
+            return false
+        }
+    }
     
     
     function selectID(id){
@@ -161,9 +185,10 @@ export default function HistorialTurnosDoc(){
                         return (a.hora < b.hora)?  -1:1;
 
                     }).map(t=>{
-                        if(finalDate<t.fecha){
-                            console.log(t.fecha.split('-'))
-                            console.log(finalDate)
+                        // if(finalDate<t.fecha){ 25-03-2022
+                        //finalDate 23-02-2022
+                        if(esFecha(t.fecha)){
+
                             return (
                             <div className="grid_turno_table diferente text-white"  key={t.id}>
                                 <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
