@@ -161,7 +161,9 @@ export default function HistorialTurnosDoc(){
                         return (a.hora < b.hora)?  -1:1;
 
                     }).map(t=>{
-                        if(finalDate>t.fecha){
+                        if(finalDate<t.fecha){
+                            console.log(t.fecha.split('-'))
+                            console.log(finalDate)
                             return (
                             <div className="grid_turno_table diferente text-white"  key={t.id}>
                                 <span className="spanes">{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>

@@ -22,11 +22,11 @@ function MercadoPago() {
     dispatch(getMensualidad(id)).then((data) => setMensualidad(data?.payload))
   }, [])
 
-console.log(mensualidad)
+
   const [datos, setDatos] = useState("")
   useEffect(()=>{
     if(mensualidad?.orderId !== undefined){
-      console.log(mensualidad)
+  
     axios
     .get(`/mercadopago/${mensualidad?.orderId}/${mensualidad?.unit_price}`)
     .then((data)=>{

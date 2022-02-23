@@ -32,9 +32,9 @@ router.get("/:orderId/:unit_price", (req, res) => {
       installments: 3, //Cantidad máximo de cuotas
     },
     back_urls: {
-      success: "http://localhost:3001/mercadopago/pagos",
-      failure: "http://localhost:3001/mercadopago/pagos",
-      pending: "http://localhost:3001/mercadopago/pagos",
+      success: "/mercadopago/pagos",
+      failure: "/mercadopago/pagos",
+      pending: "/mercadopago/pagos",
     },
   };
 
@@ -62,7 +62,6 @@ router.get("/pagos", async (req, res) => {
       orderId:external_reference
     }
   })
-  console.log(mensuAbonada)
   //Aquí edito el status de mi orden
   Order.findByPk(external_reference)
     .then((order) => {
@@ -76,19 +75,19 @@ router.get("/pagos", async (req, res) => {
           console.info("redirect success");
           mensuAbonada.update({abonado: true});
           mensuAbonada.save();
-          return res.redirect("http://localhost:3000/adminclinica");
+          return res.redirect("/adminclinica");
         })
         .catch((err) => {
           console.error("error al salvar", err);
           return res.redirect(
-            `http://localhost:3000/adminclinica`
+            `/adminclinica`
           );
         });
     })
     .catch((err) => {
       console.error("error al buscar", err);
       return res.redirect(
-        `http://localhost:3000/adminclinica`
+        `/adminclinica`
       );
     });
 
