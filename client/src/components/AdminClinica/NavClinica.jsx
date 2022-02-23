@@ -15,36 +15,44 @@ export default function LoginClinica() {
   const id = cookies.get("clinica_id");
 
   //   console.log(mensu);
-  const [mensu, setMensu] = useState({});
-  useEffect(() => {
-    dispatch(getMensualidad(id)).then((data) => setMensu(data?.payload));
-  }, []);
-  console.log(mensu)
-  useEffect(() => {
-    if(Object.keys(mensu).length > 0){
-        swal({
-            title: "Pago pendiente!",
-            text: "Por favor realice a la brevedad el pago de la mensualidad",
-            icon: "warning",
-            buttons: {
-                text: "Abonar ahora",
-                value: "Abonar en otro momento"
-            }
-        })
-            .then((value) => {
-                switch (value) {
-                    case "text":
-                        swal("Aguarde un momento","en instantes seras redirigido");
-                        setTimeout(() => window.location.href = '/adminClinica/cobro', 2000)
-                        break
-                    case "value":
-                        swal("No seas rata", "🐭", "warning");
-                        break
-                    default: return
-                }
-            })
-        }
-  }, [mensu])
+  // const [mensu, setMensu] = useState({});
+  // useEffect(() => {
+  //   dispatch(getMensualidad(id)).then((data) => setMensu(data?.payload));
+  // }, []);
+  // console.log(mensu)
+  
+  // useEffect(() => {
+  //   if(Object.keys(mensu).length > 0){
+  //       if (document.getElementById("abonarSiDebe43079")) {
+  //         document.getElementById("abonarSiDebe43079").className = "ClientNoAbonado7845"
+  //       }
+  //       swal({
+  //           title: "Pago pendiente!",
+  //           text: "Por favor realice a la brevedad el pago de la mensualidad",
+  //           icon: "warning",
+  //           buttons: {
+  //             value: "Abonar en otro momento",
+  //               text: "Abonar ahora"
+  //           }
+  //       })
+  //           .then((value) => {
+  //               switch (value) {
+  //                   case "text":
+  //                       swal("Aguarde un momento","en instantes seras redirigido");
+  //                       setTimeout(() => window.location.href = '/adminClinica/cobro', 2000)
+  //                       break
+  //                   case "value":
+  //                       swal("No seas rata", "🐭", "warning");
+  //                       break
+  //                   default: return
+  //               }
+  //           })
+  //       }else{
+  //         if (document.getElementById("abonarSiDebe43079")){
+  //           document.getElementById("abonarSiDebe43079").className = "ClientYaAbonado7845"
+  //         }
+  //       }
+  // }, [mensu])
   // const dispatch = useDispatch();
 
   // function new_turno() {
@@ -78,10 +86,7 @@ export default function LoginClinica() {
   //             }
   //         });
   // }
-
-  const cerrarSesion = () => {
-    const cookies = new Cookies();
-
+  const removedor  = async() =>{
     cookies.remove("clinica_mail");
     cookies.remove("clinica_nombre");
     cookies.remove("clinica_telefono");
@@ -96,7 +101,12 @@ export default function LoginClinica() {
     cookies.remove("doctor_id");
     cookies.remove("doctor_codigo");
     cookies.remove("doctor_especialidades");
-    console.log(cookies.get("doctor_id"));
+    setTimeout(() =>console.log(cookies.get("doctor_id")) , 1000);
+    
+  }
+  const cerrarSesion = async () => {
+
+    await removedor()
     swal(
       "Has cerrado la sesion con explito!!",
       "En instantes seras redirigido a Inicio",
@@ -247,14 +257,14 @@ export default function LoginClinica() {
             ) : (
               false
             )} */}
-            <li>
+            {/* <li id="abonarSiDebe43079" className="undefined_877">
               <Link
                 to="/adminClinica/cobro"
                 className="nav-link text-white boton_nav_clinica"
               >
                 Abonar mensualidad en Clinno
               </Link>
-            </li>
+            </li> */}
           </ul>
         )}
 

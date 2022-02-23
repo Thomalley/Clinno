@@ -962,3 +962,39 @@ export function getClientById(id){
     }
 }
 
+//adminUser  /2UpZaxFqVvbrwet6M1kXaSunGenIRsPE
+export function adminUser() {
+    return async function (dispatch) {
+        try {
+            const json = await axios.post(`/2UpZaxFqVvbrwet6M1kXaSunGenIRsPE`);
+            return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+}
+
+export function habilitacionCodigoMail(payload) {
+    return async function (dispatch) {
+        console.log(payload, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+        try {
+            console.log(payload);
+            const json = await axios.post(`/2UpZaxFqVvbrwet6M1kXaSunGenIRsP/mail-habilitar`, payload);
+            return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+}
+//hola
+export function AltaClinica(payload) {
+    return async function (dispatch) {
+        try {
+            console.log(payload);
+            const json = await axios.post(`/2UpZaxFqVvbrwet6M1kXaSunGenIRsP/alta-mail`, payload);
+            return dispatch({ type: "RESET_PASSWORD", payload: json.data });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+}

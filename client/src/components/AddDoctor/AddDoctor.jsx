@@ -6,11 +6,6 @@ import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 import {get_clinica,getEspecialidad,addDoctor,getAllDoctores} from '../../actions';
-
-
-// import logo from '../../components/utils/images-landing/logo.png'
-
-
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import "./AddDoctorStyle.css";
@@ -203,30 +198,44 @@ export default function AddDoctor(){
                                     }
                                 </div>
                                 {input.errors.especialidad? <p className='errors_add'>{input.errors.especialidad}</p>:<p className='errors_add'> </p>}
-                                <input 
-                                    type='text'
-                                    placeholder="Nombre Doctor"
-                                    value={input.nombre}
-                                    name='nombre'
-                                    onChange={(e)=>handleChange(e)}
-                                />
-                                {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>}
-                                <input 
-                                    type='text'
-                                    placeholder="DNI Doctor"
-                                    value={input.dni}
-                                    name='dni'
-                                    onChange={(e)=>handleChange(e)}
-                                />
-                                {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>}
-                                <input 
-                                    type='text'
-                                    placeholder="Email Doctor"
-                                    value={input.email}
-                                    name='email'
-                                    onChange={(e)=>handleChange(e)}
-                                />
-                                {input.errors.email? <p className='errors_add'>{input.errors.email}</p>:<p className='errors_add'> </p>}
+                                <div>
+                                    <p>Ingrese un nombre</p>
+                                    <p> (Primera Letra Mayuscula)</p>
+                                    <input 
+                                        type='text'
+                                        placeholder="Nombre Doctor"
+                                        value={input.nombre}
+                                        name='nombre'
+                                        onChange={(e)=>handleChange(e)}
+                                    />
+                                    {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>}
+                                </div>
+                                
+                                <div>
+                                    <p>Ingrese El DNI del doctor</p>
+                                    <input 
+                                        type='number'
+                                        placeholder="DNI Doctor"
+                                        value={input.dni}
+                                        name='dni'
+                                        onChange={(e)=>handleChange(e)}
+                                    />
+                                    {input.errors.dni? <p className='errors_add'>{input.errors.dni}</p>:<p className='errors_add'> </p>}
+                                </div>
+
+                                <div>
+                                    <p>Ingrese Email del doctor</p>
+                                    <p> (No debe estar registrado en Clinno como doctor)</p>
+                                    <input 
+                                        type='text'
+                                        placeholder="Email Doctor"
+                                        value={input.email}
+                                        name='email'
+                                        onChange={(e)=>handleChange(e)}
+                                    />
+                                    {input.errors.email? <p className='errors_add'>{input.errors.email}</p>:<p className='errors_add'> </p>}
+                                </div>
+
                                 <div className="row">
                                     <div className="col-12 ">
                                         <button type="submit" className="btn btn-primary " >Continuar</button>

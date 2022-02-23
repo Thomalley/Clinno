@@ -34,7 +34,7 @@ export default function Turno() {
   const cookies = new Cookies();
   const [loggeado, setLoggeado] = useState();
   var userLog = cookies.get("email") ? cookies.get("email") : isAuthenticated;
-  const idUser = cookies.get("dni") ? cookies.get("dni") : 0;
+  const idUser = cookies.get("dni");
   const [idValue, setidValue] = useState({
     idEspecialidad: "",
     idClinica: "",
@@ -42,7 +42,7 @@ export default function Turno() {
     idDoctor: "",
     fecha: "",
     hora: "",
-    dniCliente: idUser,
+    dniCliente: "",
   });
   const [date, setDate] = useState(new Date());
   const [jsdate, setjsDate] = useState(new Date());
@@ -108,16 +108,22 @@ export default function Turno() {
     setfinalDate(diaTurno + "-" + mesTurno + "-" + yearTurno);
   }
 
-//   let dispoHorarios = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-//     if (10 >= dispoHorarios[0] && 10 < 20) {
-//       for (let i = 0; 10 >= dispoHorarios[i]; i++) {
-//         dispoHorarios.shift();
-//       }
-//     }
-//     console.log(dispoHorarios);
-
-  const [actDay, setactDay] = useState()
-  const [userDay, setuseractDay] = useState()
+  var [hdD, sethdD] = useState();
+  useEffect(() => {
+    if (idValue?.fecha?.length > 0) {
+      if (idValue?.fecha.toString() === jsFinalDate?.toString()) {
+        let horaActual = jsdate?.getHours().toString();
+        let newArray = [];
+        for (let i = 0; i < horariosDispoDoc?.length; i++) {
+          if (horaActual < horariosDispoDoc[i]) {
+            newArray.push(horariosDispoDoc[i]);
+          }
+        }
+        return sethdD(newArray);
+      }
+      return sethdD(horariosDispoDoc);
+    }
+  }, [idValue.fecha]);
 
   useEffect(() => {
     if (finalDate !== undefined) {
@@ -128,7 +134,6 @@ export default function Turno() {
         finalDate[finalDate.length - 3] +
         finalDate[finalDate.length - 2] +
         finalDate[finalDate.length - 1];
-        setuseractDay(fdD + "/" + fdM)
       const jsfdD = jsFinalDate[0] + jsFinalDate[1];
       const jsfdM =
         jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "");
@@ -137,10 +142,6 @@ export default function Turno() {
         jsFinalDate[jsFinalDate.length - 3] +
         jsFinalDate[jsFinalDate.length - 2] +
         jsFinalDate[jsFinalDate.length - 1];
-        setactDay(fdD + "/" + fdM)
-
-
-      // console.log("dia elegido", fdD, fdM, fdA);
 
       if (fdA < jsfdA) {
         return swal(
@@ -178,7 +179,7 @@ export default function Turno() {
       }
     }
   }, [finalDate]);
-
+  
   useEffect(() => {
     if (userLog.length > 1 || isAuthenticated || user) {
       setLoggeado(true);
@@ -189,11 +190,14 @@ export default function Turno() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated || isLoading || user)
-      dispatch(getClienteByEmail(user?.email))
-        .then((data) => data?.payload?.dni)
-        .then((data) => setdniGoogle(data));
-  }, []);
+    if (isAuthenticated || user)
+      return dispatch(getClienteByEmail(user?.email)).then((data) =>
+        setidValue({ ...idValue, dniCliente: data?.payload?.dni })
+      );
+    else {
+      setidValue({ ...idValue, dniCliente: idUser });
+    }
+  }, [idValue.hora]);
 
   useEffect(() => {
     if (idValue.fecha) {
@@ -283,9 +287,6 @@ export default function Turno() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (isAuthenticated || user) {
-      setidValue({ ...idValue, dniCliente: dniGoogle });
-    }
     if (loggeado === false) {
       setErrors({ ...errors, login: false });
       return swal(
@@ -301,13 +302,13 @@ export default function Turno() {
         text: `Su turno se agendo correctamente para el dia ${idValue.fecha}, a las ${idValue.hora}Hs `,
         icon: "success",
         buttons: {
-          text: "Ver mis turnos",
+          text: "Ir a mi perfil",
           value: "Volver a inicio",
         },
       }).then((value) => {
         switch (value) {
           case "text":
-            swal("En instantes seras redirigido a Mis turnos..", {});
+            swal("En instantes seras redirigido a tu perfil..", {});
             setTimeout(() => (window.location.href = "/me"), 2000);
             break;
           case "value":
@@ -338,20 +339,6 @@ export default function Turno() {
       setSubmit({ canSubmit: false });
     } else setSubmit({ canSubmit: true });
   }
-
-  let horariosDisponibles = []
-  function disponibles (){
-      const horaActual = jsdate.getHours()
-      if (actDay === userDay && userDay){
-          for (let i = 0 ; i < horariosDispoDoc.length ; i++){
-              if (horaActual < horariosDispoDoc[i]) {
-                  horariosDisponibles.push(horariosDispoDoc[i])
-                }
-                return horariosDisponibles
-            }
-        }
-    return horariosDispoDoc
-}
 
   return (
     <div className=".container">
@@ -395,9 +382,9 @@ export default function Turno() {
                     <p
                       style={{
                         "margin-right": "5px",
-                        "color": "#01aac1",
+                        color: "#01aac1",
                         "background-color": "white",
-                        "width": "2pc",
+                        width: "2pc",
                         "border-radius": "2pc",
                         "border-color": "#01aac1",
                         "border-top": "dashed",
@@ -436,9 +423,9 @@ export default function Turno() {
                       <p
                         style={{
                           "margin-right": "5px",
-                          "color": "#01aac1",
+                          color: "#01aac1",
                           "background-color": "white",
-                          "width": "2pc",
+                          width: "2pc",
                           "border-radius": "2pc",
                           "border-color": "#01aac1",
                           "border-top": "dashed",
@@ -484,9 +471,9 @@ export default function Turno() {
                       <p
                         style={{
                           "margin-right": "5px",
-                          "color": "#01aac1",
+                          color: "#01aac1",
                           "background-color": "white",
-                          "width": "2pc",
+                          width: "2pc",
                           "border-radius": "2pc",
                           "border-color": "#01aac1",
                           "border-top": "dashed",
@@ -530,9 +517,9 @@ export default function Turno() {
                       <p
                         style={{
                           "margin-right": "5px",
-                          "color": "#01aac1",
+                          color: "#01aac1",
                           "background-color": "white",
-                          "width": "2pc",
+                          width: "2pc",
                           "border-radius": "2pc",
                           "border-color": "#01aac1",
                           "border-top": "dashed",
@@ -578,9 +565,9 @@ export default function Turno() {
                       <p
                         style={{
                           "margin-right": "5px",
-                          "color": "#01aac1",
+                          color: "#01aac1",
                           "background-color": "white",
-                          "width": "2pc",
+                          width: "2pc",
                           "border-radius": "2pc",
                           "border-color": "#01aac1",
                           "border-top": "dashed",
@@ -623,9 +610,9 @@ export default function Turno() {
                       <p
                         style={{
                           "margin-right": "5px",
-                          "color": "#01aac1",
+                          color: "#01aac1",
                           "background-color": "white",
-                          "width": "2pc",
+                          width: "2pc",
                           "border-radius": "2pc",
                           "border-color": "#01aac1",
                           "border-top": "dashed",
@@ -683,9 +670,9 @@ export default function Turno() {
                     <p
                       style={{
                         "margin-right": "5px",
-                        "color": "#01aac1",
+                        color: "#01aac1",
                         "background-color": "white",
-                        "width": "2pc",
+                        width: "2pc",
                         "border-radius": "2pc",
                         "border-color": "#01aac1",
                         "border-top": "dashed",
@@ -708,10 +695,14 @@ export default function Turno() {
                         disabled
                         selected
                       >{`Horarios disponibles ${idValue?.fecha}`}</option>
-                      {horariosDispoDoc &&
-                        horariosDispoDoc.map((e) => (
-                          <option value={e}>{e}</option>
-                        ))}
+                      {
+                        hdD?.length > 0 ?
+
+                        hdD?.map((e) => <option value={e}>{e}</option>)
+
+                        :
+                     horariosDispoDoc?.map((e) => (<option value={e}>{e}</option>))
+                      }
                     </select>
                   </div>
                 </div>

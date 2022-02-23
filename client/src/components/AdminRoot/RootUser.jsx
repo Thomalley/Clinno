@@ -11,6 +11,9 @@ import {
   getMercadoPago,
   postMensualidad,
   getMensualidades,
+  adminUser,
+  habilitacionCodigoMail,
+  AltaClinica
 } from "../../actions";
 import swal from "sweetalert";
 import MercadoPago from "../AdminClinica/Cobro/Mercadopago";
@@ -43,6 +46,7 @@ export default function RootUser() {
 
   useEffect(() => {
     dispatch(getMensualidades());
+    dispatch(adminUser());
   }, []);
 
   // console.log(mensualidades)
@@ -96,41 +100,58 @@ export default function RootUser() {
     dispatch(admin_user_validate(input));
     setTimeout(() => logreq(), 1000);
   }
-
+  console.log(mensualidades)
   function handleSubir(e) {
     e.preventDefault();
     if (datosMp.title !== "" && datosMp.clinicaId !== "") {
       if (mensualidades?.length !== 0) {
-        console.log(datosMp);
-        mensualidades?.find((m) => m?.clinicaId === datosMp?.clinicaId)
-          ? console.log("ya existe una orden de cobro para esta clinica")
-          : dispatch(postMensualidad(datosMp));
+        if(mensualidades?.find((m) => m?.clinicaId === datosMp?.clinicaId)){
+           swal("No se puede Cobrar a la clinica", "Ya existe una orden de cobro para esta clinica", "warning")
+
+        }else{
+          dispatch(postMensualidad(datosMp)); 
+          swal(
+            "Has creado la orden de cobro con Exito!!",
+            "Se creo la orden de cobro correctamente",
+            "success"
+          );
+        }
       } else {
-        console.log("entre a al else", datosMp);
         dispatch(postMensualidad(datosMp));
+        swal(
+          "Has creado la orden de cobro con Exitos!!",
+          "Se creo la orden de cobro correctamente",
+          "success"
+        );
       }
     }
   }
 
   function handleHabilitar(e) {
-    dispatch(validate_clinica(e));
+    //armar action para hacer un dispatch de funcion mail
+    //dispach de action con la info necesaria para el mail
+    //mandar por body codigo de acceso y nombre
+    dispatch(validate_clinica(e.id));
     setLoggeado(true);
     dispatch(getClinicas());
-    swal("Success", "Clinic was successfully habilited", "success");
-    setTimeout(
-      () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
+    console.log(e)
+    dispatch(habilitacionCodigoMail(e));
+     swal("Success", "Clinic was successfully habilited", "success");
+     setTimeout(
+       () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
       2000
-    );
+     );
   }
   function handleSubida(e) {
-    dispatch(darSubida_clinica(e));
+    dispatch(darSubida_clinica(e.id));
     setLoggeado(true);
     dispatch(getClinicas());
-    swal("Success", "Clinic was successfully habilited", "success");
-    setTimeout(
-      () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
-      2000
-    );
+    dispatch(AltaClinica(e))
+     swal("Success", "Clinic was successfully habilited", "success");
+     setTimeout(
+       () => (window.location.href = "./m9gap4npJJFlorV7uuej2bVfsL7b8N"),
+       2000
+     );
   }
   function handleBaja(e) {
     dispatch(darBaja_clinica(e));
@@ -164,6 +185,7 @@ export default function RootUser() {
       unit_price: e.target.value,
     });
   }
+
   const cobrar = async (id) => {
     setDatosMp({ ...datosMp, clinicaId: id });
     await dispatch(postOrder(id)).then((data) =>
@@ -227,7 +249,7 @@ export default function RootUser() {
                 {!c.hablitada ? (
                   <button
                     onClick={() => {
-                      handleHabilitar(c.id);
+                      handleHabilitar(c);
                     }}
                     className="btn btn-primary"
                   >
@@ -309,7 +331,7 @@ export default function RootUser() {
                 ) : (
                   <button
                     onClick={() => {
-                      handleSubida(c.id);
+                      handleSubida(c);
                     }}
                     className="btn btn-warning"
                   >
