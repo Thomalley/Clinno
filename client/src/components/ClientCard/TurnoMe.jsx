@@ -60,6 +60,7 @@ export default function TurnoMe() {
     reviewed:true,
     idTurno:""
 })
+const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (dbUserDni) {
@@ -180,6 +181,25 @@ export default function TurnoMe() {
     })
   }
 
+
+  function validate() {
+    let errors = {};
+    if (!input.comentario || input.comentario === "" || input.comentario.length < 200) {
+      errors.comentario = 'Comentario requerido, maximo 200 caracteres';
+    }
+    if (!input.calificacionDoctor || input.calificacionDoctor === "") {
+      errors.calificacionDoctor = 'Calificacion requerida';
+    }
+    if (!input.calificacionClinica || input.calificacionClinica === "") {
+      errors.calificacionClinica = 'Calificacion requerida';
+    }
+    if (!input.calificacionClinno || input.calificacionClinno === "") {
+      errors.calificacionClinno = 'Calificacion requerida';
+    }
+    
+    return errors;
+  }
+
   const handleCancelar = (e) => {
     e.preventDefault()
     setidTurno(e.target.value)
@@ -213,6 +233,10 @@ export default function TurnoMe() {
   }
 
   function handleChange(e){
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }));
     setInput({
         ...input,
         [e.target.name]: e.target.value
@@ -244,6 +268,10 @@ export default function TurnoMe() {
     
   function handleSubmit(e){
     e.preventDefault()
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }));
     console.log(input)
     dispatch(addResenia(input))
   }
@@ -256,6 +284,7 @@ export default function TurnoMe() {
     }
   }
 
+
   // turnosPasados.push({
   //   "id": "4cbc80d5-fd2b-49fb-bdd4-4caf830d058e",
   //   "fecha": "15-2-2022",
@@ -266,6 +295,7 @@ export default function TurnoMe() {
   //   "idEspecialidad": 1,
   //   "status": "concretado",
   // })  
+
   
 console.log(diagnosticos)
 
@@ -407,11 +437,18 @@ console.log(diagnosticos)
                                 >
                                   Su Comentario:
                                 </label>
-                                <input onChange={(e) => handleChange(e)} value={input.comentario} name="comentario"
+                                <textarea onChange={(e) => handleChange(e)} value={input.comentario} name="comentario"
                                   class="form-control"
                                   id="message-text"
-                                ></input>
+                                ></textarea>
                               </div>
+                              {
+                                  errors.comentario && (
+                                  <p id="error_en_reg" className='errorNotWrtd'>
+                                  {errors.comentario}
+                                  </p>
+                                  )
+                                }
                               <div class="mb-3">
                                 <label
                                   for="message-text"
@@ -425,6 +462,13 @@ console.log(diagnosticos)
                                }
                                 </select>
                                 </div>
+                                {
+                                  errors.calificacionDoctor && (
+                                  <p id="error_en_reg" className='errorNotWrtd'>
+                                  {errors.calificacionDoctor}
+                                  </p>
+                                  )
+                                }
                                 <div class="mb-3">
                                 <label
                                   for="message-text"
@@ -438,6 +482,13 @@ console.log(diagnosticos)
                                }
                                 </select>
                                 </div>
+                                {
+                                  errors.calificacionClinica && (
+                                  <p id="error_en_reg" className='errorNotWrtd'>
+                                  {errors.calificacionClinica}
+                                  </p>
+                                  )
+                                }
                                 <div class="mb-3">
                                 <label
                                   for="message-text"
@@ -451,6 +502,13 @@ console.log(diagnosticos)
                                }
                                 </select>
                               </div>
+                              {
+                                  errors.calificacionClinno && (
+                                  <p id="error_en_reg" className='errorNotWrtd'>
+                                  {errors.calificacionClinno}
+                                  </p>
+                                  )
+                                }
                           <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" value={turno.id} onClick={(e) => handleClick(e)}>
                               Guardar Reseña
