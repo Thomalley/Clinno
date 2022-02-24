@@ -1,0 +1,30 @@
+.general_ROOT{
+    margin-top: 15pc;
+}
+
+.inptsroot{
+    width: 183px;
+    background-color: #141414;
+    border-color: black;
+}
+
+.bgroot{
+    background-color: black;
+    height: 62pc;
+}
+
+/* .card{ */
+    /* background-color: #282828;
+    color: white;
+    border-bottom-left-radius: 33px;
+    border-bottom-right-radius: 33px;
+    margin-bottom: 2pc; */
+/* } */
+
+.header_root_us{
+    height: 5pc;
+    color: white;
+    background-color: #202020;
+    border-bottom-style: outset;
+    border-bottom-color: crimson;
+}

@@ -65,3 +65,12 @@
     font-size: 50px;
     margin: 0px;
 }
+
+
+.h2_pago_clinca_3{
+    background-color: #021ec1;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    padding: 10px;
+    margin-bottom: 2pc;
+}

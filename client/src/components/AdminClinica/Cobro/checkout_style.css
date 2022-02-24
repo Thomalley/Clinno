@@ -1,7 +1,7 @@
 .contenedor_resumen{
     background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-nunny-246-g.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=d8ee441f91c4ca8ae879bce41e9c1a28);
     background-attachment: fixed;
-    height: 490px;
+    height: 382px;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
 }
@@ -47,4 +47,13 @@
 
 .buttons_MP_ord{
     margin-top: 90px;
+}
+
+.bckmp{
+    background-color: white;
+    height: 11pc;
+}
+
+.inside_mp{
+
 }

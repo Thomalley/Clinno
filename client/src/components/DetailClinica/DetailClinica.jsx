@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import logo from "../utils/images-landing/logo.png";
-import {getClinicaId} from '../../actions/index'
 
+import {getClinicaId} from '../../actions/index'
+import logo from '../utils/images-landing/usuario-sin-foto.png'
 import Cookies from "universal-cookie";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -254,37 +254,35 @@ export default function DetailClinica() {
                 </p>
               </div>
               <div className="col shadow-lg p-3 mb-5  rounded nosotros_item none_item">
-                <h2>Por que elegirnos?</h2>
+                <h2>¿Por qué elegirnos?</h2>
                 <p>
                   {" "}
-                  Porque te brinda una gran cantidad de citas/turnos medicos en
-                  un solo lugar, al alcanze de un click.{" "}
+                  Nuestro interés sobre la salud del paciente es absoluta, buscamos
+                  cuidar y mejorar nuestra atencion tanto médica como administrativa.{" "}
                 </p>
               </div>
               <div className="col  shadow-lg p-3 mb-5  rounded nosotros_item">
-                <h2>Que te brindamos?</h2>
+                <h2>¿Qué te brindamos?</h2>
                 <p>
                   {" "}
                   Usted podrá acceder de manera online a sus exámenes actuales y
-                  previos, incluso desde su celular.
+                  previos, obtener citas médicas y administrar sus horarios todo desde el mismo lugar.
                 </p>
               </div>
               <div className="col  shadow-lg p-3 mb-5  rounded nosotros_item none_item">
-                <h2>y si te Registras?</h2>
+                <h2>¿Que hacer en caso de una URGENCIA?</h2>
                 <p>
                   {" "}
-                  Podras llevar toda la informacion de tus turnos,
-                  recordatorios, cancelaciones, los medicos que te atendieron e
-                  incluso sus diagnosticos.
+                  Podras llevar toda la informacion de tu historial clinico en tu bolsillo,
+                  para agilizar todo el proceso de atencion! Registrate, pedi y un turno y LISTO!.
                 </p>
               </div>
               <div className="col  shadow-lg p-3 mb-5  rounded nosotros_item none_item">
-                <h2>Como usar Clinno?</h2>
+                <h2>¿Nuestros especialistas?</h2>
                 <p>
                   {" "}
-                  Con tu usuario podras buscar la cita medica que necesites,
-                  ingresando el nombre del doctor o la especialidad que estes
-                  buscando.
+                  Contamos con un plantel de profesionales de la salud altamente capacitados, calificados para despejar
+                   todas tus dudas frente a cualquier caso presentado, no lo dudes, eleginos! {clinic.nombre}.
                 </p>
               </div>
             </div>
@@ -349,7 +347,8 @@ export default function DetailClinica() {
                         <img
                         alt="imagen"
                           className="imagen_medico"
-                          src="https://via.placeholder.com/100x100"
+                          style={{"width" : "10pc"}}
+                          src={logo}
                           alt="nf"
                         />
                       </div>

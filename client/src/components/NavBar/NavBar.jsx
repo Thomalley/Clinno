@@ -43,7 +43,7 @@ export default function NavBar({ loggin }) {
         cookies.remove('doctor_codigo');
         cookies.remove('doctor_especialidades');
 
-        swal("Has cerrado la sesion con explito!!", "En instantes seras redirigido a Inicio", "success");
+        swal("Has cerrado sesion correctamente", "En instantes seras redirigido a Inicio", "success");
         setTimeout(() => window.location.href = '/', 2000);
     }
 

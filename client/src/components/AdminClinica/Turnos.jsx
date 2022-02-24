@@ -65,7 +65,7 @@ export default function TurnosClinica({idClinica}){
             <span><strong>Especialidad</strong></span>
         </div>
         :
-        <p className='text-dark dia_concluid'>El dia a concluido</p>
+        <p className='dia_concluid'>El dia a concluido</p>
         }
         {turn &&turn?.sort(function(a, b) { 
                 if (a.fecha < b.fecha) {

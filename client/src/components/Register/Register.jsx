@@ -157,12 +157,11 @@ export default function Register() {
       [e.target.name]: e.target.value,
     });
   }
-  // useEffect(() => {
-  //   if(pass.pass1 !== "" && pass.pass2 !== ""){
-  //   if(pass.pass1 === pass.pass2){
-  //     setInput({...input, passowrd: pass.pass1})
-  //   }}
-  // }, [pass])
+  useEffect(() => {
+    if(pass.pass1 !== pass.pass2 ){
+      validate()
+    }
+  }, [pass])
   return (
     <div>
       <Navbar />

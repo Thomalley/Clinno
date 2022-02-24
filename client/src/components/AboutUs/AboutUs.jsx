@@ -60,8 +60,8 @@ export default function AboutUs() {
                     <img id='sinfoto' src={img} alt={dev.name} />
                     <br />
                     <h4>{dev.name}</h4>
-                    <Link to={dev.git}><button className='btn_git_au'>github</button></Link><br />
-                    <Link to={dev.linkedin}><button className='btn-btn-primary' >Linkedin</button></Link>
+                    <Link to={dev.git}><button id='btn_link_au' className='btn btn-dark'>github</button></Link><br />
+                    <Link to={dev.linkedin}><button id='btn_link_au' className='btn btn-primary' >Linkedin</button></Link>
                   </div>))}
               </div>
 
