@@ -47,6 +47,7 @@ export default function AdminDoctor(){
         }
     },[])
 
+    // const cliente = useSelector((state)=> state.clientes);
     useEffect(()=>{ 
         if(check){
             if(!clinica && loggeado){
@@ -113,7 +114,7 @@ export default function AdminDoctor(){
     //control se dession Clinica
     let session=false;
     if(cookies.get('clinica_id')) session = true; 
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     //control sesion Doctor
     let sessionD=false;

@@ -6,15 +6,12 @@ import Footer from "../Home/Footer";
 import swal from 'sweetalert';
 import NavClinica from '../AdminClinica/NavClinica.jsx';
 import {get_clinica,darBajaEmail,deshabilitar_clinica,validate_clinica} from '../../actions';
-
 import logo from '../../components/utils/images-landing/logo.png';
-
 import Cookies from 'universal-cookie';
 import "../AdminClinica/AdminClinicaStyle.css";
 import './ClinicaCardStyle.css'
 
 export default function ClinicaCard (){
-
     const dispatch = useDispatch();
     const cookies = new Cookies();
 
@@ -24,7 +21,7 @@ export default function ClinicaCard (){
     //control se de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('clinica_codigo')) session = true;
-    const [loggeado,setLoggeado] = useState(session);
+    const [loggeado] = useState(session);
 
     const cerrarSesion=()=>{
 
