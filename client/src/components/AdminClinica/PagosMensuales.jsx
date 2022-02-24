@@ -42,9 +42,9 @@ export default function PagosMensuales() {
               datos?.map((m) => {
                 return (
                   <div className="d-flex flex-column justify-content-center alling-items-center">
-                    <h2>{m?.title}</h2>
-                    <h2>Fecha de pago:{`${m?.createdAt?.split("-")[0]}-${m?.createdAt?.split("-")[1]}-${m?.createdAt?.split("-")[2][0]}${m?.createdAt?.split("-")[2][1]}`} </h2>
-                    <h4>Precio: {m?.unit_price}</h4>
+                    <h2>Pagos mensuales realizados</h2>
+                    <h2>Fecha de pago: {`${m?.createdAt?.split("-")[0]}-${m?.createdAt?.split("-")[1]}-${m?.createdAt?.split("-")[2][0]}${m?.createdAt?.split("-")[2][1]}`} </h2>
+                    <h4>Monto abonado: {m?.unit_price}</h4>
                     {/* <h4>fecha: {m?.fecha} </h4> */}
                   </div>
                 ); 

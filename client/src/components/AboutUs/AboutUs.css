@@ -81,3 +81,14 @@
   #images{
       height: 150px;
   }
+
+  .btn_git_au{
+    width: 100%;
+    background-color: black;
+    color: white;
+  }
+
+  #btn_link_au{
+    width: 100%;
+    color: white;
+  }

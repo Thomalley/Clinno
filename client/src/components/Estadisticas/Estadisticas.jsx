@@ -268,11 +268,11 @@ export default function AddDoctor() {
           <div>Turnos totales</div>
           <div>{turnosTotales}</div>
           <div>Turnos Cancelados</div>
-          <div>{turnosCancelados}</div>
+          <div>{turnosCancelados.length}</div>
           <div>Turnos Concretados</div>
-          <div>{turnosConcretados}</div>
+          <div>{turnosConcretados.length}</div>
           <div>Turnos Pendientes</div>
-          <div>{turnosPendientes}</div>
+          <div>{turnosPendientes.length}</div>
         </div>
         <Footer />
       </div>
