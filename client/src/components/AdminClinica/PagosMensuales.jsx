@@ -36,14 +36,14 @@ export default function PagosMensuales() {
       <div>
         <div className="contenedor_adminClinica">
           <NavClinica />
-          <h2>Pagos Mensuales Realizados</h2>
+          <h2 className="h2_pago_clinca_3">Pagos Mensuales Realizados</h2>
           <div className="d-flex justify-content-center alling-items-center gap-3 flex-wrap">
             {datos &&
               datos?.map((m) => {
                 return (
                   <div className="d-flex flex-column justify-content-center alling-items-center">
-                    <h2>Pagos mensuales realizados</h2>
-                    <h2>Fecha de pago: {`${m?.createdAt?.split("-")[0]}-${m?.createdAt?.split("-")[1]}-${m?.createdAt?.split("-")[2][0]}${m?.createdAt?.split("-")[2][1]}`} </h2>
+                    <h2 style={{"font-weight":"bolder"}}>Pagos mensuales realizados</h2>
+                    <h2 style={{"font-size":"revert"}} >Fecha de pago: {`${m?.createdAt?.split("-")[0]}-${m?.createdAt?.split("-")[1]}-${m?.createdAt?.split("-")[2][0]}${m?.createdAt?.split("-")[2][1]}`} </h2>
                     <h4>Monto abonado: {m?.unit_price}</h4>
                     {/* <h4>fecha: {m?.fecha} </h4> */}
                   </div>

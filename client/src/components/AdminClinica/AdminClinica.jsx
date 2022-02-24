@@ -64,7 +64,7 @@ export default function AdminClinica(){
                     </div>
                     <hr/>
                     {Object.keys(mensu).length > 0?
-                        <button className='btn btn-danger'><Link to="/adminClinica/cobro">Cobro Pendiente</Link></button>
+                        <button className='btn btn-danger'><Link style={{"text-decoration": "none","color": "white"}} to="/adminClinica/cobro">Cobro Pendiente</Link></button>
                     : <></>
                     }
                     <h3>Proximos Turnos</h3>

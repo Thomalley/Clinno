@@ -75,19 +75,19 @@ router.get("/pagos", async (req, res) => {
           console.info("redirect success");
           mensuAbonada.update({abonado: true});
           mensuAbonada.save();
-          return res.redirect("https://pg-clinno.vercel.app/adminclinica");
+          return res.redirect("http://localhost:3000/adminclinica");
         })
         .catch((err) => {
           console.error("error al salvar", err);
           return res.redirect(
-            "https://pg-clinno.vercel.app/adminclinica"
+            "http://localhost:3000/adminclinica"
           );
         });
     })
     .catch((err) => {
       console.error("error al buscar", err);
       return res.redirect(
-        "https://pg-clinno.vercel.app/adminclinica"
+        "http://localhost:3000/adminclinica"
       );
     });
 
