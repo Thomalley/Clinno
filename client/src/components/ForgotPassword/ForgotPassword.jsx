@@ -60,7 +60,7 @@ export default function ForgotPassword(){
         <div>
             <NavBar loggin={loggeado}/>
             <div className="contenedorForgot">
-                <h2>Por favor ingrese su correo electronico</h2>
+                <h2 style={{"font-weight" : "lighter"}}>Por favor ingrese su correo electronico</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 
@@ -72,7 +72,7 @@ export default function ForgotPassword(){
                 name="email"
                 render={({ message }) => <p className="errorMsg">Mail requerido</p>}
             />
-            <input className="col-12 btn btn-primary" type="submit" />
+            <button className="col-12 btn btn-dark" type="submit">Enviar contraseña</button>
             </form>
             </div>
             <Footer/>

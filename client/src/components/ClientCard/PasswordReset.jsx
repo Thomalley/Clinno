@@ -3,6 +3,7 @@ import { ResetPassword } from '../../actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'universal-cookie'
 import { getClients } from '../../actions/index';
+import swal from 'sweetalert';
 
 
 const PasswordReset = () => {
@@ -38,6 +39,7 @@ const PasswordReset = () => {
         setInputs({
             password: "",
         });
+        swal("Contraseña modificada", "Tu contraseña se modifico correctamente", "success")
     }
 
     function isNotEmpty(obj) {
@@ -56,6 +58,7 @@ const PasswordReset = () => {
             password: e.target.value
         })
     }
+    
     return (
         <div className='container4'>
             <form className="m-auto col-12" onSubmit={(e) => UpdatePassword(e, userId, input)}>

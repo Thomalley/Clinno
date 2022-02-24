@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../ClientCard/ClientCardModule.css"
 import Footer from "../Home/Footer"
-import NavBar from '../NavLanding/NavLanding'
+import NavBar from '../NavBar/NavBar'
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie'
 import { getClienteByEmail } from "../../actions/index";
@@ -34,8 +34,8 @@ export default function ClientCard() {
   console.log(currentUser)
   return (
     <div>
-      <NavBar />
-
+      <NavBar loggin={true}/>
+      <div style={{"margin-top":"6pc"}} ></div>
       <ul class="nav justify-content-center">
 
 
@@ -45,7 +45,6 @@ export default function ClientCard() {
 
         <li><Link className="nav-link" to='/TurnoMe'>Turnos y Diagnosticos</Link></li>
 
-        <li><Link to="/turno" class="btn btn-primary" href="#">hacer una cita</Link></li>
 
       </ul>
 
@@ -68,7 +67,7 @@ export default function ClientCard() {
       </div>
 
       <div className="container3">
-        <img src={user?.picture ? user?.picture : photo} alt="png" className="fotoDetail" />
+        <img src={user?.picture ? user?.picture : photo} alt="png" className={user?.picture ? "fotoDetailGoogle" : "fotoDetail"} />
         <div className="detailCard">
           <div class="card">
             <label className="about_user_me"> Nombre</label>

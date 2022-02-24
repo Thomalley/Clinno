@@ -73,37 +73,42 @@ export default function AddDoctor() {
       setPromedioClinica(calificacionClinica);
       //set state para setear la suma total de las votaciones de la clinica
     } //suma calificacion de la clinica
-
   }, []);
 
-  //   setPromedioClinica((calificacionClinica)/(reseniaByID?.length)) //set del promedio de la clinica
+    console.log(promedioClinica)
 
-  // //   console.log(promedioClinica)
-  //   //promedio de la clinica
+    console.log(reseniaByID?.length)
 
-  //   for(let i = 0; i < doctores.length ; i++){
-  //       let cont = 0;
-  //       let promedio = 0;
-  //     for(let j = 0; j < reseniaByID.length ; j++){
-  //       if(doctores[i].id === reseniaByID[j].id){
-  //         cont++;
-  //         promedio = ((promedio) + (parseInt(reseniaByID[j]?.calificacionDoctor)) )
-  //         setPromedioDoctor(promedio)
-  //         //set promedio doctor con la suma de las resenias del doctgor
-  //       }
-  //     }
+    setPromedioClinica((promedioClinica)/(reseniaByID?.length)) //set del promedio de la clinica
 
-  //     console.log(promedioDoctor)
+    console.log(promedioClinica)
+    
 
-  //     setPromedioDoctor((promedioDoctor)/(cont))
-  //     //calcular el promedio del doctor y setearlo
+    for(let i = 0; i < doctores.length ; i++){
+        let cont = 0;
+        let promedio = 0;
 
-  //     console.log(promedioDoctor)
+        for(let j = 0; j < reseniaByID.length ; j++){
+          if(doctores[i].id === reseniaByID[j].id){
+              cont++;
+              promedio += reseniaByID[j]?.calificacionDoctor
+              setPromedioDoctor(promedio)
+          //set promedio doctor con la suma de las resenias del doctgor
+        }
 
-  //     doctores[i].promedio = `${promedioDoctor}`
-  //     // agregar el valor del promedio al atributo promedio del doctor
-  // }
+      }
 
+      console.log(promedioDoctor)
+
+      setPromedioDoctor((promedioDoctor)/(cont))
+      //calcular el promedio del doctor y setearlo
+
+      console.log(promedioDoctor)
+
+      doctores[i].promedio = `${promedioDoctor}`
+      // agregar el valor del promedio al atributo promedio del doctor
+  }
+  
   if (loggeado) {
     return (
       <div>
@@ -123,7 +128,7 @@ export default function AddDoctor() {
                   <strong>Calificacion</strong>
                 </span>
               </div>
-              {/* {doctores && doctores?.map(d=>(
+               {doctores && doctores?.map(d=>(
                             <div key={d.id} className="grid_doctor_table">
                                 <span className="tesx_nombre">{d.nombre}</span>
                                 <span> {d.especialidad?.map(esp=>{
@@ -131,7 +136,7 @@ export default function AddDoctor() {
                                 })}</span>
                                 <span className="tesx_nombre">{d.promedio}</span>
                             </div>
-                        ))} */}
+                        ))}
             </div>
           </div>
           <div>calificacion de la clinica</div>
