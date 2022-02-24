@@ -75,19 +75,19 @@ router.get("/pagos", async (req, res) => {
           console.info("redirect success");
           mensuAbonada.update({abonado: true});
           mensuAbonada.save();
-          return res.redirect("/adminclinica");
+          return res.redirect("https://localhost:3000/adminclinica");
         })
         .catch((err) => {
           console.error("error al salvar", err);
           return res.redirect(
-            `/adminclinica`
+            "https://localhost:3000/adminclinica"
           );
         });
     })
     .catch((err) => {
       console.error("error al buscar", err);
       return res.redirect(
-        `/adminclinica`
+        "https://localhost:3000/adminclinica"
       );
     });
 

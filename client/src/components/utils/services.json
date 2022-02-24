@@ -4,27 +4,22 @@
 
 
 [
-    {  "name": "AGENDA",
-        
-        "servicio": "Accede a la disponibilidad en tiempo real de los especialistas diferenciando por especialidades, clinicas y más."
-    },
-    {
-        "name": "PAGOS EN LINEA",
-         "servicio": "Realiza el pago de tus citas médicas al instante"
+    {  "name": "Agenda citas",
+        "servicio": "Accede a la disponibilidad en tiempo real de los especialistas diferenciando especialidades, clinicas y más."
     },
 
     {
-        "name": "EXPEDIENTE ÚNICO",
-        "servicio": "Mantén organizada  la información de tus pacientes , historial de visitas y diagnósticos."
+        "name": "Historial Clinico",
+        "servicio": "Accedé a todos los diagnosticos en tiempo real luego de todas tus consultas clinicas en un solo lugar."
     },
         
     {
-        "name": "APP MEDICO",
-        "servicio": "Con la aplicación móvil puedes consultar tu agenda en tiempo real"
+        "name": "Aplicación",
+        "servicio": "Con la aplicación puedes consultar tu agenda en tiempo real desde tu computador o teléfono móvil."
     },
     {
-        "name": "CITAS EN LINEA", 
-        "servicio":"Maneja tu agenda médica en línea desde tu móvil y coordínala con tu asistente."
+        "name": "Administra turnos", 
+        "servicio":"Posibilidad de re-agendar y cancelar turnos en tiempo real en cualquier fecha disponible"
         
     }
   

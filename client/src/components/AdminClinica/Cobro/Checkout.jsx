@@ -20,6 +20,7 @@ export default function Comprar({ productos, data }) {
       //Elimina el script como nodo hijo del elemento form
       document.getElementById("form1").removeChild(script);
     };
+    
   }, [data]);
   return(
     <div>

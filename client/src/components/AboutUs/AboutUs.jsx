@@ -4,17 +4,13 @@ import { useState, useEffect } from "react";
 import develop from '../utils/develop.json'
 import img from '../utils/images-landing/usuario-sin-foto.png'
 import devs from "../utils/desarrolladores.png"
-// import { Link } from 'react-router-dom';
-// import logo from '../utils/images-landing/logo.png'
-// import Demo from "../Demo/Demo";
-// import NavLanding from '../NavLanding/NavLanding';
 import js from "../utils/js.png"
 import react from "../utils/react.png"
 import github from "../utils/github.png"
 import Footer from '../Home/Footer';
 import NavBar from '../NavBar/NavBar';
 import Cookies from 'universal-cookie'
-
+import { Link } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -64,8 +60,8 @@ export default function AboutUs() {
                     <img id='sinfoto' src={img} alt={dev.name} />
                     <br />
                     <h4>{dev.name}</h4>
-                    <button className='btn-social' id='btn'>{dev.git}</button>
-                    <button className='btn-social' id='btn'>{dev.linkedin}</button>
+                    <Link to={dev.git}><button>github</button></Link><br />
+                    <Link to={dev.linkedin}><button>Linkedin</button></Link>
                   </div>))}
               </div>
 

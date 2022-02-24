@@ -1,34 +1,34 @@
 
     [
         {
-            "name": "Nahuel",
-            "git":"www.git.com/nahuel",
-            "linkedin": "linkedin.com/nahuel"
+            "name": "Nahuel Paolinelli",
+            "git":"https://www.linkedin.com/in/nahuel-paolinelli/",
+            "linkedin": "https://github.com/Thomalley"
         },
-        {   "name":"Manuel",
-            "git":"www.git.com/manu",
-            "linkedin": "linkedin.com/manu"
+        {   "name":"Manuel Crespo",
+            "git":"https://github.com/Kiron184",
+            "linkedin": "https://www.linkedin.com/in/manuel-crespo-682ab8212/"
         },
         {
-            "name": "Bruno",
-            "git":"www.git.com/Bruno",
-            "linkedin": "linkedin.com/Bruno"
+            "name": "Bruno Sentinelli",
+            "git":"github.com/bruno1142002",
+            "linkedin": "https://www.linkedin.com/in/bsentinelli-dev/"
         },
 
             {
-            "name":"Joaquin",
-            "git":"www.git.com/Joaquin",
-            "linkedin": "linkedin.com/Joaquin"
+            "name":"Joaquin Girardi",
+            "git":"https://github.com/joacogirardi",
+            "linkedin": "https://www.linkedin.com/in/joaquingirardi/"
         },
         {
-            "name":"Nasser",
-            "git":"www.git.com/Nasser",
-            "linkedin": "linkedin.com/Nasser"
+            "name":"Nasser El Bacha",
+            "git":"https://github.com/nasserelbacha",
+            "linkedin": "https://www.linkedin.com/in/nasser-el-bacha-fullstack/"
         },
         {
-            "name":"Pablo",
-            "git":"www.git.com/pablo",
-            "linkedin": "linkedin.com/pablo"
+            "name":"Pablo Kazalukian",
+            "git":"github.com/PabloKazalukian",
+            "linkedin": "https://www.linkedin.com/in/pablo-alejandro-kazalukian-02661721b/"
         }
 
         
