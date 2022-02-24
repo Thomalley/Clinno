@@ -42,26 +42,30 @@ export default function Register() {
     //   [e.target.name]: e.target.value
     // }));
 
-    for (let i = 0; i < clientes.length; i++) {
-      if (clientes[i].email === input.email || clientes[i].dni === input.dni) {
-        swal(
-          "Error",
-          "El mail ya corresponde a un usuario registrado",
-          "warning"
-        );
-        setregistrado(true);
-        break;
-      }
-    }
 
-    if (!registrado) {
+    
+    // for (let i = 0; i < clientes.length; i++) {
+    //   if (clientes[i].email === input.email || clientes[i].dni === input.dni) {
+    //     swal(
+    //       "Error",
+    //       "El mail ya corresponde a un usuario registrado",
+    //       "warning"
+    //     );
+    //     setregistrado(true);
+    //     break;
+    //   }
+    // }
+    const arr = clientes.filter( d => d.email ===input.email || d.dni === input.dni)
+    if(arr.length!==0){
+      swal( "Error", "El mail o Dni ya corresponde a un usuario registrado", "warning" );
+    }else{
+
+      setInput({
+        ...input,password:pass.pass1})
       if (Object.values(validate(input)).length === 0) {
+          console.log(input);
         dispatch(registrarCliente(input));
-        swal(
-          "Usuario Creado con exito",
-          "En instantes seras redirigido para iniciar sesion",
-          "success"
-        );
+        swal( "Usuario Creado con exito", "En instantes seras redirigido para iniciar sesion", "success" );
         setTimeout(() => (window.location.href = "/login"), 2000);
       } else {
         swal("Error", "Revisa los errores antes de continuar", "error");
@@ -69,7 +73,7 @@ export default function Register() {
     }
   }
 
-  function validate(pass1, pass2) {
+  function validate() {
     let errors = {};
     if (!input.nombre || input.nombre === "" || !regExName.test(input.nombre)) {
       errors.nombre = "Nombre requerido, hasta 40 caracteres";
@@ -99,7 +103,7 @@ export default function Register() {
       pass.pass1.length < 7 ||
       pass.pass1.length > 30
     ) {
-      pass.pass1 = "Contraseña mayor a 7 digitos";
+      errors.pass1 = "Contraseña mayor a 7 digitos";
     }
     if (
       !pass.pass2 ||
@@ -107,7 +111,7 @@ export default function Register() {
       pass.pass2.length < 7 ||
       pass.pass2.length > 30
     ) {
-      pass.pass2 = "Contraseña mayor a 7 digitos";
+      errors.pass2 = "Contraseña mayor a 7 digitos";
     }
     if (
       !input.direccion ||
@@ -144,18 +148,21 @@ export default function Register() {
         [e.target.name]: e.target.value,
       })
     );
-
+    setInput({
+      ...input,
+      password: pass.pass1,
+    });
     setPass({
       ...pass,
       [e.target.name]: e.target.value,
     });
   }
-  useEffect(() => {
-    if(pass.pass1 !== "" && pass.pass2 !== ""){
-    if(pass.pass1 === pass.pass2){
-      setInput({...input, passowrd: pass.pass1})
-    }}
-  }, [pass])
+  // useEffect(() => {
+  //   if(pass.pass1 !== "" && pass.pass2 !== ""){
+  //   if(pass.pass1 === pass.pass2){
+  //     setInput({...input, passowrd: pass.pass1})
+  //   }}
+  // }, [pass])
   return (
     <div>
       <Navbar />
@@ -271,9 +278,9 @@ export default function Register() {
             <div className="col-2"></div>
           </div>
 
-          {pass.pass1 && (
+          {errors.pass1 && (
             <p id="error_en_reg" className="errorNotWrtd">
-              {pass.pass1}
+              {errors.pass1}
             </p>
           )}
 
@@ -292,9 +299,9 @@ export default function Register() {
             </div>
             <div className="col-2"></div>
           </div>
-          {pass.pass2 && (
+          {errors.pass && (
             <p id="error_en_reg" className="errorNotWrtd">
-              {pass.pass2}
+              {errors.pass}
             </p>
           )}
 

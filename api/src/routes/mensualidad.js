@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-});
+}); 
 
 router.get("/", async (req, res) => {
     try{
@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
         console.log(e)
     }
 })
+
 router.get("/clinica/:id", async (req, res) => {
   try {
       const { id } = req.params;
@@ -47,4 +48,20 @@ router.get("/clinica/:id", async (req, res) => {
 
 });
 
+
+router.get("/todas/:id", async (req, res) => {
+  try {
+      const { id } = req.params;
+      console.log(id)
+    const mensu = await Mensualidad.findAll({where:{
+        clinicaId: id,
+        abonado: true
+    }});
+
+    res.send(mensu);
+  } catch (e) {
+    console.log(e);
+  }
+
+});
 module.exports = router;

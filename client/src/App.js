@@ -35,14 +35,14 @@ import Root from './components/AdminRoot/RootUser';
 import Estadistica from './components/Estadisticas/Estadisticas'
 import DoctorCard from './components/DoctorCard/DoctorCard';
 import ProximosTurnosDoc from './components/AdminDoctor/VerMisTurnos'
-
+import PagosMensuales from './components/AdminClinica/PagosMensuales'
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/test' element={<Checkout/>}/>
+          <Route path='/adminClinica/mensualidades' element={<PagosMensuales/>}/>
           <Route path='/adminClinica/cobro' element={<MercadoPago/>}/>
           <Route path='/adminClinica/cliente/turno' element={<TurnoDesdeAdm/>}/>
           <Route path='/adminClinica/cliente' element={<ValidarUsuario/>}/>

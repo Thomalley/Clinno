@@ -224,6 +224,14 @@ export default function LoginClinica() {
                 Buscar paciente por DNI
               </Link>
             </li>
+            <li>
+              <Link
+                to="/adminClinica/mensualidades"
+                className="nav-link text-white boton_nav_clinica"
+              >
+                Ver Mensualidades
+              </Link>
+            </li>
             {/* {mensu.title !== "" ? (
             //   <li>
             //     <Link

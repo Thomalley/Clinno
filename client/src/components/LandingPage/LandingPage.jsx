@@ -111,12 +111,15 @@ export default function LandingPage() {
             <div className="text-conteiner1">
               <p>
                 {" "}
-                Clinno APP es la solución ideal para grupos médicos que desean
+                {/* Clinno APP es la solución ideal para grupos médicos que desean
                 utilizar un sistema de citas electrónico en linea,
                 administrándolos eficientemente de forma colaborativa, ágil y
-                sencilla.
+                sencilla. */}
+                Clinno APP es la solución ideal para todas aquellas personas
+                que buscan agilizar su tiempo y administrar eficientemente 
+                todas sus citas médicas desde un solo lugar.
               </p>
-              <h3 style={{"margin-bottom":"5pc"}}>¡Lleva un mejor control de los clientes de tu clínica!</h3>
+              <h3 style={{"margin-bottom":"5pc"}}>¡Lleva un mejor control de tus citas médicas!</h3>
             </div>
             {/* <div className="row">
               <div className="image-doc">
