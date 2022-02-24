@@ -61,4 +61,6 @@
     outline: none;
     box-shadow: none;
     border: none;
+    padding-left: 6px;
+    width: 190px;
 }

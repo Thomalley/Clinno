@@ -55,13 +55,13 @@ export default function VerDiagnosticoDoctor(){
                         </div>
                         <h3>Diagnostico</h3>
                         <div>
-                            <div>
+                            <div className="sostenedor">
                                 <p><strong>Sintomas: </strong></p>
-                                <p>{diagDoctor[0]?.sintomas}</p>
+                                <p className="diagno_text_larg">{diagDoctor[0]?.sintomas}</p>
                             </div>
-                            <div> 
+                            <div className="sostenedor"> 
                                 <p><strong>Diagnóstico: </strong></p>
-                                <p>{diagDoctor[0]?.diagnostico}</p>
+                                <p className="diagno_text_larg">{diagDoctor[0]?.diagnostico}</p>
                             </div>
 
                             <div> 

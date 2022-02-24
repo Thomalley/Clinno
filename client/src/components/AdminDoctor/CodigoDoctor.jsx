@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 import {getAllDoctores,getClinicaId,codigoDoctorEmail} from '../../actions'
+import logo from '../../components/utils/images-landing/logo.png'
 
 import Cookies from 'universal-cookie';
 
@@ -62,19 +63,24 @@ export default function CodigoDoctor(){
         <div>
             {!validate?
             <div className="container">
-                <form className="form_codigo" onSubmit={(e)=> handleSubmit(e)}>
-                    <div className="d-flex flex-column gap-3">
-                        <p>Para obtener Su codigo, por favor ingrese su nombre,</p>
-                        <p>y su email, alli podra resivir su nuevo codigo.</p>
-                        {/* <input type='text' name='nombre' value={input.nombre }placeholder="Ingrese su Nombre." onChange={(e)=>handleChange(e)} /> */}
-                        <input type='text' name='email' value={input.email }placeholder="Ingrese su Email." onChange={(e)=>handleChange(e)} />
-                        <button type="submit"className="btn btn-primary">Continuar</button>
-                    </div>
-                </form>
-                <Link className="volver_inicio" to={'/'}>
-                    <button className="btnLoggin_back">Volver a Home</button>
-                </Link>                
-                <button onClick={cerrarSesion} className="btnLoggin_back">Cerrar sesión</button>
+                <div className="contengo_codigo_doc">
+                <Link to="/adminClinica"><img src={logo} alt="logo Clinno"  className="logo_clinno_navC"/></Link>
+
+                    <form className="" onSubmit={(e)=> handleSubmit(e)}>
+                        <div className="d-flex flex-column gap-3">
+                            <p>Para obtener Su codigo, por favor ingrese su nombre,</p>
+                            <p>y su email, alli podra resivir su nuevo codigo.</p>
+                            {/* <input type='text' name='nombre' value={input.nombre }placeholder="Ingrese su Nombre." onChange={(e)=>handleChange(e)} /> */}
+                            <input className="input_doctorceto" type='text' name='email' value={input.email }placeholder="Ingrese su Email." onChange={(e)=>handleChange(e)} />
+                            <button type="submit"className="btn btn-primary">Continuar</button>
+                        </div>
+                    </form>
+                    <Link className="volver_inicio" to={'/'}>
+                        <button className="btnLoggin_back">Volver a Home</button>
+                    </Link>                
+                    <button onClick={cerrarSesion} className="btnLoggin_back">Cerrar sesión</button>
+
+                </div>
             </div>      
                 :<>
                     <p>Correo enviado correctamente a {input.email}</p>

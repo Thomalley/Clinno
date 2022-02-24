@@ -78,11 +78,13 @@ function AddEspecialidades() {
                             <h3 className="agrega_nueva">Agrega una nueva especialidad!</h3>
                             <form className="formu_addespecialidad" onSubmit={(e)=> handleSubmit(e)}>
                                 <h4>Por favor ingrese su especialidad:</h4>
-                                <input type='text' name="nombre" value={input.nombre }placeholder="Ingrese su especialidad aqui." onChange={(e)=>handleChange(e)} />
+                                <p className="textito">Ingrese un nombre</p>
+                                <p className="textito"> (Primera Letra Mayuscula)</p>
+                                <input className='inputcitos' type='text' name="nombre" value={input.nombre }placeholder="Ingrese su especialidad aqui." onChange={(e)=>handleChange(e)} />
                                 {input.errors.nombre? <p className='errors_add'>{input.errors.nombre}</p>:<p className='errors_add'> </p>}
                                 <button
                                     type="submit"
-                                    className="btn btn-primary">Continuar</button>
+                                    className="bontoncitis">Continuar</button>
                             </form>
                         </div>
                     </div>

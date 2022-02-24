@@ -13,6 +13,7 @@
         rgba(26, 55, 77, 0.88),
         rgba(26, 55, 77, 0.95)); */
     color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
 }
 
 .contenedor_adminClinica::-webkit-scrollbar {
@@ -39,6 +40,7 @@
 .render_turno{
     margin: 30px 60px 0px 60px;
     box-shadow: 0px 10px 204px -60px #9c9c9a;
+    max-width: 1046px ;
 }
 
 .btn_clinic{
@@ -57,4 +59,9 @@
 .btn_clinic:hover{
     background: #1A374D;
     border: 1px solid #f1f1f1;
+}
+
+.dia_concluid{
+    font-size: 50px;
+    margin: 0px;
 }

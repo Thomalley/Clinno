@@ -6,9 +6,10 @@
     height: 90%;
     padding: 20px;
     color:#333;
+    box-sizing: border-box;
 }
 .formu_addDoctor{
-    margin-top: 20px;
+    margin-top: 40px;
     min-height: 705px;
     background: #d8eefe;
     color:#333;
@@ -26,7 +27,7 @@
     width: 365px;
     background: #f1f1f1;
     overflow: hidden;
-    min-height: 180px;
+    min-height: 80px;
 }
 .delete_esp{
     background: #FF5959;
@@ -89,4 +90,49 @@
 .add_especialidad{
     width: auto;
     padding: 40px;
+}
+.textito{
+    color: #9c9c9a;
+    margin: 0px;
+    font-size: .9rem;
+}
+.inputcitos{
+    background: #B9d4DB;
+    border-radius: 5px;
+    height: 2.5rem;
+    font-weight: bolder;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #333;
+    padding-left: 8px;
+    color: #333;
+    transition:  all .3s;
+}
+.inputcitos:focus{
+    background:  #12ace4 ;
+}
+.inputcitos::placeholder{
+    font-size: .8rem;
+}
+.inputcitos:focus::placeholder{
+    color: #333;
+}
+
+.bontoncitis{
+    margin-top: 5px;
+    width: 244px;
+    /* background: #FF5959;*/
+    background:  #12ace4 ;
+    padding: 10px;
+    border-radius: 10px;
+    color: #f1f1f1;
+    font-weight: 700;
+    transition: background .3s;
+    border: 2px solid transparent;
+}
+.bontoncitis:hover{
+    background:  #B9d4DB;
+    border: 2px solid #12ace4;
+    color:#333
+
 }

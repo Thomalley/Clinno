@@ -55,15 +55,18 @@ export default function TurnosClinica({idClinica}){
     const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return (
         <>
-
+        {   date.getHours() <20?
         <div className="grid_turno_table">
-        <span><strong>Cliente</strong></span>
-        <span><strong>DNI</strong></span>
-        <span><strong>Fecha</strong></span>
-        <span><strong>Hora</strong></span>
-        <span><strong>Doctor</strong></span>
-        <span><strong>Especialidad</strong></span>
-    </div>
+            <span><strong>Cliente</strong></span>
+            <span><strong>DNI</strong></span>
+            <span><strong>Fecha</strong></span>
+            <span><strong>Hora</strong></span>
+            <span><strong>Doctor</strong></span>
+            <span><strong>Especialidad</strong></span>
+        </div>
+        :
+        <p className='text-dark dia_concluid'>El dia a concluido</p>
+        }
         {turn &&turn?.sort(function(a, b) { 
                 if (a.fecha < b.fecha) {
                     return -1;
@@ -74,7 +77,7 @@ export default function TurnosClinica({idClinica}){
                 return (a.hora < b.hora)?  -1:1;
 
             }).map(t=>{
-                if(finalDate<t.fecha){
+                if(finalDate===t.fecha ){//&& t.hora >date.getHours()
 
                 return <div className="grid_turno_table">
                     <span>{(cliente?.find(el => el.dni === parseInt(t.dniCliente,10)))?.nombre}</span>
@@ -85,7 +88,8 @@ export default function TurnosClinica({idClinica}){
                     <span>{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
                 </div>
                 }
-        })} 
+            })
+        }    
         </>
     )
 }

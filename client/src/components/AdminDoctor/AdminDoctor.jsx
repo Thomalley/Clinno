@@ -180,7 +180,7 @@ export default function AdminDoctor(){
                                 <h3>Bienvenido Doctor</h3>
                                 <h4>Por favor ingrese su codigo:</h4>
                                 <div className="d-flex flex-column gap-3">
-                                    <input type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
+                                    <input className="input_doctorceto" type='text' value={input.password }placeholder="Ingrese su Codigo aqui." onChange={(e)=>handleChange(e)} />
                                     <button
                                         type="submit"
                                         className="btn btn-primary">Continuar</button>

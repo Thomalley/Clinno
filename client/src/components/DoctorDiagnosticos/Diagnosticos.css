@@ -34,3 +34,57 @@
     color: #12ace4;
     border: 2px solid #12ace4;
 }
+
+.conteinerTotalitus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.formu_addDiag{
+    background: #d8eefe;
+    border: 2px solid #12ace4;
+    box-shadow: 0px 10px 304px -60px #12ace4;
+    color: #333;
+    padding: 20px;
+    border-radius: 20px;
+}
+.inputente{
+    background: #f1f1f1;
+    border-radius: 5px;
+    height: 2.5rem;
+    font-weight: bolder;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #333;
+    padding-left: 8px;
+    color: #333;
+    transition:  all .3s;
+    width: 100%;
+
+}
+.inputente::placeholder{
+    font-size: .8rem;
+}
+.inputente:focus{
+    font-size: .8rem;
+}
+.inputente:focus::placeholder{
+    color: #333;
+}
+.maxi_inpt{
+    height: 108px;
+    width: 100%;
+}
+.diagno_text_larg{
+    width: 50%;
+    height: 60px;
+    margin: 5px;
+}
+.sostenedor{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}

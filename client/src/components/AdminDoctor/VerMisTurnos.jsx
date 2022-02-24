@@ -41,7 +41,11 @@ export default function VerMisTurnos(){
     let mesTurno = undefined;
     let yearTurno = undefined;
     const initialInputState= {fecha:'',nombre:'',status: "cancelado"}
-    const [input,setInput] = useState(initialInputState);    
+    const [input,setInput] = useState(initialInputState); 
+    const [cancel,setCancel] = useState({
+      status: "cancelado",
+      idTurno:""
+    }) ;   
     
     useEffect(() => {
         if (diag !== "") dispatch(getDiagnosticoByTurno(diag));
@@ -80,13 +84,13 @@ export default function VerMisTurnos(){
     const especialidades = useSelector((state)=> state.especialidades);
     const cliente = useSelector((state)=> state.clientes);
 
-    function cancelarTurno(id){
-        dispatch(canTurno({status:"cancelado",idTurno:id}))
-        dispatch(getTurnosDoctor(cookies.get('doctor_id')));
-        setTurn(turnos);
-        swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
-        setTimeout(()=> window.location.href='/soyDoctor', 2000);
-    }
+    // function cancelarTurno(id){
+    //     dispatch(canTurno({status:"cancelado",idTurno:id}))
+    //     dispatch(getTurnosDoctor(cookies.get('doctor_id')));
+    //     setTurn(turnos);
+    //     swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
+    //     setTimeout(()=> window.location.href='/soyDoctor', 2000);
+    // }
     // control de sesion
     let session=false;
     if(cookies.get('clinica_id')&&cookies.get('doctor_codigo')) session = true;
@@ -234,28 +238,41 @@ export default function VerMisTurnos(){
     }
     useEffect(()=>{ dispatch(filter_turnos(input)) },[input])
 
-    function esFecha(finalDate){
-      if (finalDate !== undefined) {
-          const fdD = finalDate[0] + finalDate[1]
-          const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
-          const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
-          const jsfdD = jsFinalDate[0] + jsFinalDate[1]
-          const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
-          const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
-          if (fdA > jsfdA) {//2021 2022
-              return true
-          }
-          if (fdM > jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
-              return true
-          }
-          if ( fdD > jsfdD && fdM === jsfdM && fdA === jsfdA) {//21-01-2022 > 18-02-2022
-              return true
-          }
-          return false
-      }else{
-          return false
-      }
+  function selectID(id){
+    setCancel({...cancel, idTurno:id});
   }
+  function cancelarTurno(){
+    dispatch(canTurno(cancel))
+    dispatch(getTurnosDoctor(cookies.get('doctor_id')));
+    setTurn(turnos);
+    swal("Turno Cancelado!", "El turno ah sido Cancelado", "success")
+    setTimeout(()=> window.location.href='/soyDoctor/proximosTurnos', 2000);
+  }
+
+
+  function esFecha(finalDate){
+    if (finalDate !== undefined) {
+        const fdD = finalDate[0] + finalDate[1]
+        const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
+        const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
+        const jsfdD = jsFinalDate[0] + jsFinalDate[1]
+        const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+        const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
+        if (fdA > jsfdA) {//2021 2022
+            return true
+        }
+        if (fdM > jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
+            return true
+        }
+        if ( fdD > jsfdD && fdM === jsfdM && fdA === jsfdA) {//21-01-2022 > 18-02-2022
+            return true
+        }
+        return false
+    }else{
+        return false
+    }
+  }
+
 if(loggeado){
     return(
         <>
@@ -266,7 +283,7 @@ if(loggeado){
                 <form autoComplete='off' className="form_history_turns">
                     <div className="contenedor_inpu">
                         <h6>Por Fecha:</h6>
-                        <input type='text' className="input_history" placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
+                        <input type='text' className="input_history" placeholder="dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
                     </div>
                     <div className="contenedor_inpu">
                         <h6>Por DNI:</h6>
@@ -314,13 +331,13 @@ if(loggeado){
                     <span className="spanes">{t.hora }</span>
                     <span className="spanes">{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
                     <span className="spanes" >{loading?
-                        <div className="spinner-border text-light" role="status">
+                        <div className="spinner-border text-light my-1" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>
                         :t.status !== 'cancelado'?
                         <>
-                            <button value={t.id} onClick={handleModificar} className="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalMod" >Modificar</button> 
-                            <button className="btn btn-danger" onClick={()=>{cancelarTurno(t.id)}} >Cancelar</button> 
+                            <button value={t.id} onClick={handleModificar} className="btn btn-success my-1" data-bs-toggle="modal" data-bs-target="#exampleModalMod" >Modificar</button>
+                            <button className="btn btn-danger my-1" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button> 
 
                             <div className="modal fade" id="exampleModalMod" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog">
@@ -352,7 +369,7 @@ if(loggeado){
                                 </div>
                             </div>
                         </>
-                        : <span className="btn btn-outline-danger">CANCELADO</span>
+                        : <span className="btn btn-outline-danger my-1">CANCELADO</span>
                         
                     }</span>
                     
@@ -360,6 +377,23 @@ if(loggeado){
                 }
             })} 
         </div>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Cancelar el Turno</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    <p>Si das en aceptar, el turno cerra cancelado</p>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No, Cerrar</button>
+                    <button type="button" className="btn btn-danger" onClick={cancelarTurno} >Si, Cancelar el Turno</button>
+                </div>
+                </div>
+            </div>
+            </div>
         <Footer />
     </>
 )}else{

@@ -166,7 +166,7 @@ export default function AddDoctor(){
                     </div>
                     :
                         <div className="contenedor_addDoctor">
-                            <h4 className="text-white mt-5">Agregar un Doctor</h4>
+                            {/* <h4 className="text-white mt-5">Agregar un Doctor</h4> */}
 
                             <form className="formu_addDoctor" onSubmit={(e)=> handleSubmit(e)}>
                                 <h4>Formulario de Doctor</h4>
@@ -199,9 +199,9 @@ export default function AddDoctor(){
                                 </div>
                                 {input.errors.especialidad? <p className='errors_add'>{input.errors.especialidad}</p>:<p className='errors_add'> </p>}
                                 <div>
-                                    <p>Ingrese un nombre</p>
-                                    <p> (Primera Letra Mayuscula)</p>
-                                    <input 
+                                    <p className="textito">Ingrese un nombre</p>
+                                    <p className="textito"> (Primera Letra Mayuscula)</p>
+                                    <input className="inputcitos"
                                         type='text'
                                         placeholder="Nombre Doctor"
                                         value={input.nombre}
@@ -212,8 +212,8 @@ export default function AddDoctor(){
                                 </div>
                                 
                                 <div>
-                                    <p>Ingrese El DNI del doctor</p>
-                                    <input 
+                                    <p className="textito">Ingrese El DNI del doctor</p>
+                                    <input  className="inputcitos"
                                         type='number'
                                         placeholder="DNI Doctor"
                                         value={input.dni}
@@ -224,9 +224,9 @@ export default function AddDoctor(){
                                 </div>
 
                                 <div>
-                                    <p>Ingrese Email del doctor</p>
-                                    <p> (No debe estar registrado en Clinno como doctor)</p>
-                                    <input 
+                                    <p className="textito">  Ingrese Email del doctor</p>
+                                    <p className="textito"> (No debe estar registrado en Clinno como doctor)</p>
+                                    <input className="inputcitos"
                                         type='text'
                                         placeholder="Email Doctor"
                                         value={input.email}
@@ -238,7 +238,7 @@ export default function AddDoctor(){
 
                                 <div className="row">
                                     <div className="col-12 ">
-                                        <button type="submit" className="btn btn-primary " >Continuar</button>
+                                        <button type="submit" className="bontoncitis " >Continuar</button>
                                     </div>
                                 </div>
 
