@@ -146,7 +146,7 @@ export default function HistorialTurnosDoc(){
                 <form autoComplete='off' className="form_history_turns">
                     <div className="contenedor_inpu">
                         <h6>Por Fecha:</h6>
-                        <input type='text' className="input_history" placeholder="Fecha Turno dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
+                        <input type='text' className="input_history" placeholder="dd-mm-aaaa" value={input.fecha} name='fecha' onChange={handleAll}/>
                     </div>
                     <div className="contenedor_inpu">
                         <h6>Por DNI:</h6>
@@ -196,16 +196,16 @@ export default function HistorialTurnosDoc(){
                                 <span className="spanes" >{t.fecha }</span>   
                                 <span className="spanes" >{t.hora }</span>
                                 <span className="spanes" >{(especialidades?.find(el => el.id === t.idEspecialidad))?.nombre }</span>
-                                <span className="spanes" >{loading?
-                                    <div className="spinner-border text-light" role="status">
-                                        <span className="visually-hidden">Loading...</span>
+                                <span className="spanes witin" >{loading?
+                                    <div className="spinner-border text-light my-1" role="status">
+                                        <span className="visually-hidden my-1">Loading...</span>
                                     </div>
                                     :t.status !== 'cancelado'?
                                     (diagDoc?.find(el => el.idTurno === t.id))?.diagnostico?
-                                    <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning">Ver</Link>:
-                                    <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info">Agregar</Link> 
-                                    <button className="btn btn-danger" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button> </>:
-                                    <span className="btn btn-outline-danger">CANCELADO</span>
+                                    <Link to={`/SoyDoctor/VerDiagnostico/${t.id}`} className="btn btn-warning my-1">Ver</Link>:
+                                    <><Link to={`/SoyDoctor/AgregarDiagnostico/${t.id}`} className="btn btn-info my-1">Agregar</Link> 
+                                    <button className="btn btn-danger my-1" onClick={()=>{selectID(t.id)}} data-bs-toggle="modal" data-bs-target="#exampleModal" >Cancelar</button> </>:
+                                    <span className="btn btn-outline-danger my-1">CANCELADO</span>
                                   
                                   }</span>
                             </div>
