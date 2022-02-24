@@ -1,6 +1,3 @@
-
-
-
 import React,{ useEffect, useState } from 'react'
 import Checkout from './Checkout.jsx'
 import { useDispatch, useSelector } from "react-redux";
@@ -10,27 +7,28 @@ import axios from 'axios';
 function MercadoPago() {
   const dispatch = useDispatch();
   const cookies = new Cookies();
-
   const nombre = cookies.get("nombre");
   const id = cookies.get("clinica_id")
-  const [mensualidad, setMensualidad] = useState({})
-
   const mpData = useSelector((state) => state.mpData);
   // const mensualidad = useSelector((state) => state.mensualidad)
+  const [mensualidad, setMensu] = useState({})
 
   useEffect(() => {
-    dispatch(getMensualidad(id)).then((data) => setMensualidad(data?.payload))
+    axios.get(`/mensualidad/clinica/${id}`).then((data) => setMensu(data?.data))
   }, [])
 
+console.log(mensualidad)
 
   const [datos, setDatos] = useState("")
+
+
   useEffect(()=>{
     if(mensualidad?.orderId !== undefined){
-  
+      console.log(mensualidad)
     axios
     .get(`/mercadopago/${mensualidad?.orderId}/${mensualidad?.unit_price}`)
     .then((data)=>{
-      setDatos(data.data)
+      setDatos(data?.data)
     })
     .catch(err => console.error(err)) 
   }
