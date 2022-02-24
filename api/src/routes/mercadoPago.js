@@ -32,9 +32,9 @@ router.get("/:orderId/:unit_price", (req, res) => {
       installments: 3, //Cantidad máximo de cuotas
     },
     back_urls: {
-      success: "/mercadopago/pagos",
-      failure: "/mercadopago/pagos",
-      pending: "/mercadopago/pagos",
+      success: "https://clinno.herokuapp.com/mercadopago/pagos",
+      failure: "https://clinno.herokuapp.com/mercadopago/pagos",
+      pending: "https://clinno.herokuapp.com/mercadopago/pagos",
     },
   };
 
