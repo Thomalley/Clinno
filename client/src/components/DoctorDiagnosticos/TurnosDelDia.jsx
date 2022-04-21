@@ -73,7 +73,11 @@ export default function TurnosDelDia(){
     }
     
     const date = new Date();
-    const finalDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let dia= date.getDate()
+    if(parseInt(date.getDate(),10)<10){
+        dia=`0${date.getDate()}`;
+    }
+    const finalDate = `${dia}-${date.getMonth() + 1}-${date.getFullYear()}`;
     const horaAhora = date.getHours() ;
 
     function handleAllturnos(e){
