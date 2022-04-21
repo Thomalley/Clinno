@@ -142,7 +142,7 @@ export default function TurnoMe() {
     yearTurno = data[3];
     setfinalDate(diaTurno + "-" + mesTurno + "-" + yearTurno);
   }
-  console.log(turnoTotal);
+  // console.log(turnoTotal);
   useEffect(() => {
     if (finalDate !== undefined) {
       const fdD = finalDate[0] + finalDate[1];
@@ -194,6 +194,35 @@ export default function TurnoMe() {
   }, [finalDate]);
 
   const [ascendente, setAscendente] = useState(false);
+
+  function esFecha(finalDate){
+    if (finalDate !== undefined) {
+        const fdD = parseInt( finalDate[0] + finalDate[1],10)
+        const fdM = parseInt( finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : ""),10)
+        const fdA = parseInt( finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1],10)
+        // const jsfdD = jsFinalDate[0] + (jsFinalDate[1] !== "-")
+        // const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+        // const jsfdA = parseInt( jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1],10)
+        const arr = jsFinalDate.split('-')
+        const jsfdD = parseInt(arr[0],10)
+        const jsfdM = parseInt(arr[1],10)
+        const jsfdA = parseInt(arr[2],10)
+        // console.log(jsFinalDate.split('-'))
+        // console.log(finalDate)
+        if ( fdA < jsfdA) {//2021 2022
+            return true
+        }
+        if (fdM < jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
+            return true
+        }
+        if ( fdD < jsfdD && fdM === jsfdM && fdA === jsfdA) {//21-01-2022 > 18-02-2022
+            return true
+        }
+        return false
+    }else{
+        return false
+    }
+}
   function handleOrderFecha(e) {
     e.preventDefault();
     if (e.target.value === "asc") {
@@ -445,10 +474,10 @@ export default function TurnoMe() {
                         </div>
 
                         {/* TURNO CONCRETADO CON RESENIA FALSE */}
-                        {}
-                        {turno.status === "concretado" &&
-                        resenia?.find((r) => r.idTurno === turno.id)
-                          ?.reviewed === false ? (
+                        {console.log( resenia.find(r=>r))}
+                        {turno.status === "concretado" && 
+                          (resenia.length ===0 ? true :
+                         resenia?.find((r) => r.idTurno === turno.id)?.reviewed === false) ? 
                           <div class="botonRes">
                             <div className="botonRes">
                               <button
@@ -720,7 +749,7 @@ export default function TurnoMe() {
                               </div>
                             </div>
                           </div>
-                        ) : (
+                         : 
                           // TURNO CONCRETADO CON RESENIA TRUE
                           <div class="botonRes">
                             <div class="botonRes">
@@ -943,7 +972,7 @@ export default function TurnoMe() {
                               </div>
                             </div>
                           </div>
-                        )}
+                        }
                       </div>
                     );
                   }
@@ -955,7 +984,8 @@ export default function TurnoMe() {
 
           <div class="col-6 mt-3">
             {turnoTotal?.map((turno) => {
-              if (turno.status) {
+              //Pendientes 
+              if (turno.status !== 'concretado' && !esFecha(turno.fecha) ) {
                 return (
                   <div class="bigContainer">
                     <div class="accordion-item col-6 ">
@@ -964,15 +994,15 @@ export default function TurnoMe() {
                           class="accordion-button"
                           type="button"
                           data-bs-toggle="collapse"
-                          data-bs-target={"#collapseOne" + turno.id}
+                          data-bs-target={"#collapseTwo" + turno.id}
                           aria-expanded="false"
-                          aria-controls="collapseOne"
+                          aria-controls="collapseTwo"
                         >
                           {"Turno el " + turno.fecha}
                         </button>
                       </h2>
                       <div
-                        id={"collapseOne" + turno.id}
+                        id={"collapseTwo" + turno.id}
                         class="accordion-collapse collapse card"
                         aria-labelledby="headingOne"
                         data-bs-parent="#accordionExample"

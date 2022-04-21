@@ -68,13 +68,21 @@ export default function HistorialTurnosDoc(){
     
     function esFecha(finalDate){
         if (finalDate !== undefined) {
-            const fdD = finalDate[0] + finalDate[1]
-            const fdM = finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : "")
-            const fdA = finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1]
-            const jsfdD = jsFinalDate[0] + jsFinalDate[1]
-            const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
-            const jsfdA = jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1]
-            if (fdA < jsfdA) {//2021 2022
+            const fdD = parseInt( finalDate[0] + finalDate[1],10)
+            const fdM = parseInt( finalDate[3] + (finalDate[4] !== "-" ? finalDate[4] : ""),10)
+            const fdA = parseInt( finalDate[finalDate.length - 4] + finalDate[finalDate.length - 3] + finalDate[finalDate.length - 2] + finalDate[finalDate.length - 1],10)
+            // const jsfdD = jsFinalDate[0] + (jsFinalDate[1] !== "-")
+            // const jsfdM = jsFinalDate[3] + (jsFinalDate[4] !== "-" ? finalDate[4] : "")
+            // const jsfdA = parseInt( jsFinalDate[jsFinalDate.length - 4] + jsFinalDate[jsFinalDate.length - 3] + jsFinalDate[jsFinalDate.length - 2] + jsFinalDate[jsFinalDate.length - 1],10)
+            const arr = jsFinalDate.split('-')
+            const jsfdD = parseInt(arr[0],10)
+            const jsfdM = parseInt(arr[1],10)
+            const jsfdA = parseInt(arr[2],10)
+            console.table(fdD,fdM,fdA)
+            console.table(jsfdD,jsfdM,jsfdA)
+            // console.log(jsFinalDate.split('-'))
+            // console.log(finalDate)
+            if ( fdA < jsfdA) {//2021 2022
                 return true
             }
             if (fdM < jsfdM && fdA === jsfdA) {//02-2022  < 03-2022
